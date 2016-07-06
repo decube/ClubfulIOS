@@ -49,6 +49,9 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         
         self.view.addSubview(picInputLbl)
         self.view.addSubview(picView)
+        //이미지크롭 이후 레이아웃
+        nextLayout()
+        /////////////
         self.view.addSubview(blackScreen)
         self.view.addSubview(picSelectedView)
         picSelectedView.addSubview(picSelectedHeaderView)
@@ -104,42 +107,36 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         CustomView.initLayout(self, title: "코트등록")
         
         
+        
+        /////////크롭화면
         imgCropView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        let topView = UIView(frame: CGRect(x: 0, y: 0, width: imgCropView.frame.width, height: 20))
+        let centerView = UIView(frame: CGRect(x: 0, y: 20, width: imgCropView.frame.width, height: imgCropView.frame.height-20))
         
-        
-        
-        let headerView = UIView(frame: CGRect(x: 0, y: 20, width: self.view.frame.width, height: 60))
-        let titleLbl = UILabel(frame: CGRect(x: 0, y: 0, width: headerView.frame.width, height: headerView.frame.height), text: "이미지 수정", color: UIColor.blackColor(), textAlignment: .Center, fontSize: 17)
-        let backBtn = UIButton(frame: CGRect(x: 10, y: 10, width: 40, height: 40), image: UIImage(named: "ic_back.png")!)
-        let scaleBtn = UIButton(frame: CGRect(x: headerView.frame.width-10-60, y: 15, width: 30, height: 30), view: headerView, text: "축소")
-        let rotateBtn = UIButton(frame: CGRect(x: headerView.frame.width-5-30, y: 15, width: 30, height: 30), view: headerView, text: "회전")
-        canvasView = UIView(frame: CGRect(x: 0, y: 80, width: imgCropView.frame.width, height: imgCropView.frame.height-140))
-        let bottomView = UIView(frame: CGRect(x: 0, y: imgCropView.frame.height-50, width: imgCropView.frame.width, height: 40))
-        let saveBtn = UIButton(frame: CGRect(x: 10, y: 0, width: (bottomView.frame.width-30)/2, height: 40), view: bottomView, text: "저장")
-        let cancelBtn = UIButton(frame: CGRect(x: 20+(bottomView.frame.width-30)/2, y: 0, width: (bottomView.frame.width-30)/2, height: 40), view: bottomView, text: "취소")
+        let scaleBtn = UIButton(frame: CGRect(x: 10, y: 10, width: 30, height: 30), view: centerView, text: "축소")
+        let rotateBtn = UIButton(frame: CGRect(x: 50, y: 10, width: 30, height: 30), view: centerView, text: "회전")
+        canvasView = UIView(frame: CGRect(x: 0, y: 50, width: centerView.frame.width, height: centerView.frame.height-160))
+        let backBtn = UIButton(frame: CGRect(x: 20, y: centerView.frame.height-30, width: 20, height: 20), image: UIImage(named: "ic_back.png")!)
+        let saveBtn = UIButton(frame: CGRect(x: centerView.frame.width-40, y: centerView.frame.height-30, width: 20, height: 20), view: centerView, text: "✓")
+        saveBtn.titleLabel?.font = UIFont(descriptor: UIFontDescriptor(name: (saveBtn.titleLabel?.font.fontName)!, size: 25), size: 25)
         
         imgCropView.hidden = true
-        imgCropView.backgroundColor = UIColor.whiteColor()
-        headerView.backgroundColor = Util.commonColor
+        topView.backgroundColor = UIColor.lightGrayColor()
+        centerView.backgroundColor = UIColor.blackColor()
         scaleBtn.titleLabel!.font = UIFont(descriptor: UIFontDescriptor(name: (scaleBtn.titleLabel!.font?.fontName)!, size: 10.0), size: 10.0)
         scaleBtn.boxLayout(radius: 6, borderWidth: 1, backgroundColor: UIColor.whiteColor(), borderColor: UIColor.brownColor())
         rotateBtn.titleLabel!.font = UIFont(descriptor: UIFontDescriptor(name: (scaleBtn.titleLabel!.font?.fontName)!, size: 10.0), size: 10.0)
         rotateBtn.boxLayout(radius: 6, borderWidth: 1, backgroundColor: UIColor.whiteColor(), borderColor: UIColor.brownColor())
-        saveBtn.boxLayout(radius: 6, borderWidth: 1, backgroundColor: Util.commonColor, borderColor: Util.commonColor)
         saveBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        cancelBtn.boxLayout(radius: 6, borderWidth: 1, backgroundColor: UIColor.whiteColor(), borderColor: Util.commonColor)
-        cancelBtn.setTitleColor(Util.commonColor, forState: .Normal)
-        
+       
         self.view.addSubview(imgCropView)
-        imgCropView.addSubview(headerView)
-        headerView.addSubview(titleLbl)
-        headerView.addSubview(backBtn)
-        headerView.addSubview(scaleBtn)
-        headerView.addSubview(rotateBtn)
-        imgCropView.addSubview(canvasView)
-        imgCropView.addSubview(bottomView)
-        bottomView.addSubview(saveBtn)
-        bottomView.addSubview(cancelBtn)
+        imgCropView.addSubview(topView)
+        imgCropView.addSubview(centerView)
+        centerView.addSubview(canvasView)
+        centerView.addSubview(saveBtn)
+        centerView.addSubview(rotateBtn)
+        centerView.addSubview(backBtn)
+        centerView.addSubview(saveBtn)
         
         backBtn.addControlEvent(.TouchUpInside){
             self.imgCropView.hidden = true
@@ -160,12 +157,6 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
             self.cropTmpBtn.setImage(image, forState: .Normal)
             self.imgCropView.hidden = true
         }
-        cancelBtn.addControlEvent(.TouchUpInside){
-            self.imgCropView.hidden = true
-        }
-        
-        
-        
     }
     
     
@@ -191,13 +182,26 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         } else {
             return
         }
+        
         self.canvasView.subviews.forEach {$0.removeFromSuperview()}
         self.blackScreen.hidden = true
         self.picSelectedView.hidden = true
         self.imgCropView.hidden = false
         crop = ImageCrop()
-        self.crop.setCrop(canvasView, image: newImage, width: self.imageWidth, height: self.imageHeight, initRate: 1, minRate: 1/2, maxRate: self.view.frame.width/self.imageWidth, cropColor: Util.commonColor, cropDotSize: 15)
+        self.crop.setCrop(canvasView, image: newImage, width: self.imageWidth, height: self.imageHeight, initRate: 1, minRate: 1/2, maxRate: self.view.frame.width/self.imageWidth, cropColor: UIColor.whiteColor(), cropDotSize: 18)
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    
+    
+    
+    
+    //이미지 크롭 다음 레이아웃
+    func nextLayout(){
+        let locationBtn = UIButton(frame: CGRect(x: 10, y: 130+Util.screenSize.height/3, width: self.view.frame.width/2-20, height: 30))
+        locationBtn.boxLayout(radius: 6, borderWidth: 1, backgroundColor: Util.commonColor, borderColor: UIColor.blackColor())
+        self.view.addSubview(locationBtn)
     }
 }
 

@@ -15,15 +15,10 @@ public class ImageCrop {
     private var rightTop : UIButton!
     private var leftBottom : UIButton!
     private var rightBottom : UIButton!
-    private var top : UIView!
-    private var left : UIView!
-    private var right : UIView!
-    private var bottom : UIView!
-    
-    private var leftTopLayer : CAShapeLayer!
-    private var rightTopLayer : CAShapeLayer!
-    private var leftBottomLayer : CAShapeLayer!
-    private var rightBottomLayer : CAShapeLayer!
+    private var top : CAShapeLayer!
+    private var left : CAShapeLayer!
+    private var right : CAShapeLayer!
+    private var bottom : CAShapeLayer!
     
     private var isMapCrop : Bool!
     
@@ -254,49 +249,46 @@ public class ImageCrop {
     private func setCropVertext(x : CGFloat, y : CGFloat, var btn : UIButton! = nil, rect : UIRectCorner = .AllCorners) -> UIButton{
         if btn == nil{
             btn = UIButton()
+            btn.boxLayout(radius: CGFloat(M_PI * 2),borderWidth: 1, backgroundColor: canvasColor, borderColor:canvasColor)
+            btn.clipsToBounds = true
+            self.canvasView.addSubview(btn)
         }
+        let cropDotSizeValue = cropDotSize
         if rect == .TopLeft{
-            btn.frame = CGRect(x: x+self.centerView.frame.origin.x-cropDotSize/4*2, y: y+self.centerView.frame.origin.y-cropDotSize/4*2, width: cropDotSize, height: cropDotSize)
+            btn.frame = CGRect(x: x+self.centerView.frame.origin.x-cropDotSizeValue/4*2, y: y+self.centerView.frame.origin.y-cropDotSizeValue/4*2, width: cropDotSizeValue, height: cropDotSizeValue)
         }else if rect == .TopRight{
-            btn.frame = CGRect(x: x+self.centerView.frame.origin.x-cropDotSize/2, y: y+self.centerView.frame.origin.y-cropDotSize/4*2, width: cropDotSize, height: cropDotSize)
+            btn.frame = CGRect(x: x+self.centerView.frame.origin.x-cropDotSizeValue/2, y: y+self.centerView.frame.origin.y-cropDotSizeValue/4*2, width: cropDotSizeValue, height: cropDotSizeValue)
         }else if rect == .BottomLeft{
-            btn.frame = CGRect(x: x+self.centerView.frame.origin.x-cropDotSize/4*2, y: y+self.centerView.frame.origin.y-cropDotSize/2, width: cropDotSize, height: cropDotSize)
+            btn.frame = CGRect(x: x+self.centerView.frame.origin.x-cropDotSizeValue/4*2, y: y+self.centerView.frame.origin.y-cropDotSizeValue/2, width: cropDotSizeValue, height: cropDotSizeValue)
         }else if rect == .BottomRight{
-            btn.frame = CGRect(x: x+self.centerView.frame.origin.x-cropDotSize/2, y: y+self.centerView.frame.origin.y-cropDotSize/2, width: cropDotSize, height: cropDotSize)
+            btn.frame = CGRect(x: x+self.centerView.frame.origin.x-cropDotSizeValue/2, y: y+self.centerView.frame.origin.y-cropDotSizeValue/2, width: cropDotSizeValue, height: cropDotSizeValue)
         }
+        btn.layer.cornerRadius = btn.frame.size.width/2
         
-        btn.boxLayout(radius: CGFloat(M_PI * 2), backgroundColor: canvasColor)
-        self.canvasView.addSubview(btn)
         return btn
     }
     
-    private func setCropVertext(x : CGFloat, y : CGFloat, var btn : UIView! = nil, edge : UIRectEdge = .All) -> UIView{
+    private func setCropVertext(x : CGFloat, y : CGFloat, var btn : CAShapeLayer! = nil, edge : UIRectEdge = .All) -> CAShapeLayer{
         if btn == nil{
-            btn = UIView()
+            btn = CAShapeLayer().setView(self.canvasView)
         }
         if edge == .Top{
-            let btnX = self.centerView.frame.origin.x+(self.centerView.frame.width)/2-cropDotSize/2
-            let btnY = self.centerView.frame.origin.y-cropDotSize/2
-            btn.frame = CGRect(x: btnX, y: btnY, width: cropDotSize, height: cropDotSize)
+            let btnX = self.centerView.frame.origin.x+(self.centerView.frame.width)/2
+            let btnY = self.centerView.frame.origin.y
+            btn.layer(CGPoint(x: btnX , y: btnY), radius: cropDotSize/2, color: canvasColor)
         }else if edge == .Right{
-            let btnX = self.centerView.frame.origin.x+(self.centerView.frame.width)-cropDotSize/2
-            let btnY = self.centerView.frame.origin.y+(self.centerView.frame.height)/2-cropDotSize/2
-            btn.frame = CGRect(x: btnX, y: btnY, width: cropDotSize, height: cropDotSize)
-
+            let btnX = self.centerView.frame.origin.x+(self.centerView.frame.width)
+            let btnY = self.centerView.frame.origin.y+(self.centerView.frame.height)/2
+            btn.layer(CGPoint(x: btnX , y: btnY), radius: cropDotSize/2, color: canvasColor)
         }else if edge == .Left{
-            let btnX = self.centerView.frame.origin.x-cropDotSize/2
-            let btnY = self.centerView.frame.origin.y+(self.centerView.frame.height)/2-cropDotSize/2
-            btn.frame = CGRect(x: btnX, y: btnY, width: cropDotSize, height: cropDotSize)
-
+            let btnX = self.centerView.frame.origin.x
+            let btnY = self.centerView.frame.origin.y+(self.centerView.frame.height)/2
+            btn.layer(CGPoint(x: btnX , y: btnY), radius: cropDotSize/2, color: canvasColor)
         }else if edge == .Bottom{
-            let btnX = self.centerView.frame.origin.x+(self.centerView.frame.width)/2-cropDotSize/2
-            let btnY = self.centerView.frame.origin.y+(self.centerView.frame.height)-cropDotSize/2
-            btn.frame = CGRect(x: btnX, y: btnY, width: cropDotSize, height: cropDotSize)
-
+            let btnX = self.centerView.frame.origin.x+(self.centerView.frame.width)/2
+            let btnY = self.centerView.frame.origin.y+(self.centerView.frame.height)
+            btn.layer(CGPoint(x: btnX , y: btnY), radius: cropDotSize/2, color: canvasColor)
         }
-        
-        btn.boxLayout(radius: CGFloat(M_PI * 2), backgroundColor: canvasColor)
-        self.canvasView.addSubview(btn)
         return btn
     }
     
