@@ -257,7 +257,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         descText.delegate = self
         mainView.addSubview(descText)
         
-        mainView.contentSize = CGSize(width: mainView.frame.width, height: 240+Util.screenSize.height/3+100)
+        mainView.contentSize = CGSize(width: mainView.frame.width, height: 240+Util.screenSize.height/3+120)
         
         saveBtn = UIButton(frame: CGRect(x: 10, y: self.view.frame.height - 40, width: self.view.frame.width-20, height: 30))
         saveBtn.boxLayout(radius: 6, borderWidth: 1, backgroundColor: Util.commonColor, borderColor: UIColor.blackColor())
@@ -300,15 +300,17 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         if let userInfo = notification.userInfo {
             if let keyboardSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
                 let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-                mainView.contentSize = CGSize(width: mainView.frame.width, height: mainView.frame.height+contentInsets.bottom)
+                let keySize = contentInsets.bottom
+                mainView.contentSize = CGSize(width: mainView.frame.width, height: 240+Util.screenSize.height/3+120+contentInsets.bottom)
                 mainView.scrollToBottom()
+                saveBtn.frame.origin.y = saveBtn.frame.origin.y-keySize
             }
         }
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        mainView.contentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height-20)
-        mainView.scrollToTop()
+        mainView.contentSize = CGSize(width: mainView.frame.width, height: 240+Util.screenSize.height/3+120)
+        saveBtn.frame.origin.y = self.view.frame.height - 40
     }
     //인풋창 끝나면 키보드 없애기
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
