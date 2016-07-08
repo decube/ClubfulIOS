@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CourtCreateViewController: UIViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class CourtCreateViewController: UIViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate{
     var picList = [UIButton]()
     let picker = UIImagePickerController()
     var blackScreen : UIButton!
@@ -104,11 +104,20 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
             self.picSelectedView.hidden = true
         }
         
+        
+        
         CustomView.initLayout(self, title: "코트등록")
-        
-        
-        
-        /////////크롭화면
+    }
+    
+    
+    
+    
+    
+    /////////크롭화면
+    func imageCropLayout(){
+        if imgCropView != nil{
+            self.imgCropView.subviews.forEach {$0.removeFromSuperview()}
+        }
         imgCropView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
         let topView = UIView(frame: CGRect(x: 0, y: 0, width: imgCropView.frame.width, height: 20))
         let centerView = UIView(frame: CGRect(x: 0, y: 20, width: imgCropView.frame.width, height: imgCropView.frame.height-20))
@@ -128,7 +137,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         rotateBtn.titleLabel!.font = UIFont(descriptor: UIFontDescriptor(name: (scaleBtn.titleLabel!.font?.fontName)!, size: 10.0), size: 10.0)
         rotateBtn.boxLayout(radius: 6, borderWidth: 1, backgroundColor: UIColor.whiteColor(), borderColor: UIColor.brownColor())
         saveBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-       
+        
         self.view.addSubview(imgCropView)
         imgCropView.addSubview(topView)
         imgCropView.addSubview(centerView)
@@ -159,7 +168,6 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         }
     }
     
-    
     //이미지 콜백
     func imageCallback(sourceType : UIImagePickerControllerSourceType){
         picker.allowsEditing = true
@@ -182,8 +190,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         } else {
             return
         }
-        
-        self.canvasView.subviews.forEach {$0.removeFromSuperview()}
+        imageCropLayout()
         self.blackScreen.hidden = true
         self.picSelectedView.hidden = true
         self.imgCropView.hidden = false
@@ -199,9 +206,44 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     
     //이미지 크롭 다음 레이아웃
     func nextLayout(){
-        let locationBtn = UIButton(frame: CGRect(x: 10, y: 130+Util.screenSize.height/3, width: self.view.frame.width/2-20, height: 30))
+        let locationBtn = UIButton(frame: CGRect(x: 10, y: 140+Util.screenSize.height/3, width: self.view.frame.width/2-20, height: 30))
         locationBtn.boxLayout(radius: 6, borderWidth: 1, backgroundColor: Util.commonColor, borderColor: UIColor.blackColor())
+        locationBtn.setTitle("위치설정", forState: .Normal)
+        locationBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
         self.view.addSubview(locationBtn)
+        
+        let categorySelect = UIButton(frame: CGRect(x: self.view.frame.width/2+10, y: 140+Util.screenSize.height/3, width: self.view.frame.width/2-20, height: 30))
+        categorySelect.boxLayout(radius: 6, borderWidth: 1, backgroundColor: UIColor.blackColor(), borderColor: Util.commonColor)
+        categorySelect.setTitle("종목설정", forState: .Normal)
+        categorySelect.setTitleColor(Util.commonColor, forState: .Normal)
+        self.view.addSubview(categorySelect)
+        
+        categorySelect.addControlEvent(.TouchUpInside){
+            let alert = UIAlertController(title: "종목을 선택해주세요", message: "종목설정", preferredStyle: .ActionSheet)
+            for i in 1 ... 10{
+                alert.addAction(UIAlertAction(title: "농구", style: .Default, handler: { (alert) in
+                    categorySelect.setTitle(alert.title, forState: .Normal)
+                }))
+            }
+            self.presentViewController(alert, animated: false, completion: {(_) in})
+        }
+        
+        
+        let descText = UITextView(frame: CGRect(x: 10, y: 200+Util.screenSize.height/3, width: self.view.frame.width-20, height: 80))
+        descText.boxLayout(radius: 6, borderWidth: 1, borderColor: Util.commonColor)
+        descText.delegate = self
+        self.view.addSubview(descText)
+        
+        let saveBtn = UIButton(frame: CGRect(x: 10, y: Util.screenSize.height - 40, width: self.view.frame.width-20, height: 30))
+        saveBtn.boxLayout(radius: 6, borderWidth: 1, backgroundColor: Util.commonColor, borderColor: UIColor.blackColor())
+        saveBtn.setTitle("등록", forState: .Normal)
+        saveBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        self.view.addSubview(saveBtn)
+    }
+    
+    //인풋창 끝나면 키보드 없애기
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }
 
