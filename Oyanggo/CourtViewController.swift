@@ -51,8 +51,8 @@ class CourtViewController: UIViewController, UITextFieldDelegate {
         mapBtn.addControlEvent(.TouchUpInside){
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
             let uvc = storyBoard.instantiateViewControllerWithIdentifier("courtMapVC")
-            (uvc as! CourtMapViewController).courtLatitude = 37.303030
-            (uvc as! CourtMapViewController).courtLongitude = 126.6239304
+            (uvc as! CourtMapViewController).courtLatitude = 37.5571274
+            (uvc as! CourtMapViewController).courtLongitude = 126.9239304
             uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
             self.presentViewController(uvc, animated: true, completion: nil)
         }

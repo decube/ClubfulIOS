@@ -189,14 +189,11 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                         user.addressShort = "어디어디주소"
                         Storage.setRealmUser(user)
                         self.myLocationSearch = true
-                        self.mapView.removeAnnotation(self.annotation)
                         let span: MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
                         let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(37.5571274, 126.9239304)
                         let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
                         self.mapView.region = region
-                        self.annotation = MKPointAnnotation()
                         self.annotation.coordinate = location
-                        self.mapView.addAnnotation(self.annotation)
                     }
                     
                     i += 1
@@ -225,7 +222,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                 var i : CGFloat = 0
                 let locObjHeight : CGFloat = 80
                 for j in 0 ... 10{
-                    let objBtn = UIButton(frame: CGRect(x: 0, y: locObjHeight*i, width: centerLocScroll.frame.width, height: locObjHeight-1))
+                    let objBtn = UIButton(frame: CGRect(x: 0, y: locObjHeight*i, width: leftCourtView.frame.width, height: locObjHeight-1))
                     let addressShortLbl = UILabel(frame: CGRect(x: 5, y: 10, width: objBtn.frame.width-5, height: 15), text: "1234어디주소", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
                     let addressLbl = UILabel(frame: CGRect(x: 5, y: 25, width: objBtn.frame.width-5, height: 65), text: "어디어디주소길게길게어디어디주소길게길게어디어디주소길게길게", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 13)
                     addressLbl.numberOfLines = 2
@@ -308,7 +305,6 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             user.latitude = locValue.latitude
             user.longitude = locValue.longitude
             Storage.setRealmUser(user)
-            self.mapView.removeAnnotation(annotation)
             let appDelegateLocationMove = (UIApplication.sharedApplication().delegate as! AppDelegate).vcMyLocationMove
             
             let span: MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
@@ -319,9 +315,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                 let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
                 self.mapView.region = region
             }
-            self.annotation = MKPointAnnotation()
             annotation.coordinate = location
-            mapView.addAnnotation(annotation)
         }
     }
     //현재 나의위치 가져오기 실패함
