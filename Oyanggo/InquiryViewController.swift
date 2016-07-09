@@ -13,7 +13,11 @@ class InquiryViewController: UIViewController {
     override func viewDidLoad() {
         print("InquiryViewController viewDidLoad")
         
-        CustomView.initLayout(self, title: "문의하기")
+    }
+    
+    //뒤로가기
+    @IBAction func backAction(sender: AnyObject) {
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 

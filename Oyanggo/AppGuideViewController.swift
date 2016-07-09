@@ -13,7 +13,11 @@ class AppGuideViewController: UIViewController {
     override func viewDidLoad() {
         print("AppGuideViewController viewDidLoad")
         
-        CustomView.initLayout(self, title: "가이드")
+    }
+    
+    //뒤로가기
+    @IBAction func backAction(sender: AnyObject) {
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 

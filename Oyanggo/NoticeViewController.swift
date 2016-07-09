@@ -13,7 +13,11 @@ class NoticeViewController: UIViewController {
     override func viewDidLoad() {
         print("NoticeViewController viewDidLoad")
         
-        CustomView.initLayout(self, title: "공지사항")
+    }
+    
+    //뒤로가기
+    @IBAction func backAction(sender: AnyObject) {
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 

@@ -13,7 +13,11 @@ class AppVersionViewController: UIViewController {
     override func viewDidLoad() {
         print("AppVersionViewController viewDidLoad")
         
-        CustomView.initLayout(self, title: "앱정보")
+    }
+    
+    //뒤로가기
+    @IBAction func backAction(sender: AnyObject) {
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 

@@ -13,7 +13,11 @@ class MypageViewController: UIViewController {
     override func viewDidLoad() {
         print("MypageViewController viewDidLoad")
         
-        CustomView.initLayout(self, title: "내정보")
+    }
+    
+    //뒤로가기
+    @IBAction func backAction(sender: AnyObject) {
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 

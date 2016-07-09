@@ -13,7 +13,11 @@ class MemoViewController: UIViewController {
     override func viewDidLoad() {
         print("MemoViewController viewDidLoad")
         
-        CustomView.initLayout(self, title: "쪽지함")
+    }
+    
+    //뒤로가기
+    @IBAction func backAction(sender: AnyObject) {
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 

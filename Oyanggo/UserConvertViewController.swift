@@ -13,7 +13,11 @@ class UserConvertViewController: UIViewController {
     override func viewDidLoad() {
         print("UserConvertViewController viewDidLoad")
         
-        CustomView.initLayout(self, title: "내정보 수정")
+    }
+    
+    //뒤로가기
+    @IBAction func backAction(sender: AnyObject) {
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 

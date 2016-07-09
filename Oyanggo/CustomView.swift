@@ -61,7 +61,7 @@ extension UIView {
         }
         return self
     }
-    func navView(ctrl : UIViewController, blackScreen: UIButton! = nil, statusBar: UIView! = nil) -> UIView{
+    func navView(ctrl : UIViewController, blackScreen: UIButton! = nil) -> UIView{
         let user = Storage.getRealmUser()
         
         self.frame = CGRect(x: Util.screenSize.width/2, y: 20, width: Util.screenSize.width/2, height: Util.screenSize.height-20)
@@ -163,7 +163,6 @@ extension UIView {
                             logLbl.text = "로그인"
                             blackScreen.hidden = true
                             self.hidden = true
-                            statusBar.backgroundColor = Util.statusColor
                         }
                     })
                 }else if user.isLogin == 2{
@@ -177,7 +176,6 @@ extension UIView {
                             logLbl.text = "로그인"
                             blackScreen.hidden = true
                             self.hidden = true
-                            statusBar.backgroundColor = Util.statusColor
                         }
                     })
                 }else if user.isLogin == 3{
@@ -191,7 +189,6 @@ extension UIView {
                             logLbl.text = "로그인"
                             blackScreen.hidden = true
                             self.hidden = true
-                            statusBar.backgroundColor = Util.statusColor
                         }
                     })
                 }
