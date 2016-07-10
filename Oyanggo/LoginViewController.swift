@@ -7,9 +7,6 @@
 //
 
 import UIKit
-import FBSDKCoreKit
-import FBSDKLoginKit
-import FBSDKShareKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate{
     var mainViewController : ViewController!

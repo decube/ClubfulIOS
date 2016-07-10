@@ -391,12 +391,24 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     }
     
     
+    
+    
+    
+    
+    
+    
     //login after init
     func loginInit(){
         self.logLbl.text = "로그아웃"
         self.blackScreen.hidden = true
         self.navView.hidden = true
+        user = Storage.getRealmUser()
     }
+    
+    
+    
+    
+    
     
     
     
