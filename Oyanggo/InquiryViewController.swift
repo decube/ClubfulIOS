@@ -8,11 +8,25 @@
 
 import UIKit
 
-class InquiryViewController: UIViewController {
+class InquiryViewController: UIViewController, UIWebViewDelegate {
+    //웹뷰
+    @IBOutlet var webView: UIWebView!
+    //스핀
+    @IBOutlet var activity: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         print("InquiryViewController viewDidLoad")
         
+        //웹뷰 딜리게이트 추가
+        self.webView.delegate = self
+        //웹뷰 띄우기
+        self.webView.loadRequest(NSURLRequest(URL : NSURL(string: "http://www.naver.com")!))
+    }
+    
+    //웹뷰 가져옴
+    func webViewDidFinishLoad(webView: UIWebView) {
+        activity.stopAnimating()
+        activity.hidden = true
     }
     
     //뒤로가기

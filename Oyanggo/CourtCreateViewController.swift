@@ -9,37 +9,94 @@
 import UIKit
 
 class CourtCreateViewController: UIViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate{
-    var mainView : UIScrollView!
+    
+    //전체 스크롤 뷰
+    @IBOutlet var mainScrollView: UIScrollView!
+    //전체 스크롤뷰 스크롤 height
+    var mainScrollViewHeight: CGFloat!
+    //이미지 스크롤 뷰
+    @IBOutlet var picScrollView: UIScrollView!
+    //크롭버튼 어떤것을 클릭했는지 담아두는 변수
+    var cropBtnSpace : UIButton!
+    //빈 크롭 버튼 이미지
     let picAddImage = UIImage(named: "pic_add.png")!
+    //크롭 버튼 리스트
     var picList = [UIButton]()
+    //이미지 피커
     let picker = UIImagePickerController()
+    //블랙스크린
     var blackScreen : UIButton!
+    //카메라, 앨범 선택 뷰
     var picSelectedView : UIView!
+    //이미지 크롭 뷰
     var imgCropView : UIView!
+    //캔버스 영역 뷰
     var canvasView : UIView!
+    //크롭 클래스
     var crop : ImageCrop!
     
+    //이미지 사이즈
     var imageWidth : CGFloat!
     var imageHeight : CGFloat!
     
-    var cropTmpBtn : UIButton!
+    //위치설정 버튼
+    @IBOutlet var locationBtn: UIButton!
+    //종목설정 버튼
+    @IBOutlet var categoryBtn: UIButton!
     
-    var saveBtn : UIButton!
-    
-    ///////
+    //위치 변수
     var courtLatitude : Double!
     var courtLongitude : Double!
+    
+    //코트 설명 텍스트뷰
+    @IBOutlet var descTextView: UITextView!
     
     override func viewDidLoad() {
         print("CourtCreateViewController viewDidLoad")
         
-        mainView = UIScrollView(frame: CGRect(x: 0, y: 20, width: self.view.frame.width, height: self.view.frame.height - 50))
-        self.view.addSubview(mainView)
+        mainScrollViewHeight = mainScrollView.frame.height
         
-        let picInputLbl = UILabel(frame: CGRect(x: 10, y: 95, width: Util.screenSize.width-10, height: 20), text: "사진은 최소 2장이상 올리셔야 합니다.", textAlignment: .Left, fontSize: 17)
-        let picView = UIScrollView(frame: CGRect(x: 10, y: 120, width: Util.screenSize.width-20, height: Util.screenSize.height/3))
+        imageWidth = picScrollView.frame.width/2-5
+        imageHeight = imageWidth * 120 / 192
+        
+        let pic1 = UIButton(frame: CGRect(x: 0, y: 0, width: imageWidth, height: imageHeight), image: picAddImage)
+        let pic2 = UIButton(frame: CGRect(x: picScrollView.frame.width/2+5, y: 0, width: imageWidth, height: imageHeight), image: picAddImage)
+        let pic3 = UIButton(frame: CGRect(x: 0, y: imageHeight+10, width: imageWidth, height: imageHeight), image: picAddImage)
+        let pic4 = UIButton(frame: CGRect(x: picScrollView.frame.width/2+5, y: imageHeight+10, width: imageWidth, height: imageHeight), image: picAddImage)
+        let pic5 = UIButton(frame: CGRect(x: 0, y: (imageHeight+10)*2, width: imageWidth, height: imageHeight), image: picAddImage)
+        let pic6 = UIButton(frame: CGRect(x: picScrollView.frame.width/2+5, y: (imageHeight+10)*2, width: imageWidth, height: imageHeight), image: picAddImage)
+        
+        picList.append(pic1)
+        picList.append(pic2)
+        picList.append(pic3)
+        picList.append(pic4)
+        picList.append(pic5)
+        picList.append(pic6)
+        
+        for picObj in picList{
+            picObj.boxLayout(backgroundColor: UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.00))
+            picScrollView.addSubview(picObj)
+            picObj.addControlEvent(.TouchUpInside){
+                self.blackScreen.hidden = false
+                self.picSelectedView.hidden = false
+                self.cropBtnSpace = picObj
+            }
+        }
+        picScrollView.contentSize = CGSize(width: picScrollView.frame.width, height: (imageHeight+10)*3)
+        
+        locationBtn.boxLayout(radius: 6)
+        categoryBtn.boxLayout(radius: 6)
+        descTextView.boxLayout(radius: 6, borderWidth: 1, borderColor: Util.commonColor)
+        descTextView.delegate = self
+        
+        
+        
+        
+        
+        //layout
+        
         blackScreen = UIButton(frame: self.view.frame)
-        picSelectedView = UIView(frame: CGRect(x: (mainView.frame.width/2-125), y: (mainView.frame.height/2-125), width: 250, height: 250))
+        picSelectedView = UIView(frame: CGRect(x: (self.view.frame.width/2-125), y: (self.view.frame.height/2-125), width: 250, height: 250))
         let picSelectedHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: picSelectedView.frame.width, height: 40))
         let picSelectedHeaderLbl = UILabel(frame: CGRect(x: 0, y: 0, width: picSelectedHeaderView.frame.width, height: picSelectedHeaderView.frame.height), text: "타입 선택", color: UIColor.whiteColor(), textAlignment: NSTextAlignment.Center)
         let cameraView = UIView(frame: CGRect(x: 5, y: 60, width: (picSelectedView.frame.width-20)/2, height: picSelectedView.frame.height-80))
@@ -52,52 +109,19 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         blackScreen.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
         blackScreen.hidden = true
         picSelectedView.hidden = true
-        picView.boxLayout(borderWidth: 1, borderColor: Util.commonColor)
         picSelectedView.backgroundColor = UIColor.whiteColor()
         picSelectedHeaderView.backgroundColor = Util.commonColor
         cameraView.boxLayout(borderWidth: 1, borderColor: UIColor.orangeColor())
         gallaryView.boxLayout(borderWidth: 1, borderColor: UIColor.orangeColor())
         
-        
-        mainView.addSubview(picInputLbl)
-        mainView.addSubview(picView)
-        //이미지크롭 이후 레이아웃
-        nextLayout()
-        /////////////
+        self.view.addSubview(blackScreen)
+        self.view.addSubview(picSelectedView)
         picSelectedView.addSubview(picSelectedHeaderView)
-        picSelectedHeaderView.addSubview(picSelectedHeaderLbl)
         picSelectedView.addSubview(cameraView)
-        cameraView.addSubview(cameraLbl)
         picSelectedView.addSubview(gallaryView)
+        picSelectedHeaderView.addSubview(picSelectedHeaderLbl)
+        cameraView.addSubview(cameraLbl)
         gallaryView.addSubview(gallaryLbl)
-        
-        imageWidth = picView.frame.width/2-5
-        imageHeight = imageWidth * 120 / 192
-        
-        let pic1 = UIButton(frame: CGRect(x: 0, y: 0, width: imageWidth, height: imageHeight), image: picAddImage)
-        let pic2 = UIButton(frame: CGRect(x: picView.frame.width/2+5, y: 0, width: imageWidth, height: imageHeight), image: picAddImage)
-        let pic3 = UIButton(frame: CGRect(x: 0, y: imageHeight+10, width: imageWidth, height: imageHeight), image: picAddImage)
-        let pic4 = UIButton(frame: CGRect(x: picView.frame.width/2+5, y: imageHeight+10, width: imageWidth, height: imageHeight), image: picAddImage)
-        let pic5 = UIButton(frame: CGRect(x: 0, y: (imageHeight+10)*2, width: imageWidth, height: imageHeight), image: picAddImage)
-        let pic6 = UIButton(frame: CGRect(x: picView.frame.width/2+5, y: (imageHeight+10)*2, width: imageWidth, height: imageHeight), image: picAddImage)
-        
-        picList.append(pic1)
-        picList.append(pic2)
-        picList.append(pic3)
-        picList.append(pic4)
-        picList.append(pic5)
-        picList.append(pic6)
-        
-        for picObj in picList{
-            picObj.boxLayout(backgroundColor: UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.00))
-            picView.addSubview(picObj)
-            picObj.addControlEvent(.TouchUpInside){
-                self.blackScreen.hidden = false
-                self.picSelectedView.hidden = false
-                self.cropTmpBtn = picObj
-            }
-        }
-        picView.contentSize = CGSize(width: picView.frame.width, height: (imageHeight+10)*3)
         
         //카메라 클릭
         cameraBtn.addControlEvent(.TouchUpInside){
@@ -111,18 +135,41 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
             self.blackScreen.hidden = true
             self.picSelectedView.hidden = true
         }
-        
-        
-        
-        CustomView.initLayout(self, title: "코트등록")
-        self.view.addSubview(blackScreen)
-        self.view.addSubview(picSelectedView)
     }
     
     
     
     
     
+    //이미지 콜백
+    func imageCallback(sourceType : UIImagePickerControllerSourceType){
+        picker.allowsEditing = true
+        picker.delegate = self
+        picker.sourceType = sourceType
+        presentViewController(picker, animated: true, completion: nil)
+    }
+    //이미지 끝
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    //이미지 받아오기
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        var newImage: UIImage
+        if let possibleImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            newImage = possibleImage
+        } else if let possibleImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            newImage = possibleImage
+        } else {
+            return
+        }
+        imageCropLayout()
+        self.blackScreen.hidden = true
+        self.picSelectedView.hidden = true
+        self.imgCropView.hidden = false
+        crop = ImageCrop()
+        self.crop.setCrop(canvasView, image: newImage, width: self.imageWidth, height: self.imageHeight, initRate: 1, minRate: 1/2, maxRate: self.view.frame.width/self.imageWidth, cropColor: UIColor.whiteColor(), cropDotSize: 18)
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     /////////크롭화면
     func imageCropLayout(){
         if imgCropView != nil{
@@ -173,148 +220,97 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         
         saveBtn.addControlEvent(.TouchUpInside){
             let image = self.crop.capture()
-            self.cropTmpBtn.setImage(image, forState: .Normal)
+            self.cropBtnSpace.setImage(image, forState: .Normal)
             self.imgCropView.hidden = true
         }
     }
     
-    //이미지 콜백
-    func imageCallback(sourceType : UIImagePickerControllerSourceType){
-        picker.allowsEditing = true
-        picker.delegate = self
-        picker.sourceType = sourceType
-        presentViewController(picker, animated: true, completion: nil)
+    
+    
+    
+    
+    //위치설정 클릭
+    @IBAction func locationAction(sender: AnyObject) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let uvc = storyBoard.instantiateViewControllerWithIdentifier("courtCreateMapVC")
+        (uvc as! CourtCreateMapViewController).courtCreateView = self
+        (uvc as! CourtCreateMapViewController).courtCreateViewLocationBtn = locationBtn
+        uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        self.presentViewController(uvc, animated: true, completion: nil)
     }
     
-    //이미지 끝
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    //이미지 받아오기
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        var newImage: UIImage
-        if let possibleImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
-            newImage = possibleImage
-        } else if let possibleImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
-            newImage = possibleImage
-        } else {
-            return
+    //종목설정 클릭
+    @IBAction func categoryAction(sender: AnyObject) {
+        let alert = UIAlertController(title: "종목을 선택해주세요", message: "종목설정", preferredStyle: .ActionSheet)
+        for i in 1 ... 10{
+            alert.addAction(UIAlertAction(title: "농구", style: .Default, handler: { (alert) in
+                self.categoryBtn.setTitle(alert.title, forState: .Normal)
+            }))
         }
-        imageCropLayout()
-        self.blackScreen.hidden = true
-        self.picSelectedView.hidden = true
-        self.imgCropView.hidden = false
-        crop = ImageCrop()
-        self.crop.setCrop(canvasView, image: newImage, width: self.imageWidth, height: self.imageHeight, initRate: 1, minRate: 1/2, maxRate: self.view.frame.width/self.imageWidth, cropColor: UIColor.whiteColor(), cropDotSize: 18)
-        dismissViewControllerAnimated(true, completion: nil)
+        self.presentViewController(alert, animated: false, completion: {(_) in})
     }
     
-    
-    
-    
-    
-    
-    //이미지 크롭 다음 레이아웃
-    func nextLayout(){
-        let locationBtn = UIButton(frame: CGRect(x: 10, y: 140+Util.screenSize.height/3, width: mainView.frame.width/2-20, height: 30))
-        locationBtn.boxLayout(radius: 6, borderWidth: 1, backgroundColor: Util.commonColor, borderColor: UIColor.blackColor())
-        locationBtn.setTitle("위치설정", forState: .Normal)
-        locationBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        mainView.addSubview(locationBtn)
-        
-        locationBtn.addControlEvent(.TouchUpInside){
-            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-            let uvc = storyBoard.instantiateViewControllerWithIdentifier("courtCreateMapVC")
-            (uvc as! CourtCreateMapViewController).courtCreateView = self
-            (uvc as! CourtCreateMapViewController).courtCreateViewLocationBtn = locationBtn
-            uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-            self.presentViewController(uvc, animated: true, completion: nil)
-        }
-        
-        let categorySelect = UIButton(frame: CGRect(x: mainView.frame.width/2+10, y: 140+Util.screenSize.height/3, width: mainView.frame.width/2-20, height: 30))
-        categorySelect.boxLayout(radius: 6, borderWidth: 1, backgroundColor: UIColor.blackColor(), borderColor: Util.commonColor)
-        categorySelect.setTitle("종목설정", forState: .Normal)
-        categorySelect.setTitleColor(Util.commonColor, forState: .Normal)
-        mainView.addSubview(categorySelect)
-        
-        categorySelect.addControlEvent(.TouchUpInside){
-            let alert = UIAlertController(title: "종목을 선택해주세요", message: "종목설정", preferredStyle: .ActionSheet)
-            for i in 1 ... 10{
-                alert.addAction(UIAlertAction(title: "농구", style: .Default, handler: { (alert) in
-                    categorySelect.setTitle(alert.title, forState: .Normal)
-                }))
-            }
-            self.presentViewController(alert, animated: false, completion: {(_) in})
-        }
-        
-        
-        let descLbl = UILabel(frame: CGRect(x: 10, y: 200+Util.screenSize.height/3, width: mainView.frame.width-10, height: 40))
-        descLbl.text = "설명을 써주세요"
-        mainView.addSubview(descLbl)
-        
-        let descText = UITextView(frame: CGRect(x: 10, y: 240+Util.screenSize.height/3, width: mainView.frame.width-20, height: 80))
-        descText.boxLayout(radius: 6, borderWidth: 1, borderColor: Util.commonColor)
-        descText.delegate = self
-        mainView.addSubview(descText)
-        
-        mainView.contentSize = CGSize(width: mainView.frame.width, height: 240+Util.screenSize.height/3+120)
-        
-        saveBtn = UIButton(frame: CGRect(x: 10, y: self.view.frame.height - 40, width: self.view.frame.width-20, height: 30))
-        saveBtn.boxLayout(radius: 6, borderWidth: 1, backgroundColor: Util.commonColor, borderColor: UIColor.blackColor())
-        saveBtn.setTitle("등록", forState: .Normal)
-        saveBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        self.view.addSubview(saveBtn)
-        
-        saveBtn.addControlEvent(.TouchUpInside){
-            var cropImageCnt = 0
-            for btn in self.picList{
-                if btn.currentImage != self.picAddImage{
-                    cropImageCnt += 1
-                }
-            }
-            
-            if cropImageCnt >= 2{
-                Util.alert("", message: "등록이 완료되었습니다.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
-                    self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-                })
-            }else{
-                Util.alert("", message: "이미지를 2장 이상 올려야 됩니다.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
-                })
+    //등록 클릭
+    @IBAction func saveAction(sender: AnyObject) {
+        var cropImageCnt = 0
+        for btn in self.picList{
+            if btn.currentImage != self.picAddImage{
+                cropImageCnt += 1
             }
         }
+        
+        if cropImageCnt >= 2{
+            Util.alert("", message: "등록이 완료되었습니다.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
+                self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+            })
+        }else{
+            Util.alert("", message: "이미지를 2장 이상 올려야 됩니다.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
+            })
+        }
+    }
+    
+    
+    
+    //뒤로가기
+    @IBAction func backAction(sender: AnyObject) {
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     
     
     
-    
+    //키보드 생김/사라짐 셀렉터
     override func viewWillAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
+    //view 사라지기 전 작동
     override func viewWillDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
-    
-    func keyboardWillShow(notification: NSNotification){
-        if let userInfo = notification.userInfo {
-            if let keyboardSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-                let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-                let keySize = contentInsets.bottom
-                mainView.contentSize = CGSize(width: mainView.frame.width, height: 240+Util.screenSize.height/3+120+contentInsets.bottom)
-                mainView.scrollToBottom()
-                saveBtn.frame.origin.y = saveBtn.frame.origin.y-keySize
-            }
+    //키보드생길때
+    func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            
+            mainScrollView.contentSize = CGSize(width: mainScrollView.frame.width, height: mainScrollViewHeight+keyboardSize.height+10)
+            mainScrollView.scrollToBottom()
         }
     }
-    
+    //키보드없어질때
     func keyboardWillHide(notification: NSNotification) {
-        mainView.contentSize = CGSize(width: mainView.frame.width, height: 240+Util.screenSize.height/3+120)
-        saveBtn.frame.origin.y = self.view.frame.height - 40
+        mainScrollView.contentSize = CGSize(width: mainScrollView.frame.width, height: mainScrollViewHeight)
+        mainScrollView.scrollToTop()
     }
+    
+    
     //인풋창 끝나면 키보드 없애기
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    //인풋창 Done가 들어오면 키보드 없애기
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 

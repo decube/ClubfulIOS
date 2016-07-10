@@ -545,6 +545,13 @@ extension UIButton{
             self.titleLabel!.font = UIFont(descriptor: UIFontDescriptor(name: fontName, size: fontSize), size: fontSize)
         }
     }
+    
+    func blackScreen() -> UIButton{
+        self.frame = CGRect(x: 0, y: 20, width: Util.screenSize.width, height: Util.screenSize.height)
+        self.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.6)
+        self.hidden = true
+        return self
+    }
 }
 extension UIImage {
     class func imageWithView(view: UIView) -> UIImage {

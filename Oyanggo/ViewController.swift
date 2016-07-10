@@ -63,11 +63,16 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         
         
         courtSearchField.delegate = self
+        
+        
+        
+        
+        
         //layout create
         blackScreen = UIButton().blackScreen()
-        leftCourtView = UIScrollView(frame: CGRect(x: 0, y: 80, width: Util.screenSize.width/2, height: Util.screenSize.height-80-courtInsertBtn.frame.height), backgroundColor: UIColor.whiteColor())
+        leftCourtView = UIScrollView(frame: CGRect(x: 0, y: 80, width: Util.screenSize.width/2, height: Util.screenSize.height-80-self.courtInsertBtn.frame.height), backgroundColor: UIColor.whiteColor())
         centerLocView = UIView(frame: CGRect(x: (Util.screenSize.width-300)/2, y: (Util.screenSize.height-440)/2, width: 300, height: 440), backgroundColor: UIColor.whiteColor())
-        navView = UIView().navView(self, blackScreen: blackScreen)
+        navView = UIView(frame: CGRect(x: Util.screenSize.width/5*2, y: 20, width: Util.screenSize.width/5*3, height: Util.screenSize.height-20))
         
         leftCourtView.hidden = true
         centerLocView.hidden = true
@@ -76,6 +81,14 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         self.view.addSubview(leftCourtView)
         self.view.addSubview(centerLocView)
         self.view.addSubview(navView)
+        
+        
+        
+        
+        
+        //navView layout
+        navLayout()
+        
         
         
         
@@ -373,6 +386,178 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    
+    
+    
+    
+    //////////navLayout
+    func navLayout(){
+        navView.backgroundColor = UIColor.whiteColor()
+        navView.hidden = true
+        
+        let logView = UIView(frame: CGRect(x: 0, y: 0, width: navView.frame.width, height: 40))
+        let logBtn = UIButton(frame: CGRect(x: 0, y: 0, width: logView.frame.width-60, height: logView.frame.height))
+        let settingBtn = UIButton(frame: CGRect(x: logView.frame.width-40, y: 7.5, width: 25, height: 25), image: UIImage(named: "ic_navi_setting.png")!)
+        let mypageBtn = UIButton(frame: CGRect(x: 0, y: 41, width: navView.frame.width, height: 40))
+        let messageBtn = UIButton(frame: CGRect(x: 0, y: 90, width: navView.frame.width, height: 40))
+        let friendBtn = UIButton(frame: CGRect(x: 0, y:140, width: navView.frame.width, height: 40))
+        let noticeBtn = UIButton(frame: CGRect(x: 0, y: 181, width: navView.frame.width, height: 40))
+        let appInfoBtn = UIButton(frame: CGRect(x: 0, y: 230, width: navView.frame.width, height: 40))
+        let guideBtn = UIButton(frame: CGRect(x: 0, y: 280, width: navView.frame.width, height: 40))
+        let inquiryBtn = UIButton(frame: CGRect(x: 0, y: 330, width: navView.frame.width, height: 40))
+        let courtInsertBtn = UIButton(frame: CGRect(x: 10, y: navView.frame.height-50, width: navView.frame.width-20, height: 40), text: "코트등록", color: UIColor.whiteColor(), fontSize: 17)
+        
+        let mainView = UIImageView(frame: CGRect(x: 5, y: 2.5, width: 35, height: 35), image: UIImage(named: "ic_navi_main.png")!)
+        let mypageImg = UIImageView(frame: CGRect(x: 10, y: 7.5, width: 25, height: 25), image: UIImage(named: "ic_navi_mypage.png")!)
+        let messageImg = UIImageView(frame: CGRect(x: 10, y: 7.5, width: 25, height: 25), image: UIImage(named: "ic_navi_message.png")!)
+        let friendImg = UIImageView(frame: CGRect(x: 10, y: 7.5, width: 25, height: 25), image: UIImage(named: "ic_navi_friend.png")!)
+        let noticeImg = UIImageView(frame: CGRect(x: 10, y: 7.5, width: 25, height: 25), image: UIImage(named: "ic_navi_notice.png")!)
+        let appInfoImg = UIImageView(frame: CGRect(x: 10, y: 7.5, width: 25, height: 25), image: UIImage(named: "ic_navi_appInfo.png")!)
+        let guideImg = UIImageView(frame: CGRect(x: 10, y: 7.5, width: 25, height: 25), image: UIImage(named: "ic_navi_guide.png")!)
+        let inquiryImg = UIImageView(frame: CGRect(x: 10, y: 7.5, width: 25, height: 25), image: UIImage(named: "ic_navi_inquiry.png")!)
+        
+        var loginStr = "로그아웃"
+        if user.isLogin == -1{
+            loginStr = "로그인"
+        }
+        
+        let logLbl = UILabel(frame: CGRect(x: 50, y: 0, width: logBtn.frame.width-50, height: logBtn.frame.height), text: loginStr, color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
+        let mypageLbl = UILabel(frame: CGRect(x: 50, y: 0, width: mypageBtn.frame.width-50, height: mypageBtn.frame.height), text: "내정보", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
+        let messageLbl = UILabel(frame: CGRect(x: 50, y: 0, width: messageBtn.frame.width-50, height: messageBtn.frame.height), text: "쪽지함", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
+        let friendLbl = UILabel(frame: CGRect(x: 50, y: 0, width: friendBtn.frame.width-50, height: friendBtn.frame.height), text: "친구초대", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
+        let noticeLbl = UILabel(frame: CGRect(x: 50, y: 0, width: noticeBtn.frame.width-50, height: noticeBtn.frame.height), text: "공지사항", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
+        let appInfoLbl = UILabel(frame: CGRect(x: 50, y: 0, width: appInfoBtn.frame.width-50, height: appInfoBtn.frame.height), text: "앱정보", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
+        let guideLbl = UILabel(frame: CGRect(x: 50, y: 0, width: guideBtn.frame.width-50, height: guideBtn.frame.height), text: "가이드", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
+        let inquiryLbl = UILabel(frame: CGRect(x: 50, y: 0, width: inquiryBtn.frame.width-50, height: inquiryBtn.frame.height), text: "문의하기", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
+        
+        logView.boxBorder(.Bottom, borderWidth: 1, color: UIColor.blackColor())
+        friendBtn.boxBorder(.Bottom, borderWidth: 1, color: UIColor.blackColor())
+        courtInsertBtn.boxLayout(radius: 6, backgroundColor: UIColor.blackColor())
+        
+        navView.addSubview(logView)
+        navView.addSubview(settingBtn)
+        navView.addSubview(mypageBtn)
+        navView.addSubview(messageBtn)
+        navView.addSubview(friendBtn)
+        navView.addSubview(noticeBtn)
+        navView.addSubview(appInfoBtn)
+        navView.addSubview(guideBtn)
+        navView.addSubview(inquiryBtn)
+        navView.addSubview(courtInsertBtn)
+        
+        logView.addSubview(logBtn)
+        logView.addSubview(settingBtn)
+        
+        logBtn.addSubview(mainView)
+        mypageBtn.addSubview(mypageImg)
+        messageBtn.addSubview(messageImg)
+        friendBtn.addSubview(friendImg)
+        noticeBtn.addSubview(noticeImg)
+        appInfoBtn.addSubview(appInfoImg)
+        guideBtn.addSubview(guideImg)
+        inquiryBtn.addSubview(inquiryImg)
+        
+        logBtn.addSubview(logLbl)
+        mypageBtn.addSubview(mypageLbl)
+        messageBtn.addSubview(messageLbl)
+        friendBtn.addSubview(friendLbl)
+        noticeBtn.addSubview(noticeLbl)
+        appInfoBtn.addSubview(appInfoLbl)
+        guideBtn.addSubview(guideLbl)
+        inquiryBtn.addSubview(inquiryLbl)
+        
+        func storyBoard(destination : String){
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+            let uvc = storyBoard.instantiateViewControllerWithIdentifier(destination)
+            if uvc.classForCoder != self.classForCoder{
+                uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+                self.presentViewController(uvc, animated: true, completion: nil)
+            }
+        }
+        
+        logBtn.addControlEvent(.TouchUpInside){
+            func logout(){
+                self.user = Storage.copyUser()
+                self.user.isLogin = -1
+                Storage.setRealmUser(self.user)
+                logLbl.text = "로그인"
+                self.blackScreen.hidden = true
+                self.navView.hidden = true
+            }
+            if self.user.isLogin == -1{
+                storyBoard("loginVC")
+            }else{
+                if self.user.isLogin == 1{
+                    Util.alert("로그아웃", message: "로그아웃 하시겠습니까?", confirmTitle: "확인", ctrl: self, cancelStr: "취소", confirmHandler: {(_) in
+                        logout()
+                    })
+                }else if self.user.isLogin == 2{
+                    Util.alert("로그아웃", message: "페이스북로그아웃 하시겠습니까?", confirmTitle: "확인", ctrl: self, cancelStr: "취소", confirmHandler: {(_) in
+                        logout()
+                    })
+                }else if self.user.isLogin == 3{
+                    Util.alert("로그아웃", message: "카카오톡로그아웃 하시겠습니까?", confirmTitle: "확인", ctrl: self, cancelStr: "취소", confirmHandler: {(_) in
+                        logout()
+                    })
+                }
+            }
+        }
+        settingBtn.addControlEvent(.TouchUpInside){
+            storyBoard("settingVC")
+        }
+        mypageBtn.addControlEvent(.TouchUpInside){
+            if self.user.isLogin == -1{
+                Util.alert(message: "로그인을 하셔야 이용 가능합니다.", ctrl: self)
+            }else{
+                storyBoard("mypageVC")
+            }
+        }
+        
+        
+        func dummyLinkObject() -> [KakaoTalkLinkObject] {
+            let image = KakaoTalkLinkObject.createImage("https://developers.kakao.com/assets/img/link_sample.jpg", width: 138, height: 80)
+            let androidAppAction = KakaoTalkLinkAction.createAppAction(KakaoTalkLinkActionOSPlatform.Android, devicetype: KakaoTalkLinkActionDeviceType.Phone, execparam: [:])
+            let iphoneAppAction = KakaoTalkLinkAction.createAppAction(KakaoTalkLinkActionOSPlatform.IOS, devicetype: KakaoTalkLinkActionDeviceType.Phone, execparam: [:])
+            let ipadAppAction = KakaoTalkLinkAction.createAppAction(KakaoTalkLinkActionOSPlatform.IOS, devicetype: KakaoTalkLinkActionDeviceType.Pad, execparam: [:])
+            let appLink = KakaoTalkLinkObject.createAppButton("앱 열기", actions: [androidAppAction, iphoneAppAction, ipadAppAction])
+            return [image, appLink]
+        }
+        messageBtn.addControlEvent(.TouchUpInside){
+            if self.user.isLogin == -1{
+                Util.alert(message: "로그인을 하셔야 이용 가능합니다.", ctrl: self)
+            }else{
+                storyBoard("memoVC")
+            }
+        }
+        friendBtn.addControlEvent(.TouchUpInside){
+            if KOAppCall.canOpenKakaoTalkAppLink() {
+                KOAppCall.openKakaoTalkAppLink(dummyLinkObject())
+            } else {
+                print("Cannot open kakaotalk.")
+            }
+        }
+        noticeBtn.addControlEvent(.TouchUpInside){
+            storyBoard("noticeVC")
+        }
+        appInfoBtn.addControlEvent(.TouchUpInside){
+            storyBoard("appVersionVC")
+        }
+        guideBtn.addControlEvent(.TouchUpInside){
+            storyBoard("appGuideVC")
+        }
+        inquiryBtn.addControlEvent(.TouchUpInside){
+            storyBoard("inquiryVC")
+        }
+        courtInsertBtn.addControlEvent(.TouchUpInside){
+            if self.user.isLogin == -1{
+                Util.alert(message: "로그인을 하셔야 이용 가능합니다.", ctrl: self)
+            }else{
+                storyBoard("courtCreateVC")
+            }
+        }
     }
 }
 

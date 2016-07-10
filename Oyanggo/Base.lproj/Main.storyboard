@@ -298,6 +298,10 @@
                                             <action selector="replyInsertAction:" destination="zFx-OU-FnM" eventType="touchUpInside" id="shL-I0-ka8"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="prz-vl-IBc">
+                                        <rect key="frame" x="151" y="192" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -305,6 +309,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="activity" destination="prz-vl-IBc" id="knE-pe-YcI"/>
                         <outlet property="contentView" destination="zsx-W5-mH3" id="EF5-Se-4ra"/>
                         <outlet property="courtMapBtn" destination="5tX-qB-L0A" id="oyv-wB-1aA"/>
                         <outlet property="descTextView" destination="1QL-YJ-142" id="jT2-Ju-sKA"/>
@@ -314,6 +319,7 @@
                         <outlet property="interestLbl" destination="Qhp-Eb-dCP" id="Ixp-eS-T9S"/>
                         <outlet property="replyInsertBtn" destination="PEd-vH-6lh" id="Yhe-1Q-1En"/>
                         <outlet property="replyInsertField" destination="UBO-DJ-Qoo" id="0SP-Fa-IWC"/>
+                        <outlet property="webView" destination="5DT-e3-hs1" id="xNn-aJ-MWT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="md4-1l-GLh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -500,9 +506,22 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.74117647060000003" green="0.81960784310000001" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <webView contentMode="scaleToFill" id="nFG-Hu-GU0">
+                                <rect key="frame" x="0.0" y="79" width="320" height="489"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="vxg-Qc-uZP">
+                                <rect key="frame" x="150" y="314" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="activity" destination="vxg-Qc-uZP" id="dYq-6X-R7p"/>
+                        <outlet property="webView" destination="nFG-Hu-GU0" id="2k7-mM-N6l"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="06J-m0-zfI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -586,9 +605,22 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.74117647060000003" green="0.81960784310000001" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <webView contentMode="scaleToFill" id="tRl-53-Zq1">
+                                <rect key="frame" x="0.0" y="79" width="320" height="489"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="pdc-JP-c1j">
+                                <rect key="frame" x="150" y="314" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="activity" destination="pdc-JP-c1j" id="BP0-MQ-g0e"/>
+                        <outlet property="webView" destination="tRl-53-Zq1" id="WCK-M6-vpf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="692-a2-jlu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -629,9 +661,22 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.74117647060000003" green="0.81960784310000001" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <webView contentMode="scaleToFill" id="9a7-VF-aGh">
+                                <rect key="frame" x="0.0" y="79" width="320" height="489"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="Yqs-VI-Q83">
+                                <rect key="frame" x="150" y="314" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="activity" destination="Yqs-VI-Q83" id="08f-Vm-wL3"/>
+                        <outlet property="webView" destination="9a7-VF-aGh" id="xnf-1z-EJP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kV3-Je-oKR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -840,12 +885,12 @@
                             </view>
                             <view contentMode="scaleToFill" id="YW6-Fm-ghs" customClass="MKMapView">
                                 <rect key="frame" x="0.0" y="80" width="320" height="450"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cuG-qP-WlK">
                                 <rect key="frame" x="0.0" y="528" width="320" height="40"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.30588235294117649" green="0.70588235294117652" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="코트 등록">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -874,8 +919,108 @@
                     <view key="view" contentMode="scaleToFill" id="gfo-QJ-4p3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="VbF-RS-paB">
+                                <rect key="frame" x="0.0" y="20" width="320" height="60"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9mb-cj-cU3">
+                                        <rect key="frame" x="5" y="10" width="35" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="ic_back.png"/>
+                                        <connections>
+                                            <action selector="backAction:" destination="9TE-i7-xYM" eventType="touchUpInside" id="qAb-Dw-f6y"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="코트등록" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VQm-NR-ccx">
+                                        <rect key="frame" x="50" y="0.0" width="220" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.30588235289999999" green="0.70588235290000001" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="JAd-Ye-Cl4">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.74117647060000003" green="0.81960784310000001" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Gzg-oG-hwu">
+                                <rect key="frame" x="0.0" y="80" width="320" height="488"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="사진은 최소 2장 이상 올리셔야 등록 가능 합니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xom-3g-lI8">
+                                        <rect key="frame" x="8" y="8" width="304" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="emc-Fd-Thw">
+                                        <rect key="frame" x="8" y="56" width="304" height="150"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    </scrollView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jir-CB-w43">
+                                        <rect key="frame" x="8" y="224" width="140" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.30588236451148987" green="0.70588237047195435" blue="0.89803922176361084" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="위치 설정">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="locationAction:" destination="9TE-i7-xYM" eventType="touchUpInside" id="2Pr-fX-8Uo"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vx4-jk-IIY">
+                                        <rect key="frame" x="172" y="224" width="140" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="종목 설정">
+                                            <color key="titleColor" red="0.30588236451148987" green="0.70588237047195435" blue="0.89803922176361084" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="categoryAction:" destination="9TE-i7-xYM" eventType="touchUpInside" id="Pcg-cC-gcH"/>
+                                        </connections>
+                                    </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" id="YlU-1r-HFe">
+                                        <rect key="frame" x="8" y="302" width="304" height="88"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JXT-4u-8me">
+                                        <rect key="frame" x="0.0" y="448" width="320" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <color key="backgroundColor" red="0.30588236451148987" green="0.70588237047195435" blue="0.89803922176361084" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="등록">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveAction:" destination="9TE-i7-xYM" eventType="touchUpInside" id="5JH-Dd-ooh"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="코트에 대한 설명을 입력해 주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uJ2-AH-ysx">
+                                        <rect key="frame" x="8" y="273" width="229" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="categoryBtn" destination="vx4-jk-IIY" id="ifD-ol-VYy"/>
+                        <outlet property="descTextView" destination="YlU-1r-HFe" id="gjg-oI-cdK"/>
+                        <outlet property="locationBtn" destination="jir-CB-w43" id="vib-YU-hMO"/>
+                        <outlet property="mainScrollView" destination="Gzg-oG-hwu" id="CkY-Cn-ymT"/>
+                        <outlet property="picScrollView" destination="emc-Fd-Thw" id="D74-ZF-GUf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="frH-ui-PNT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -17,7 +17,6 @@
 		6E0CDF0C1D0EE4DD0095B711 /* OyanggoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0CDF0B1D0EE4DD0095B711 /* OyanggoTests.swift */; };
 		6E0CDF171D0EE4DD0095B711 /* OyanggoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0CDF161D0EE4DD0095B711 /* OyanggoUITests.swift */; };
 		6E0CDF261D0EEBB80095B711 /* ActionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E0CDF241D0EEB950095B711 /* ActionKit.framework */; };
-		6E0CDF331D0EED320095B711 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0CDF2F1D0EED320095B711 /* CheckBox.swift */; };
 		6E0CDF351D0EED320095B711 /* PhotoAlbumCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0CDF311D0EED320095B711 /* PhotoAlbumCustom.swift */; };
 		6E0CDF391D0EED4C0095B711 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0CDF371D0EED4C0095B711 /* Storage.swift */; };
 		6E0CDF411D0EED720095B711 /* Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0CDF3C1D0EED720095B711 /* Ext.swift */; };
@@ -38,7 +37,6 @@
 		6E0CDF691D0EEFF60095B711 /* InquiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0CDF681D0EEFF60095B711 /* InquiryViewController.swift */; };
 		6E29576E1D1AB4F1007CBEEC /* ic_pic_type_camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E29576C1D1AB4F1007CBEEC /* ic_pic_type_camera.png */; };
 		6E29576F1D1AB4F1007CBEEC /* ic_pic_type_gallary.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E29576D1D1AB4F1007CBEEC /* ic_pic_type_gallary.png */; };
-		6E3748051D1415CD00A7FC42 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3748041D1415CD00A7FC42 /* CustomView.swift */; };
 		6E37480A1D14228000A7FC42 /* ic_navi_setting.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E3748091D14228000A7FC42 /* ic_navi_setting.png */; };
 		6E3748121D1424A100A7FC42 /* ic_navi_appInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E37480B1D1424A000A7FC42 /* ic_navi_appInfo.png */; };
 		6E3748131D1424A100A7FC42 /* ic_navi_friend.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E37480C1D1424A100A7FC42 /* ic_navi_friend.png */; };
@@ -49,7 +47,6 @@
 		6E37481A1D1424D900A7FC42 /* ic_navi_guide.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E3748191D1424D900A7FC42 /* ic_navi_guide.png */; };
 		6E37481C1D1425C200A7FC42 /* ic_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E37481B1D1425C200A7FC42 /* ic_back.png */; };
 		6E37481E1D143C6100A7FC42 /* ic_navi_main.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E37481D1D143C6100A7FC42 /* ic_navi_main.png */; };
-		6E3748201D14405E00A7FC42 /* CustomViewTemp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E37481F1D14405E00A7FC42 /* CustomViewTemp.swift */; };
 		6E3F793F1D12E31700C7BBA6 /* ic_myLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E3F793E1D12E31700C7BBA6 /* ic_myLocation.png */; };
 		6E3F79411D12E45E00C7BBA6 /* ic_nav_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E3F79401D12E45E00C7BBA6 /* ic_nav_icon.png */; };
 		6E3FDB5A1D180A4D0034A74D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3FDB591D180A4D0034A74D /* User.swift */; };
@@ -96,7 +93,6 @@
 		6E0CDF161D0EE4DD0095B711 /* OyanggoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OyanggoUITests.swift; sourceTree = "<group>"; };
 		6E0CDF181D0EE4DD0095B711 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E0CDF241D0EEB950095B711 /* ActionKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ActionKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Oyanggo-cakhplsnswoytcckblayksjuxaax/Build/Products/Debug-iphonesimulator/ActionKit.framework"; sourceTree = "<group>"; };
-		6E0CDF2F1D0EED320095B711 /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		6E0CDF311D0EED320095B711 /* PhotoAlbumCustom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumCustom.swift; sourceTree = "<group>"; };
 		6E0CDF371D0EED4C0095B711 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		6E0CDF3C1D0EED720095B711 /* Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.swift; sourceTree = "<group>"; };
@@ -117,7 +113,6 @@
 		6E0CDF681D0EEFF60095B711 /* InquiryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiryViewController.swift; sourceTree = "<group>"; };
 		6E29576C1D1AB4F1007CBEEC /* ic_pic_type_camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_pic_type_camera.png; path = resources/img/ic_pic_type_camera.png; sourceTree = "<group>"; };
 		6E29576D1D1AB4F1007CBEEC /* ic_pic_type_gallary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_pic_type_gallary.png; path = resources/img/ic_pic_type_gallary.png; sourceTree = "<group>"; };
-		6E3748041D1415CD00A7FC42 /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		6E3748061D141F8200A7FC42 /* Oyanggo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Oyanggo-Bridging-Header.h"; sourceTree = "<group>"; };
 		6E3748091D14228000A7FC42 /* ic_navi_setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_navi_setting.png; path = resources/img/ic_navi_setting.png; sourceTree = "<group>"; };
 		6E37480B1D1424A000A7FC42 /* ic_navi_appInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_navi_appInfo.png; path = resources/img/ic_navi_appInfo.png; sourceTree = "<group>"; };
@@ -129,7 +124,6 @@
 		6E3748191D1424D900A7FC42 /* ic_navi_guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_navi_guide.png; path = resources/img/ic_navi_guide.png; sourceTree = "<group>"; };
 		6E37481B1D1425C200A7FC42 /* ic_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_back.png; path = resources/img/ic_back.png; sourceTree = "<group>"; };
 		6E37481D1D143C6100A7FC42 /* ic_navi_main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_navi_main.png; path = resources/img/ic_navi_main.png; sourceTree = "<group>"; };
-		6E37481F1D14405E00A7FC42 /* CustomViewTemp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewTemp.swift; sourceTree = "<group>"; };
 		6E3F793E1D12E31700C7BBA6 /* ic_myLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_myLocation.png; path = resources/img/ic_myLocation.png; sourceTree = "<group>"; };
 		6E3F79401D12E45E00C7BBA6 /* ic_nav_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_nav_icon.png; path = resources/img/ic_nav_icon.png; sourceTree = "<group>"; };
 		6E3FDB591D180A4D0034A74D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -322,10 +316,7 @@
 		6E0CDF2D1D0EECFC0095B711 /* custom */ = {
 			isa = PBXGroup;
 			children = (
-				6E0CDF2F1D0EED320095B711 /* CheckBox.swift */,
 				6E0CDF311D0EED320095B711 /* PhotoAlbumCustom.swift */,
-				6E3748041D1415CD00A7FC42 /* CustomView.swift */,
-				6E37481F1D14405E00A7FC42 /* CustomViewTemp.swift */,
 			);
 			name = custom;
 			sourceTree = "<group>";
@@ -627,8 +618,6 @@
 			files = (
 				6E0CDF5D1D0EEF080095B711 /* MemoViewController.swift in Sources */,
 				6E0CDF4D1D0EEDD70095B711 /* LoginViewController.swift in Sources */,
-				6E0CDF331D0EED320095B711 /* CheckBox.swift in Sources */,
-				6E3748201D14405E00A7FC42 /* CustomViewTemp.swift in Sources */,
 				6E0CDF651D0EEFC70095B711 /* AppVersionViewController.swift in Sources */,
 				6E3FDB5A1D180A4D0034A74D /* User.swift in Sources */,
 				6E0CDEF91D0EE4DD0095B711 /* ViewController.swift in Sources */,
@@ -645,7 +634,6 @@
 				6E0CDF391D0EED4C0095B711 /* Storage.swift in Sources */,
 				6E0CDF5F1D0EEF230095B711 /* SettingViewController.swift in Sources */,
 				6E0CDF4F1D0EEE280095B711 /* JoinViewController.swift in Sources */,
-				6E3748051D1415CD00A7FC42 /* CustomView.swift in Sources */,
 				6E0CDF5B1D0EEEE00095B711 /* CourtCreateMapViewController.swift in Sources */,
 				6E0CDF611D0EEF3B0095B711 /* NoticeViewController.swift in Sources */,
 				6E0CDF691D0EEFF60095B711 /* InquiryViewController.swift in Sources */,

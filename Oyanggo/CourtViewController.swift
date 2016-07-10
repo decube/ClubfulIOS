@@ -9,7 +9,7 @@
 import UIKit
 import ImageSlideshow
 
-class CourtViewController: UIViewController, UITextFieldDelegate {
+class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegate {
     var courtSeq : Int!
     @IBOutlet var gcmPushBtn: UIButton!
     @IBOutlet var courtMapBtn: UIButton!
@@ -27,6 +27,13 @@ class CourtViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var replyInsertField: UITextField!
     //댓글 입력 버튼
     @IBOutlet var replyInsertBtn: UIButton!
+    
+    //웹뷰
+    @IBOutlet var webView: UIWebView!
+    //스핀
+    @IBOutlet var activity: UIActivityIndicatorView!
+    
+    
     override func viewDidLoad() {
         print("CourtViewController viewDidLoad")
         
@@ -48,6 +55,11 @@ class CourtViewController: UIViewController, UITextFieldDelegate {
         replyInsertField.delegate = self
         replyInsertBtn.boxLayout(radius: 6, backgroundColor: Util.commonColor)
         contentViewY = contentView.frame.origin.y
+        
+        //웹뷰 딜리게이트 추가
+        self.webView.delegate = self
+        //웹뷰 띄우기
+        self.webView.loadRequest(NSURLRequest(URL : NSURL(string: "http://www.naver.com")!))
     }
     
     
@@ -101,6 +113,11 @@ class CourtViewController: UIViewController, UITextFieldDelegate {
     
     
     
+    //웹뷰 가져옴
+    func webViewDidFinishLoad(webView: UIWebView) {
+        activity.stopAnimating()
+        activity.hidden = true
+    }
     
     //키보드 생김/사라짐 셀렉터
     override func viewWillAppear(animated: Bool) {
