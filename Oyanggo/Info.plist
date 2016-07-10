@@ -28,12 +28,6 @@
 				<string>kakaocadb858c8f244945f54a040bf202a426</string>
 			</array>
 		</dict>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb257056764657243</string>
-			</array>
-		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
@@ -73,15 +67,6 @@
 		<string>kakaolink</string>
 		<string>kakaotalk-4.5.0</string>
 		<string>kakaostory-2.9.0</string>
-        <string>fbapi</string>
-        <string>fb-messenger-api</string>
-        <string>fbauth2</string>
-        <string>fbshareextension</string>
 	</array>
-    
-    <key>FacebookAppID</key>
-    <string>257056764657243</string>
-    <key>FacebookDisplayName</key>
-    <string>Decube</string>
 </dict>
 </plist>

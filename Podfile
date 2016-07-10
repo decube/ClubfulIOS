@@ -7,7 +7,8 @@ target 'Oyanggo' do
 use_frameworks!
 pod 'ImageSlideshow', '~> 0.5'
 pod 'ActionKit', '~> 1.0'
-pod ‘RealmSwift’
+pod 'RealmSwift'
+pod 'InputTag', '~> 0.1.3'
 
 end
 

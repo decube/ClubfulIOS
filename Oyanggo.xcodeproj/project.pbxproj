@@ -19,7 +19,6 @@
 		6E0CDF261D0EEBB80095B711 /* ActionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E0CDF241D0EEB950095B711 /* ActionKit.framework */; };
 		6E0CDF351D0EED320095B711 /* PhotoAlbumCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0CDF311D0EED320095B711 /* PhotoAlbumCustom.swift */; };
 		6E0CDF391D0EED4C0095B711 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0CDF371D0EED4C0095B711 /* Storage.swift */; };
-		6E0CDF411D0EED720095B711 /* Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0CDF3C1D0EED720095B711 /* Ext.swift */; };
 		6E0CDF431D0EED720095B711 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0CDF3E1D0EED720095B711 /* Util.swift */; };
 		6E0CDF4D1D0EEDD70095B711 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0CDF4C1D0EEDD70095B711 /* LoginViewController.swift */; };
 		6E0CDF4F1D0EEE280095B711 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0CDF4E1D0EEE280095B711 /* JoinViewController.swift */; };
@@ -52,12 +51,12 @@
 		6E3FDB5A1D180A4D0034A74D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3FDB591D180A4D0034A74D /* User.swift */; };
 		6E3FDB5C1D182B6C0034A74D /* pic_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E3FDB5B1D182B6C0034A74D /* pic_add.png */; };
 		6E9A46761D14F311001C035B /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9A46751D14F311001C035B /* KakaoOpenSDK.framework */; };
-		6E9A46781D150658001C035B /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9A46771D150658001C035B /* FBSDKCoreKit.framework */; };
-		6E9A467A1D150762001C035B /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9A46791D150762001C035B /* FBSDKLoginKit.framework */; };
 		6E9A467C1D1510DD001C035B /* kakaoBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9A467B1D1510DD001C035B /* kakaoBtn.png */; };
 		6E9A467F1D151FD6001C035B /* courtTemp.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9A467E1D151FD6001C035B /* courtTemp.png */; };
 		6E9A46881D152B2C001C035B /* ic_star_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9A46861D152B2C001C035B /* ic_star_normal.png */; };
 		6E9A46891D152B2C001C035B /* ic_star_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9A46871D152B2C001C035B /* ic_star_select.png */; };
+		6ECD7FFD1D31FB50002CDEC4 /* screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ECD7FFC1D31FB50002CDEC4 /* screen.png */; };
+		6EF6F7C21D32272B00AB9EE0 /* JoinMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF6F7C11D32272B00AB9EE0 /* JoinMapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,7 +94,6 @@
 		6E0CDF241D0EEB950095B711 /* ActionKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ActionKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Oyanggo-cakhplsnswoytcckblayksjuxaax/Build/Products/Debug-iphonesimulator/ActionKit.framework"; sourceTree = "<group>"; };
 		6E0CDF311D0EED320095B711 /* PhotoAlbumCustom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumCustom.swift; sourceTree = "<group>"; };
 		6E0CDF371D0EED4C0095B711 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		6E0CDF3C1D0EED720095B711 /* Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.swift; sourceTree = "<group>"; };
 		6E0CDF3E1D0EED720095B711 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		6E0CDF4C1D0EEDD70095B711 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6E0CDF4E1D0EEE280095B711 /* JoinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
@@ -129,12 +127,12 @@
 		6E3FDB591D180A4D0034A74D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6E3FDB5B1D182B6C0034A74D /* pic_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pic_add.png; path = resources/img/pic_add.png; sourceTree = "<group>"; };
 		6E9A46751D14F311001C035B /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
-		6E9A46771D150658001C035B /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		6E9A46791D150762001C035B /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		6E9A467B1D1510DD001C035B /* kakaoBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kakaoBtn.png; path = resources/img/kakaoBtn.png; sourceTree = "<group>"; };
 		6E9A467E1D151FD6001C035B /* courtTemp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = courtTemp.png; path = resources/tempImage/courtTemp.png; sourceTree = "<group>"; };
 		6E9A46861D152B2C001C035B /* ic_star_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_star_normal.png; path = resources/img/ic_star_normal.png; sourceTree = "<group>"; };
 		6E9A46871D152B2C001C035B /* ic_star_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_star_select.png; path = resources/img/ic_star_select.png; sourceTree = "<group>"; };
+		6ECD7FFC1D31FB50002CDEC4 /* screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = screen.png; path = resources/img/screen.png; sourceTree = "<group>"; };
+		6EF6F7C11D32272B00AB9EE0 /* JoinMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinMapViewController.swift; sourceTree = "<group>"; };
 		B88C52853E7EFA0518DEDC0D /* Pods-Oyanggo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oyanggo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Oyanggo/Pods-Oyanggo.debug.xcconfig"; sourceTree = "<group>"; };
 		BD79542DB4B4C9180BE3EADD /* Pods_Oyanggo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Oyanggo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDABC41999077D1108814C4D /* Pods-Oyanggo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oyanggo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Oyanggo/Pods-Oyanggo.release.xcconfig"; sourceTree = "<group>"; };
@@ -146,8 +144,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E0CDF261D0EEBB80095B711 /* ActionKit.framework in Frameworks */,
-				6E9A46781D150658001C035B /* FBSDKCoreKit.framework in Frameworks */,
-				6E9A467A1D150762001C035B /* FBSDKLoginKit.framework in Frameworks */,
 				53F3ED65064D236C09DDBD77 /* Pods_Oyanggo.framework in Frameworks */,
 				6E9A46761D14F311001C035B /* KakaoOpenSDK.framework in Frameworks */,
 			);
@@ -262,6 +258,7 @@
 		6E0CDF291D0EECD00095B711 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				6ECD7FFC1D31FB50002CDEC4 /* screen.png */,
 				6E29576C1D1AB4F1007CBEEC /* ic_pic_type_camera.png */,
 				6E29576D1D1AB4F1007CBEEC /* ic_pic_type_gallary.png */,
 				6E3FDB5B1D182B6C0034A74D /* pic_add.png */,
@@ -307,7 +304,6 @@
 			isa = PBXGroup;
 			children = (
 				6E0AEA551D2924A600FA3AD7 /* ImageCrop.swift */,
-				6E0CDF3C1D0EED720095B711 /* Ext.swift */,
 				6E0CDF3E1D0EED720095B711 /* Util.swift */,
 			);
 			name = util;
@@ -334,6 +330,7 @@
 			children = (
 				6E0CDF4C1D0EEDD70095B711 /* LoginViewController.swift */,
 				6E0CDF4E1D0EEE280095B711 /* JoinViewController.swift */,
+				6EF6F7C11D32272B00AB9EE0 /* JoinMapViewController.swift */,
 			);
 			name = certification;
 			sourceTree = "<group>";
@@ -403,8 +400,6 @@
 		B1C74F49AA1987CE0B26D677 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6E9A46791D150762001C035B /* FBSDKLoginKit.framework */,
-				6E9A46771D150658001C035B /* FBSDKCoreKit.framework */,
 				6E9A46751D14F311001C035B /* KakaoOpenSDK.framework */,
 				6E0CDF241D0EEB950095B711 /* ActionKit.framework */,
 				BD79542DB4B4C9180BE3EADD /* Pods_Oyanggo.framework */,
@@ -540,6 +535,7 @@
 				6E0CDEFC1D0EE4DD0095B711 /* Main.storyboard in Resources */,
 				6E3FDB5C1D182B6C0034A74D /* pic_add.png in Resources */,
 				6E3748131D1424A100A7FC42 /* ic_navi_friend.png in Resources */,
+				6ECD7FFD1D31FB50002CDEC4 /* screen.png in Resources */,
 				6E37480A1D14228000A7FC42 /* ic_navi_setting.png in Resources */,
 				6E37481A1D1424D900A7FC42 /* ic_navi_guide.png in Resources */,
 				6E9A46881D152B2C001C035B /* ic_star_normal.png in Resources */,
@@ -625,8 +621,8 @@
 				6E0CDF511D0EEE440095B711 /* MypageViewController.swift in Sources */,
 				6E0CDF671D0EEFDA0095B711 /* AppGuideViewController.swift in Sources */,
 				6E0AEA561D2924A600FA3AD7 /* ImageCrop.swift in Sources */,
+				6EF6F7C21D32272B00AB9EE0 /* JoinMapViewController.swift in Sources */,
 				6E0CDF531D0EEE6E0095B711 /* UserConvertViewController.swift in Sources */,
-				6E0CDF411D0EED720095B711 /* Ext.swift in Sources */,
 				6E0CDF551D0EEE880095B711 /* CourtViewController.swift in Sources */,
 				6E0CDF571D0EEEA20095B711 /* CourtMapViewController.swift in Sources */,
 				6E0CDF431D0EED720095B711 /* Util.swift in Sources */,

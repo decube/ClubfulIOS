@@ -86,12 +86,14 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Oyanggo/ActionKit.framework"
   install_framework "Pods-Oyanggo/ImageSlideshow.framework"
+  install_framework "Pods-Oyanggo/InputTag.framework"
   install_framework "Pods-Oyanggo/Realm.framework"
   install_framework "Pods-Oyanggo/RealmSwift.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Oyanggo/ActionKit.framework"
   install_framework "Pods-Oyanggo/ImageSlideshow.framework"
+  install_framework "Pods-Oyanggo/InputTag.framework"
   install_framework "Pods-Oyanggo/Realm.framework"
   install_framework "Pods-Oyanggo/RealmSwift.framework"
 fi

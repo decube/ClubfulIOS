@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import InputTag
 
 class JoinViewController: UIViewController, UITextFieldDelegate {
     
@@ -15,6 +16,16 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var repwdField: UITextField!
     @IBOutlet var nicknameField: UITextField!
     @IBOutlet var joinBtn: UIButton!
+    var maleRadio: Radio!
+    var femaleRadio: Radio!
+    @IBOutlet var maleLbl: UILabel!
+    @IBOutlet var femaleLbl: UILabel!
+    @IBOutlet var locationBtn: UIButton!
+    
+    //위치 변수
+    //위치 변수
+    var latitude : Double!
+    var longitude : Double!
     
     override func viewDidLoad() {
         print("JoinViewController viewDidLoad")
@@ -28,8 +39,31 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         pwdField.maxLength(14)
         repwdField.maxLength(14)
         nicknameField.maxLength(10)
+        
+        var maleRadioFrame = maleLbl.frame
+        var femaleRadioFrame = femaleLbl.frame
+        maleRadioFrame.origin.x = maleRadioFrame.origin.x+maleRadioFrame.width + 10
+        femaleRadioFrame.origin.x = femaleRadioFrame.origin.x+femaleRadioFrame.width + 10
+        maleRadio = InputTag().getRadio(maleRadioFrame, name: "sex", value: "male", selected: true)
+        femaleRadio = InputTag().getRadio(femaleRadioFrame, name: "sex", value: "female")
+        InputTag.radioAdd(maleRadio)
+        InputTag.radioAdd(femaleRadio)
+        
+        self.view.addSubview(maleRadio)
+        self.view.addSubview(femaleRadio)
+        
+        locationBtn.boxLayout(radius: 6)
     }
     
+    //위치 클릭
+    @IBAction func locationAction(sender: AnyObject) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let uvc = storyBoard.instantiateViewControllerWithIdentifier("joinMapVC")
+        (uvc as! JoinMapViewController).joinView = self
+        (uvc as! JoinMapViewController).joinLocationBtn = locationBtn
+        uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        self.presentViewController(uvc, animated: true, completion: nil)
+    }
     //회원가입 클릭
     @IBAction func joinAction(sender: AnyObject) {
         self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)

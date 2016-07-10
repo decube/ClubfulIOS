@@ -75,12 +75,54 @@
                                     <action selector="joinAction:" destination="kYW-X7-dGU" eventType="touchUpInside" id="X9g-mz-AM1"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 남성" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GaY-Zr-MJh">
+                                <rect key="frame" x="20" y="252" width="34" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="여성" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JJp-9c-C9p">
+                                <rect key="frame" x="145" y="252" width="30" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="생년월일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZSU-4n-zzo">
+                                <rect key="frame" x="20" y="285" width="59" height="21"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xap-fo-b61">
+                                <rect key="frame" x="20" y="462" width="169" height="40"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="자신이 주로 가는 위치 검색">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="locationAction:" destination="kYW-X7-dGU" eventType="touchUpInside" id="tId-32-d8C"/>
+                                </connections>
+                            </button>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="xHm-Ae-uKI">
+                                <rect key="frame" x="20" y="308" width="221" height="119"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <date key="date" timeIntervalSinceReferenceDate="489825002.10045099">
+                                    <!--2016-07-10 06:30:02 +0000-->
+                                </date>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="femaleLbl" destination="JJp-9c-C9p" id="vlD-yF-dS3"/>
                         <outlet property="idField" destination="j5B-5W-a1B" id="VW3-OO-Kne"/>
                         <outlet property="joinBtn" destination="LE4-fO-LCq" id="M8P-E2-Oxb"/>
+                        <outlet property="locationBtn" destination="xap-fo-b61" id="jNw-OT-Xvd"/>
+                        <outlet property="maleLbl" destination="GaY-Zr-MJh" id="4OT-xB-pR2"/>
                         <outlet property="nicknameField" destination="2Ud-ep-lHX" id="Wh8-hS-3yF"/>
                         <outlet property="pwdField" destination="gFG-0A-Lts" id="H3b-6N-CrU"/>
                         <outlet property="repwdField" destination="6eE-9H-0YI" id="Mo8-UP-uxn"/>
@@ -450,16 +492,10 @@
                                     <action selector="kakaoAction:" destination="9eb-hj-003" eventType="touchUpInside" id="X11-9V-9Vl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nR3-Bv-ynI" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="9" y="475" width="303" height="40"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <state key="normal" title="페이스북으로 로그인"/>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="faceLoginBtn" destination="nR3-Bv-ynI" id="jwW-hd-TQV"/>
                         <outlet property="idField" destination="QuL-Oc-gKl" id="a9j-dK-ch6"/>
                         <outlet property="joinBtn" destination="s1m-fc-bzy" id="azo-00-6Ob"/>
                         <outlet property="kakaoLoginBtn" destination="kCb-B3-cyX" id="A76-Nk-IUP"/>
@@ -1149,7 +1185,89 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="utX-3R-GRL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1267" y="-366"/>
+            <point key="canvasLocation" x="1272" y="-366"/>
+        </scene>
+        <!--Join Map View Controller-->
+        <scene sceneID="6QZ-sf-TcU">
+            <objects>
+                <viewController storyboardIdentifier="joinMapVC" id="9M0-JS-pFx" customClass="JoinMapViewController" customModule="Oyanggo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iC4-wf-wNT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="cOA-xz-wFo">
+                                <rect key="frame" x="0.0" y="20" width="320" height="60"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0KM-pT-H5K">
+                                        <rect key="frame" x="5" y="10" width="35" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="ic_back.png"/>
+                                        <connections>
+                                            <action selector="backAction:" destination="9M0-JS-pFx" eventType="touchUpInside" id="beD-oq-URA"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내 위치 설정" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6wQ-fk-8rw">
+                                        <rect key="frame" x="50" y="0.0" width="220" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.30588235289999999" green="0.70588235290000001" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="a3z-un-Fsd">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.74117647060000003" green="0.81960784310000001" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="iQJ-0u-Yxt" customClass="MKMapView">
+                                <rect key="frame" x="0.0" y="128" width="320" height="402"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="위치를 입력해 주세요." textAlignment="natural" minimumFontSize="17" id="p0z-pK-PSK">
+                                <rect key="frame" x="5" y="90" width="245" height="30"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="qYr-Xj-u43">
+                                <rect key="frame" x="255" y="90" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="검색">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="searchAction:" destination="9M0-JS-pFx" eventType="touchUpInside" id="Ih2-2b-Mfk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="LrU-Gr-gCT">
+                                <rect key="frame" x="0.0" y="530" width="320" height="40"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.3058823645" green="0.70588237050000002" blue="0.89803922179999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="현재 위치로 설정">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="confirmAction:" destination="9M0-JS-pFx" eventType="touchUpInside" id="DJc-VB-MQF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="confirmBtn" destination="LrU-Gr-gCT" id="FJE-ep-gc7"/>
+                        <outlet property="mapView" destination="iQJ-0u-Yxt" id="n2v-k3-ztY"/>
+                        <outlet property="searchBtn" destination="qYr-Xj-u43" id="VOw-x5-DfN"/>
+                        <outlet property="searchField" destination="p0z-pK-PSK" id="0Lq-yy-uD5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NLZ-Hi-CQD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-620" y="-655"/>
         </scene>
     </scenes>
     <resources>

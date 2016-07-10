@@ -26,7 +26,7 @@ class SettingViewController: UIViewController {
         noticeSwitch.on = realmUser.noticePushCheck
         myCourtSwitch.on = realmUser.myCourtPushCheck
         distanceSwitch.on = realmUser.distancePushCheck
-        interestSwitch.on = realmUser.starPushCheck
+        interestSwitch.on = realmUser.interestPushCheck
         
         startTime.date = realmUser.startPushTime
         endTime.date = realmUser.endPushTime
@@ -39,7 +39,7 @@ class SettingViewController: UIViewController {
         user.noticePushCheck = noticeSwitch.on
         user.myCourtPushCheck = myCourtSwitch.on
         user.distancePushCheck = distanceSwitch.on
-        user.starPushCheck = interestSwitch.on
+        user.interestPushCheck = interestSwitch.on
         user.startPushTime = startTime.date
         user.endPushTime = endTime.date
         Storage.setRealmUser(user)

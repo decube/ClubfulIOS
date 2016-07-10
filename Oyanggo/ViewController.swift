@@ -50,7 +50,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         super.viewDidLoad()
         print("ViewController viewDidLoad")
         
-        user = Storage.getRealmUser()
+        user = Storage.getRealmUser()        
         
         //현재 나의 위치설정
         self.locationManager.requestAlwaysAuthorization()
@@ -479,9 +479,23 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         }
         
         logBtn.addControlEvent(.TouchUpInside){
-            func logout(){
+            func logout(isKakao : Bool = false){
+                if isKakao == true{
+//                    //카카오톡 로그아웃
+//                    KOSession.sharedSession().logoutAndCloseWithCompletionHandler { [weak self] (success, error) -> Void in
+//                        self?.navigationController?.popViewControllerAnimated(true)
+//                    }
+                }
                 self.user = Storage.copyUser()
                 self.user.isLogin = -1
+                self.user.nickName = ""
+                self.user.sex = ""
+                self.user.token = ""
+                self.user.birth = NSDate()
+                self.user.userLatitude = 0.0
+                self.user.userLongitude = 0.0
+                self.user.userAddress = ""
+                self.user.userAddressShort = ""
                 Storage.setRealmUser(self.user)
                 logLbl.text = "로그인"
                 self.blackScreen.hidden = true
@@ -495,12 +509,8 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                         logout()
                     })
                 }else if self.user.isLogin == 2{
-                    Util.alert("로그아웃", message: "페이스북로그아웃 하시겠습니까?", confirmTitle: "확인", ctrl: self, cancelStr: "취소", confirmHandler: {(_) in
-                        logout()
-                    })
-                }else if self.user.isLogin == 3{
                     Util.alert("로그아웃", message: "카카오톡로그아웃 하시겠습니까?", confirmTitle: "확인", ctrl: self, cancelStr: "취소", confirmHandler: {(_) in
-                        logout()
+                        logout(true)
                     })
                 }
             }

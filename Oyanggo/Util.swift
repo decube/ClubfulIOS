@@ -9,23 +9,16 @@
 import Foundation
 import UIKit
 
+enum Ext{
+    case JPEG, PNG
+}
+
 class Util{
     static let statusColor = UIColor(red:0.38, green:0.76, blue:0.91, alpha:1.00)
     static let commonColor = UIColor(red:0.38, green:0.76, blue:0.91, alpha:1.00)
     
     //언어
-    static var language : String{
-        get{
-            let tmpLang = (NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as? String)!
-            if tmpLang == "ko" ||  tmpLang == "kr"{
-                return "ko"
-            }else{
-                return "en"
-            }
-        }
-    }
-    //오리지널언어
-    static let oriLanguage : String = (NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as? String)!
+    static var language : String = (NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as? String)!
     //현재 버전
     static let nsVersion : String = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
     //최신 버전
