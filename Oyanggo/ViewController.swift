@@ -35,6 +35,8 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     //코트 등록 버튼
     @IBOutlet var courtInsertBtn: UIButton!
     
+    //로그인/로그아웃변수
+    var logLbl : UILabel!
     
     
     //내위치 표시 변수
@@ -389,6 +391,12 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     }
     
     
+    //login after init
+    func loginInit(){
+        self.logLbl.text = "로그아웃"
+        self.blackScreen.hidden = true
+        self.navView.hidden = true
+    }
     
     
     
@@ -424,7 +432,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             loginStr = "로그인"
         }
         
-        let logLbl = UILabel(frame: CGRect(x: 50, y: 0, width: logBtn.frame.width-50, height: logBtn.frame.height), text: loginStr, color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
+        logLbl = UILabel(frame: CGRect(x: 50, y: 0, width: logBtn.frame.width-50, height: logBtn.frame.height), text: loginStr, color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
         let mypageLbl = UILabel(frame: CGRect(x: 50, y: 0, width: mypageBtn.frame.width-50, height: mypageBtn.frame.height), text: "내정보", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
         let messageLbl = UILabel(frame: CGRect(x: 50, y: 0, width: messageBtn.frame.width-50, height: messageBtn.frame.height), text: "쪽지함", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
         let friendLbl = UILabel(frame: CGRect(x: 50, y: 0, width: friendBtn.frame.width-50, height: friendBtn.frame.height), text: "친구초대", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
@@ -479,13 +487,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         }
         
         logBtn.addControlEvent(.TouchUpInside){
-            func logout(isKakao : Bool = false){
-                if isKakao == true{
-//                    //카카오톡 로그아웃
-//                    KOSession.sharedSession().logoutAndCloseWithCompletionHandler { [weak self] (success, error) -> Void in
-//                        self?.navigationController?.popViewControllerAnimated(true)
-//                    }
-                }
+            func logout(){
                 self.user = Storage.copyUser()
                 self.user.isLogin = -1
                 self.user.nickName = ""
@@ -497,12 +499,18 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                 self.user.userAddress = ""
                 self.user.userAddressShort = ""
                 Storage.setRealmUser(self.user)
-                logLbl.text = "로그인"
+                self.logLbl.text = "로그인"
                 self.blackScreen.hidden = true
                 self.navView.hidden = true
+                
+                
             }
             if self.user.isLogin == -1{
-                storyBoard("loginVC")
+                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                let uvc = storyBoard.instantiateViewControllerWithIdentifier("loginVC")
+                uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+                (uvc as! LoginViewController).mainViewController = self
+                self.presentViewController(uvc, animated: true, completion: nil)
             }else{
                 if self.user.isLogin == 1{
                     Util.alert("로그아웃", message: "로그아웃 하시겠습니까?", confirmTitle: "확인", ctrl: self, cancelStr: "취소", confirmHandler: {(_) in
@@ -510,7 +518,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                     })
                 }else if self.user.isLogin == 2{
                     Util.alert("로그아웃", message: "카카오톡로그아웃 하시겠습니까?", confirmTitle: "확인", ctrl: self, cancelStr: "취소", confirmHandler: {(_) in
-                        logout(true)
+                        logout()
                     })
                 }
             }

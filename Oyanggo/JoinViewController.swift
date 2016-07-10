@@ -11,6 +11,9 @@ import InputTag
 
 class JoinViewController: UIViewController, UITextFieldDelegate {
     
+    
+    @IBOutlet var scrollView: UIScrollView!
+    var scrollViewHeight : CGFloat!
     @IBOutlet var idField: UITextField!
     @IBOutlet var pwdField: UITextField!
     @IBOutlet var repwdField: UITextField!
@@ -49,10 +52,12 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         InputTag.radioAdd(maleRadio)
         InputTag.radioAdd(femaleRadio)
         
-        self.view.addSubview(maleRadio)
-        self.view.addSubview(femaleRadio)
+        scrollView.addSubview(maleRadio)
+        scrollView.addSubview(femaleRadio)
         
         locationBtn.boxLayout(radius: 6)
+        
+        scrollViewHeight = scrollView.frame.height
     }
     
     //위치 클릭
@@ -73,6 +78,27 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     @IBAction func backAction(sender: AnyObject) {
         self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    //키보드 생김/사라짐 셀렉터
+    override func viewWillAppear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    //view 사라지기 전 작동
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    //키보드생길때
+    func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            scrollView.contentSize = CGSize(width: scrollView.frame.width, height: scrollViewHeight+keyboardSize.height)
+        }
+    }
+    //키보드없어질때
+    func keyboardWillHide(notification: NSNotification) {
+        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: scrollViewHeight)
+    }
+    
     
     //인풋창 끝나면 키보드 없애기
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

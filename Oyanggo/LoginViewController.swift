@@ -12,7 +12,7 @@ import FBSDKLoginKit
 import FBSDKShareKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate{
-    
+    var mainViewController : ViewController!
     @IBOutlet var idField: UITextField!
     @IBOutlet var pwField: UITextField!
     @IBOutlet var loginBtn: UIButton!
@@ -43,15 +43,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         let session: KOSession = KOSession.sharedSession();
         if session.isOpen() {
             session.close()
-            Util.alert("", message: "앱을 다시 실행시켜주세요.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
-                exit(0)
-            })
         }
         session.presentingViewController = self.navigationController
         session.openWithCompletionHandler({ (error) -> Void in
             if error != nil{
                 print(error.localizedDescription)
             }else if session.isOpen() == true{
+                print("isOpen")
                 KOSessionTask.meTaskWithCompletionHandler({ (profile , error) -> Void in
                     if profile != nil{
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -66,14 +64,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                                 user.sex = sex
                                 Storage.setRealmUser(user)
                                 
-                                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                                let uvc = storyBoard.instantiateViewControllerWithIdentifier("VC")
-                                uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-                                self.presentViewController(uvc, animated: true, completion: nil)
+                                self.mainViewController.loginInit()
+                                self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
                             }
-                            
-                            
-                            
                             let alert = UIAlertController(title: "성별을 선택해주세요", message: "", preferredStyle: .ActionSheet)
                             alert.addAction(UIAlertAction(title: "남자", style: .Default, handler: { (alert) in
                                 loginFn("male")
@@ -85,6 +78,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                         })
                     }
                 })
+            }else{
+                print("isNotOpen")
             }
         })
     }
@@ -94,10 +89,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         let user = Storage.copyUser()
         user.isLogin = 1
         Storage.setRealmUser(user)
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        let uvc = storyBoard.instantiateViewControllerWithIdentifier("VC")
-        uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-        self.presentViewController(uvc, animated: true, completion: nil)
+        self.mainViewController.loginInit()
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     //회원가입 클릭
