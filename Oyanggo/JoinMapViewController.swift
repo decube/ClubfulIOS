@@ -99,6 +99,13 @@ class JoinMapViewController: UIViewController, UITextFieldDelegate, MKMapViewDel
         if let vc = joinView as? JoinViewController{
             vc.latitude = self.mapView.region.center.latitude
             vc.longitude = self.mapView.region.center.longitude
+            vc.address = "홍대길게가나다다다다다라라라랄라라"
+            vc.addressShort = "홍대"
+        }else if let vc = joinView as? UserConvertViewController{
+            vc.latitude = self.mapView.region.center.latitude
+            vc.longitude = self.mapView.region.center.longitude
+            vc.address = "홍대길게가나다다다다다라라라랄라라"
+            vc.addressShort = "홍대"
         }
         
         self.joinLocationBtn.setTitle("홍대", forState: .Normal)

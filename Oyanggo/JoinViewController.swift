@@ -21,6 +21,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var joinBtn: UIButton!
     var maleRadio: Radio!
     var femaleRadio: Radio!
+    @IBOutlet var birthDatePicker: UIDatePicker!
     @IBOutlet var maleLbl: UILabel!
     @IBOutlet var femaleLbl: UILabel!
     @IBOutlet var locationBtn: UIButton!
@@ -29,6 +30,8 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     //위치 변수
     var latitude : Double!
     var longitude : Double!
+    var address : String!
+    var addressShort : String!
     
     override func viewDidLoad() {
         print("JoinViewController viewDidLoad")
@@ -71,6 +74,23 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
     //회원가입 클릭
     @IBAction func joinAction(sender: AnyObject) {
+        var user = Storage.getRealmUser()
+        user = Storage.copyUser()
+        user.isLogin = -1
+        user.userId = self.idField.text!
+        user.nickName = self.nicknameField.text!
+        if maleRadio.isSelect == true{
+            user.sex = "male"
+        }else{
+            user.sex = "female"
+        }
+        user.birth = birthDatePicker.date
+        user.userLatitude = self.latitude
+        user.userLongitude = self.longitude
+        user.userAddress = self.address
+        user.userAddressShort = self.addressShort
+        Storage.setRealmUser(user)
+        
         self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     

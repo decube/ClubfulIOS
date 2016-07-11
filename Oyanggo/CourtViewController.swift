@@ -59,7 +59,7 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
         //웹뷰 딜리게이트 추가
         self.webView.delegate = self
         //웹뷰 띄우기
-        self.webView.loadRequest(NSURLRequest(URL : NSURL(string: "http://www.naver.com")!))
+        self.webView.loadRequest(NSURLRequest(URL : NSURL(string: "https://pikachu987.github.io/")!))
     }
     
     
