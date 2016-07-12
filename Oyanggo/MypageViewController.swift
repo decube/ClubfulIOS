@@ -87,10 +87,16 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     
     
     
-    func setInterestImageLayout(tmpList : [[String: AnyObject]]){
+    
+    
+    //찜한 코트
+    func setInterestImageLayout(tmpList : [[String: AnyObject]], courtInfo: UIScrollView){
         dispatch_async(dispatch_get_main_queue()) {
+            var i : CGFloat = 0
             for obj in tmpList{
-                if let imgBtn = obj["imgBtn"] as? UIButton{
+                
+                if let imgUI = obj["image"] as? UIImage{
+                    let imgBtn = UIButton(frame: CGRect(x: courtInfo.frame.width * i, y: 0, width: courtInfo.frame.width, height: courtInfo.frame.height-40), image: imgUI)
                     imgBtn.addControlEvent(.AllTouchEvents){
                         imgBtn.highlighted = false
                     }
@@ -103,17 +109,64 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                             self.presentViewController(uvc, animated: true, completion: nil)
                         }
                     }
-                    self.interestCourt.addSubview(imgBtn)
+                    courtInfo.addSubview(imgBtn)
                 }
-                if let objLbl = obj["imgBtn"] as? UILabel{
+                
+                if let addressText = obj["address"] as? String{
+                    let objLbl = UILabel(frame: CGRect(x: courtInfo.frame.width * i + 10, y: courtInfo.frame.height-40, width: courtInfo.frame.width-10, height: 40), text: "장소 : \(addressText)")
                     objLbl.font = UIFont(name: (objLbl.font?.fontName)!, size: 12)
-                    self.interestCourt.addSubview(objLbl)
+                    courtInfo.addSubview(objLbl)
                 }
+                
+                i += 1
             }
             self.interestActivity.stopAnimating()
             self.interestActivity.hidden = true
         }
     }
+    
+    //내가등록한 코트
+    func setMyInsertImageLayout(tmpList : [[String: AnyObject]], courtInfo: UIScrollView){
+        dispatch_async(dispatch_get_main_queue()) {
+            var i : CGFloat = 0
+            for obj in tmpList{
+                
+                if let imgUI = obj["image"] as? UIImage{
+                    let imgBtn = UIButton(frame: CGRect(x: courtInfo.frame.width * i, y: 0, width: courtInfo.frame.width, height: courtInfo.frame.height-40), image: imgUI)
+                    imgBtn.addControlEvent(.AllTouchEvents){
+                        imgBtn.highlighted = false
+                    }
+                    imgBtn.addControlEvent(.TouchUpInside){
+                        if let seq = obj["seq"] as? Int{
+                            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                            let uvc = storyBoard.instantiateViewControllerWithIdentifier("courtVC")
+                            (uvc as! CourtViewController).courtSeq = seq
+                            uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+                            self.presentViewController(uvc, animated: true, completion: nil)
+                        }
+                    }
+                    courtInfo.addSubview(imgBtn)
+                }
+                
+                if let addressText = obj["address"] as? String{
+                    let objLbl = UILabel(frame: CGRect(x: courtInfo.frame.width * i + 10, y: courtInfo.frame.height-40, width: courtInfo.frame.width-10, height: 40), text: "장소 : \(addressText)")
+                    objLbl.font = UIFont(name: (objLbl.font?.fontName)!, size: 12)
+                    courtInfo.addSubview(objLbl)
+                }
+                
+                i += 1
+            }
+            self.myInsertActivity.stopAnimating()
+            self.myInsertActivity.hidden = true
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     
     //찜한 코트 리스트
     func interestData(list: [[String: AnyObject]]){
@@ -133,55 +186,25 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                     if let imgURL = NSURL(string: img){
                         if let imgData = NSData(contentsOfURL: imgURL){
                             if let imgUI = UIImage(data: imgData){
-                                let imgBtn = UIButton(frame: CGRect(x: self.interestCourt.frame.width * i, y: 0, width: self.interestCourt.frame.width, height: self.interestCourt.frame.height-40), image: imgUI)
-                                tmpObj["imgBtn"] = imgBtn
+                                
+                                tmpObj["image"] = imgUI
+                                
+                                if let addressText = obj["address"] as? String{
+                                    tmpObj["address"] = addressText
+                                }
                                 if let seq = obj["seq"] as? Int{
                                     tmpObj["seq"] = seq
-                                }
-                                if let addressText = obj["address"] as? String{
-                                    let objLbl = UILabel(frame: CGRect(x: self.interestCourt.frame.width * i + 10, y: self.interestCourt.frame.height-40, width: self.interestCourt.frame.width-10, height: 40), text: "장소 : \(addressText)")
-                                    tmpObj["objLbl"] = objLbl
                                 }
                                 tmpList.append(tmpObj)
                                 i += 1
                                 if i == CGFloat(list.count){
-                                    setInterestImageLayout(tmpList)
+                                    setInterestImageLayout(tmpList, courtInfo: self.interestCourt)
                                 }
                             }
                         }
                     }
                 }
             }
-        }
-    }
-    
-    
-    
-    func setMyInsertImageLayout(tmpList: [[String: AnyObject]]){
-        dispatch_async(dispatch_get_main_queue()) {
-            for obj in tmpList{
-                if let imgBtn = obj["imgBtn"] as? UIButton{
-                    imgBtn.addControlEvent(.AllTouchEvents){
-                        imgBtn.highlighted = false
-                    }
-                    imgBtn.addControlEvent(.TouchUpInside){
-                        if let seq = obj["seq"] as? Int{
-                            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                            let uvc = storyBoard.instantiateViewControllerWithIdentifier("courtVC")
-                            (uvc as! CourtViewController).courtSeq = seq
-                            uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-                            self.presentViewController(uvc, animated: true, completion: nil)
-                        }
-                    }
-                    self.myInsertCourt.addSubview(imgBtn)
-                }
-                if let objLbl = obj["imgBtn"] as? UILabel{
-                    objLbl.font = UIFont(name: (objLbl.font?.fontName)!, size: 12)
-                    self.myInsertCourt.addSubview(objLbl)
-                }
-            }
-            self.myInsertActivity.stopAnimating()
-            self.myInsertActivity.hidden = true
         }
     }
     
@@ -205,19 +228,19 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                     if let imgURL = NSURL(string: img){
                         if let imgData = NSData(contentsOfURL: imgURL){
                             if let imgUI = UIImage(data: imgData){
-                                let imgBtn = UIButton(frame: CGRect(x: self.myInsertCourt.frame.width * i, y: 0, width: self.myInsertCourt.frame.width, height: self.myInsertCourt.frame.height-40), image: imgUI)
-                                tmpObj["imgBtn"] = imgBtn
+                                
+                                tmpObj["image"] = imgUI
+                                
+                                if let addressText = obj["address"] as? String{
+                                    tmpObj["address"] = addressText
+                                }
                                 if let seq = obj["seq"] as? Int{
                                     tmpObj["seq"] = seq
-                                }
-                                if let addressText = obj["address"] as? String{
-                                    let objLbl = UILabel(frame: CGRect(x: self.myInsertCourt.frame.width * i + 10, y: self.myInsertCourt.frame.height-40, width: self.myInsertCourt.frame.width-10, height: 40), text: "장소 : \(addressText)")
-                                    tmpObj["objLbl"] = objLbl
                                 }
                                 tmpList.append(tmpObj)
                                 i += 1
                                 if i == CGFloat(list.count){
-                                    setMyInsertImageLayout(tmpList)
+                                    setMyInsertImageLayout(tmpList, courtInfo: self.myInsertCourt)
                                 }
                             }
                         }

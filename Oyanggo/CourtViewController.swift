@@ -32,7 +32,17 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
     @IBOutlet var webView: UIWebView!
     //스핀
     @IBOutlet var activity: UIActivityIndicatorView!
+    @IBOutlet var imageActivity: UIActivityIndicatorView!
     
+    
+    let tmpList1 : [[String: AnyObject]] = [
+        ["img":"http://mimgnews1.naver.net/image/117/2016/04/28/201604281925861126_1_99_20160428192603.jpg?type=w540"],
+        ["img":"http://mimgnews1.naver.net/image/057/2016/02/03/280220808312_99_20160203180807.jpg?type=w540"],
+        ["img":"http://mimgnews1.naver.net/image/117/2016/04/28/201604281925861126_1_99_20160428192603.jpg?type=w540"],
+        ["img":"http://mimgnews1.naver.net/image/057/2016/02/03/280220808312_99_20160203180807.jpg?type=w540"],
+        ["img":"http://mimgnews1.naver.net/image/117/2016/04/28/201604281925861126_1_99_20160428192603.jpg?type=w540"],
+        ["img":"http://mimgnews1.naver.net/image/057/2016/02/03/280220808312_99_20160203180807.jpg?type=w540"]
+    ]
     
     override func viewDidLoad() {
         print("CourtViewController viewDidLoad")
@@ -43,10 +53,18 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
         imageSlide.pageControl.pageIndicatorTintColor = UIColor.blackColor()
         imageSlide.zoomEnabled = true
         var imageList = [ImageSource]()
-        for j in 0...6{
-            imageList.append(ImageSource(image: UIImage(named: "courtTemp.png")!))
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            for obj in self.tmpList1{
+                let imgSource = ImageSource(image: UIImage(data: NSData(contentsOfURL: NSURL(string: obj["img"] as! String)!)!)!)
+                imageList.append(imgSource)
+            }
+            dispatch_async(dispatch_get_main_queue()) {
+                self.imageSlide.setImageInputs(imageList)
+                self.imageActivity.stopAnimating()
+                self.imageActivity.hidden = true
+            }
         }
-        imageSlide.setImageInputs(imageList)
+        
         
         gcmPushBtn.boxLayout(radius: 6)
         courtMapBtn.boxLayout(radius: 6)
