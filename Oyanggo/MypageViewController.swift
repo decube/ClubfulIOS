@@ -20,12 +20,12 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     let tmpList1 : [[String: AnyObject]] = [
         [
             "seq":1,
-            "img":"http://mimgnews1.naver.net/image/117/2016/04/28/201604281925861126_1_99_20160428192603.jpg?type=w540",
+            "img":"https://usercontents-c.styleshare.kr/images/9829857/640x-",
             "address":"어디어디어디 홍대",
             "addressShort":"홍대"
         ]    ,[
             "seq":2,
-            "img":"http://mimgnews1.naver.net/image/057/2016/02/03/280220808312_99_20160203180807.jpg?type=w540",
+            "img":"http://postfiles1.naver.net/20131213_16/qkqxodgy_1386869213186mO0wz_PNG/1386869211739_IMG_2579680637651.png?type=w1",
             "address":"어디어디어디 홍대2",
             "addressShort":"홍대2"
         ]
@@ -35,18 +35,18 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     let tmpList2 : [[String: AnyObject]] = [
         [
             "seq":1,
-            "img":"https://usercontents-c.styleshare.kr/images/471840/640x-",
+            "img":"http://postfiles1.naver.net/20131213_16/qkqxodgy_1386869213186mO0wz_PNG/1386869211739_IMG_2579680637651.png?type=w1",
             "address":"어디어디어디 홍대",
             "addressShort":"홍대"
         ],
         [
             "seq":2,
-            "img":"http://postfiles10.naver.net/20140106_41/rimnamjung_1388970514963FlByc_PNG/20140106095920.png?type=w2",
+            "img":"http://postfiles4.naver.net/20131213_35/qkqxodgy_13868692133894jpOy_JPEG/IMG_2623472947505.jpeg?type=w1",
             "address":"어디어디어디 홍대2",
             "addressShort":"홍대2"
         ],[
             "seq":3,
-            "img":"http://cdn.newsen.com/newsen/news_photo/2016/04/29/201604290207252810_2.jpg",
+            "img":"http://postfiles16.naver.net/20131213_207/qkqxodgy_1386869214589bXEVd_JPEG/IMG_3071920597531.jpeg?type=w1",
             "address":"어디어디어디 홍대3",
             "addressShort":"홍대3"
         ]
