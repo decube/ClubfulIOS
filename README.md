@@ -10,6 +10,9 @@
 * 전체 2016-05 ~
 * IOS 2016-06 ~
 
+##language
+*Swift 2.2
+
 ##cocoapods
 * ImageSlideshow
 * ActionKit
@@ -21,7 +24,7 @@
 
 
 
-##Image(디자인 필요... 이솜은 사랑입니다.)
+##Image(디자인 필요... 개발자의 디자인이란....)
 
 ###메인 Image<br>
 ![Alt text](/mdImages/01_main.jpeg)
@@ -35,16 +38,16 @@
 ###코트등록 Image<br>
 ![Alt text](/mdImages/04_courtInsert.jpeg)
 <br>
-###사진자르기 Image<br>
+###사진자르기 Image(질렀습니다. 로드바이크...)<br>
 ![Alt text](/mdImages/05_crop.jpeg)
 <br>
 ###코트장소설정 Image<br>
 ![Alt text](/mdImages/06_courtLocation.jpeg)
 <br>
-###마이페이지 Image<br>
+###마이페이지 Image(이솜은 사랑입니다.)<br>
 ![Alt text](/mdImages/07_mypage.jpeg)
 <br>
-###코트상세보기 Image<br>
+###코트상세보기 Image(솜블리~)<br>
 ![Alt text](/mdImages/08_courtDetail.jpeg)
 <br>
 ###코트약도 Image<br>
@@ -63,6 +66,9 @@
 ![Alt text](/mdImages/13_appInfo.jpeg)
 <br>
 
-
 ##github commit
 * 2016-07-06 initial commit
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+###허접하군....
