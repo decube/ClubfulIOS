@@ -11,7 +11,7 @@
 * IOS 2016-06 ~
 
 ##language
-*Swift 2.2
+* Swift 2.2
 
 ##cocoapods
 * ImageSlideshow
