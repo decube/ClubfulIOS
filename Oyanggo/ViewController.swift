@@ -35,6 +35,9 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     //코트 등록 버튼
     @IBOutlet var courtInsertBtn: UIButton!
     
+    //카테고리 선택 버튼
+    @IBOutlet var categoryBtn: UIButton!
+    
     //로그인/로그아웃변수
     var logLbl : UILabel!
     
@@ -45,6 +48,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     var myLocationSearch = false
     //위치가져왔는지 못가져왔는지
     var isMyLocation = false
+    
     
     
     
@@ -71,6 +75,8 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         
         
         //layout create
+        categoryBtn.setTitle(user.categoryName, forState: .Normal)
+        categoryBtn.boxLayout(borderWidth: 1, borderColor: UIColor.blackColor())
         blackScreen = UIButton().blackScreen()
         leftCourtView = UIScrollView(frame: CGRect(x: 0, y: 80, width: Util.screenSize.width/2, height: Util.screenSize.height-80-self.courtInsertBtn.frame.height), backgroundColor: UIColor.whiteColor())
         centerLocView = UIView(frame: CGRect(x: (Util.screenSize.width-300)/2, y: (Util.screenSize.height-440)/2, width: 300, height: 440), backgroundColor: UIColor.whiteColor())
@@ -324,6 +330,54 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             }, completion: nil)
     }
     
+    //카테고리 클릭
+    @IBAction func categoryAction(sender: AnyObject) {
+        let alert = UIAlertController(title: "카테고리를 선택해주세요", message: "", preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title: "전체", style: .Default, handler: { (alert) in
+            self.categoryBtn.setTitle(alert.title, forState: .Normal)
+            self.user = Storage.copyUser()
+            self.user.category = -1
+            self.user.categoryName = alert.title!
+            Storage.setRealmUser(self.user)
+        }))
+        alert.addAction(UIAlertAction(title: "축구", style: .Default, handler: { (alert) in
+            self.categoryBtn.setTitle(alert.title, forState: .Normal)
+            self.user = Storage.copyUser()
+            self.user.category = 1
+            self.user.categoryName = alert.title!
+            Storage.setRealmUser(self.user)
+        }))
+        alert.addAction(UIAlertAction(title: "농구", style: .Default, handler: { (alert) in
+            self.categoryBtn.setTitle(alert.title, forState: .Normal)
+            self.user = Storage.copyUser()
+            self.user.category = 2
+            self.user.categoryName = alert.title!
+            Storage.setRealmUser(self.user)
+        }))
+        alert.addAction(UIAlertAction(title: "야구", style: .Default, handler: { (alert) in
+            self.categoryBtn.setTitle(alert.title, forState: .Normal)
+            self.user = Storage.copyUser()
+            self.user.category = 3
+            self.user.categoryName = alert.title!
+            Storage.setRealmUser(self.user)
+        }))
+        alert.addAction(UIAlertAction(title: "탁구", style: .Default, handler: { (alert) in
+            self.categoryBtn.setTitle(alert.title, forState: .Normal)
+            self.user = Storage.copyUser()
+            self.user.category = 4
+            self.user.categoryName = alert.title!
+            Storage.setRealmUser(self.user)
+        }))
+        alert.addAction(UIAlertAction(title: "볼링", style: .Default, handler: { (alert) in
+            self.categoryBtn.setTitle(alert.title, forState: .Normal)
+            self.user = Storage.copyUser()
+            self.user.category = 5
+            self.user.categoryName = alert.title!
+            Storage.setRealmUser(self.user)
+        }))
+        self.presentViewController(alert, animated: false, completion: {(_) in})
+        
+    }
     
     //코트등록 클릭
     @IBAction func courtInsertAction(sender: AnyObject) {

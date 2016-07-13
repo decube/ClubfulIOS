@@ -83,6 +83,8 @@ class Storage{
             userTmp.language = Util.language
             userTmp.categoryVer = -1
             userTmp.noticeVer = -1
+            userTmp.category = -1
+            userTmp.categoryName = "전체"
             
             Storage.setRealmUser(userTmp)
             return userTmp
@@ -121,6 +123,8 @@ class Storage{
         user.language = realmUser.language
         user.categoryVer = realmUser.categoryVer
         user.noticeVer = realmUser.noticeVer
+        user.category = realmUser.category
+        user.categoryName = realmUser.categoryName
         return user
     }
 }

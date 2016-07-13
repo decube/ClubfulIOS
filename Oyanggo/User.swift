@@ -69,7 +69,10 @@ class User: Object {
     dynamic var categoryVer : Int = -1
     //noticeVer
     dynamic var noticeVer : Int = -1
-    
+    //category
+    dynamic var category : Int = -1
+    //categoryName
+    dynamic var categoryName : String = "전체"
     
     
     override static func primaryKey() -> String? {

@@ -1196,6 +1196,16 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cM2-kT-Cgd">
+                                <rect key="frame" x="10" y="90" width="90" height="35"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="전체">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="categoryAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qAD-ET-BKy"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cuG-qP-WlK">
                                 <rect key="frame" x="0.0" y="528" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -1211,6 +1221,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="categoryBtn" destination="cM2-kT-Cgd" id="26x-Bg-vUL"/>
                         <outlet property="courtInsertBtn" destination="cuG-qP-WlK" id="AKT-hH-L2E"/>
                         <outlet property="courtSearchField" destination="1Od-C7-xAA" id="Tv2-cI-JoD"/>
                         <outlet property="mapView" destination="YW6-Fm-ghs" id="r1p-Zk-JOg"/>
