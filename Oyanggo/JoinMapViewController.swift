@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Alamofire
 
 class JoinMapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate {
     var joinView : UIViewController!
@@ -23,10 +24,11 @@ class JoinMapViewController: UIViewController, UITextFieldDelegate, MKMapViewDel
     
     //왼쪽 스크롤
     var leftCourtView : UIScrollView!
+    
+    var user = Storage.getRealmUser()
+    
     override func viewDidLoad() {
         print("CourtCreateMapViewController viewDidLoad")
-        
-        let user = Storage.getRealmUser()
         
         self.marker = MKPointAnnotation()
         mapView.addAnnotation(marker)
@@ -67,28 +69,107 @@ class JoinMapViewController: UIViewController, UITextFieldDelegate, MKMapViewDel
             self.view.endEditing(true)
             leftCourtView.subviews.forEach({$0.removeFromSuperview()})
             leftCourtView.scrollToTop()
-            leftCourtView.hidden = false
             
             //지도 검색 통신
             var i : CGFloat = 0
             let locObjHeight : CGFloat = 80
-            for j in 0 ... 10{
-                let objBtn = UIButton(frame: CGRect(x: 0, y: locObjHeight*i, width: leftCourtView.frame.width, height: locObjHeight-1))
-                let addressShortLbl = UILabel(frame: CGRect(x: 5, y: 10, width: objBtn.frame.width-5, height: 15), text: "1234어디주소", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
-                let addressLbl = UILabel(frame: CGRect(x: 5, y: 25, width: objBtn.frame.width-5, height: 65), text: "어디어디주소길게길게어디어디주소길게길게어디어디주소길게길게", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 13)
-                addressLbl.numberOfLines = 2
-                objBtn.boxBorder(.Bottom, borderWidth: 1, color: UIColor.blackColor())
-                leftCourtView.addSubview(objBtn)
-                objBtn.addSubview(addressShortLbl)
-                objBtn.addSubview(addressLbl)
-                
-                objBtn.addControlEvent(.TouchUpInside){
-                    self.leftCourtView.hidden = true
-                    self.locationMove(37.5571274, longitude: 126.9239304)
-                }
-                i += 1
+            
+            
+            
+            
+            
+            let parameters : [String: AnyObject] = ["token": self.user.token, "address": searchField.text!, "language": Util.language]
+            Alamofire.request(.GET, URL.location_geocode, parameters: parameters)
+                .validate(statusCode: 200..<300)
+                .validate(contentType: ["application/json"])
+                .responseData { response in
+                    self.leftCourtView.hidden = false
+                    let data : NSData = response.data!
+                    let dic = Util.convertStringToDictionary(data)
+                    if let code = dic["code"] as? Int{
+                        if code == 0{
+                            if let result = dic["results"] as? [String: AnyObject]{
+                                if let results = result["results"] as? [[String: AnyObject]]{
+                                    //카운트가 1보다 많으면
+                                    if results.count > 1{
+                                        for element : [String: AnyObject] in results{
+                                            var elementLatitude = 0.0
+                                            var elementLongitude = 0.0
+                                            var elementAddressShort = ""
+                                            var elementAddress = ""
+                                            if let locationGeometry = element["geometry"] as? [String:AnyObject]{
+                                                if let location = locationGeometry["location"] as? [String:Double]{
+                                                    elementLatitude = location["lat"]!
+                                                    elementLongitude = location["lng"]!
+                                                }
+                                            }
+                                            if let locationComponents = element["address_components"] as? [[String:AnyObject]]{
+                                                for components : [String:AnyObject] in locationComponents{
+                                                    if let types = components["types"] as? [String]{
+                                                        if types[0] == "sublocality_level_2"{
+                                                            elementAddressShort = components["long_name"] as! String
+                                                            break
+                                                        }
+                                                    }
+                                                }
+                                                if (elementAddressShort == ""){
+                                                    for components : [String:AnyObject] in locationComponents{
+                                                        if let types = components["types"] as? [String]{
+                                                            if types[0] == "sublocality_level_1"{
+                                                                elementAddressShort = components["long_name"] as! String
+                                                                break
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                if (elementAddressShort == ""){
+                                                    elementAddressShort = locationComponents[0]["long_name"] as! String
+                                                }
+                                                elementAddress = element["formatted_address"] as! String
+                                            }
+                                            
+                                            let objBtn = UIButton(frame: CGRect(x: 0, y: locObjHeight*i, width: self.leftCourtView.frame.width, height: locObjHeight-1))
+                                            let addressShortLbl = UILabel(frame: CGRect(x: 5, y: 10, width: objBtn.frame.width-5, height: 15), text: "\(elementAddressShort)", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
+                                            let addressLbl = UILabel(frame: CGRect(x: 5, y: 25, width: objBtn.frame.width-5, height: 65), text: "\(elementAddress)", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 13)
+                                            addressLbl.numberOfLines = 2
+                                            objBtn.boxBorder(.Bottom, borderWidth: 1, color: UIColor.blackColor())
+                                            self.leftCourtView.addSubview(objBtn)
+                                            objBtn.addSubview(addressShortLbl)
+                                            objBtn.addSubview(addressLbl)
+                                            
+                                            objBtn.addControlEvent(.TouchUpInside){
+                                                self.leftCourtView.hidden = true
+                                                self.locationMove(elementLatitude, longitude: elementLongitude)
+                                            }
+                                            i += 1
+                                        }
+                                        self.leftCourtView.contentSize = CGSize(width: self.leftCourtView.frame.width, height: locObjHeight*i)
+                                    }else{
+                                        //카운트가 1개 이면
+                                        for element : [String: AnyObject] in results{
+                                            var elementLatitude = 0.0
+                                            var elementLongitude = 0.0
+                                            if let locationGeometry = element["geometry"] as? [String:AnyObject]{
+                                                if let location = locationGeometry["location"] as? [String:Double]{
+                                                    elementLatitude = location["lat"]!
+                                                    elementLongitude = location["lng"]!
+                                                }
+                                            }
+                                            self.leftCourtView.hidden = true
+                                            self.locationMove(elementLatitude, longitude: elementLongitude)
+                                        }
+                                    }
+                                }
+                            }else{
+                                if let isMsgView = dic["isMsgView"] as? Bool{
+                                    if isMsgView == true{
+                                        Util.alert(message: "\(dic["msg"]!)", ctrl: self)
+                                    }
+                                }
+                            }
+                        }
+                    }
             }
-            leftCourtView.contentSize = CGSize(width: leftCourtView.frame.width, height: locObjHeight*i)
         }
     }
     
@@ -96,20 +177,71 @@ class JoinMapViewController: UIViewController, UITextFieldDelegate, MKMapViewDel
     
     //등록 클릭
     @IBAction func confirmAction(sender: AnyObject) {
-        if let vc = joinView as? JoinViewController{
-            vc.latitude = self.mapView.region.center.latitude
-            vc.longitude = self.mapView.region.center.longitude
-            vc.address = "홍대길게가나다다다다다라라라랄라라"
-            vc.addressShort = "홍대"
-        }else if let vc = joinView as? UserConvertViewController{
-            vc.latitude = self.mapView.region.center.latitude
-            vc.longitude = self.mapView.region.center.longitude
-            vc.address = "홍대길게가나다다다다다라라라랄라라"
-            vc.addressShort = "홍대"
+        let parameters : [String: AnyObject] = ["token": self.user.token, "latitude": self.mapView.region.center.latitude, "longitude": self.mapView.region.center.longitude, "language": Util.language]
+        Alamofire.request(.GET, URL.location_geocode, parameters: parameters)
+            .validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"])
+            .responseData { response in
+                let data : NSData = response.data!
+                let dic = Util.convertStringToDictionary(data)
+                if let code = dic["code"] as? Int{
+                    if code == 0{
+                        if let result = dic["results"] as? [String: AnyObject]{
+                            if let results = result["results"] as? [[String: AnyObject]]{
+                                if results.count > 0{
+                                    let element : [String: AnyObject] = results[0]
+                                    var elementAddressShort = ""
+                                    var elementAddress = ""
+                                    if let locationComponents = element["address_components"] as? [[String:AnyObject]]{
+                                        for components : [String:AnyObject] in locationComponents{
+                                            if let types = components["types"] as? [String]{
+                                                if types[0] == "sublocality_level_2"{
+                                                    elementAddressShort = components["long_name"] as! String
+                                                    break
+                                                }
+                                            }
+                                        }
+                                        if (elementAddressShort == ""){
+                                            for components : [String:AnyObject] in locationComponents{
+                                                if let types = components["types"] as? [String]{
+                                                    if types[0] == "sublocality_level_1"{
+                                                        elementAddressShort = components["long_name"] as! String
+                                                        break
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (elementAddressShort == ""){
+                                            elementAddressShort = locationComponents[0]["long_name"] as! String
+                                        }
+                                        elementAddress = element["formatted_address"] as! String
+                                        if let vc = self.joinView as? JoinViewController{
+                                            vc.latitude = self.mapView.region.center.latitude
+                                            vc.longitude = self.mapView.region.center.longitude
+                                            vc.address = "\(elementAddress)"
+                                            vc.addressShort = "\(elementAddressShort)"
+                                        }else if let vc = self.joinView as? UserConvertViewController{
+                                            vc.latitude = self.mapView.region.center.latitude
+                                            vc.longitude = self.mapView.region.center.longitude
+                                            vc.address = "\(elementAddress)"
+                                            vc.addressShort = "\(elementAddressShort)"
+                                        }
+                                        
+                                        self.joinLocationBtn.setTitle("\(elementAddressShort)", forState: .Normal)
+                                        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                                    }
+                                }
+                            }
+                        }else{
+                            if let isMsgView = dic["isMsgView"] as? Bool{
+                                if isMsgView == true{
+                                    Util.alert(message: "\(dic["msg"]!)", ctrl: self)
+                                }
+                            }
+                        }
+                    }
+                }
         }
-        
-        self.joinLocationBtn.setTitle("홍대", forState: .Normal)
-        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class AppVersionViewController: UIViewController {
     @IBOutlet var currentAppVersionLbl: UILabel!
@@ -19,13 +20,43 @@ class AppVersionViewController: UIViewController {
     var isVersionUpdate = false
     override func viewDidLoad() {
         print("AppVersionViewController viewDidLoad")
+        setLayout()
         
-        let newAppVer = "1.0.0"
+        terms1Action(terms1Btn)
+        
+        let user = Storage.getRealmUser()
+        
+        let parameters : [String: AnyObject] = ["token": user.token, "appType": "ios"]
+        Alamofire.request(.GET, URL.version_app, parameters: parameters)
+            .validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"])
+            .responseData { response in
+                let data : NSData = response.data!
+                let dic = Util.convertStringToDictionary(data)
+                if let code = dic["code"] as? Int{
+                    if code == 0{
+                        Util.newVersion = dic["appVersion"] as! String
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.setLayout()
+                        }
+                    }else{
+                        if let isMsgView = dic["isMsgView"] as? Bool{
+                            if isMsgView == true{
+                                Util.alert(message: "\(dic["msg"]!)", ctrl: self)
+                            }
+                        }
+                    }
+                }
+        }
+        
+        
+    }
+    
+    func setLayout(){
+        let newAppVer = Util.newVersion
         let currnetAppVer = Util.nsVersion
-        
         let newAppVerNum = Int(newAppVer.stringByReplacingOccurrencesOfString(".", withString: ""))
         let currnetAppNum = Int(currnetAppVer.stringByReplacingOccurrencesOfString(".", withString: ""))
-        
         if newAppVerNum <= currnetAppNum{
             currentAppVersionLbl.text = currnetAppVer
             newAppVersionLbl.text = currnetAppVer
@@ -37,10 +68,7 @@ class AppVersionViewController: UIViewController {
             appVersionBtn.setTitle("버전 업데이트", forState: .Normal)
             isVersionUpdate = true
         }
-        
-        
         termsTextView.boxLayout(radius: 6, borderWidth: 1, borderColor: UIColor.blackColor())
-        
         termsAction(self.terms1Btn)
     }
     

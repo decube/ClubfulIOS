@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class CourtCreateViewController: UIViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate{
     
@@ -47,9 +48,18 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     //위치 변수
     var courtLatitude : Double!
     var courtLongitude : Double!
+    var courtAddress : String!
+    var courtAddressShort : String!
+    
+    //카테고리 시컨스
+    var category : Int!
     
     //코트 설명 텍스트뷰
     @IBOutlet var descTextView: UITextView!
+    
+    
+    //user
+    let user = Storage.getRealmUser()
     
     override func viewDidLoad() {
         print("CourtCreateViewController viewDidLoad")
@@ -63,15 +73,11 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         let pic2 = UIButton(frame: CGRect(x: picScrollView.frame.width/2+5, y: 0, width: imageWidth, height: imageHeight), image: picAddImage)
         let pic3 = UIButton(frame: CGRect(x: 0, y: imageHeight+10, width: imageWidth, height: imageHeight), image: picAddImage)
         let pic4 = UIButton(frame: CGRect(x: picScrollView.frame.width/2+5, y: imageHeight+10, width: imageWidth, height: imageHeight), image: picAddImage)
-        let pic5 = UIButton(frame: CGRect(x: 0, y: (imageHeight+10)*2, width: imageWidth, height: imageHeight), image: picAddImage)
-        let pic6 = UIButton(frame: CGRect(x: picScrollView.frame.width/2+5, y: (imageHeight+10)*2, width: imageWidth, height: imageHeight), image: picAddImage)
         
         picList.append(pic1)
         picList.append(pic2)
         picList.append(pic3)
         picList.append(pic4)
-        picList.append(pic5)
-        picList.append(pic6)
         
         for picObj in picList{
             picObj.boxLayout(backgroundColor: UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.00))
@@ -82,7 +88,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                 self.cropBtnSpace = picObj
             }
         }
-        picScrollView.contentSize = CGSize(width: picScrollView.frame.width, height: (imageHeight+10)*3)
+        picScrollView.contentSize = CGSize(width: picScrollView.frame.width, height: (imageHeight+10)*2)
         
         locationBtn.boxLayout(radius: 6)
         categoryBtn.boxLayout(radius: 6)
@@ -241,9 +247,11 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     //종목설정 클릭
     @IBAction func categoryAction(sender: AnyObject) {
         let alert = UIAlertController(title: "종목을 선택해주세요", message: "종목설정", preferredStyle: .ActionSheet)
-        for i in 1 ... 10{
-            alert.addAction(UIAlertAction(title: "농구", style: .Default, handler: { (alert) in
+        let categoryList = Storage.getStorage("categoryList") as! [[String: AnyObject]]
+        for category in categoryList{
+            alert.addAction(UIAlertAction(title: "\(category["name"]!)", style: .Default, handler: { (alert) in
                 self.categoryBtn.setTitle(alert.title, forState: .Normal)
+                self.category = category["seq"] as! Int
             }))
         }
         self.presentViewController(alert, animated: false, completion: {(_) in})
@@ -259,9 +267,57 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         }
         
         if cropImageCnt >= 2{
-            Util.alert("", message: "등록이 완료되었습니다.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
-                self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-            })
+            if courtLatitude == nil || courtLongitude == nil || courtAddress == nil || courtAddressShort == nil || courtAddress == "" || courtAddressShort == ""{
+                Util.alert("", message: "위치를 선택해 주세요.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
+                })
+            }else if(category == nil){
+                Util.alert("", message: "카테고리를 선택해 주세요.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
+                })
+            }else{
+                var parameters : [String: AnyObject] = ["token": self.user.token, "id": self.user.userId, "latitude": self.courtLatitude, "longitude": self.courtLongitude, "address": self.courtAddress, "addressShort": self.courtAddressShort, "category": self.category, "description": self.descTextView.text!]
+                
+                var idx = 1
+                for btn in self.picList{
+                    break;
+                    if btn.currentImage != self.picAddImage{
+                        let img = btn.currentImage
+                        
+                        let imageData = Util.returnImageData(img, ext: Ext.JPEG)
+                        let base64 = imageData.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
+                        if idx == 1{
+                            parameters["pic1"] = base64
+                        }else if idx == 2{
+                            parameters["pic2"] = base64
+                        }else if idx == 3{
+                            parameters["pic3"] = base64
+                        }else if idx == 4{
+                            parameters["pic4"] = base64
+                        }
+                        idx += 1
+                    }
+                }
+                
+                Alamofire.request(.GET, URL.court_create, parameters: parameters)
+                    .validate(statusCode: 200..<300)
+                    .validate(contentType: ["application/json"])
+                    .responseData { response in
+                        let data : NSData = response.data!
+                        let dic = Util.convertStringToDictionary(data)
+                        if let code = dic["code"] as? Int{
+                            if code == 0{
+                                Util.alert("", message: "등록이 완료되었습니다.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
+                                    self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                                })
+                            }else{
+                                if let isMsgView = dic["isMsgView"] as? Bool{
+                                    if isMsgView == true{
+                                        Util.alert(message: "\(dic["msg"]!)", ctrl: self)
+                                    }
+                                }
+                            }
+                        }
+                }
+            }
         }else{
             Util.alert("", message: "이미지를 2장 이상 올려야 됩니다.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
             })

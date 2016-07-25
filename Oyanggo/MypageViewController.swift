@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class MypageViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var nickLbl: UILabel!
@@ -16,41 +17,7 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var interestActivity: UIActivityIndicatorView!
     @IBOutlet var myInsertActivity: UIActivityIndicatorView!
     
-    
-    let tmpList1 : [[String: AnyObject]] = [
-        [
-            "seq":1,
-            "img":"https://usercontents-c.styleshare.kr/images/9829857/640x-",
-            "address":"어디어디어디 홍대",
-            "addressShort":"홍대"
-        ]    ,[
-            "seq":2,
-            "img":"http://postfiles1.naver.net/20131213_16/qkqxodgy_1386869213186mO0wz_PNG/1386869211739_IMG_2579680637651.png?type=w1",
-            "address":"어디어디어디 홍대2",
-            "addressShort":"홍대2"
-        ]
-
-    ]
-    
-    let tmpList2 : [[String: AnyObject]] = [
-        [
-            "seq":1,
-            "img":"http://postfiles1.naver.net/20131213_16/qkqxodgy_1386869213186mO0wz_PNG/1386869211739_IMG_2579680637651.png?type=w1",
-            "address":"어디어디어디 홍대",
-            "addressShort":"홍대"
-        ],
-        [
-            "seq":2,
-            "img":"http://postfiles4.naver.net/20131213_35/qkqxodgy_13868692133894jpOy_JPEG/IMG_2623472947505.jpeg?type=w1",
-            "address":"어디어디어디 홍대2",
-            "addressShort":"홍대2"
-        ],[
-            "seq":3,
-            "img":"http://postfiles16.naver.net/20131213_207/qkqxodgy_1386869214589bXEVd_JPEG/IMG_3071920597531.jpeg?type=w1",
-            "address":"어디어디어디 홍대3",
-            "addressShort":"홍대3"
-        ]
-    ]
+    var user = Storage.getRealmUser()
     
     override func viewDidLoad() {
         print("MypageViewController viewDidLoad")
@@ -67,21 +34,42 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
         interestCourt.showsHorizontalScrollIndicator = false
         myInsertCourt.showsHorizontalScrollIndicator = false
         
-        var interestCnt = tmpList1.count
-        var myInsertCnt = tmpList2.count
-        if interestCnt == 0{
-            interestCnt = 1
-        }
-        if myInsertCnt == 0{
-            myInsertCnt = 1
-        }
-        //scrollView 총 넓이
-        interestCourt.contentSize = CGSizeMake(interestCourt.frame.size.width*CGFloat(interestCnt) ,interestCourt.frame.size.height)
-        myInsertCourt.contentSize = CGSizeMake(myInsertCourt.frame.size.width*CGFloat(myInsertCnt) ,myInsertCourt.frame.size.height)
         
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            self.interestData(self.tmpList1)
-            self.myInsertData(self.tmpList2)
+        let parameters : [String: AnyObject] = ["token": user.token, "userId": user.userId]
+        Alamofire.request(.GET, URL.user_mypage, parameters: parameters)
+            .validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"])
+            .responseData { response in
+                let data : NSData = response.data!
+                let dic = Util.convertStringToDictionary(data)
+                if let code = dic["code"] as? Int{
+                    if code == 0{
+                        if let interestList = dic["interestList"] as? [[String: AnyObject]]{
+                            var interestCnt = interestList.count
+                            if interestCnt == 0{
+                                interestCnt = 1
+                            }
+                            //scrollView 총 넓이
+                            self.interestCourt.contentSize = CGSizeMake(self.interestCourt.frame.size.width*CGFloat(interestCnt) ,self.interestCourt.frame.size.height)
+                            self.interestData(interestList)
+                        }
+                        if let myCourtInsertList = dic["myCourtInsert"] as? [[String: AnyObject]]{
+                            var myInsertCnt = myCourtInsertList.count
+                            if myInsertCnt == 0{
+                                myInsertCnt = 1
+                            }
+                            //scrollView 총 넓이
+                            self.myInsertCourt.contentSize = CGSizeMake(self.myInsertCourt.frame.size.width*CGFloat(myInsertCnt) ,self.myInsertCourt.frame.size.height)
+                            self.myInsertData(myCourtInsertList)
+                        }
+                    }else{
+                        if let isMsgView = dic["isMsgView"] as? Bool{
+                            if isMsgView == true{
+                                Util.alert(message: "\(dic["msg"]!)", ctrl: self)
+                            }
+                        }
+                    }
+                }
         }
     }
     
@@ -94,7 +82,6 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
         dispatch_async(dispatch_get_main_queue()) {
             var i : CGFloat = 0
             for obj in tmpList{
-                
                 if let imgUI = obj["image"] as? UIImage{
                     let imgBtn = UIButton(frame: CGRect(x: courtInfo.frame.width * i, y: 0, width: courtInfo.frame.width, height: courtInfo.frame.height-40), image: imgUI)
                     imgBtn.addControlEvent(.AllTouchEvents){
@@ -112,11 +99,13 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                     courtInfo.addSubview(imgBtn)
                 }
                 
+                var addr = ""
                 if let addressText = obj["address"] as? String{
-                    let objLbl = UILabel(frame: CGRect(x: courtInfo.frame.width * i + 10, y: courtInfo.frame.height-40, width: courtInfo.frame.width-10, height: 40), text: "장소 : \(addressText)")
-                    objLbl.font = UIFont(name: (objLbl.font?.fontName)!, size: 12)
-                    courtInfo.addSubview(objLbl)
+                    addr += addressText
                 }
+                let objLbl = UILabel(frame: CGRect(x: courtInfo.frame.width * i + 10, y: courtInfo.frame.height-40, width: courtInfo.frame.width-10, height: 40), text: "장소 : \(addr)")
+                objLbl.font = UIFont(name: (objLbl.font?.fontName)!, size: 12)
+                courtInfo.addSubview(objLbl)
                 
                 i += 1
             }
@@ -148,11 +137,13 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                     courtInfo.addSubview(imgBtn)
                 }
                 
+                var addr = ""
                 if let addressText = obj["address"] as? String{
-                    let objLbl = UILabel(frame: CGRect(x: courtInfo.frame.width * i + 10, y: courtInfo.frame.height-40, width: courtInfo.frame.width-10, height: 40), text: "장소 : \(addressText)")
-                    objLbl.font = UIFont(name: (objLbl.font?.fontName)!, size: 12)
-                    courtInfo.addSubview(objLbl)
+                    addr += addressText
                 }
+                let objLbl = UILabel(frame: CGRect(x: courtInfo.frame.width * i + 10, y: courtInfo.frame.height-40, width: courtInfo.frame.width-10, height: 40), text: "장소 : \(addr)")
+                objLbl.font = UIFont(name: (objLbl.font?.fontName)!, size: 12)
+                courtInfo.addSubview(objLbl)
                 
                 i += 1
             }
@@ -182,7 +173,7 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
             var tmpList = [[String: AnyObject]]()
             for obj in list{
                 var tmpObj = [String: AnyObject]()
-                if let img = obj["img"] as? String{
+                if let img = obj["image"] as? String{
                     if let imgURL = NSURL(string: img){
                         if let imgData = NSData(contentsOfURL: imgURL){
                             if let imgUI = UIImage(data: imgData){
@@ -191,6 +182,9 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                                 
                                 if let addressText = obj["address"] as? String{
                                     tmpObj["address"] = addressText
+                                }
+                                if let addressText = obj["addressShort"] as? String{
+                                    tmpObj["addressShort"] = addressText
                                 }
                                 if let seq = obj["seq"] as? Int{
                                     tmpObj["seq"] = seq
@@ -224,7 +218,7 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
             var tmpList = [[String: AnyObject]]()
             for obj in list{
                 var tmpObj = [String: AnyObject]()
-                if let img = obj["img"] as? String{
+                if let img = obj["image"] as? String{
                     if let imgURL = NSURL(string: img){
                         if let imgData = NSData(contentsOfURL: imgURL){
                             if let imgUI = UIImage(data: imgData){
@@ -233,6 +227,9 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                                 
                                 if let addressText = obj["address"] as? String{
                                     tmpObj["address"] = addressText
+                                }
+                                if let addressText = obj["addressShort"] as? String{
+                                    tmpObj["addressShort"] = addressText
                                 }
                                 if let seq = obj["seq"] as? Int{
                                     tmpObj["seq"] = seq
@@ -255,7 +252,7 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     
     //데이터 다시 수정
     func dateInit(){
-        let user = Storage.getRealmUser()
+        user = Storage.getRealmUser()
         nickLbl.text = user.nickName
     }
     

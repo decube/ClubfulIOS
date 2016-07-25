@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'C593CEA451748A477EBF6CDC'
+               BlueprintIdentifier = 'CC5819751079EA60FF35AAB2'
                BlueprintName = 'InputTag'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'InputTag.framework'>

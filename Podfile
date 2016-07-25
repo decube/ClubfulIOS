@@ -9,6 +9,7 @@ pod 'ImageSlideshow', '~> 0.5'
 pod 'ActionKit', '~> 1.0'
 pod 'RealmSwift'
 pod 'InputTag', '~> 0.1.3'
+pod 'Alamofire', '~> 3.4'
 
 end
 

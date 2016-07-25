@@ -32,122 +32,7 @@ class Util{
     static func lang(key : String) -> String{
         return NSLocalizedString(key, comment: key)
     }
-    
-    
-    
-    /*
-     
-     ajax
-    
-    */
-    
-    //ajax
-    //url, method, data, async, tmpData, callBack, errorCallback
-    //
-    static func ajax(url : String, method : String = "GET", data : String! = nil, async : Bool = false, tmpData : AnyObject!, callBack : (NSDictionary, AnyObject) -> Void, errorCallBack : (NSError ->  Void)! = nil){
-        var request : NSMutableURLRequest
-        if method.uppercaseString=="GET"||method.uppercaseString=="DELETE"{
-            let apiUrl = NSURL(string: url+"?"+data)
-            request = NSMutableURLRequest(URL: apiUrl!)
-        }else{
-            let apiUrl = NSURL(string: url)
-            request = NSMutableURLRequest(URL: apiUrl!)
-            let ajaxData : NSData? = (data).dataUsingEncoding(NSUTF8StringEncoding)
-            request.HTTPBody = ajaxData
-        }
-        request.HTTPMethod = method
         
-        if async == false{
-            let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-            let task = session.dataTaskWithRequest(request, completionHandler: { (data, reponse, error) -> Void in
-                if error != nil {
-                    errorCallBack(error!)
-                }else {
-                    do {
-                        let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as? [String: AnyObject]
-                        if tmpData == nil{
-                            callBack(json!, -1)
-                        }else{
-                            callBack(json!, tmpData)
-                        }
-                    } catch let error as NSError {
-                        errorCallBack(error)
-                    }
-                }
-            })
-            task.resume()
-        }else{
-            var data = NSData()
-            let semaphore = dispatch_semaphore_create(0)
-            NSURLSession.sharedSession().dataTaskWithRequest(request){(responseData,_,_) -> Void in
-                if responseData != nil{
-                    data = responseData!
-                }
-                dispatch_semaphore_signal(semaphore)
-                }.resume()
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
-            do{
-                let json = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as? [String: AnyObject]
-                if tmpData == nil{
-                    callBack(json!, -1)
-                }else{
-                    callBack(json!, tmpData)
-                }
-            } catch let error as NSError {
-                errorCallBack(error)
-            }
-        }
-    }
-    //ajax
-    //url, method, data, async, callBack, errorCallback
-    //
-    static func ajax(url : String, method : String = "GET", data : String! = nil, async : Bool = false, callBack : (NSDictionary) -> Void, errorCallBack : (NSError ->  Void)! = nil){
-        var request : NSMutableURLRequest
-        if method.uppercaseString=="GET"||method.uppercaseString=="DELETE"{
-            let apiUrl = NSURL(string: url+"?"+data)
-            request = NSMutableURLRequest(URL: apiUrl!)
-        }else{
-            let apiUrl = NSURL(string: url)
-            request = NSMutableURLRequest(URL: apiUrl!)
-            let ajaxData : NSData? = (data).dataUsingEncoding(NSUTF8StringEncoding)
-            request.HTTPBody = ajaxData
-        }
-        request.HTTPMethod = method
-        
-        if async == false{
-            let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-            let task = session.dataTaskWithRequest(request, completionHandler: { (data, reponse, error) -> Void in
-                if error != nil {
-                    errorCallBack(error!)
-                }else {
-                    do {
-                        let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as? [String: AnyObject]
-                        callBack(json!)
-                    } catch let error as NSError {
-                        errorCallBack(error)
-                    }
-                }
-            })
-            task.resume()
-        }else{
-            var data = NSData()
-            let semaphore = dispatch_semaphore_create(0)
-            NSURLSession.sharedSession().dataTaskWithRequest(request){(responseData,_,_) -> Void in
-                if responseData != nil{
-                    data = responseData!
-                }
-                dispatch_semaphore_signal(semaphore)
-                }.resume()
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
-            do{
-                let json = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as? [String: AnyObject]
-                callBack(json!)
-            } catch let error as NSError {
-                errorCallBack(error)
-            }
-        }
-    }
-    
     
     //ajax 파람 데이터 파싱
     static func paramData(paramArrays : Array<NSDictionary>, encoding : String = "utf8") -> String{
@@ -283,6 +168,17 @@ class Util{
         }
         alert.addAction(UIAlertAction(title:confirmTitleValue,style: .Default,handler:confirmHandler))
         ctrl.presentViewController(alert, animated: false, completion: {(_) in })
+    }
+    
+    
+    
+    static func convertStringToDictionary(data: NSData) -> [String:AnyObject] {
+        do {
+            return try NSJSONSerialization.JSONObjectWithData(data, options: []) as! [String:AnyObject]
+        } catch let error as NSError {
+            print(error)
+        }
+        return Dictionary()
     }
 }
 
@@ -609,5 +505,91 @@ extension UIScrollView {
     func scrollToBottom() {
         let desiredOffset = CGPoint(x: 0, y: contentSize.height - bounds.size.height)
         setContentOffset(desiredOffset, animated: true)
+    }
+}
+extension NSDate{
+    func yearInt(calendar : NSCalendar) -> Int{
+        let components = calendar.components(.Year, fromDate: self)
+        let year = components.year
+        return year
+    }
+    func monthInt(calendar : NSCalendar) -> Int{
+        let components = calendar.components(.Month, fromDate: self)
+        let month = components.month
+        return month
+    }
+    func dayInt(calendar : NSCalendar) -> Int{
+        let components = calendar.components(.Day, fromDate: self)
+        let day = components.day
+        return day
+    }
+    func hourInt(calendar : NSCalendar) -> Int{
+        let components = calendar.components(.Hour, fromDate: self)
+        let hour = components.hour
+        return hour
+    }
+    func minuteInt(calendar : NSCalendar) -> Int{
+        let components = calendar.components(.Minute, fromDate: self)
+        let minute = components.minute
+        return minute
+    }
+    func secondInt(calendar : NSCalendar) -> Int{
+        let components = calendar.components(.Second, fromDate: self)
+        let second = components.second
+        return second
+    }
+    func year(calendar : NSCalendar) -> String{
+        return "\(yearInt(calendar))"
+    }
+    func month(calendar : NSCalendar) -> String{
+        let month = monthInt(calendar)
+        if month < 10{
+            return "0\(month)"
+        }else{
+            return "\(month)"
+        }
+    }
+    func day(calendar : NSCalendar) -> String{
+        let day = dayInt(calendar)
+        if day < 10{
+            return "0\(day)"
+        }else{
+            return "\(day)"
+        }
+    }
+    func hour(calendar : NSCalendar) -> String{
+        let hour = hourInt(calendar)
+        if hour < 10{
+            return "0\(hour)"
+        }else{
+            return "\(hour)"
+        }
+    }
+    func minute(calendar : NSCalendar) -> String{
+        let minute = minuteInt(calendar)
+        if minute < 10{
+            return "0\(minute)"
+        }else{
+            return "\(minute)"
+        }
+    }
+    func second(calendar : NSCalendar) -> String{
+        let second = secondInt(calendar)
+        if second < 10{
+            return "0\(second)"
+        }else{
+            return "\(second)"
+        }
+    }
+    func getDate() -> String{
+        let calendar = NSCalendar.currentCalendar()
+        return "\(year(calendar))-\(month(calendar))-\(day(calendar))"
+    }
+    func getTime() -> String{
+        let calendar = NSCalendar.currentCalendar()
+        return "\(hour(calendar)):\(minute(calendar)):\(second(calendar))"
+    }
+    func getFullDate() -> String{
+        return "\(getDate()) \(getTime())"
     }
 }

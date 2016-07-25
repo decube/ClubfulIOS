@@ -8,9 +8,10 @@
 
 import UIKit
 import InputTag
+import Alamofire
 
 class JoinViewController: UIViewController, UITextFieldDelegate {
-    
+    var loginVC : LoginViewController!
     
     @IBOutlet var scrollView: UIScrollView!
     var scrollViewHeight : CGFloat!
@@ -32,6 +33,8 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     var longitude : Double!
     var address : String!
     var addressShort : String!
+    
+    var user = Storage.getRealmUser()
     
     override func viewDidLoad() {
         print("JoinViewController viewDidLoad")
@@ -74,24 +77,45 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
     //회원가입 클릭
     @IBAction func joinAction(sender: AnyObject) {
-        var user = Storage.getRealmUser()
-        user = Storage.copyUser()
-        user.isLogin = -1
-        user.userId = self.idField.text!
-        user.nickName = self.nicknameField.text!
-        if maleRadio.isSelect == true{
-            user.sex = "male"
+        if idField.text!.characters.count < 6{
+            Util.alert(message: "아이디를 제대로 입력해주세요.", ctrl: self)
+        }else if pwdField.text!.characters.count < 6{
+            Util.alert(message: "비밀번호를 제대로 입력해주세요.", ctrl: self)
+        }else if pwdField.text! != repwdField.text!{
+            Util.alert(message: "비밀번호가 틀립니다.", ctrl: self)
+        }else if nicknameField.text!.characters.count < 2{
+            Util.alert(message: "닉네임을 2자 이상 입력해 주세요.", ctrl: self)
+        }else if latitude == nil || longitude == nil || address == nil || addressShort == nil{
+            Util.alert(message: "위치설정을 해주세요.", ctrl: self)
         }else{
-            user.sex = "female"
+            var sex = "male"
+            if maleRadio.isSelect == true{
+                sex = "male"
+            }else{
+                sex = "female"
+            }
+            
+            let parameters : [String: AnyObject] = ["token": user.token, "userId": self.idField.text!, "password": self.pwdField.text!, "gcmId": user.gcmId, "nickName": self.nicknameField.text!, "sex": sex, "birth": birthDatePicker.date.getDate(), "userLatitude": self.latitude, "userLongitude": self.longitude, "userAddress": self.address, "userAddressShort": self.addressShort, "noticePush": user.noticePushCheck, "myInsertPush": user.myCourtPushCheck, "distancePush": user.distancePushCheck, "interestPush": user.interestPushCheck, "startTime": user.startPushTime.getTime(), "endTime": user.endPushTime.getTime()]
+            Alamofire.request(.GET, URL.user_join, parameters: parameters)
+                .validate(statusCode: 200..<300)
+                .validate(contentType: ["application/json"])
+                .responseData { response in
+                    let data : NSData = response.data!
+                    let dic = Util.convertStringToDictionary(data)
+                    if let code = dic["code"] as? Int{
+                        if code == 0{
+                            self.loginVC.idField.text = self.idField.text!
+                            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                        }else{
+                            if let isMsgView = dic["isMsgView"] as? Bool{
+                                if isMsgView == true{
+                                    Util.alert(message: "\(dic["msg"]!)", ctrl: self)
+                                }
+                            }
+                        }
+                    }
+            }
         }
-        user.birth = birthDatePicker.date
-        user.userLatitude = self.latitude
-        user.userLongitude = self.longitude
-        user.userAddress = self.address
-        user.userAddressShort = self.addressShort
-        Storage.setRealmUser(user)
-        
-        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     //뒤로가기

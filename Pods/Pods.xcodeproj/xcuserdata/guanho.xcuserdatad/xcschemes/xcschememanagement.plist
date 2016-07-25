@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ImageSlideshow-ImageSlideshow.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,12 +47,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>06CC172F9DEE8DD73F1B2A9776C69AFE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>39CA6F8904F79A5A148722019F74C904</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>54CE44AE866DEF993DB0A77B2548300B</key>
+		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,17 +67,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C5DE4F67078BA8DBB613D4BC2EB34A1F</key>
+		<key>E01A2BEDA6CF54A225F3D0C6D80AD9EC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E6361EF2E03ED7F3B7F09B6EE8F12631</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E7BEAF4DCE4B39E319ED8628F0399557</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F8F5166815B0115A77D8A66C27A0A58A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

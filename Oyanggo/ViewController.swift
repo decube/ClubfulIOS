@@ -10,6 +10,7 @@ import UIKit
 import ActionKit
 import Darwin
 import MapKit
+import Alamofire
 
 class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate {
     //user 저장소
@@ -56,7 +57,40 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         super.viewDidLoad()
         print("ViewController viewDidLoad")
         
-        user = Storage.getRealmUser()        
+        
+        user = Storage.getRealmUser()
+        
+        let parameters : [String: AnyObject] = ["appType": "ios", "appVersion": Util.nsVersion, "deviceCD": NSDate().getFullDate(), "language": Util.language, "deviceId": Util.deviceId, "token": user.token, "categoryVer": user.categoryVer, "noticeVer": user.noticeVer]
+        Alamofire.request(.GET, URL.version_Check, parameters: parameters)
+            .validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"])
+            .responseData { response in
+                let data : NSData = response.data!
+                let dic = Util.convertStringToDictionary(data)
+                if let code = dic["code"] as? Int{
+                    if code == 0{
+                        self.user = Storage.copyUser()
+                        self.user.token = dic["token"] as! String
+                        Util.newVersion = dic["iosVersion"] as! String
+                        self.user.categoryVer = dic["categoryVer"] as! Int
+                        self.user.noticeVer = dic["noticeVer"] as! Int
+                        if let categoryList = dic["categoryList"] as? [[String: AnyObject]]{
+                            Storage.setStorage("categoryList", value: categoryList)
+                        }
+                        Storage.setRealmUser(self.user)
+                    }else{
+                        if let isMsgView = dic["isMsgView"] as? Bool{
+                            if isMsgView == true{
+                                Util.alert(message: "\(dic["msg"]!)", ctrl: self)
+                            }
+                        }
+                    }
+                }
+        }
+        
+        
+        
+        
         
         //현재 나의 위치설정
         self.locationManager.requestAlwaysAuthorization()
@@ -120,7 +154,6 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         
         
         
-        
         let location = setMapLocation(user.latitude, longitude: user.longitude)
         initMarket(location)
         
@@ -172,35 +205,94 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                 //자기위치 검색 통신
                 var i : CGFloat = 0
                 let locObjHeight : CGFloat = 80
-                for j in 0 ... 10{
-                    let objBtn = UIButton(frame: CGRect(x: 0, y: locObjHeight*i, width: self.centerLocScroll.frame.width, height: locObjHeight-1))
-                    let addressShortLbl = UILabel(frame: CGRect(x: 5, y: 10, width: objBtn.frame.width-5, height: 15), text: "어디어디주소", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
-                    let addressLbl = UILabel(frame: CGRect(x: 5, y: 25, width: objBtn.frame.width-5, height: 65), text: "어디어디주소길게길게어디어디주소길게길게어디어디주소길게길게", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 13)
-                    addressLbl.numberOfLines = 2
-                    objBtn.boxBorder(.Bottom, borderWidth: 1, color: UIColor.blackColor())
-                    self.centerLocScroll.addSubview(objBtn)
-                    objBtn.addSubview(addressShortLbl)
-                    objBtn.addSubview(addressLbl)
-                    
-                    objBtn.addControlEvent(.TouchUpInside){
-                        self.blackScreen.hidden = true
-                        self.centerLocView.hidden = true
-                        let user = Storage.copyUser()
-                        user.latitude = 37.5571274
-                        user.longitude = 126.9239304
-                        user.address = "어디어디주소길게길게어디어디주소길게길게어디어디주소길게길게"
-                        user.addressShort = "어디어디주소"
-                        Storage.setRealmUser(user)
-                        self.myLocationSearch = true
-                        let span: MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
-                        let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(37.5571274, 126.9239304)
-                        let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
-                        self.mapView.region = region
-                        self.marker.coordinate = location
-                    }
-                    i += 1
+                
+                let parameters : [String: AnyObject] = ["token": self.user.token, "address": centerLocHeaderField.text!, "language": Util.language]
+                Alamofire.request(.GET, URL.location_geocode, parameters: parameters)
+                    .validate(statusCode: 200..<300)
+                    .validate(contentType: ["application/json"])
+                    .responseData { response in
+                        let data : NSData = response.data!
+                        let dic = Util.convertStringToDictionary(data)
+                        if let code = dic["code"] as? Int{
+                            if code == 0{
+                                if let result = dic["results"] as? [String: AnyObject]{
+                                    if let results = result["results"] as? [[String: AnyObject]]{
+                                        for element : [String: AnyObject] in results{
+                                            var elementLatitude = 0.0
+                                            var elementLongitude = 0.0
+                                            var elementAddressShort = ""
+                                            var elementAddress = ""
+                                            if let locationGeometry = element["geometry"] as? [String:AnyObject]{
+                                                if let location = locationGeometry["location"] as? [String:Double]{
+                                                    elementLatitude = location["lat"]!
+                                                    elementLongitude = location["lng"]!
+                                                }
+                                            }
+                                            if let locationComponents = element["address_components"] as? [[String:AnyObject]]{
+                                                for components : [String:AnyObject] in locationComponents{
+                                                    if let types = components["types"] as? [String]{
+                                                        if types[0] == "sublocality_level_2"{
+                                                            elementAddressShort = components["long_name"] as! String
+                                                            break
+                                                        }
+                                                    }
+                                                }
+                                                if (elementAddressShort == ""){
+                                                    for components : [String:AnyObject] in locationComponents{
+                                                        if let types = components["types"] as? [String]{
+                                                            if types[0] == "sublocality_level_1"{
+                                                                elementAddressShort = components["long_name"] as! String
+                                                                break
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                if (elementAddressShort == ""){
+                                                    elementAddressShort = locationComponents[0]["long_name"] as! String
+                                                }
+                                                elementAddress = element["formatted_address"] as! String
+                                            }
+                                            
+                                            let objBtn = UIButton(frame: CGRect(x: 0, y: locObjHeight*i, width: self.centerLocScroll.frame.width, height: locObjHeight-1))
+                                            let addressShortLbl = UILabel(frame: CGRect(x: 5, y: 10, width: objBtn.frame.width-5, height: 15), text: "\(elementAddressShort)", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
+                                            let addressLbl = UILabel(frame: CGRect(x: 5, y: 25, width: objBtn.frame.width-5, height: 65), text: "\(elementAddress)", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 13)
+                                            addressLbl.numberOfLines = 2
+                                            objBtn.boxBorder(.Bottom, borderWidth: 1, color: UIColor.blackColor())
+                                            self.centerLocScroll.addSubview(objBtn)
+                                            objBtn.addSubview(addressShortLbl)
+                                            objBtn.addSubview(addressLbl)
+                                            
+                                            objBtn.addControlEvent(.TouchUpInside){
+                                                self.blackScreen.hidden = true
+                                                self.centerLocView.hidden = true
+                                                let user = Storage.copyUser()
+                                                user.latitude = elementLatitude
+                                                user.longitude = elementLongitude
+                                                user.address = "\(elementAddress)"
+                                                user.addressShort = "\(elementAddressShort)"
+                                                Storage.setRealmUser(user)
+                                                self.myLocationSearch = true
+                                                let span: MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
+                                                let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(elementLatitude, elementLongitude)
+                                                let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
+                                                self.mapView.region = region
+                                                self.marker.coordinate = location
+                                                centerLocHeaderField.text = ""
+                                            }
+                                            i += 1
+                                        }
+                                        self.centerLocScroll.contentSize = CGSize(width: self.centerLocScroll.frame.width, height: locObjHeight*i)
+                                    }
+                                }else{
+                                    if let isMsgView = dic["isMsgView"] as? Bool{
+                                        if isMsgView == true{
+                                            Util.alert(message: "\(dic["msg"]!)", ctrl: self)
+                                        }
+                                    }
+                                }
+                            }
+                        }
                 }
-                self.centerLocScroll.contentSize = CGSize(width: self.centerLocScroll.frame.width, height: locObjHeight*i)
             }else{
                 Util.alert(message: "검색어는 2글자 이상으로 넣어주세요.", ctrl: self)
             }
@@ -287,34 +379,58 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             self.view.endEditing(true)
             leftCourtView.subviews.forEach({$0.removeFromSuperview()})
             leftCourtView.scrollToTop()
-            leftCourtView.hidden = false
             //코트 검색 통신
             var i : CGFloat = 0
             let locObjHeight : CGFloat = 80
-            for j in 0 ... 10{
-                let objBtn = UIButton(frame: CGRect(x: 0, y: locObjHeight*i, width: leftCourtView.frame.width, height: locObjHeight-1))
-                let addressShortLbl = UILabel(frame: CGRect(x: 5, y: 10, width: objBtn.frame.width-5, height: 15), text: "1234어디주소", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
-                let addressLbl = UILabel(frame: CGRect(x: 5, y: 25, width: objBtn.frame.width-5, height: 65), text: "어디어디주소길게길게어디어디주소길게길게어디어디주소길게길게", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 13)
-                addressLbl.numberOfLines = 2
-                objBtn.boxBorder(.Bottom, borderWidth: 1, color: UIColor.blackColor())
-                leftCourtView.addSubview(objBtn)
-                objBtn.addSubview(addressShortLbl)
-                objBtn.addSubview(addressLbl)
-                
-                objBtn.addControlEvent(.TouchUpInside){
-                    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                    let uvc = storyBoard.instantiateViewControllerWithIdentifier("courtVC")
-                    (uvc as! CourtViewController).courtSeq = j
-                    uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-                    self.presentViewController(uvc, animated: true, completion: nil)
-                }
-                i += 1
+            
+            let parameters : [String: AnyObject] = ["token": user.token, "address": courtSearchField.text!, "category": user.category]
+            Alamofire.request(.GET, URL.court_listSearch, parameters: parameters)
+                .validate(statusCode: 200..<300)
+                .validate(contentType: ["application/json"])
+                .responseData { response in
+                    let data : NSData = response.data!
+                    let dic = Util.convertStringToDictionary(data)
+                    if let code = dic["code"] as? Int{
+                        if code == 0{
+                            if let list = dic["list"] as? [[String: AnyObject]]{
+                                for obj in list{
+                                    let objBtn = UIButton(frame: CGRect(x: 0, y: locObjHeight*i, width: self.leftCourtView.frame.width, height: locObjHeight-1))
+                                    let addressShortLbl = UILabel(frame: CGRect(x: 5, y: 10, width: objBtn.frame.width-5, height: 15), text: "\(obj["addressShort"]!)", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
+                                    let addressLbl = UILabel(frame: CGRect(x: 5, y: 25, width: objBtn.frame.width-5, height: 65), text: "\(obj["address"]!)", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 13)
+                                    addressLbl.numberOfLines = 2
+                                    objBtn.boxBorder(.Bottom, borderWidth: 1, color: UIColor.blackColor())
+                                    self.leftCourtView.addSubview(objBtn)
+                                    objBtn.addSubview(addressShortLbl)
+                                    objBtn.addSubview(addressLbl)
+                                    
+                                    objBtn.addControlEvent(.TouchUpInside){
+                                        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                                        let uvc = storyBoard.instantiateViewControllerWithIdentifier("courtVC")
+                                        (uvc as! CourtViewController).courtSeq = obj["seq"] as! Int
+                                        uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+                                        self.presentViewController(uvc, animated: true, completion: nil)
+                                    }
+                                    i += 1
+                                }
+                                self.leftCourtView.contentSize = CGSize(width: self.leftCourtView.frame.width, height: locObjHeight*i)
+                                self.leftCourtView.hidden = false
+                            }
+                        }else{
+                            if let isMsgView = dic["isMsgView"] as? Bool{
+                                if isMsgView == true{
+                                    Util.alert(message: "\(dic["msg"]!)", ctrl: self)
+                                }
+                            }
+                        }
+                    }
             }
-            leftCourtView.contentSize = CGSize(width: leftCourtView.frame.width, height: locObjHeight*i)
         }else{
             Util.alert(message: "검색어는 2글자 이상으로 넣어주세요.", ctrl: self)
         }
     }
+    
+    
+    
     
     //네비 클릭
     @IBAction func navAction(sender: AnyObject) {
@@ -340,41 +456,16 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             self.user.categoryName = alert.title!
             Storage.setRealmUser(self.user)
         }))
-        alert.addAction(UIAlertAction(title: "축구", style: .Default, handler: { (alert) in
-            self.categoryBtn.setTitle(alert.title, forState: .Normal)
-            self.user = Storage.copyUser()
-            self.user.category = 1
-            self.user.categoryName = alert.title!
-            Storage.setRealmUser(self.user)
-        }))
-        alert.addAction(UIAlertAction(title: "농구", style: .Default, handler: { (alert) in
-            self.categoryBtn.setTitle(alert.title, forState: .Normal)
-            self.user = Storage.copyUser()
-            self.user.category = 2
-            self.user.categoryName = alert.title!
-            Storage.setRealmUser(self.user)
-        }))
-        alert.addAction(UIAlertAction(title: "야구", style: .Default, handler: { (alert) in
-            self.categoryBtn.setTitle(alert.title, forState: .Normal)
-            self.user = Storage.copyUser()
-            self.user.category = 3
-            self.user.categoryName = alert.title!
-            Storage.setRealmUser(self.user)
-        }))
-        alert.addAction(UIAlertAction(title: "탁구", style: .Default, handler: { (alert) in
-            self.categoryBtn.setTitle(alert.title, forState: .Normal)
-            self.user = Storage.copyUser()
-            self.user.category = 4
-            self.user.categoryName = alert.title!
-            Storage.setRealmUser(self.user)
-        }))
-        alert.addAction(UIAlertAction(title: "볼링", style: .Default, handler: { (alert) in
-            self.categoryBtn.setTitle(alert.title, forState: .Normal)
-            self.user = Storage.copyUser()
-            self.user.category = 5
-            self.user.categoryName = alert.title!
-            Storage.setRealmUser(self.user)
-        }))
+        let categoryList = Storage.getStorage("categoryList") as! [[String: AnyObject]]
+        for category in categoryList{
+            alert.addAction(UIAlertAction(title: "\(category["name"]!)", style: .Default, handler: { (alert) in
+                self.categoryBtn.setTitle(alert.title, forState: .Normal)
+                self.user = Storage.copyUser()
+                self.user.category = category["seq"] as! Int
+                self.user.categoryName = alert.title!
+                Storage.setRealmUser(self.user)
+            }))
+        }
         self.presentViewController(alert, animated: false, completion: {(_) in})
         
     }
@@ -554,6 +645,12 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         
         logBtn.addControlEvent(.TouchUpInside){
             func logout(){
+                let parameters : [String: AnyObject] = ["token": self.user.token, "userId": self.user.userId]
+                Alamofire.request(.GET, URL.user_logout, parameters: parameters)
+                    .validate(statusCode: 200..<300)
+                    .validate(contentType: ["application/json"])
+                    .responseData { response in
+                }
                 self.user = Storage.copyUser()
                 self.user.isLogin = -1
                 self.user.nickName = ""
@@ -568,8 +665,6 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                 self.logLbl.text = "로그인"
                 self.blackScreen.hidden = true
                 self.navView.hidden = true
-                
-                
             }
             if self.user.isLogin == -1{
                 let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
