@@ -9,8 +9,9 @@
 import UIKit
 import Alamofire
 
-class CourtCreateViewController: UIViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate{
+class CourtCreateViewController: UIViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, UITextFieldDelegate{
     
+    @IBOutlet var spin: UIActivityIndicatorView!
     //전체 스크롤 뷰
     @IBOutlet var mainScrollView: UIScrollView!
     //전체 스크롤뷰 스크롤 height
@@ -53,7 +54,8 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     
     //카테고리 시컨스
     var category : Int!
-    
+    //코트 별칭
+    @IBOutlet var cnameTextField: UITextField!
     //코트 설명 텍스트뷰
     @IBOutlet var descTextView: UITextView!
     
@@ -64,6 +66,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     override func viewDidLoad() {
         print("CourtCreateViewController viewDidLoad")
         
+        spin.hidden = true
         mainScrollViewHeight = mainScrollView.frame.height
         
         imageWidth = picScrollView.frame.width/2-5
@@ -83,6 +86,9 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
             picObj.boxLayout(backgroundColor: UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.00))
             picScrollView.addSubview(picObj)
             picObj.addControlEvent(.TouchUpInside){
+                if self.spin.hidden == false{
+                    return;
+                }
                 self.blackScreen.hidden = false
                 self.picSelectedView.hidden = false
                 self.cropBtnSpace = picObj
@@ -92,6 +98,9 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         
         locationBtn.boxLayout(radius: 6)
         categoryBtn.boxLayout(radius: 6)
+        
+        cnameTextField.delegate = self
+        
         descTextView.boxLayout(radius: 6, borderWidth: 1, borderColor: Util.commonColor)
         descTextView.delegate = self
         
@@ -236,6 +245,9 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     
     //위치설정 클릭
     @IBAction func locationAction(sender: AnyObject) {
+        if spin.hidden == false{
+            return;
+        }
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let uvc = storyBoard.instantiateViewControllerWithIdentifier("courtCreateMapVC")
         (uvc as! CourtCreateMapViewController).courtCreateView = self
@@ -246,6 +258,9 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     
     //종목설정 클릭
     @IBAction func categoryAction(sender: AnyObject) {
+        if spin.hidden == false{
+            return;
+        }
         let alert = UIAlertController(title: "종목을 선택해주세요", message: "종목설정", preferredStyle: .ActionSheet)
         let categoryList = Storage.getStorage("categoryList") as! [[String: AnyObject]]
         for category in categoryList{
@@ -259,6 +274,9 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     
     //등록 클릭
     @IBAction func saveAction(sender: AnyObject) {
+        if spin.hidden == false{
+            return;
+        }
         var cropImageCnt = 0
         for btn in self.picList{
             if btn.currentImage != self.picAddImage{
@@ -268,47 +286,84 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         
         if cropImageCnt >= 2{
             if courtLatitude == nil || courtLongitude == nil || courtAddress == nil || courtAddressShort == nil || courtAddress == "" || courtAddressShort == ""{
+                self.spin.hidden = true
+                self.spin.stopAnimating()
                 Util.alert("", message: "위치를 선택해 주세요.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
                 })
             }else if(category == nil){
+                self.spin.hidden = true
+                self.spin.stopAnimating()
                 Util.alert("", message: "카테고리를 선택해 주세요.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
                 })
+            }else if(cnameTextField.text! == ""){
+                self.spin.hidden = true
+                self.spin.stopAnimating()
+                Util.alert("", message: "별칭을 입력해 주세요.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
+                })
             }else{
-                var parameters : [String: AnyObject] = ["token": self.user.token, "id": self.user.userId, "latitude": self.courtLatitude, "longitude": self.courtLongitude, "address": self.courtAddress, "addressShort": self.courtAddressShort, "category": self.category, "description": self.descTextView.text!]
-                
-                var idx = 1
+                //이미지 배열
+                var picArray : [UIImage] = [UIImage]()
                 for btn in self.picList{
-                    break;
                     if btn.currentImage != self.picAddImage{
                         let img = btn.currentImage
-                        
-                        let imageData = Util.returnImageData(img, ext: Ext.JPEG)
-                        let base64 = imageData.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
-                        if idx == 1{
-                            parameters["pic1"] = base64
-                        }else if idx == 2{
-                            parameters["pic2"] = base64
-                        }else if idx == 3{
-                            parameters["pic3"] = base64
-                        }else if idx == 4{
-                            parameters["pic4"] = base64
-                        }
-                        idx += 1
+                        picArray.append(img!)
                     }
                 }
-                
+                spin.hidden = false
+                spin.startAnimating()
+                let parameters : [String: AnyObject] = ["token": self.user.token, "id": self.user.userId, "latitude": self.courtLatitude, "longitude": self.courtLongitude, "address": self.courtAddress, "addressShort": self.courtAddressShort, "category": self.category, "description": self.descTextView.text!, "picArrayCount": picArray.count, "cname": cnameTextField.text!]
                 Alamofire.request(.GET, URL.court_create, parameters: parameters)
                     .validate(statusCode: 200..<300)
                     .validate(contentType: ["application/json"])
                     .responseData { response in
+                        self.spin.hidden = true
+                        self.spin.stopAnimating()
                         let data : NSData = response.data!
                         let dic = Util.convertStringToDictionary(data)
                         if let code = dic["code"] as? Int{
                             if code == 0{
-                                Util.alert("", message: "등록이 완료되었습니다.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
-                                    self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-                                })
+                                if let seq = dic["seq"] as? Int{
+                                    //이미지서버로 통신
+                                    self.spin.hidden = false
+                                    self.spin.startAnimating()
+                                    //통신
+                                    Alamofire.upload(.POST, "\(URL.courtUpload)\(seq)",
+                                        multipartFormData: { multipartFormData in
+                                            var idx = 0
+                                            let nameArray = ["pic1", "pic2", "pic3", "pic4"]
+                                            for pic in picArray{
+                                                let imageData : NSData = Util.returnImageData(pic, ext: Ext.JPEG)
+                                                multipartFormData.appendBodyPart(data: imageData, name: nameArray[idx], fileName: "\(nameArray[idx]).jpeg", mimeType: "image/jpeg")
+                                                idx += 1
+                                            }
+                                        },encodingCompletion: { encodingResult in
+                                            switch encodingResult {
+                                            case .Success(let upload, _, _):
+                                                upload.responseJSON { response in
+                                                    self.spin.hidden = true
+                                                    self.spin.stopAnimating()
+                                                    let data : NSData = response.data!
+                                                    let dic = Util.convertStringToDictionary(data)
+                                                    print("\(dic)")
+                                                    if let code = dic["code"] as? Int{
+                                                        if code == 0{
+                                                            Util.alert("", message: "등록이 완료되었습니다.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
+                                                                self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                                                            })
+                                                        }
+                                                    }
+                                                }
+                                            case .Failure(let encodingError):
+                                                print(encodingError)
+                                                self.spin.hidden = true
+                                                self.spin.stopAnimating()
+                                            }
+                                        }
+                                    )
+                                }
                             }else{
+                                self.spin.hidden = true
+                                self.spin.stopAnimating()
                                 if let isMsgView = dic["isMsgView"] as? Bool{
                                     if isMsgView == true{
                                         Util.alert(message: "\(dic["msg"]!)", ctrl: self)
@@ -319,6 +374,8 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                 }
             }
         }else{
+            self.spin.hidden = true
+            self.spin.stopAnimating()
             Util.alert("", message: "이미지를 2장 이상 올려야 됩니다.", confirmTitle: "확인", ctrl: self, confirmHandler: { (_) in
             })
         }

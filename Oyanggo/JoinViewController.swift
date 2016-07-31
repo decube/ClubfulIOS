@@ -11,6 +11,7 @@ import InputTag
 import Alamofire
 
 class JoinViewController: UIViewController, UITextFieldDelegate {
+    @IBOutlet var spin: UIActivityIndicatorView!
     var loginVC : LoginViewController!
     
     @IBOutlet var scrollView: UIScrollView!
@@ -38,6 +39,8 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         print("JoinViewController viewDidLoad")
+        
+        spin.hidden = true
         
         idField.delegate = self
         pwdField.delegate = self
@@ -68,6 +71,9 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     
     //위치 클릭
     @IBAction func locationAction(sender: AnyObject) {
+        if spin.hidden == false{
+            return;
+        }
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let uvc = storyBoard.instantiateViewControllerWithIdentifier("joinMapVC")
         (uvc as! JoinMapViewController).joinView = self
@@ -77,6 +83,9 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
     //회원가입 클릭
     @IBAction func joinAction(sender: AnyObject) {
+        if spin.hidden == false{
+            return;
+        }
         if idField.text!.characters.count < 6{
             Util.alert(message: "아이디를 제대로 입력해주세요.", ctrl: self)
         }else if pwdField.text!.characters.count < 6{
@@ -94,7 +103,8 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             }else{
                 sex = "female"
             }
-            
+            spin.hidden = false
+            spin.startAnimating()
             let parameters : [String: AnyObject] = ["token": user.token, "userId": self.idField.text!, "password": self.pwdField.text!, "gcmId": user.gcmId, "nickName": self.nicknameField.text!, "sex": sex, "birth": birthDatePicker.date.getDate(), "userLatitude": self.latitude, "userLongitude": self.longitude, "userAddress": self.address, "userAddressShort": self.addressShort, "noticePush": user.noticePushCheck, "myInsertPush": user.myCourtPushCheck, "distancePush": user.distancePushCheck, "interestPush": user.interestPushCheck, "startTime": user.startPushTime.getTime(), "endTime": user.endPushTime.getTime()]
             Alamofire.request(.GET, URL.user_join, parameters: parameters)
                 .validate(statusCode: 200..<300)
@@ -107,6 +117,8 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
                             self.loginVC.idField.text = self.idField.text!
                             self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
                         }else{
+                            self.spin.hidden = true
+                            self.spin.stopAnimating()
                             if let isMsgView = dic["isMsgView"] as? Bool{
                                 if isMsgView == true{
                                     Util.alert(message: "\(dic["msg"]!)", ctrl: self)

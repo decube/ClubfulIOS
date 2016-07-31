@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 
 class LoginViewController: UIViewController, UITextFieldDelegate{
+    @IBOutlet var spin: UIActivityIndicatorView!
     var mainViewController : ViewController!
     @IBOutlet var idField: UITextField!
     @IBOutlet var pwField: UITextField!
@@ -21,6 +22,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         print("LoginViewController viewDidLoad")
         
+        spin.hidden = true
         
         idField.delegate = self
         pwField.delegate = self
@@ -38,6 +40,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     //카카오톡 로그인 클릭
     @IBAction func kakaoAction(sender: AnyObject) {
+        if spin.hidden == false{
+            return;
+        }
         let session: KOSession = KOSession.sharedSession();
         if session.isOpen() {
             session.close()
@@ -59,7 +64,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                                 if let kakaoNickname = kakao.properties["nickname"] as? String{
                                     nickName = kakaoNickname
                                 }
-                                
+                                self.spin.hidden = false
+                                self.spin.startAnimating()
                                 let parameters : [String: AnyObject] = ["token": user.token, "userId": String(kakao.ID), "password": "", "loginType": 2, "gcmId": user.gcmId, "nickName": nickName, "sex": sex, "birth": user.birth.getDate(), "userLatitude": user.userLatitude, "userLongitude": user.userLongitude, "userAddress": user.userAddress, "userAddressShort": user.userAddressShort, "noticePush": user.noticePushCheck, "myInsertPush": user.myCourtPushCheck, "distancePush": user.distancePushCheck, "interestPush": user.interestPushCheck, "startTime": user.startPushTime.getTime(), "endTime": user.endPushTime.getTime()]
                                 Alamofire.request(.GET, URL.user_login, parameters: parameters)
                                     .validate(statusCode: 200..<300)
@@ -129,12 +135,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     //로그인 클릭
     @IBAction func loginAction(sender: AnyObject) {
+        if spin.hidden == false{
+            return;
+        }
         if idField.text?.characters.count < 4{
             Util.alert(message: "아이디를 입력해 주세요.", ctrl: self)
         }else if pwField.text?.characters.count < 6{
             Util.alert(message: "비밀번호를 입력해 주세요.", ctrl: self)
         }else{
             var user = Storage.getRealmUser()
+            self.spin.hidden = false
+            self.spin.startAnimating()
             let parameters : [String: AnyObject] = ["token": user.token, "userId": self.idField.text!, "password": self.pwField.text!, "loginType": 1]
             Alamofire.request(.GET, URL.user_login, parameters: parameters)
                 .validate(statusCode: 200..<300)
@@ -176,6 +187,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                             self.mainViewController.loginInit()
                             self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
                         }else{
+                            self.spin.hidden = true
+                            self.spin.stopAnimating()
                             if let isMsgView = dic["isMsgView"] as? Bool{
                                 if isMsgView == true{
                                     Util.alert(message: "\(dic["msg"]!)", ctrl: self)
@@ -189,6 +202,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     //회원가입 클릭
     @IBAction func joinAction(sender: AnyObject) {
+        if spin.hidden == false{
+            return;
+        }
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let uvc = storyBoard.instantiateViewControllerWithIdentifier("joinVC")
         (uvc as! JoinViewController).loginVC = self

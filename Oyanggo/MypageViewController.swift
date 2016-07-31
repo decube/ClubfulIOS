@@ -51,7 +51,9 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                             }
                             //scrollView 총 넓이
                             self.interestCourt.contentSize = CGSizeMake(self.interestCourt.frame.size.width*CGFloat(interestCnt) ,self.interestCourt.frame.size.height)
-                            self.interestData(interestList)
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                                self.interestData(interestList)
+                            })
                         }
                         if let myCourtInsertList = dic["myCourtInsert"] as? [[String: AnyObject]]{
                             var myInsertCnt = myCourtInsertList.count
@@ -60,7 +62,9 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                             }
                             //scrollView 총 넓이
                             self.myInsertCourt.contentSize = CGSizeMake(self.myInsertCourt.frame.size.width*CGFloat(myInsertCnt) ,self.myInsertCourt.frame.size.height)
-                            self.myInsertData(myCourtInsertList)
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                                self.myInsertData(myCourtInsertList)
+                            })
                         }
                     }else{
                         if let isMsgView = dic["isMsgView"] as? Bool{
@@ -99,11 +103,8 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                     courtInfo.addSubview(imgBtn)
                 }
                 
-                var addr = ""
-                if let addressText = obj["address"] as? String{
-                    addr += addressText
-                }
-                let objLbl = UILabel(frame: CGRect(x: courtInfo.frame.width * i + 10, y: courtInfo.frame.height-40, width: courtInfo.frame.width-10, height: 40), text: "장소 : \(addr)")
+                let infoStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["address"]!))"
+                let objLbl = UILabel(frame: CGRect(x: courtInfo.frame.width * i + 10, y: courtInfo.frame.height-40, width: courtInfo.frame.width-10, height: 40), text: "\(infoStr)")
                 objLbl.font = UIFont(name: (objLbl.font?.fontName)!, size: 12)
                 courtInfo.addSubview(objLbl)
                 
@@ -137,11 +138,8 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                     courtInfo.addSubview(imgBtn)
                 }
                 
-                var addr = ""
-                if let addressText = obj["address"] as? String{
-                    addr += addressText
-                }
-                let objLbl = UILabel(frame: CGRect(x: courtInfo.frame.width * i + 10, y: courtInfo.frame.height-40, width: courtInfo.frame.width-10, height: 40), text: "장소 : \(addr)")
+                let infoStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["address"]!))"
+                let objLbl = UILabel(frame: CGRect(x: courtInfo.frame.width * i + 10, y: courtInfo.frame.height-40, width: courtInfo.frame.width-10, height: 40), text: "\(infoStr)")
                 objLbl.font = UIFont(name: (objLbl.font?.fontName)!, size: 12)
                 courtInfo.addSubview(objLbl)
                 
@@ -185,6 +183,12 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                                 }
                                 if let addressText = obj["addressShort"] as? String{
                                     tmpObj["addressShort"] = addressText
+                                }
+                                if let categoryName = obj["categoryName"] as? String{
+                                    tmpObj["categoryName"] = categoryName
+                                }
+                                if let cname = obj["cname"] as? String{
+                                    tmpObj["cname"] = cname
                                 }
                                 if let seq = obj["seq"] as? Int{
                                     tmpObj["seq"] = seq
@@ -231,6 +235,12 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                                 if let addressText = obj["addressShort"] as? String{
                                     tmpObj["addressShort"] = addressText
                                 }
+                                if let categoryName = obj["categoryName"] as? String{
+                                    tmpObj["categoryName"] = categoryName
+                                }
+                                if let cname = obj["cname"] as? String{
+                                    tmpObj["cname"] = cname
+                                }
                                 if let seq = obj["seq"] as? Int{
                                     tmpObj["seq"] = seq
                                 }
@@ -270,5 +280,4 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
         self.presentViewController(uvc, animated: true, completion: nil)
     }
 }
-
 

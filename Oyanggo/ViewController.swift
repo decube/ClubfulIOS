@@ -57,9 +57,32 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         super.viewDidLoad()
         print("ViewController viewDidLoad")
         
-        
+        var request : NSMutableURLRequest
+        let apiUrl = NSURL(string: URL.urlCheck)
+        request = NSMutableURLRequest(URL: apiUrl!)
+        request.HTTPMethod = "GET"
+        var data = NSData()
+        let semaphore = dispatch_semaphore_create(0)
+        NSURLSession.sharedSession().dataTaskWithRequest(request){(responseData,_,_) -> Void in
+            if responseData != nil{
+                data = responseData!
+            }
+            dispatch_semaphore_signal(semaphore)
+            }.resume()
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        do{
+            let json = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! [String: AnyObject]
+            URL.appServer = json["appServer"] as! String
+            URL.imageServer = json["imageServer"] as! String
+            URL.courtUpload = json["courtUpload"] as! String
+            self.setLoad()
+        } catch _ as NSError {}
+    }
+    
+    
+    
+    func setLoad(){
         user = Storage.getRealmUser()
-        
         let parameters : [String: AnyObject] = ["appType": "ios", "appVersion": Util.nsVersion, "deviceCD": NSDate().getFullDate(), "language": Util.language, "deviceId": Util.deviceId, "token": user.token, "categoryVer": user.categoryVer, "noticeVer": user.noticeVer]
         Alamofire.request(.GET, URL.version_Check, parameters: parameters)
             .validate(statusCode: 200..<300)
@@ -112,7 +135,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         categoryBtn.setTitle(user.categoryName, forState: .Normal)
         categoryBtn.boxLayout(borderWidth: 1, borderColor: UIColor.blackColor())
         blackScreen = UIButton().blackScreen()
-        leftCourtView = UIScrollView(frame: CGRect(x: 0, y: 80, width: Util.screenSize.width/2, height: Util.screenSize.height-80-self.courtInsertBtn.frame.height), backgroundColor: UIColor.whiteColor())
+        leftCourtView = UIScrollView(frame: CGRect(x: 0, y: 80, width: Util.screenSize.width/3*2, height: Util.screenSize.height-80-self.courtInsertBtn.frame.height), backgroundColor: UIColor.whiteColor())
         centerLocView = UIView(frame: CGRect(x: (Util.screenSize.width-300)/2, y: (Util.screenSize.height-440)/2, width: 300, height: 440), backgroundColor: UIColor.whiteColor())
         navView = UIView(frame: CGRect(x: Util.screenSize.width/5*2, y: 20, width: Util.screenSize.width/5*3, height: Util.screenSize.height-20))
         
@@ -322,12 +345,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             }
             
         }
-        
-        
-        
     }
-    
-    
     
     
     
@@ -381,9 +399,8 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             leftCourtView.scrollToTop()
             //코트 검색 통신
             var i : CGFloat = 0
-            let locObjHeight : CGFloat = 80
-            
-            let parameters : [String: AnyObject] = ["token": user.token, "address": courtSearchField.text!, "category": user.category]
+            let locObjHeight : CGFloat = 90
+            let parameters : [String: AnyObject] = ["token": user.token, "address": courtSearchField.text!, "category": user.category, "latitude": user.latitude, "longitude": user.longitude]
             Alamofire.request(.GET, URL.court_listSearch, parameters: parameters)
                 .validate(statusCode: 200..<300)
                 .validate(contentType: ["application/json"])
@@ -395,13 +412,20 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                             if let list = dic["list"] as? [[String: AnyObject]]{
                                 for obj in list{
                                     let objBtn = UIButton(frame: CGRect(x: 0, y: locObjHeight*i, width: self.leftCourtView.frame.width, height: locObjHeight-1))
-                                    let addressShortLbl = UILabel(frame: CGRect(x: 5, y: 10, width: objBtn.frame.width-5, height: 15), text: "\(obj["addressShort"]!)", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 17)
-                                    let addressLbl = UILabel(frame: CGRect(x: 5, y: 25, width: objBtn.frame.width-5, height: 65), text: "\(obj["address"]!)", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 13)
-                                    addressLbl.numberOfLines = 2
-                                    objBtn.boxBorder(.Bottom, borderWidth: 1, color: UIColor.blackColor())
+                                    
+                                    let infoStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["addressShort"]!))"
+                                    
+                                    let infoLbl = UILabel(frame: CGRect(x: 5, y: 3, width: objBtn.frame.width-5, height: 42), text: infoStr, color: UIColor.blackColor(), textAlignment: .Left, fontSize: 15)
+                                    let descLbl = UILabel(frame: CGRect(x: 15, y: 45, width: objBtn.frame.width-20, height: 45), text: "\(obj["description"]!)", color: UIColor.blackColor(), textAlignment: .Left, fontSize: 13)
+                                    
+                                    infoLbl.numberOfLines = 2
+                                    descLbl.numberOfLines = 2
+                                    descLbl.textColor = UIColor(red:0.34, green:0.33, blue:0.31, alpha:1.00)
+                                    
+                                    objBtn.boxBorder(.Bottom, borderWidth: 1, color: UIColor(red:0.94, green:0.96, blue:0.97, alpha:1.00))
                                     self.leftCourtView.addSubview(objBtn)
-                                    objBtn.addSubview(addressShortLbl)
-                                    objBtn.addSubview(addressLbl)
+                                    objBtn.addSubview(infoLbl)
+                                    objBtn.addSubview(descLbl)
                                     
                                     objBtn.addControlEvent(.TouchUpInside){
                                         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
