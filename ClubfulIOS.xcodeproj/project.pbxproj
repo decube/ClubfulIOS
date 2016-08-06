@@ -31,7 +31,6 @@
 		6EDA95711D55CC9D00E029C8 /* ic_star_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA955E1D55CC9D00E029C8 /* ic_star_select.png */; };
 		6EDA95721D55CC9D00E029C8 /* kakaoBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA955F1D55CC9D00E029C8 /* kakaoBtn.png */; };
 		6EDA95731D55CC9D00E029C8 /* pic_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95601D55CC9D00E029C8 /* pic_add.png */; };
-		6EDA95741D55CC9D00E029C8 /* screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95611D55CC9D00E029C8 /* screen.png */; };
 		6EDA95811D55CD3C00E029C8 /* InquiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95801D55CD3C00E029C8 /* InquiryViewController.swift */; };
 		6EDA95831D55CD4500E029C8 /* AppGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95821D55CD4500E029C8 /* AppGuideViewController.swift */; };
 		6EDA95851D55CD4F00E029C8 /* AppVersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95841D55CD4F00E029C8 /* AppVersionViewController.swift */; };
@@ -56,6 +55,7 @@
 		6EDA95B21D55CE1B00E029C8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95AF1D55CE1B00E029C8 /* User.swift */; };
 		6EDA95B41D55CE4A00E029C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95B31D55CE4A00E029C8 /* AppDelegate.swift */; };
 		6EDA95B61D55CEA700E029C8 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EDA95B51D55CEA700E029C8 /* KakaoOpenSDK.framework */; };
+		6EDA95B81D55DABC00E029C8 /* screen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95B71D55DABC00E029C8 /* screen.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,7 +106,6 @@
 		6EDA955E1D55CC9D00E029C8 /* ic_star_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_star_select.png; path = resources/img/ic_star_select.png; sourceTree = "<group>"; };
 		6EDA955F1D55CC9D00E029C8 /* kakaoBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kakaoBtn.png; path = resources/img/kakaoBtn.png; sourceTree = "<group>"; };
 		6EDA95601D55CC9D00E029C8 /* pic_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pic_add.png; path = resources/img/pic_add.png; sourceTree = "<group>"; };
-		6EDA95611D55CC9D00E029C8 /* screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = screen.png; path = resources/img/screen.png; sourceTree = "<group>"; };
 		6EDA95801D55CD3C00E029C8 /* InquiryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiryViewController.swift; sourceTree = "<group>"; };
 		6EDA95821D55CD4500E029C8 /* AppGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppGuideViewController.swift; sourceTree = "<group>"; };
 		6EDA95841D55CD4F00E029C8 /* AppVersionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppVersionViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +130,7 @@
 		6EDA95AF1D55CE1B00E029C8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6EDA95B31D55CE4A00E029C8 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6EDA95B51D55CEA700E029C8 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
+		6EDA95B71D55DABC00E029C8 /* screen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = screen.jpg; path = resources/img/screen.jpg; sourceTree = "<group>"; };
 		B5F3C028185CBB0F65EC39EF /* Pods-ClubfulIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubfulIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubfulIOS/Pods-ClubfulIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		C7A14839D31466A36B0FC0CD /* Pods-ClubfulIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubfulIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClubfulIOS/Pods-ClubfulIOS.release.xcconfig"; sourceTree = "<group>"; };
 		DE2CAE3BA3F8BF9D38F05FFD /* Pods_ClubfulIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubfulIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -229,6 +229,7 @@
 		6EDA954E1D55CC8300E029C8 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				6EDA95B71D55DABC00E029C8 /* screen.jpg */,
 				6EDA954F1D55CC9D00E029C8 /* ic_back.png */,
 				6EDA95501D55CC9D00E029C8 /* ic_myLocation.png */,
 				6EDA95511D55CC9D00E029C8 /* ic_nav_icon.png */,
@@ -247,7 +248,6 @@
 				6EDA955E1D55CC9D00E029C8 /* ic_star_select.png */,
 				6EDA955F1D55CC9D00E029C8 /* kakaoBtn.png */,
 				6EDA95601D55CC9D00E029C8 /* pic_add.png */,
-				6EDA95611D55CC9D00E029C8 /* screen.png */,
 			);
 			name = img;
 			sourceTree = "<group>";
@@ -510,7 +510,7 @@
 				6EDA95651D55CC9D00E029C8 /* ic_navi_appInfo.png in Resources */,
 				6EDA956A1D55CC9D00E029C8 /* ic_navi_message.png in Resources */,
 				6EDA956D1D55CC9D00E029C8 /* ic_navi_setting.png in Resources */,
-				6EDA95741D55CC9D00E029C8 /* screen.png in Resources */,
+				6EDA95B81D55DABC00E029C8 /* screen.jpg in Resources */,
 				6EDA95691D55CC9D00E029C8 /* ic_navi_main.png in Resources */,
 				6EDA956B1D55CC9D00E029C8 /* ic_navi_mypage.png in Resources */,
 				6EDA95631D55CC9D00E029C8 /* ic_myLocation.png in Resources */,
