@@ -1,0 +1,893 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		64A2DEE91461EF0A8E1E5B3C /* Pods_ClubfulIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE2CAE3BA3F8BF9D38F05FFD /* Pods_ClubfulIOS.framework */; };
+		6EDA95211D55C85300E029C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA951F1D55C85300E029C8 /* Main.storyboard */; };
+		6EDA95231D55C85300E029C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95221D55C85300E029C8 /* Assets.xcassets */; };
+		6EDA95261D55C85300E029C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95241D55C85300E029C8 /* LaunchScreen.storyboard */; };
+		6EDA95311D55C85400E029C8 /* ClubfulIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95301D55C85400E029C8 /* ClubfulIOSTests.swift */; };
+		6EDA953C1D55C85400E029C8 /* ClubfulIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA953B1D55C85400E029C8 /* ClubfulIOSUITests.swift */; };
+		6EDA95621D55CC9D00E029C8 /* ic_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA954F1D55CC9D00E029C8 /* ic_back.png */; };
+		6EDA95631D55CC9D00E029C8 /* ic_myLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95501D55CC9D00E029C8 /* ic_myLocation.png */; };
+		6EDA95641D55CC9D00E029C8 /* ic_nav_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95511D55CC9D00E029C8 /* ic_nav_icon.png */; };
+		6EDA95651D55CC9D00E029C8 /* ic_navi_appInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95521D55CC9D00E029C8 /* ic_navi_appInfo.png */; };
+		6EDA95661D55CC9D00E029C8 /* ic_navi_friend.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95531D55CC9D00E029C8 /* ic_navi_friend.png */; };
+		6EDA95671D55CC9D00E029C8 /* ic_navi_guide.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95541D55CC9D00E029C8 /* ic_navi_guide.png */; };
+		6EDA95681D55CC9D00E029C8 /* ic_navi_inquiry.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95551D55CC9D00E029C8 /* ic_navi_inquiry.png */; };
+		6EDA95691D55CC9D00E029C8 /* ic_navi_main.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95561D55CC9D00E029C8 /* ic_navi_main.png */; };
+		6EDA956A1D55CC9D00E029C8 /* ic_navi_message.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95571D55CC9D00E029C8 /* ic_navi_message.png */; };
+		6EDA956B1D55CC9D00E029C8 /* ic_navi_mypage.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95581D55CC9D00E029C8 /* ic_navi_mypage.png */; };
+		6EDA956C1D55CC9D00E029C8 /* ic_navi_notice.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95591D55CC9D00E029C8 /* ic_navi_notice.png */; };
+		6EDA956D1D55CC9D00E029C8 /* ic_navi_setting.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA955A1D55CC9D00E029C8 /* ic_navi_setting.png */; };
+		6EDA956E1D55CC9D00E029C8 /* ic_pic_type_camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA955B1D55CC9D00E029C8 /* ic_pic_type_camera.png */; };
+		6EDA956F1D55CC9D00E029C8 /* ic_pic_type_gallary.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA955C1D55CC9D00E029C8 /* ic_pic_type_gallary.png */; };
+		6EDA95701D55CC9D00E029C8 /* ic_star_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA955D1D55CC9D00E029C8 /* ic_star_normal.png */; };
+		6EDA95711D55CC9D00E029C8 /* ic_star_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA955E1D55CC9D00E029C8 /* ic_star_select.png */; };
+		6EDA95721D55CC9D00E029C8 /* kakaoBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA955F1D55CC9D00E029C8 /* kakaoBtn.png */; };
+		6EDA95731D55CC9D00E029C8 /* pic_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95601D55CC9D00E029C8 /* pic_add.png */; };
+		6EDA95741D55CC9D00E029C8 /* screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95611D55CC9D00E029C8 /* screen.png */; };
+		6EDA95811D55CD3C00E029C8 /* InquiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95801D55CD3C00E029C8 /* InquiryViewController.swift */; };
+		6EDA95831D55CD4500E029C8 /* AppGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95821D55CD4500E029C8 /* AppGuideViewController.swift */; };
+		6EDA95851D55CD4F00E029C8 /* AppVersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95841D55CD4F00E029C8 /* AppVersionViewController.swift */; };
+		6EDA95871D55CD5D00E029C8 /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95861D55CD5D00E029C8 /* NoticeViewController.swift */; };
+		6EDA95891D55CD6500E029C8 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95881D55CD6500E029C8 /* SettingViewController.swift */; };
+		6EDA958B1D55CD6E00E029C8 /* MemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA958A1D55CD6E00E029C8 /* MemoViewController.swift */; };
+		6EDA95911D55CDA700E029C8 /* CourtCreateMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95901D55CDA700E029C8 /* CourtCreateMapViewController.swift */; };
+		6EDA95931D55CDAB00E029C8 /* CourtCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95921D55CDAB00E029C8 /* CourtCreateViewController.swift */; };
+		6EDA95961D55CDB500E029C8 /* CourtMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95941D55CDB500E029C8 /* CourtMapViewController.swift */; };
+		6EDA95971D55CDB500E029C8 /* CourtViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95951D55CDB500E029C8 /* CourtViewController.swift */; };
+		6EDA95991D55CDC300E029C8 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95981D55CDC300E029C8 /* MypageViewController.swift */; };
+		6EDA959B1D55CDCB00E029C8 /* UserConvertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA959A1D55CDCB00E029C8 /* UserConvertViewController.swift */; };
+		6EDA959F1D55CDE100E029C8 /* JoinMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA959C1D55CDE100E029C8 /* JoinMapViewController.swift */; };
+		6EDA95A01D55CDE100E029C8 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA959D1D55CDE100E029C8 /* JoinViewController.swift */; };
+		6EDA95A11D55CDE100E029C8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA959E1D55CDE100E029C8 /* LoginViewController.swift */; };
+		6EDA95A31D55CDE800E029C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95A21D55CDE800E029C8 /* ViewController.swift */; };
+		6EDA95A81D55CDFF00E029C8 /* PhotoAlbumCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95A71D55CDFF00E029C8 /* PhotoAlbumCustom.swift */; };
+		6EDA95AA1D55CE0800E029C8 /* ImageCrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95A91D55CE0800E029C8 /* ImageCrop.swift */; };
+		6EDA95AC1D55CE0F00E029C8 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95AB1D55CE0F00E029C8 /* Util.swift */; };
+		6EDA95B01D55CE1B00E029C8 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95AD1D55CE1B00E029C8 /* Storage.swift */; };
+		6EDA95B11D55CE1B00E029C8 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95AE1D55CE1B00E029C8 /* URL.swift */; };
+		6EDA95B21D55CE1B00E029C8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95AF1D55CE1B00E029C8 /* User.swift */; };
+		6EDA95B41D55CE4A00E029C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95B31D55CE4A00E029C8 /* AppDelegate.swift */; };
+		6EDA95B61D55CEA700E029C8 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EDA95B51D55CEA700E029C8 /* KakaoOpenSDK.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6EDA952D1D55C85400E029C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6EDA95101D55C85300E029C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6EDA95171D55C85300E029C8;
+			remoteInfo = ClubfulIOS;
+		};
+		6EDA95381D55C85400E029C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6EDA95101D55C85300E029C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6EDA95171D55C85300E029C8;
+			remoteInfo = ClubfulIOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6EDA95181D55C85300E029C8 /* ClubfulIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubfulIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EDA95201D55C85300E029C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6EDA95221D55C85300E029C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6EDA95251D55C85300E029C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6EDA95271D55C85300E029C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6EDA952C1D55C85400E029C8 /* ClubfulIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClubfulIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EDA95301D55C85400E029C8 /* ClubfulIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubfulIOSTests.swift; sourceTree = "<group>"; };
+		6EDA95321D55C85400E029C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6EDA95371D55C85400E029C8 /* ClubfulIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClubfulIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EDA953B1D55C85400E029C8 /* ClubfulIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubfulIOSUITests.swift; sourceTree = "<group>"; };
+		6EDA953D1D55C85400E029C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6EDA95491D55CB8200E029C8 /* ClubfulIOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ClubfulIOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		6EDA954F1D55CC9D00E029C8 /* ic_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_back.png; path = resources/img/ic_back.png; sourceTree = "<group>"; };
+		6EDA95501D55CC9D00E029C8 /* ic_myLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_myLocation.png; path = resources/img/ic_myLocation.png; sourceTree = "<group>"; };
+		6EDA95511D55CC9D00E029C8 /* ic_nav_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_nav_icon.png; path = resources/img/ic_nav_icon.png; sourceTree = "<group>"; };
+		6EDA95521D55CC9D00E029C8 /* ic_navi_appInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_navi_appInfo.png; path = resources/img/ic_navi_appInfo.png; sourceTree = "<group>"; };
+		6EDA95531D55CC9D00E029C8 /* ic_navi_friend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_navi_friend.png; path = resources/img/ic_navi_friend.png; sourceTree = "<group>"; };
+		6EDA95541D55CC9D00E029C8 /* ic_navi_guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_navi_guide.png; path = resources/img/ic_navi_guide.png; sourceTree = "<group>"; };
+		6EDA95551D55CC9D00E029C8 /* ic_navi_inquiry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_navi_inquiry.png; path = resources/img/ic_navi_inquiry.png; sourceTree = "<group>"; };
+		6EDA95561D55CC9D00E029C8 /* ic_navi_main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_navi_main.png; path = resources/img/ic_navi_main.png; sourceTree = "<group>"; };
+		6EDA95571D55CC9D00E029C8 /* ic_navi_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_navi_message.png; path = resources/img/ic_navi_message.png; sourceTree = "<group>"; };
+		6EDA95581D55CC9D00E029C8 /* ic_navi_mypage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_navi_mypage.png; path = resources/img/ic_navi_mypage.png; sourceTree = "<group>"; };
+		6EDA95591D55CC9D00E029C8 /* ic_navi_notice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_navi_notice.png; path = resources/img/ic_navi_notice.png; sourceTree = "<group>"; };
+		6EDA955A1D55CC9D00E029C8 /* ic_navi_setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_navi_setting.png; path = resources/img/ic_navi_setting.png; sourceTree = "<group>"; };
+		6EDA955B1D55CC9D00E029C8 /* ic_pic_type_camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_pic_type_camera.png; path = resources/img/ic_pic_type_camera.png; sourceTree = "<group>"; };
+		6EDA955C1D55CC9D00E029C8 /* ic_pic_type_gallary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_pic_type_gallary.png; path = resources/img/ic_pic_type_gallary.png; sourceTree = "<group>"; };
+		6EDA955D1D55CC9D00E029C8 /* ic_star_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_star_normal.png; path = resources/img/ic_star_normal.png; sourceTree = "<group>"; };
+		6EDA955E1D55CC9D00E029C8 /* ic_star_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_star_select.png; path = resources/img/ic_star_select.png; sourceTree = "<group>"; };
+		6EDA955F1D55CC9D00E029C8 /* kakaoBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kakaoBtn.png; path = resources/img/kakaoBtn.png; sourceTree = "<group>"; };
+		6EDA95601D55CC9D00E029C8 /* pic_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pic_add.png; path = resources/img/pic_add.png; sourceTree = "<group>"; };
+		6EDA95611D55CC9D00E029C8 /* screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = screen.png; path = resources/img/screen.png; sourceTree = "<group>"; };
+		6EDA95801D55CD3C00E029C8 /* InquiryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiryViewController.swift; sourceTree = "<group>"; };
+		6EDA95821D55CD4500E029C8 /* AppGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppGuideViewController.swift; sourceTree = "<group>"; };
+		6EDA95841D55CD4F00E029C8 /* AppVersionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppVersionViewController.swift; sourceTree = "<group>"; };
+		6EDA95861D55CD5D00E029C8 /* NoticeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
+		6EDA95881D55CD6500E029C8 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		6EDA958A1D55CD6E00E029C8 /* MemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoViewController.swift; sourceTree = "<group>"; };
+		6EDA95901D55CDA700E029C8 /* CourtCreateMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtCreateMapViewController.swift; sourceTree = "<group>"; };
+		6EDA95921D55CDAB00E029C8 /* CourtCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtCreateViewController.swift; sourceTree = "<group>"; };
+		6EDA95941D55CDB500E029C8 /* CourtMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtMapViewController.swift; sourceTree = "<group>"; };
+		6EDA95951D55CDB500E029C8 /* CourtViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtViewController.swift; sourceTree = "<group>"; };
+		6EDA95981D55CDC300E029C8 /* MypageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
+		6EDA959A1D55CDCB00E029C8 /* UserConvertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserConvertViewController.swift; sourceTree = "<group>"; };
+		6EDA959C1D55CDE100E029C8 /* JoinMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinMapViewController.swift; sourceTree = "<group>"; };
+		6EDA959D1D55CDE100E029C8 /* JoinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
+		6EDA959E1D55CDE100E029C8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		6EDA95A21D55CDE800E029C8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6EDA95A71D55CDFF00E029C8 /* PhotoAlbumCustom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumCustom.swift; sourceTree = "<group>"; };
+		6EDA95A91D55CE0800E029C8 /* ImageCrop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCrop.swift; sourceTree = "<group>"; };
+		6EDA95AB1D55CE0F00E029C8 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		6EDA95AD1D55CE1B00E029C8 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		6EDA95AE1D55CE1B00E029C8 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
+		6EDA95AF1D55CE1B00E029C8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		6EDA95B31D55CE4A00E029C8 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6EDA95B51D55CEA700E029C8 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
+		B5F3C028185CBB0F65EC39EF /* Pods-ClubfulIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubfulIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubfulIOS/Pods-ClubfulIOS.debug.xcconfig"; sourceTree = "<group>"; };
+		C7A14839D31466A36B0FC0CD /* Pods-ClubfulIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubfulIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClubfulIOS/Pods-ClubfulIOS.release.xcconfig"; sourceTree = "<group>"; };
+		DE2CAE3BA3F8BF9D38F05FFD /* Pods_ClubfulIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubfulIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6EDA95151D55C85300E029C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64A2DEE91461EF0A8E1E5B3C /* Pods_ClubfulIOS.framework in Frameworks */,
+				6EDA95B61D55CEA700E029C8 /* KakaoOpenSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6EDA95291D55C85400E029C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6EDA95341D55C85400E029C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6EDA950F1D55C85300E029C8 = {
+			isa = PBXGroup;
+			children = (
+				6EDA951A1D55C85300E029C8 /* ClubfulIOS */,
+				6EDA952F1D55C85400E029C8 /* ClubfulIOSTests */,
+				6EDA953A1D55C85400E029C8 /* ClubfulIOSUITests */,
+				6EDA95191D55C85300E029C8 /* Products */,
+				AD3D514FCFA42E2268137E65 /* Pods */,
+				EB9E07981FDDFFC0ADCF8C47 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		6EDA95191D55C85300E029C8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA95181D55C85300E029C8 /* ClubfulIOS.app */,
+				6EDA952C1D55C85400E029C8 /* ClubfulIOSTests.xctest */,
+				6EDA95371D55C85400E029C8 /* ClubfulIOSUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6EDA951A1D55C85300E029C8 /* ClubfulIOS */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA95B31D55CE4A00E029C8 /* AppDelegate.swift */,
+				6EDA95751D55CCD100E029C8 /* swift */,
+				6EDA954D1D55CC7700E029C8 /* resources */,
+				6EDA951F1D55C85300E029C8 /* Main.storyboard */,
+				6EDA95221D55C85300E029C8 /* Assets.xcassets */,
+				6EDA95241D55C85300E029C8 /* LaunchScreen.storyboard */,
+				6EDA95271D55C85300E029C8 /* Info.plist */,
+				6EDA95491D55CB8200E029C8 /* ClubfulIOS-Bridging-Header.h */,
+			);
+			path = ClubfulIOS;
+			sourceTree = "<group>";
+		};
+		6EDA952F1D55C85400E029C8 /* ClubfulIOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA95301D55C85400E029C8 /* ClubfulIOSTests.swift */,
+				6EDA95321D55C85400E029C8 /* Info.plist */,
+			);
+			path = ClubfulIOSTests;
+			sourceTree = "<group>";
+		};
+		6EDA953A1D55C85400E029C8 /* ClubfulIOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA953B1D55C85400E029C8 /* ClubfulIOSUITests.swift */,
+				6EDA953D1D55C85400E029C8 /* Info.plist */,
+			);
+			path = ClubfulIOSUITests;
+			sourceTree = "<group>";
+		};
+		6EDA954D1D55CC7700E029C8 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA954E1D55CC8300E029C8 /* img */,
+			);
+			name = resources;
+			sourceTree = "<group>";
+		};
+		6EDA954E1D55CC8300E029C8 /* img */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA954F1D55CC9D00E029C8 /* ic_back.png */,
+				6EDA95501D55CC9D00E029C8 /* ic_myLocation.png */,
+				6EDA95511D55CC9D00E029C8 /* ic_nav_icon.png */,
+				6EDA95521D55CC9D00E029C8 /* ic_navi_appInfo.png */,
+				6EDA95531D55CC9D00E029C8 /* ic_navi_friend.png */,
+				6EDA95541D55CC9D00E029C8 /* ic_navi_guide.png */,
+				6EDA95551D55CC9D00E029C8 /* ic_navi_inquiry.png */,
+				6EDA95561D55CC9D00E029C8 /* ic_navi_main.png */,
+				6EDA95571D55CC9D00E029C8 /* ic_navi_message.png */,
+				6EDA95581D55CC9D00E029C8 /* ic_navi_mypage.png */,
+				6EDA95591D55CC9D00E029C8 /* ic_navi_notice.png */,
+				6EDA955A1D55CC9D00E029C8 /* ic_navi_setting.png */,
+				6EDA955B1D55CC9D00E029C8 /* ic_pic_type_camera.png */,
+				6EDA955C1D55CC9D00E029C8 /* ic_pic_type_gallary.png */,
+				6EDA955D1D55CC9D00E029C8 /* ic_star_normal.png */,
+				6EDA955E1D55CC9D00E029C8 /* ic_star_select.png */,
+				6EDA955F1D55CC9D00E029C8 /* kakaoBtn.png */,
+				6EDA95601D55CC9D00E029C8 /* pic_add.png */,
+				6EDA95611D55CC9D00E029C8 /* screen.png */,
+			);
+			name = img;
+			sourceTree = "<group>";
+		};
+		6EDA95751D55CCD100E029C8 /* swift */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA95761D55CCD900E029C8 /* etc */,
+				6EDA957F1D55CD0600E029C8 /* setting */,
+				6EDA957E1D55CD0300E029C8 /* memo */,
+				6EDA957D1D55CCFC00E029C8 /* courtCreate */,
+				6EDA957C1D55CCF700E029C8 /* court */,
+				6EDA957B1D55CCF300E029C8 /* user */,
+				6EDA957A1D55CCED00E029C8 /* certification */,
+				6EDA95791D55CCE900E029C8 /* main */,
+				6EDA95781D55CCE500E029C8 /* utils */,
+			);
+			name = swift;
+			sourceTree = "<group>";
+		};
+		6EDA95761D55CCD900E029C8 /* etc */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA95861D55CD5D00E029C8 /* NoticeViewController.swift */,
+				6EDA95841D55CD4F00E029C8 /* AppVersionViewController.swift */,
+				6EDA95821D55CD4500E029C8 /* AppGuideViewController.swift */,
+				6EDA95801D55CD3C00E029C8 /* InquiryViewController.swift */,
+			);
+			name = etc;
+			sourceTree = "<group>";
+		};
+		6EDA95781D55CCE500E029C8 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA95A61D55CDF500E029C8 /* custom */,
+				6EDA95A51D55CDF100E029C8 /* util */,
+				6EDA95A41D55CDEC00E029C8 /* save */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
+		6EDA95791D55CCE900E029C8 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA95A21D55CDE800E029C8 /* ViewController.swift */,
+			);
+			name = main;
+			sourceTree = "<group>";
+		};
+		6EDA957A1D55CCED00E029C8 /* certification */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA959C1D55CDE100E029C8 /* JoinMapViewController.swift */,
+				6EDA959D1D55CDE100E029C8 /* JoinViewController.swift */,
+				6EDA959E1D55CDE100E029C8 /* LoginViewController.swift */,
+			);
+			name = certification;
+			sourceTree = "<group>";
+		};
+		6EDA957B1D55CCF300E029C8 /* user */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA959A1D55CDCB00E029C8 /* UserConvertViewController.swift */,
+				6EDA95981D55CDC300E029C8 /* MypageViewController.swift */,
+			);
+			name = user;
+			sourceTree = "<group>";
+		};
+		6EDA957C1D55CCF700E029C8 /* court */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA95941D55CDB500E029C8 /* CourtMapViewController.swift */,
+				6EDA95951D55CDB500E029C8 /* CourtViewController.swift */,
+			);
+			name = court;
+			sourceTree = "<group>";
+		};
+		6EDA957D1D55CCFC00E029C8 /* courtCreate */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA95921D55CDAB00E029C8 /* CourtCreateViewController.swift */,
+				6EDA95901D55CDA700E029C8 /* CourtCreateMapViewController.swift */,
+			);
+			name = courtCreate;
+			sourceTree = "<group>";
+		};
+		6EDA957E1D55CD0300E029C8 /* memo */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA958A1D55CD6E00E029C8 /* MemoViewController.swift */,
+			);
+			name = memo;
+			sourceTree = "<group>";
+		};
+		6EDA957F1D55CD0600E029C8 /* setting */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA95881D55CD6500E029C8 /* SettingViewController.swift */,
+			);
+			name = setting;
+			sourceTree = "<group>";
+		};
+		6EDA95A41D55CDEC00E029C8 /* save */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA95AD1D55CE1B00E029C8 /* Storage.swift */,
+				6EDA95AE1D55CE1B00E029C8 /* URL.swift */,
+				6EDA95AF1D55CE1B00E029C8 /* User.swift */,
+			);
+			name = save;
+			sourceTree = "<group>";
+		};
+		6EDA95A51D55CDF100E029C8 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA95AB1D55CE0F00E029C8 /* Util.swift */,
+				6EDA95A91D55CE0800E029C8 /* ImageCrop.swift */,
+			);
+			name = util;
+			sourceTree = "<group>";
+		};
+		6EDA95A61D55CDF500E029C8 /* custom */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA95A71D55CDFF00E029C8 /* PhotoAlbumCustom.swift */,
+			);
+			name = custom;
+			sourceTree = "<group>";
+		};
+		AD3D514FCFA42E2268137E65 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B5F3C028185CBB0F65EC39EF /* Pods-ClubfulIOS.debug.xcconfig */,
+				C7A14839D31466A36B0FC0CD /* Pods-ClubfulIOS.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		EB9E07981FDDFFC0ADCF8C47 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6EDA95B51D55CEA700E029C8 /* KakaoOpenSDK.framework */,
+				DE2CAE3BA3F8BF9D38F05FFD /* Pods_ClubfulIOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6EDA95171D55C85300E029C8 /* ClubfulIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6EDA95401D55C85400E029C8 /* Build configuration list for PBXNativeTarget "ClubfulIOS" */;
+			buildPhases = (
+				548330DF535608971A8A729F /* Check Pods Manifest.lock */,
+				6EDA95141D55C85300E029C8 /* Sources */,
+				6EDA95151D55C85300E029C8 /* Frameworks */,
+				6EDA95161D55C85300E029C8 /* Resources */,
+				8155E0FB5C939F48791C3CE3 /* Embed Pods Frameworks */,
+				B5B7E7F2E07814FE6AC3233A /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClubfulIOS;
+			productName = ClubfulIOS;
+			productReference = 6EDA95181D55C85300E029C8 /* ClubfulIOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6EDA952B1D55C85400E029C8 /* ClubfulIOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6EDA95431D55C85400E029C8 /* Build configuration list for PBXNativeTarget "ClubfulIOSTests" */;
+			buildPhases = (
+				6EDA95281D55C85400E029C8 /* Sources */,
+				6EDA95291D55C85400E029C8 /* Frameworks */,
+				6EDA952A1D55C85400E029C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6EDA952E1D55C85400E029C8 /* PBXTargetDependency */,
+			);
+			name = ClubfulIOSTests;
+			productName = ClubfulIOSTests;
+			productReference = 6EDA952C1D55C85400E029C8 /* ClubfulIOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6EDA95361D55C85400E029C8 /* ClubfulIOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6EDA95461D55C85400E029C8 /* Build configuration list for PBXNativeTarget "ClubfulIOSUITests" */;
+			buildPhases = (
+				6EDA95331D55C85400E029C8 /* Sources */,
+				6EDA95341D55C85400E029C8 /* Frameworks */,
+				6EDA95351D55C85400E029C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6EDA95391D55C85400E029C8 /* PBXTargetDependency */,
+			);
+			name = ClubfulIOSUITests;
+			productName = ClubfulIOSUITests;
+			productReference = 6EDA95371D55C85400E029C8 /* ClubfulIOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6EDA95101D55C85300E029C8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = guanho;
+				TargetAttributes = {
+					6EDA95171D55C85300E029C8 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 8Z7ZELFAQU;
+					};
+					6EDA952B1D55C85400E029C8 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 8Z7ZELFAQU;
+						TestTargetID = 6EDA95171D55C85300E029C8;
+					};
+					6EDA95361D55C85400E029C8 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 8Z7ZELFAQU;
+						TestTargetID = 6EDA95171D55C85300E029C8;
+					};
+				};
+			};
+			buildConfigurationList = 6EDA95131D55C85300E029C8 /* Build configuration list for PBXProject "ClubfulIOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6EDA950F1D55C85300E029C8;
+			productRefGroup = 6EDA95191D55C85300E029C8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6EDA95171D55C85300E029C8 /* ClubfulIOS */,
+				6EDA952B1D55C85400E029C8 /* ClubfulIOSTests */,
+				6EDA95361D55C85400E029C8 /* ClubfulIOSUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6EDA95161D55C85300E029C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EDA95641D55CC9D00E029C8 /* ic_nav_icon.png in Resources */,
+				6EDA95681D55CC9D00E029C8 /* ic_navi_inquiry.png in Resources */,
+				6EDA95651D55CC9D00E029C8 /* ic_navi_appInfo.png in Resources */,
+				6EDA956A1D55CC9D00E029C8 /* ic_navi_message.png in Resources */,
+				6EDA956D1D55CC9D00E029C8 /* ic_navi_setting.png in Resources */,
+				6EDA95741D55CC9D00E029C8 /* screen.png in Resources */,
+				6EDA95691D55CC9D00E029C8 /* ic_navi_main.png in Resources */,
+				6EDA956B1D55CC9D00E029C8 /* ic_navi_mypage.png in Resources */,
+				6EDA95631D55CC9D00E029C8 /* ic_myLocation.png in Resources */,
+				6EDA95711D55CC9D00E029C8 /* ic_star_select.png in Resources */,
+				6EDA956C1D55CC9D00E029C8 /* ic_navi_notice.png in Resources */,
+				6EDA95721D55CC9D00E029C8 /* kakaoBtn.png in Resources */,
+				6EDA956F1D55CC9D00E029C8 /* ic_pic_type_gallary.png in Resources */,
+				6EDA956E1D55CC9D00E029C8 /* ic_pic_type_camera.png in Resources */,
+				6EDA95261D55C85300E029C8 /* LaunchScreen.storyboard in Resources */,
+				6EDA95231D55C85300E029C8 /* Assets.xcassets in Resources */,
+				6EDA95661D55CC9D00E029C8 /* ic_navi_friend.png in Resources */,
+				6EDA95621D55CC9D00E029C8 /* ic_back.png in Resources */,
+				6EDA95211D55C85300E029C8 /* Main.storyboard in Resources */,
+				6EDA95731D55CC9D00E029C8 /* pic_add.png in Resources */,
+				6EDA95701D55CC9D00E029C8 /* ic_star_normal.png in Resources */,
+				6EDA95671D55CC9D00E029C8 /* ic_navi_guide.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6EDA952A1D55C85400E029C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6EDA95351D55C85400E029C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		548330DF535608971A8A729F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8155E0FB5C939F48791C3CE3 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ClubfulIOS/Pods-ClubfulIOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B5B7E7F2E07814FE6AC3233A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ClubfulIOS/Pods-ClubfulIOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6EDA95141D55C85300E029C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EDA95891D55CD6500E029C8 /* SettingViewController.swift in Sources */,
+				6EDA959B1D55CDCB00E029C8 /* UserConvertViewController.swift in Sources */,
+				6EDA95811D55CD3C00E029C8 /* InquiryViewController.swift in Sources */,
+				6EDA95AA1D55CE0800E029C8 /* ImageCrop.swift in Sources */,
+				6EDA95A11D55CDE100E029C8 /* LoginViewController.swift in Sources */,
+				6EDA95931D55CDAB00E029C8 /* CourtCreateViewController.swift in Sources */,
+				6EDA959F1D55CDE100E029C8 /* JoinMapViewController.swift in Sources */,
+				6EDA958B1D55CD6E00E029C8 /* MemoViewController.swift in Sources */,
+				6EDA95A01D55CDE100E029C8 /* JoinViewController.swift in Sources */,
+				6EDA95B01D55CE1B00E029C8 /* Storage.swift in Sources */,
+				6EDA95B21D55CE1B00E029C8 /* User.swift in Sources */,
+				6EDA95851D55CD4F00E029C8 /* AppVersionViewController.swift in Sources */,
+				6EDA95A81D55CDFF00E029C8 /* PhotoAlbumCustom.swift in Sources */,
+				6EDA95871D55CD5D00E029C8 /* NoticeViewController.swift in Sources */,
+				6EDA95AC1D55CE0F00E029C8 /* Util.swift in Sources */,
+				6EDA95971D55CDB500E029C8 /* CourtViewController.swift in Sources */,
+				6EDA95911D55CDA700E029C8 /* CourtCreateMapViewController.swift in Sources */,
+				6EDA95831D55CD4500E029C8 /* AppGuideViewController.swift in Sources */,
+				6EDA95B11D55CE1B00E029C8 /* URL.swift in Sources */,
+				6EDA95961D55CDB500E029C8 /* CourtMapViewController.swift in Sources */,
+				6EDA95A31D55CDE800E029C8 /* ViewController.swift in Sources */,
+				6EDA95991D55CDC300E029C8 /* MypageViewController.swift in Sources */,
+				6EDA95B41D55CE4A00E029C8 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6EDA95281D55C85400E029C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EDA95311D55C85400E029C8 /* ClubfulIOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6EDA95331D55C85400E029C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EDA953C1D55C85400E029C8 /* ClubfulIOSUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6EDA952E1D55C85400E029C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6EDA95171D55C85300E029C8 /* ClubfulIOS */;
+			targetProxy = 6EDA952D1D55C85400E029C8 /* PBXContainerItemProxy */;
+		};
+		6EDA95391D55C85400E029C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6EDA95171D55C85300E029C8 /* ClubfulIOS */;
+			targetProxy = 6EDA95381D55C85400E029C8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6EDA951F1D55C85300E029C8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6EDA95201D55C85300E029C8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6EDA95241D55C85300E029C8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6EDA95251D55C85300E029C8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6EDA953E1D55C85400E029C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6EDA953F1D55C85400E029C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6EDA95411D55C85400E029C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B5F3C028185CBB0F65EC39EF /* Pods-ClubfulIOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = ClubfulIOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.clubful.ClubfulIOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "ClubfulIOS/ClubfulIOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6EDA95421D55C85400E029C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7A14839D31466A36B0FC0CD /* Pods-ClubfulIOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = ClubfulIOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.clubful.ClubfulIOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "ClubfulIOS/ClubfulIOS-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		6EDA95441D55C85400E029C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ClubfulIOSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.clubful.ClubfulIOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClubfulIOS.app/ClubfulIOS";
+			};
+			name = Debug;
+		};
+		6EDA95451D55C85400E029C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ClubfulIOSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.clubful.ClubfulIOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClubfulIOS.app/ClubfulIOS";
+			};
+			name = Release;
+		};
+		6EDA95471D55C85400E029C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ClubfulIOSUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.clubful.ClubfulIOSUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = ClubfulIOS;
+			};
+			name = Debug;
+		};
+		6EDA95481D55C85400E029C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ClubfulIOSUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.clubful.ClubfulIOSUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = ClubfulIOS;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6EDA95131D55C85300E029C8 /* Build configuration list for PBXProject "ClubfulIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6EDA953E1D55C85400E029C8 /* Debug */,
+				6EDA953F1D55C85400E029C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6EDA95401D55C85400E029C8 /* Build configuration list for PBXNativeTarget "ClubfulIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6EDA95411D55C85400E029C8 /* Debug */,
+				6EDA95421D55C85400E029C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6EDA95431D55C85400E029C8 /* Build configuration list for PBXNativeTarget "ClubfulIOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6EDA95441D55C85400E029C8 /* Debug */,
+				6EDA95451D55C85400E029C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6EDA95461D55C85400E029C8 /* Build configuration list for PBXNativeTarget "ClubfulIOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6EDA95471D55C85400E029C8 /* Debug */,
+				6EDA95481D55C85400E029C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6EDA95101D55C85300E029C8 /* Project object */;
+}

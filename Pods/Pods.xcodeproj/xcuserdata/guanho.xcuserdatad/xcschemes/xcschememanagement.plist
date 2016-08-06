@@ -29,7 +29,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-Oyanggo.xcscheme</key>
+		<key>Pods-ClubfulIOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,7 +47,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>06CC172F9DEE8DD73F1B2A9776C69AFE</key>
+		<key>06DE97E1FFD26C79F9057BD4DAF997BD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,22 +57,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>597AC14E0DB98FF8556FCA50F6E750F4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>854B000C9B7BF10F317C0DD28D026DBC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C15C986904B4FDA1D278FECFB1CFF1FE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E01A2BEDA6CF54A225F3D0C6D80AD9EC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E6361EF2E03ED7F3B7F09B6EE8F12631</key>
 		<dict>
 			<key>primary</key>
 			<true/>

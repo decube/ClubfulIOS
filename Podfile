@@ -3,7 +3,7 @@
 # Uncomment this line if you're using Swift
 # use_frameworks!
 
-target 'Oyanggo' do
+target ‘ClubfulIOS’ do
 use_frameworks!
 pod 'ImageSlideshow', '~> 0.5'
 pod 'ActionKit', '~> 1.0'
@@ -13,11 +13,11 @@ pod 'Alamofire', '~> 3.4'
 
 end
 
-target 'OyanggoTests' do
+target 'ClubfulIOSTests' do
 
 end
 
-target 'OyanggoUITests' do
+target 'ClubfulIOSUITests' do
 
 end
 
