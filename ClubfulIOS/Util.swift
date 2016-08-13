@@ -14,8 +14,7 @@ enum Ext{
 }
 
 class Util{
-    static let statusColor = UIColor(red:0.38, green:0.76, blue:0.91, alpha:1.00)
-    static let commonColor = UIColor(red:0.38, green:0.76, blue:0.91, alpha:1.00)
+    static let commonColor = UIColor(red:0.41, green:0.66, blue:0.12, alpha:1.00)
     
     //언어
     static var language : String = (NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as? String)!

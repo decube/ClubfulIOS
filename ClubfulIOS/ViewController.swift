@@ -136,7 +136,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         categoryBtn.boxLayout(borderWidth: 1, borderColor: UIColor.blackColor())
         blackScreen = UIButton().blackScreen()
         leftCourtView = UIScrollView(frame: CGRect(x: 0, y: 80, width: Util.screenSize.width/3*2, height: Util.screenSize.height-80-self.courtInsertBtn.frame.height), backgroundColor: UIColor.whiteColor())
-        centerLocView = UIView(frame: CGRect(x: (Util.screenSize.width-300)/2, y: (Util.screenSize.height-440)/2, width: 300, height: 440), backgroundColor: UIColor.whiteColor())
+        centerLocView = UIView(frame: CGRect(x: (Util.screenSize.width-300)/2, y: (Util.screenSize.height-300)/2, width: 300, height: 300), backgroundColor: UIColor.whiteColor())
         navView = UIView(frame: CGRect(x: Util.screenSize.width/5*2, y: 20, width: Util.screenSize.width/5*3, height: Util.screenSize.height-20))
         
         leftCourtView.hidden = true
@@ -167,6 +167,9 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         centerLocHeaderBtn.boxLayout(radius: 6, borderWidth: 1, backgroundColor: UIColor.grayColor(), borderColor: UIColor.blackColor())
         centerLocHeaderField.returnKeyType = UIReturnKeyType.Done
         
+        centerLocView.boxLayout(radius: 12)
+        centerLocHeader.boxLayout(radius: 12)
+        centerLocScroll.boxLayout(radius: 12)
         centerLocView.addSubview(centerLocHeader)
         centerLocHeader.addSubview(centerLocHeaderField)
         centerLocHeader.addSubview(centerLocHeaderMyLocBtn)
@@ -329,18 +332,25 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                 self.blackScreen.hidden = true
             }
             if self.centerLocView.hidden == false{
-                self.centerLocView.hidden = true
-                self.blackScreen.hidden = true
-            }
-            if self.navView.hidden == false{
-                let tmpRect = self.navView.frame
+                let tmpRect1 = self.centerLocView.frame
                 //애니메이션 적용
                 UIView.animateWithDuration(0.2, animations: {
-                    self.navView.frame = CGRect(x: Util.screenSize.width, y: 20, width: tmpRect.width, height: tmpRect.height)
+                    self.centerLocView.frame = CGRect(x: tmpRect1.origin.x, y: -tmpRect1.height, width: tmpRect1.width, height: tmpRect1.height)
+                    }, completion: {(_) in
+                        self.blackScreen.hidden = true
+                        self.centerLocView.hidden = true
+                        self.centerLocView.frame = tmpRect1
+                })
+            }
+            if self.navView.hidden == false{
+                let tmpRect1 = self.navView.frame
+                //애니메이션 적용
+                UIView.animateWithDuration(0.2, animations: {
+                    self.navView.frame = CGRect(x: Util.screenSize.width, y: tmpRect1.origin.y, width: tmpRect1.width, height: tmpRect1.height)
                     }, completion: {(_) in
                         self.blackScreen.hidden = true
                         self.navView.hidden = true
-                        self.navView.frame = CGRect(x: Util.screenSize.width, y: 0, width: tmpRect.width, height: tmpRect.height)
+                        self.navView.frame = tmpRect1
                 })
             }
             
@@ -389,6 +399,13 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         blackScreen.hidden = false
         centerLocView.hidden = false
         leftCourtView.hidden = true
+        
+        let tmpRect1 = centerLocView.frame
+        centerLocView.frame = CGRect(x: tmpRect1.origin.x, y: -tmpRect1.height, width: tmpRect1.width, height: tmpRect1.height)
+        //애니메이션 적용
+        UIView.animateWithDuration(0.3, animations: {
+            self.centerLocView.frame = CGRect(x: tmpRect1.origin.x, y: tmpRect1.origin.y, width: tmpRect1.width, height: tmpRect1.height)
+            }, completion: nil)
     }
     
     //검색 클릭
@@ -460,13 +477,14 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     @IBAction func navAction(sender: AnyObject) {
         blackScreen.hidden = false
         leftCourtView.hidden = true
-        
-        let tmpRect = navView.frame
-        navView.frame = CGRect(x: Util.screenSize.width, y: 20, width: tmpRect.width, height: tmpRect.height)
         navView.hidden = false
+        
+        let tmpRect1 = navView.frame
+        navView.frame = CGRect(x: Util.screenSize.width, y: tmpRect1.origin.y, width: tmpRect1.width, height: tmpRect1.height)
+        
         //애니메이션 적용
         UIView.animateWithDuration(0.2, animations: {
-            self.navView.frame = CGRect(x: Util.screenSize.width-tmpRect.width, y: 20, width: tmpRect.width, height: tmpRect.height)
+            self.navView.frame = CGRect(x: tmpRect1.origin.x, y: tmpRect1.origin.y, width: tmpRect1.width, height: tmpRect1.height)
             }, completion: nil)
     }
     
