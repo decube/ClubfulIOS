@@ -1,103 +1,133 @@
 //
-//  LoginViewController.swift
-//  Oyanggo
+//  SettingViewController.swift
+//  ClubfulIOS
 //
-//  Created by guanho on 2016. 6. 13..
+//  Created by guanho on 2016. 8. 21..
 //  Copyright © 2016년 guanho. All rights reserved.
 //
 
 import UIKit
 import Alamofire
 
-class SettingViewController: UIViewController {
-    @IBOutlet var noticeSwitch: UISwitch!
-    @IBOutlet var myCourtSwitch: UISwitch!
-    @IBOutlet var distanceSwitch: UISwitch!
-    @IBOutlet var interestSwitch: UISwitch!
+class SettingViewController : UIViewController{
     
-    @IBOutlet var startTime: UIDatePicker!
-    @IBOutlet var endTime: UIDatePicker!
-    @IBOutlet var timeAndLbl: UILabel!
     
-    @IBOutlet var saveBtn: UIButton!
+    @IBOutlet var tab_1: UIView!
+    @IBOutlet var tab_2: UIView!
+    @IBOutlet var tab_3: UIView!
+    @IBOutlet var tab_4: UIView!
+    @IBOutlet var tab_5: UIView!
+    @IBOutlet var tab_6: UIView!
     
-    var realmUser = Storage.getRealmUser()
+    @IBOutlet var signBtn: UIButton!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         print("SettingViewController viewDidLoad")
         
-        noticeSwitch.on = realmUser.noticePushCheck
-        myCourtSwitch.on = realmUser.myCourtPushCheck
-        distanceSwitch.on = realmUser.distancePushCheck
-        interestSwitch.on = realmUser.interestPushCheck
+        signCheck()
         
-        startTime.date = realmUser.startPushTime
-        endTime.date = realmUser.endPushTime
-        
-        switchFn()
+        borderBottom(tab_1)
+        borderBottom(tab_2)
+        borderBottom(tab_3)
+        borderBottom(tab_4)
+        borderBottom(tab_5)
+        borderBottom(tab_6)
     }
     
-    @IBAction func saveAction(sender: AnyObject) {
-        let parameters : [String: AnyObject] = ["token": realmUser.token, "id": realmUser.userId, "startTime": startTime.date.getTime(), "endTime": endTime.date.getTime(), "noticePush": noticeSwitch.on, "myCreateCourtPush": myCourtSwitch.on, "distancePush": distanceSwitch.on, "interestPush": interestSwitch.on]
-        Alamofire.request(.GET, URL.user_set, parameters: parameters)
-            .validate(statusCode: 200..<300)
-            .validate(contentType: ["application/json"])
-            .responseData { response in
-                let data : NSData = response.data!
-                let dic = Util.convertStringToDictionary(data)
-                if let code = dic["code"] as? Int{
-                    if code == 0{
-                        let user = Storage.copyUser()
-                        user.noticePushCheck = self.noticeSwitch.on
-                        user.myCourtPushCheck = self.myCourtSwitch.on
-                        user.distancePushCheck = self.distanceSwitch.on
-                        user.interestPushCheck = self.interestSwitch.on
-                        user.startPushTime = self.startTime.date
-                        user.endPushTime = self.endTime.date
-                        Storage.setRealmUser(user)
-                        
-                        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-                    }else{
-                        if let isMsgView = dic["isMsgView"] as? Bool{
-                            if isMsgView == true{
-                                Util.alert(message: "\(dic["msg"]!)", ctrl: self)
-                            }
-                        }
-                    }
-                }
-        }
-    }
-    
-    @IBAction func noticeAction(sender: AnyObject) {
-        switchFn()
-    }
-    @IBAction func myCourtAction(sender: AnyObject) {
-        switchFn()
-    }
-    @IBAction func distanceAction(sender: AnyObject) {
-        switchFn()
-    }
-    @IBAction func interestAction(sender: AnyObject) {
-        switchFn()
-    }
-    
-    func switchFn(){
-        if noticeSwitch.on == false && myCourtSwitch.on == false && distanceSwitch.on == false && interestSwitch.on == false{
-            startTime.hidden = true
-            endTime.hidden = true
-            timeAndLbl.hidden = true
+    func signCheck(){
+        let user = Storage.getRealmUser()
+        if user.isLogin == -1{
+            signBtn.setTitle("로그인", forState: .Normal)
         }else{
-            startTime.hidden = false
-            endTime.hidden = false
-            timeAndLbl.hidden = false
+            signBtn.setTitle("로그아웃", forState: .Normal)
         }
     }
     
+    @IBAction func signAction(sender: AnyObject) {
+        var user = Storage.getRealmUser()
+        if user.isLogin == -1{
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+            let uvc = storyBoard.instantiateViewControllerWithIdentifier("loginVC")
+            uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+            (uvc as! LoginViewController).vc = self
+            self.presentViewController(uvc, animated: true, completion: nil)
+        }else{
+            Util.alert(self, title: "알림", message: "로그아웃 하시겠습니까?", confirmTitle: "확인", cancelStr: "취소", confirmHandler: { (alert) in
+                let parameters : [String: AnyObject] = ["token": user.token, "userId": user.userId]
+                Alamofire.request(.GET, URL.user_logout, parameters: parameters)
+                    .validate(statusCode: 200..<300)
+                    .validate(contentType: ["application/json"])
+                    .responseData { response in
+                }
+                user = Storage.copyUser()
+                user.isLogin = -1
+                user.nickName = ""
+                user.sex = ""
+                user.token = ""
+                user.birth = NSDate()
+                user.userLatitude = 0.0
+                user.userLongitude = 0.0
+                user.userAddress = ""
+                user.userAddressShort = ""
+                Storage.setRealmUser(user)
+                self.signCheck()
+                })
+        }
+    }
+    @IBAction func askAction(sender: AnyObject) {
+        func dummyLinkObject() -> [KakaoTalkLinkObject] {
+            let image = KakaoTalkLinkObject.createImage("https://developers.kakao.com/assets/img/link_sample.jpg", width: 138, height: 80)
+            let androidAppAction = KakaoTalkLinkAction.createAppAction(KakaoTalkLinkActionOSPlatform.Android, devicetype: KakaoTalkLinkActionDeviceType.Phone, execparam: [:])
+            let iphoneAppAction = KakaoTalkLinkAction.createAppAction(KakaoTalkLinkActionOSPlatform.IOS, devicetype: KakaoTalkLinkActionDeviceType.Phone, execparam: [:])
+            let ipadAppAction = KakaoTalkLinkAction.createAppAction(KakaoTalkLinkActionOSPlatform.IOS, devicetype: KakaoTalkLinkActionDeviceType.Pad, execparam: [:])
+            let appLink = KakaoTalkLinkObject.createAppButton("앱 열기", actions: [androidAppAction, iphoneAppAction, ipadAppAction])
+            return [image, appLink]
+        }
+        if KOAppCall.canOpenKakaoTalkAppLink() {
+            KOAppCall.openKakaoTalkAppLink(dummyLinkObject())
+        } else {
+            print("Cannot open kakaotalk.")
+        }
+    }
+    @IBAction func settingAction(sender: AnyObject) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let uvc = storyBoard.instantiateViewControllerWithIdentifier("appSettingVC")
+        uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        self.presentViewController(uvc, animated: true, completion: nil)
+    }
+    @IBAction func noticeAction(sender: AnyObject) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let uvc = storyBoard.instantiateViewControllerWithIdentifier("noticeVC")
+        uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        self.presentViewController(uvc, animated: true, completion: nil)
+    }
+    @IBAction func infoAction(sender: AnyObject) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let uvc = storyBoard.instantiateViewControllerWithIdentifier("infoVC")
+        uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        self.presentViewController(uvc, animated: true, completion: nil)
+    }
+    @IBAction func guideAction(sender: AnyObject) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let uvc = storyBoard.instantiateViewControllerWithIdentifier("guideVC")
+        uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        self.presentViewController(uvc, animated: true, completion: nil)
+    }
+    @IBAction func inquiryAction(sender: AnyObject) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let uvc = storyBoard.instantiateViewControllerWithIdentifier("inquiryVC")
+        uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        self.presentViewController(uvc, animated: true, completion: nil)
+    }
     
-    //뒤로가기
-    @IBAction func backAction(sender: AnyObject) {
-        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+    
+    func borderBottom(tab : UIView){
+        let border = CALayer()
+        border.borderColor = UIColor.grayColor().CGColor
+        border.borderWidth = 1
+        border.frame = CGRect(x: 0, y: tab.frame.height - 1, width:  tab.frame.width, height: 1)
+        tab.layer.addSublayer(border)
+        tab.layer.masksToBounds = true
     }
 }
-
-

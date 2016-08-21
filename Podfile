@@ -8,8 +8,8 @@ use_frameworks!
 pod 'ImageSlideshow', '~> 0.5'
 pod 'ActionKit', '~> 1.0'
 pod 'RealmSwift'
-pod 'InputTag', '~> 0.1.3'
 pod 'Alamofire', '~> 3.4'
+pod 'DLRadioButton', '~> 1.4'
 
 end
 

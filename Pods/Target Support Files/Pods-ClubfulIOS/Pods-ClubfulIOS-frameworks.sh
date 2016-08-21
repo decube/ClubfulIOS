@@ -86,16 +86,16 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-ClubfulIOS/ActionKit.framework"
   install_framework "Pods-ClubfulIOS/Alamofire.framework"
+  install_framework "Pods-ClubfulIOS/DLRadioButton.framework"
   install_framework "Pods-ClubfulIOS/ImageSlideshow.framework"
-  install_framework "Pods-ClubfulIOS/InputTag.framework"
   install_framework "Pods-ClubfulIOS/Realm.framework"
   install_framework "Pods-ClubfulIOS/RealmSwift.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-ClubfulIOS/ActionKit.framework"
   install_framework "Pods-ClubfulIOS/Alamofire.framework"
+  install_framework "Pods-ClubfulIOS/DLRadioButton.framework"
   install_framework "Pods-ClubfulIOS/ImageSlideshow.framework"
-  install_framework "Pods-ClubfulIOS/InputTag.framework"
   install_framework "Pods-ClubfulIOS/Realm.framework"
   install_framework "Pods-ClubfulIOS/RealmSwift.framework"
 fi

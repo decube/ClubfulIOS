@@ -1,14 +1,14 @@
 //
 //  LoginViewController.swift
-//  Oyanggo
+//  ClubfulIOS
 //
-//  Created by guanho on 2016. 6. 13..
+//  Created by guanho on 2016. 8. 21..
 //  Copyright © 2016년 guanho. All rights reserved.
 //
 
 import UIKit
-import InputTag
 import Alamofire
+import DLRadioButton
 
 class JoinViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var spin: UIActivityIndicatorView!
@@ -21,12 +21,13 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var repwdField: UITextField!
     @IBOutlet var nicknameField: UITextField!
     @IBOutlet var joinBtn: UIButton!
-    var maleRadio: Radio!
-    var femaleRadio: Radio!
+    @IBOutlet var maleRadio: UIButton!
+    @IBOutlet var femaleRadio: UIButton!
     @IBOutlet var birthDatePicker: UIDatePicker!
-    @IBOutlet var maleLbl: UILabel!
-    @IBOutlet var femaleLbl: UILabel!
     @IBOutlet var locationBtn: UIButton!
+    
+    @IBOutlet var mainBtn: DLRadioButton!
+    @IBOutlet var femainBtn: DLRadioButton!
     
     //위치 변수
     //위치 변수
@@ -38,10 +39,10 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     var user = Storage.getRealmUser()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         print("JoinViewController viewDidLoad")
         
         spin.hidden = true
-        
         idField.delegate = self
         pwdField.delegate = self
         repwdField.delegate = self
@@ -52,56 +53,42 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         repwdField.maxLength(14)
         nicknameField.maxLength(10)
         
-        var maleRadioFrame = maleLbl.frame
-        var femaleRadioFrame = femaleLbl.frame
-        maleRadioFrame.origin.x = maleRadioFrame.origin.x+maleRadioFrame.width + 10
-        femaleRadioFrame.origin.x = femaleRadioFrame.origin.x+femaleRadioFrame.width + 10
-        maleRadio = InputTag().getRadio(maleRadioFrame, name: "sex", value: "male", selected: true)
-        femaleRadio = InputTag().getRadio(femaleRadioFrame, name: "sex", value: "female")
-        InputTag.radioAdd(maleRadio)
-        InputTag.radioAdd(femaleRadio)
-        
-        scrollView.addSubview(maleRadio)
-        scrollView.addSubview(femaleRadio)
-        
-        locationBtn.boxLayout(radius: 6)
-        
         scrollViewHeight = scrollView.frame.height
     }
     
     //위치 클릭
     @IBAction func locationAction(sender: AnyObject) {
         if spin.hidden == false{
-            return;
+            return
         }
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        let uvc = storyBoard.instantiateViewControllerWithIdentifier("joinMapVC")
-        (uvc as! JoinMapViewController).joinView = self
-        (uvc as! JoinMapViewController).joinLocationBtn = locationBtn
+        let uvc = storyBoard.instantiateViewControllerWithIdentifier("mapVC")
+        (uvc as! MapViewController).joinView = self
+        (uvc as! MapViewController).joinLocationBtn = locationBtn
         uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
         self.presentViewController(uvc, animated: true, completion: nil)
     }
     //회원가입 클릭
     @IBAction func joinAction(sender: AnyObject) {
         if spin.hidden == false{
-            return;
+            return
         }
         if idField.text!.characters.count < 6{
-            Util.alert(message: "아이디를 제대로 입력해주세요.", ctrl: self)
+            Util.alert(self, message: "아이디를 제대로 입력해주세요.")
         }else if pwdField.text!.characters.count < 6{
-            Util.alert(message: "비밀번호를 제대로 입력해주세요.", ctrl: self)
+            Util.alert(self, message: "비밀번호를 제대로 입력해주세요.")
         }else if pwdField.text! != repwdField.text!{
-            Util.alert(message: "비밀번호가 틀립니다.", ctrl: self)
+            Util.alert(self, message: "비밀번호가 틀립니다.")
         }else if nicknameField.text!.characters.count < 2{
-            Util.alert(message: "닉네임을 2자 이상 입력해 주세요.", ctrl: self)
+            Util.alert(self, message: "닉네임을 2자 이상 입력해 주세요.")
         }else if latitude == nil || longitude == nil || address == nil || addressShort == nil{
-            Util.alert(message: "위치설정을 해주세요.", ctrl: self)
+            Util.alert(self, message: "위치설정을 해주세요.")
         }else{
             var sex = "male"
-            if maleRadio.isSelect == true{
-                sex = "male"
-            }else{
+            if femainBtn.selected == true{
                 sex = "female"
+            }else{
+                sex = "male"
             }
             spin.hidden = false
             spin.startAnimating()
@@ -121,7 +108,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
                             self.spin.stopAnimating()
                             if let isMsgView = dic["isMsgView"] as? Bool{
                                 if isMsgView == true{
-                                    Util.alert(message: "\(dic["msg"]!)", ctrl: self)
+                                    Util.alert(self, message: "\(dic["msg"]!)")
                                 }
                             }
                         }
@@ -166,5 +153,3 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         return true
     }
 }
-
-

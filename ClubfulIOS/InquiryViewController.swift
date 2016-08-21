@@ -1,20 +1,21 @@
 //
-//  LoginViewController.swift
-//  Oyanggo
+//  InquiryViewController.swift
+//  ClubfulIOS
 //
-//  Created by guanho on 2016. 6. 13..
+//  Created by guanho on 2016. 8. 21..
 //  Copyright © 2016년 guanho. All rights reserved.
 //
 
 import UIKit
 
-class InquiryViewController: UIViewController, UIWebViewDelegate {
+class InquiryViewController : UIViewController, UIWebViewDelegate{
     //웹뷰
     @IBOutlet var webView: UIWebView!
     //스핀
-    @IBOutlet var activity: UIActivityIndicatorView!
+    @IBOutlet var spin: UIActivityIndicatorView!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         print("InquiryViewController viewDidLoad")
         
         //웹뷰 딜리게이트 추가
@@ -25,8 +26,8 @@ class InquiryViewController: UIViewController, UIWebViewDelegate {
     
     //웹뷰 가져옴
     func webViewDidFinishLoad(webView: UIWebView) {
-        activity.stopAnimating()
-        activity.hidden = true
+        spin.stopAnimating()
+        spin.hidden = true
     }
     
     //뒤로가기
@@ -34,5 +35,3 @@ class InquiryViewController: UIViewController, UIWebViewDelegate {
         self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }
-
-

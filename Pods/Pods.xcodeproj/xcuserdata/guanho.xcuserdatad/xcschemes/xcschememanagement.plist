@@ -14,17 +14,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DLRadioButton.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ImageSlideshow-ImageSlideshow.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>ImageSlideshow.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>InputTag.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,17 +47,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>06DE97E1FFD26C79F9057BD4DAF997BD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>39CA6F8904F79A5A148722019F74C904</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>597AC14E0DB98FF8556FCA50F6E750F4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,7 +57,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>854B000C9B7BF10F317C0DD28D026DBC</key>
+		<key>8228D99D8DCE1EF62553C5F8B7E63EC7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9EA254710870330454F74F0B816AC93F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,12 +72,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>DE44D12FDEEF2AA38E15819492BB1428</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E7BEAF4DCE4B39E319ED8628F0399557</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FEC83F5427E2A427C5DA120C5B9E8122</key>
+		<key>F3990E3EAC160D4E4F89177D966FC1E9</key>
 		<dict>
 			<key>primary</key>
 			<true/>

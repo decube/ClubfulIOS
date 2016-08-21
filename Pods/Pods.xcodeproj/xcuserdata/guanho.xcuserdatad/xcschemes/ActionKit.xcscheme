@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '685F3258BB167C6251D7CA4C'
+               BlueprintIdentifier = '1109990D2C9866B0472C3D88'
                BlueprintName = 'ActionKit'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'ActionKit.framework'>

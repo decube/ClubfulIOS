@@ -1,20 +1,30 @@
 //
-//  LoginViewController.swift
-//  Oyanggo
+//  CourtViewController.swift
+//  ClubfulIOS
 //
-//  Created by guanho on 2016. 6. 13..
+//  Created by guanho on 2016. 8. 21..
 //  Copyright © 2016년 guanho. All rights reserved.
 //
 
 import UIKit
 import ImageSlideshow
 import Alamofire
+import MapKit
 
-class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegate {
+class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDelegate, CLLocationManagerDelegate{
     var courtSeq : Int!
+    
+    //현재위치 manager
+    let locationManager = CLLocationManager()
+    var currentLatitude : Double!
+    var currentLongitude : Double!
+    
+    //스핀
+    @IBOutlet var imageSpin: UIActivityIndicatorView!
+    @IBOutlet var replySpin: UIActivityIndicatorView!
     @IBOutlet var spin: UIActivityIndicatorView!
-    @IBOutlet var gcmPushBtn: UIButton!
-    @IBOutlet var courtMapBtn: UIButton!
+    
+    
     @IBOutlet var interestBtn: UIButton!
     @IBOutlet var interestLbl: UILabel!
     //헤더라벨
@@ -34,9 +44,7 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
     
     //웹뷰
     @IBOutlet var webView: UIWebView!
-    //스핀
-    @IBOutlet var activity: UIActivityIndicatorView!
-    @IBOutlet var imageActivity: UIActivityIndicatorView!
+    
     
     var court : [String: AnyObject]!
     let user = Storage.getRealmUser()
@@ -44,7 +52,19 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
     var replyFn : String!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         print("CourtViewController viewDidLoad")
+        
+        
+        //현재 나의 위치설정
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        
         
         spin.hidden = true
         
@@ -57,8 +77,7 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
         
         //웹뷰 딜리게이트 추가
         self.webView.delegate = self
-        spin.hidden = false
-        spin.startAnimating()
+        
         let parameters : [String: AnyObject] = ["token": user.token, "seq": self.courtSeq]
         Alamofire.request(.GET, URL.court_detail, parameters: parameters)
             .validate(statusCode: 200..<300)
@@ -69,8 +88,6 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
                 if let code = dic["code"] as? Int{
                     if code == 0{
                         if let courtTmp = dic["result"] as? [String: AnyObject]{
-                            self.spin.hidden = true
-                            self.spin.stopAnimating()
                             self.court = courtTmp
                             self.interestLbl.text = "\(self.court["interest"]!)"
                             self.descTextView.text = "\(self.court["description"]!)"
@@ -87,8 +104,8 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
                                     }
                                     dispatch_async(dispatch_get_main_queue()) {
                                         self.imageSlide.setImageInputs(imageSourceList)
-                                        self.imageActivity.stopAnimating()
-                                        self.imageActivity.hidden = true
+                                        self.imageSpin.stopAnimating()
+                                        self.imageSpin.hidden = true
                                     }
                                 }
                             }
@@ -96,29 +113,21 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
                     }else{
                         if let isMsgView = dic["isMsgView"] as? Bool{
                             if isMsgView == true{
-                                Util.alert(message: "\(dic["msg"]!)", ctrl: self)
+                                Util.alert(self, message: "\(dic["msg"]!)")
                             }
                         }
                     }
                 }
         }
         
-        
-        
-        
-        
-        gcmPushBtn.boxLayout(radius: 6)
-        courtMapBtn.boxLayout(radius: 6)
-        descTextView.boxLayout(borderWidth: 1, borderColor: UIColor.blackColor())
         descTextView.scrollToTop()
         replyInsertField.delegate = self
-        replyInsertBtn.boxLayout(radius: 6, backgroundColor: Util.commonColor)
         contentViewY = contentView.frame.origin.y
         
         let courtStar = Storage.getStorage("courtStar_\(self.courtSeq)")
-        var starImage = "ic_star_select.png"
+        var starImage = "ic_star_s.png"
         if courtStar == nil{
-            starImage = "ic_star_normal.png"
+            starImage = "ic_star_n.png"
         }
         self.interestBtn.setImage(UIImage(named: starImage), forState: .Normal)
     }
@@ -127,7 +136,7 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
     //관심 클릭
     @IBAction func interestAction(sender: AnyObject) {
         if spin.hidden == false{
-            return;
+            return
         }
         spin.hidden = false
         spin.startAnimating()
@@ -148,9 +157,9 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
                 let dic = Util.convertStringToDictionary(data)
                 if let code = dic["code"] as? Int{
                     if code == 0{
-                        var starImage = "ic_star_normal.png"
+                        var starImage = "ic_star_n.png"
                         if courtStar == nil{
-                            starImage = "ic_star_select.png"
+                            starImage = "ic_star_s.png"
                             Storage.setStorage("courtStar_\(self.courtSeq)", value: true)
                         }else{
                             Storage.removeStorage("courtStar_\(self.courtSeq)")
@@ -165,7 +174,7 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
                     }else{
                         if let isMsgView = dic["isMsgView"] as? Bool{
                             if isMsgView == true{
-                                Util.alert(message: "\(dic["msg"]!)", ctrl: self)
+                                Util.alert(self, message: "\(dic["msg"]!)")
                             }
                         }
                     }
@@ -184,12 +193,18 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
     @IBAction func courtMapAction(sender: AnyObject) {
         if let latitude = court["latitude"] as? Double{
             if let longitude = court["longitude"] as? Double{
-                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                let uvc = storyBoard.instantiateViewControllerWithIdentifier("courtMapVC")
-                (uvc as! CourtMapViewController).courtLatitude = latitude
-                (uvc as! CourtMapViewController).courtLongitude = longitude
-                uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-                self.presentViewController(uvc, animated: true, completion: nil)
+                let sname : String = "내위치".queryValue()
+                let sx : Double = currentLatitude
+                let sy : Double = currentLongitude
+                let ename : String = "\(court["address"]!)".queryValue()
+                let ex : Double = latitude
+                let ey : Double = longitude
+                let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true"
+                if let url = NSURL(string: simplemapUrl){
+                    if UIApplication.sharedApplication().canOpenURL(url) {
+                        UIApplication.sharedApplication().openURL(url)
+                    }
+                }
             }
         }
     }
@@ -206,7 +221,7 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
             self.webView.stringByEvaluatingJavaScriptFromString("\(self.replyFn)")
             self.spin.hidden = true
             self.spin.stopAnimating()
-            Util.alert(message: "리플등록은 로그인을 하셔야 가능합니다.", ctrl: self)
+            Util.alert(self, message: "리플등록은 로그인을 하셔야 가능합니다.")
         }else{
             if replyInsertField.text?.characters.count < 1{
                 self.webView.stringByEvaluatingJavaScriptFromString("\(self.replyFn)")
@@ -229,7 +244,7 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
                             }else{
                                 if let isMsgView = dic["isMsgView"] as? Bool{
                                     if isMsgView == true{
-                                        Util.alert(message: "\(dic["msg"]!)", ctrl: self)
+                                        Util.alert(self, message: "\(dic["msg"]!)")
                                     }
                                 }
                             }
@@ -248,8 +263,8 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
     
     //웹뷰 가져옴
     func webViewDidFinishLoad(webView: UIWebView) {
-        activity.stopAnimating()
-        activity.hidden = true
+        replySpin.stopAnimating()
+        replySpin.hidden = true
     }
     
     //키보드 생김/사라짐 셀렉터
@@ -284,6 +299,22 @@ class CourtViewController: UIViewController, UITextFieldDelegate, UIWebViewDeleg
     }
     
     
+    
+    
+    
+    //현재 나의위치 가져오기 실패함
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        if NSProcessInfo.processInfo().environment["SIMULATOR_DEVICE_NAME"] != nil{
+            print("It's an iOS Simulator")
+        }else{
+            print("It's a device")
+            Util.alert(self, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
+        }
+    }
+    //현재 나의 위치
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        currentLatitude = locValue.latitude
+        currentLongitude = locValue.longitude
+    }
 }
-
-
