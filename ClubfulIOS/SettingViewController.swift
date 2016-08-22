@@ -20,7 +20,7 @@ class SettingViewController : UIViewController{
     @IBOutlet var tab_6: UIView!
     
     @IBOutlet var signBtn: UIButton!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         print("SettingViewController viewDidLoad")

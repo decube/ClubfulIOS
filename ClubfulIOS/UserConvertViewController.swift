@@ -1,8 +1,8 @@
 //
-//  LoginViewController.swift
+//  UserConvertViewController.swift
 //  ClubfulIOS
 //
-//  Created by guanho on 2016. 8. 21..
+//  Created by guanho on 2016. 8. 22..
 //  Copyright © 2016년 guanho. All rights reserved.
 //
 
@@ -10,22 +10,20 @@ import UIKit
 import Alamofire
 import DLRadioButton
 
-class JoinViewController: UIViewController, UITextFieldDelegate {
-    @IBOutlet var spin: UIActivityIndicatorView!
-    var loginVC : LoginViewController!
+class UserConvertViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var scrollView: UIScrollView!
     var scrollViewHeight : CGFloat!
     @IBOutlet var idField: UITextField!
     @IBOutlet var pwdField: UITextField!
-    @IBOutlet var repwdField: UITextField!
+    @IBOutlet var newPwdField: UITextField!
+    @IBOutlet var newRepwdField: UITextField!
     @IBOutlet var nicknameField: UITextField!
-    @IBOutlet var joinBtn: UIButton!
-    @IBOutlet var birthDatePicker: UIDatePicker!
-    @IBOutlet var locationBtn: UIButton!
-    
+    @IBOutlet var convertBtn: UIButton!
     @IBOutlet var maleRadio: DLRadioButton!
     @IBOutlet var femaleRadio: DLRadioButton!
+    @IBOutlet var birthDatePicker: UIDatePicker!
+    @IBOutlet var locationBtn: UIButton!
     
     //위치 변수
     //위치 변수
@@ -34,31 +32,52 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     var address : String!
     var addressShort : String!
     
-    var user = Storage.getRealmUser()
+    
+    //마이페이지 컨트롤러
+    var mypageCtrl : MypageViewController!
+    
+    let user = Storage.getRealmUser()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        print("JoinViewController viewDidLoad")
+        print("UserConvertViewController viewDidLoad")
         
-        spin.hidden = true
         idField.delegate = self
         pwdField.delegate = self
-        repwdField.delegate = self
+        newPwdField.delegate = self
+        newRepwdField.delegate = self
         nicknameField.delegate = self
         
         idField.maxLength(14)
         pwdField.maxLength(14)
-        repwdField.maxLength(14)
+        newPwdField.maxLength(14)
+        newRepwdField.maxLength(14)
         nicknameField.maxLength(10)
         
         scrollViewHeight = scrollView.frame.height
+        
+        
+        if user.isLogin == 2{
+            idField.text = "카카오톡으로 로그인 된 아이디입니다."
+        }else if user.isLogin == 1{
+            idField.text = user.userId
+        }
+        nicknameField.text = user.nickName
+        if user.sex == "male"{
+            maleRadio.selected = true
+            femaleRadio.selected = false
+        }else if user.sex == "femail"{
+            maleRadio.selected = false
+            femaleRadio.selected = true
+        }
+        birthDatePicker.date = user.birth
+        self.latitude = user.userLatitude
+        self.longitude = user.userLongitude
+        self.address = user.userAddress
+        self.addressShort = user.userAddressShort
     }
     
     //위치 클릭
     @IBAction func locationAction(sender: AnyObject) {
-        if spin.hidden == false{
-            return
-        }
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let uvc = storyBoard.instantiateViewControllerWithIdentifier("mapVC")
         (uvc as! MapViewController).preView = self
@@ -66,21 +85,18 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
         self.presentViewController(uvc, animated: true, completion: nil)
     }
-    //회원가입 클릭
-    @IBAction func joinAction(sender: AnyObject) {
-        if spin.hidden == false{
-            return
-        }
-        if idField.text!.characters.count < 6{
-            Util.alert(self, message: "아이디를 제대로 입력해주세요.")
-        }else if pwdField.text!.characters.count < 6{
+    
+    
+    //회원수정 클릭
+    @IBAction func convertAction(sender: AnyObject) {
+        if pwdField.text!.characters.count < 6{
             Util.alert(self, message: "비밀번호를 제대로 입력해주세요.")
-        }else if pwdField.text! != repwdField.text!{
-            Util.alert(self, message: "비밀번호가 틀립니다.")
+        }else if newPwdField.text! != newRepwdField.text!{
+            Util.alert(self, message: "새로운 비밀번호가 틀립니다.")
+        }else if newPwdField.text!.characters.count != 0 && newPwdField.text!.characters.count < 6{
+            Util.alert(self, message: "새로운 비밀번호는 6자리 이상 입력해 주세요.")
         }else if nicknameField.text!.characters.count < 2{
             Util.alert(self, message: "닉네임을 2자 이상 입력해 주세요.")
-        }else if latitude == nil || longitude == nil || address == nil || addressShort == nil{
-            Util.alert(self, message: "위치설정을 해주세요.")
         }else{
             var sex = ""
             if maleRadio.selected == true{
@@ -88,10 +104,11 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             }else if femaleRadio.selected == true {
                 sex = "female"
             }
-            spin.hidden = false
-            spin.startAnimating()
-            let parameters : [String: AnyObject] = ["token": user.token, "userId": self.idField.text!, "password": self.pwdField.text!, "gcmId": user.gcmId, "nickName": self.nicknameField.text!, "sex": sex, "birth": birthDatePicker.date.getDate(), "userLatitude": self.latitude, "userLongitude": self.longitude, "userAddress": self.address, "userAddressShort": self.addressShort, "noticePush": user.noticePushCheck, "myInsertPush": user.myCourtPushCheck, "distancePush": user.distancePushCheck, "interestPush": user.interestPushCheck, "startTime": user.startPushTime.getTime(), "endTime": user.endPushTime.getTime()]
-            Alamofire.request(.GET, URL.user_join, parameters: parameters)
+            
+            let birth = "\(birthDatePicker.date.year(birthDatePicker.calendar))-\(birthDatePicker.date.month(birthDatePicker.calendar))-\(birthDatePicker.date.day(birthDatePicker.calendar))"
+            
+            let parameters : [String: AnyObject] = ["token": user.token, "userId": user.userId, "password": self.pwdField.text!, "newPassword": self.newPwdField.text!, "gcmId": user.gcmId, "nickName": self.nicknameField.text!, "sex": sex, "birth": birth, "latitude": self.latitude, "longitude": self.longitude, "address": self.address, "addressShort": self.addressShort]
+            Alamofire.request(.GET, URL.user_update, parameters: parameters)
                 .validate(statusCode: 200..<300)
                 .validate(contentType: ["application/json"])
                 .responseData { response in
@@ -99,11 +116,20 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
                     let dic = Util.convertStringToDictionary(data)
                     if let code = dic["code"] as? Int{
                         if code == 0{
-                            self.loginVC.idField.text = self.idField.text!
+                            var user = Storage.getRealmUser()
+                            user = Storage.copyUser()
+                            user.userId = self.idField.text!
+                            user.nickName = self.nicknameField.text!
+                            user.sex = sex
+                            user.birth = self.birthDatePicker.date
+                            user.userLatitude = self.latitude
+                            user.userLongitude = self.longitude
+                            user.userAddress = self.address
+                            user.userAddressShort = self.addressShort
+                            Storage.setRealmUser(user)
+                            
                             self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
                         }else{
-                            self.spin.hidden = true
-                            self.spin.stopAnimating()
                             if let isMsgView = dic["isMsgView"] as? Bool{
                                 if isMsgView == true{
                                     Util.alert(self, message: "\(dic["msg"]!)")
