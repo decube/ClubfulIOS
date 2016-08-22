@@ -25,11 +25,12 @@
 * ImageSlideshow
 * ActionKit
 * RealmSwift
-* InputTag
 * Alamofire
-
+* DLRadioButton
+* 
 #### sdk
 * kakao
+* Adobe
 
 
 ## Android
@@ -42,6 +43,7 @@
 * 2016-07-06 initial commit
 * 2016-07-24 IOS Alamofire로 통신하기 추가
 * 2016-07-30 Server c9 node 이미지서버 추가
+* 2016-08-23 IOS 디자인 변경
 
 
 ## 기능
@@ -72,3 +74,8 @@
 ### Ver2
 <br>https://github.com/decube/ClubfulIOS/tree/master/mdImages/ver2
 ![Alt text](./mdImages/ver2/01.png)
+
+<br><br>
+### Ver2_하단 탭바 색 변경
+<br>https://github.com/decube/ClubfulIOS/tree/master/mdImages/ver2_test
+![Alt text](./mdImages/ver2_test/01.png)
