@@ -5,8 +5,7 @@
 # IOS Image
 
 ### 메인<br>
-![](01.png =100x20)
-![image](01.png){: width=200px}
+![image](01.png =100x20)
 ![Alt text](01.png)
 <br>
 ### 내위치 설정<br>
