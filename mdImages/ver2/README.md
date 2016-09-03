@@ -5,7 +5,6 @@
 # IOS Image
 
 ### 메인<br>
-![image](01.png =100x20)
 ![Alt text](01.png)
 <br>
 ### 내위치 설정<br>
@@ -22,6 +21,18 @@
 <br>
 ### 등록<br>
 ![Alt text](06.png)
+<br>
+### 사진선택<br>
+![Alt text](06_1.png)
+<br>
+### 사진에디터<br>
+![Alt text](06_2.png)
+<br>
+### 사진크롭<br>
+![Alt text](06_3.png)
+<br>
+### 사진등록<br>
+![Alt text](06_4.png)
 <br>
 ### 위치설정(등록/회원가입/회원수정)<br>
 ![Alt text](07.png)
