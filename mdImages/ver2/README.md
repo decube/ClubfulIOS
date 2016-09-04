@@ -50,7 +50,13 @@
 ![Alt text](11.png)
 <br>
 ### 로그인<br>
-![Alt text](12.png)
+![Alt text](12_1.png)
+<br>
+### 구글로그인<br>
+![Alt text](12_2.png)
+<br>
+### 카톡로그인<br>
+![Alt text](12_3.png)
 <br>
 ### 앱설정<br>
 ![Alt text](13.png)
