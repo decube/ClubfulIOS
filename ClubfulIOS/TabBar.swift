@@ -25,11 +25,6 @@ class TabBar: UITabBarController {
     let tabImg03_s = UIImage(named: "ic_tab_mypage_s.png")
     let tabImg04_s = UIImage(named: "ic_tab_setting_s.png")
     
-    let tabImg01_g = UIImage(named: "ic_tab_home_g.png")
-    let tabImg02_g = UIImage(named: "ic_tab_add_g.png")
-    let tabImg03_g = UIImage(named: "ic_tab_mypage_g.png")
-    let tabImg04_g = UIImage(named: "ic_tab_setting_g.png")
-    
     let tabImg01 = UIImageView()
     let tabImg02 = UIImageView()
     let tabImg03 = UIImageView()
@@ -67,7 +62,7 @@ class TabBar: UITabBarController {
         tabImg03.image = tabImg03_n
         tabImg04.image = tabImg04_n
         
-        tabLbl01.textColor = UIColor.blackColor()//UIColor(red:0.18, green:0.80, blue:0.44, alpha:1.00)
+        tabLbl01.textColor = UIColor.blackColor()
         tabLbl02.textColor = UIColor.whiteColor()
         tabLbl03.textColor = UIColor.whiteColor()
         tabLbl04.textColor = UIColor.whiteColor()

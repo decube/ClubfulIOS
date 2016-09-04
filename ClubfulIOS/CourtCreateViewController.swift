@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class CourtCreateViewController: UIViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, UITextFieldDelegate{
+class CourtCreateViewController: UIViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, UITextFieldDelegate, AdobeUXImageEditorViewControllerDelegate{
     
     @IBOutlet var spin: UIActivityIndicatorView!
     //전체 스크롤 뷰
@@ -57,6 +57,10 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     
     var nonUserView : NonUserView!
     
+    
+    //temp이미지버튼
+    var tempImageBtn: UIButton!
+    
     override func viewDidLoad() {
         print("CourtCreateViewController viewDidLoad")
         
@@ -88,22 +92,42 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         let pic3 = UIButton(frame: CGRect(x: 0, y: imageHeight+10, width: imageWidth, height: imageHeight))
         let pic4 = UIButton(frame: CGRect(x: picScrollView.frame.width/2+5, y: imageHeight+10, width: imageWidth, height: imageHeight))
         
-        pic1.setImage(picAddImage, forState: .Normal)
-        pic2.setImage(picAddImage, forState: .Normal)
-        pic3.setImage(picAddImage, forState: .Normal)
-        pic4.setImage(picAddImage, forState: .Normal)
-        
         picList.append(pic1)
         picList.append(pic2)
         picList.append(pic3)
         picList.append(pic4)
         
         for picObj in picList{
-            picObj.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.00)
             picScrollView.addSubview(picObj)
+            
+            //하나의 버튼 더 만듬
+            let picBtn = UIButton(frame: CGRect(x: 0, y: 0, width: picObj.frame.width, height: picObj.frame.height))
+            picBtn.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.00)
+            picBtn.setImage(picAddImage, forState: .Normal)
+            picObj.addSubview(picBtn)
+            
+            func btnClick(){
+                self.tempImageBtn = picBtn
+                let alert = UIAlertController(title: "", message: "사진타입선택", preferredStyle: .ActionSheet)
+                alert.addAction(UIAlertAction(title: "카메라", style: .Default, handler: { (alert) in
+                    self.imageCallback(UIImagePickerControllerSourceType.Camera)
+                }))
+                alert.addAction(UIAlertAction(title: "사진첩", style: .Default, handler: { (alert) in
+                    self.imageCallback(UIImagePickerControllerSourceType.PhotoLibrary)
+                }))
+                self.presentViewController(alert, animated: false, completion: {(_) in})
+            }
+            
+            picObj.addControlEvent(.TouchUpInside){
+                btnClick()
+            }
+            picBtn.addControlEvent(.TouchUpInside){
+                btnClick()
+            }
         }
     }
     
+    //로그인했을때 로그아웃했을때 레이아웃 변경
     func layout(){
         if user.isLogin != -1{
             self.view.subviews.forEach({ (tempView) in
@@ -128,7 +152,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         picker.allowsEditing = true
         picker.delegate = self
         picker.sourceType = sourceType
-        presentViewController(picker, animated: true, completion: nil)
+        presentViewController(picker, animated: false, completion: nil)
     }
     //이미지 끝
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -145,10 +169,66 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
             return
         }
         
-        dismissViewControllerAnimated(true, completion: nil)
+        
+        
+        dismissViewControllerAnimated(false, completion: {(_) in
+            //AdobeImageEditor 실행
+            dispatch_async(dispatch_get_main_queue()) {
+                AdobeImageEditorCustomization.setToolOrder([
+                    kAdobeImageEditorEnhance,        /* Enhance */
+                    kAdobeImageEditorEffects,        /* Effects */
+                    kAdobeImageEditorStickers,       /* Stickers */
+                    kAdobeImageEditorOrientation,    /* Orientation */
+                    kAdobeImageEditorCrop,           /* Crop */
+                    kAdobeImageEditorColorAdjust,    /* Color */
+                    kAdobeImageEditorLightingAdjust, /* Lighting */
+                    kAdobeImageEditorSharpness,      /* Sharpness */
+                    kAdobeImageEditorDraw,           /* Draw */
+                    kAdobeImageEditorText,           /* Text */
+                    kAdobeImageEditorRedeye,         /* Redeye */
+                    kAdobeImageEditorWhiten,         /* Whiten */
+                    kAdobeImageEditorBlemish,        /* Blemish */
+                    kAdobeImageEditorBlur,           /* Blur */
+                    kAdobeImageEditorMeme,           /* Meme */
+                    kAdobeImageEditorFrames,         /* Frames */
+                    kAdobeImageEditorFocus,          /* TiltShift */
+                    kAdobeImageEditorSplash,         /* ColorSplash */
+                    kAdobeImageEditorOverlay,        /* Overlay */
+                    kAdobeImageEditorVignette        /* Vignette */
+                    ])
+                
+                let adobeViewCtr = AdobeUXImageEditorViewController(image: newImage)
+                adobeViewCtr.delegate = self
+                self.presentViewController(adobeViewCtr, animated: false) { () -> Void in
+                    
+                }
+            }
+        })
     }
     
     
+    //AdobeCreativeSDK 이미지 받아옴
+    func photoEditor(editor: AdobeUXImageEditorViewController, finishedWithImage image: UIImage?) {
+        editor.dismissViewControllerAnimated(true, completion: {(_) in
+            let rateWidth = (image?.size.width)!/self.imageWidth
+            let rateHeight = (image?.size.height)!/self.imageHeight
+            
+            var widthValue : CGFloat! = self.imageWidth
+            var heightValue : CGFloat! = self.imageHeight
+            
+            if rateWidth > rateHeight{
+                heightValue = widthValue * (image?.size.height)! / (image?.size.width)!
+            }else{
+                widthValue = heightValue * (image?.size.width)! / (image?.size.height)!
+            }
+            self.tempImageBtn.frame = CGRect(x: (self.imageWidth-widthValue)/2, y: (self.imageHeight-heightValue)/2, width: widthValue, height: heightValue)
+            self.tempImageBtn.setImage(image, forState: .Normal)
+        })
+    }
+    //AdobeCreativeSDK 캔슬
+    func photoEditorCanceled(editor: AdobeUXImageEditorViewController) {
+        editor.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     
     
@@ -168,7 +248,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     //종목설정 클릭
     @IBAction func categoryAction(sender: AnyObject) {
         if spin.hidden == false{
-            return;
+            return
         }
         let alert = UIAlertController(title: "종목을 선택해주세요", message: "종목설정", preferredStyle: .ActionSheet)
         let categoryList = Storage.getStorage("categoryList") as! [[String: AnyObject]]

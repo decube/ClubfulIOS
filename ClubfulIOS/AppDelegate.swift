@@ -17,8 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //앱 오픈시 내위치변수
     var vcMyLocationMove = false
     
-    
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+        
+        AdobeUXAuthManager.sharedManager().setAuthenticationParametersWithClientID("659e033bb5c94a3fb4965a7a3fed10bb", withClientSecret: "84709325-ecf1-48a4-a3e7-9776950e7129")
+        
+        return true
+    }
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        
         return KOSession.handleOpenURL(url)
     }
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
