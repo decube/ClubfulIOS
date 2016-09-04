@@ -1,0 +1,756 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>AdobeImageEditorContext Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">AdobeCreativeSDKImage.framework </a></h1>
+				<a id="developerHome" href="../index.html">Adobe Systems Incorporated</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">AdobeImageEditorContext Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/canceled">&nbsp;&nbsp;&nbsp;&nbsp;canceled</option>
+	
+	<option value="//api/name/hasBegunRendering">&nbsp;&nbsp;&nbsp;&nbsp;hasBegunRendering</option>
+	
+	<option value="//api/name/modified">&nbsp;&nbsp;&nbsp;&nbsp;modified</option>
+	
+	<option value="//api/name/progressHandler">&nbsp;&nbsp;&nbsp;&nbsp;progressHandler</option>
+	
+	<option value="//api/name/session">&nbsp;&nbsp;&nbsp;&nbsp;session</option>
+	
+	<option value="//api/name/size">&nbsp;&nbsp;&nbsp;&nbsp;size</option>
+	
+	
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/cancelRendering">&nbsp;&nbsp;&nbsp;&nbsp;- cancelRendering</option>
+	
+	<option value="//api/name/render:">&nbsp;&nbsp;&nbsp;&nbsp;- render:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Compatibility Methods">Compatibility Methods</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/canceled">canceled</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/hasBegunRendering">hasBegunRendering</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/modified">modified</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/progressHandler">progressHandler</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/session">session</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/size">size</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/cancelRendering">cancelRendering</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/render:">render:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="AdobeImageEditorContext Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">AdobeImageEditorContext Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">AdobeImageEditorContext.h</td>
+</tr>
+						</tbody></table></div>
+					
+                    
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>Photo Editor Contexts are generated by calling the createContextWithImage:
+or createContextWithImage:maxSize: methods of AF<a href="../Classes/AdobeImageEditorSession.html">AdobeImageEditorSession</a>.
+A context encapsulates an input image and an output <a href="#//api/name/size">size</a>. If not specified,
+the output <a href="#//api/name/size">size</a> defaults to the image <a href="#//api/name/size">size</a>. In the standard Aviary
+version of this SDK, there was a 3 megapixel <a href="#//api/name/size">size</a> limit on high resolution
+output. This is no longer the case in the Creative SDK, so all high
+resolution output will default to the full image <a href="#//api/name/size">size</a>.</p>
+
+<p>Calling <a href="#//api/name/render:">render:</a> on a context causes all modifications tracked in the
+<a href="../Classes/AdobeImageEditorSession.html">AdobeImageEditorSession</a> (which tracks user generated photo-editing actions
+in an <a href="../Classes/AdobeUXImageEditorViewController.html">AdobeUXImageEditorViewController</a>) to be replayed on the context&rsquo;s
+input image asynchronously. When rendering is complete, the completion
+block passed into <a href="#//api/name/render:">render:</a> will be called with the finalized image, whose
+<a href="#//api/name/size">size</a> will match the context&rsquo;s <a href="#//api/name/size">size</a>. If the <a href="#//api/name/session">session</a> contains no tracked
+actions (i.e., the user made no edits before pressing &ldquo;Done&rdquo; or pressed
+&ldquo;Cancel&rdquo;), the result image will be <code>nil</code>. Note: <a href="#//api/name/render:">render:</a> may only be
+called once per context.</p>
+
+<p>Some things to note about using contexts:</p>
+
+<ul>
+<li><p>We recommend choosing a maximum output resolution that suits the purposes
+of your application to provide the best experience for your users.</p></li>
+<li><p>Processing large images can consume a lot of memory and time. It may be
+necessary to free up resources and/or display an activity indicator
+while a context is executing.</p></li>
+<li><p>To calculate the approximate maximum amount of memory a context could
+use, multiply the dimensions of the output <a href="#//api/name/size">size</a> and multiply the result
+by 4. For example, a context with a maximum output <a href="#//api/name/size">size</a> of 1500x1500 will
+consume approximately 9mb of memory for the processing duration.</p></li>
+</ul>
+
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						<a title="Compatibility Methods" name="task_Compatibility Methods"></a>
+						
+<h3 class="subsubtitle task-title">Compatibility Methods</h3>
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/session">&nbsp;&nbsp;session</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/size">&nbsp;&nbsp;size</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/canceled">&nbsp;&nbsp;canceled</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/modified">&nbsp;&nbsp;modified</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/progressHandler">&nbsp;&nbsp;progressHandler</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/hasBegunRendering">&nbsp;&nbsp;hasBegunRendering</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/render:">&ndash;&nbsp;render:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/cancelRendering">&ndash;&nbsp;cancelRendering</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/canceled" title="canceled"></a>
+	<h3 class="subsubtitle method-title">canceled</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies if the context&rsquo;s rendering has been cancelled.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign, readonly, getter=isCanceled) BOOL canceled</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies if the context&rsquo;s rendering has been cancelled.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AdobeImageEditorContext.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/hasBegunRendering" title="hasBegunRendering"></a>
+	<h3 class="subsubtitle method-title">hasBegunRendering</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies whether rendering has begun on the context.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign, readonly) BOOL hasBegunRendering</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies whether rendering has begun on the context.</p>
+
+<p>If YES, any <a href="#//api/name/render:">render:</a> call will have no effect.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AdobeImageEditorContext.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/modified" title="modified"></a>
+	<h3 class="subsubtitle method-title">modified</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies if the context&rsquo;s <a href="#//api/name/session">session</a> has been modified.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign, readonly, getter=isModified) BOOL modified</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specifies if the context&rsquo;s <a href="#//api/name/session">session</a> has been modified.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AdobeImageEditorContext.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/progressHandler" title="progressHandler"></a>
+	<h3 class="subsubtitle method-title">progressHandler</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The progress handler is called with an estimate of how far along in
+completing the render the context is. The handler is guaranteed to
+be called on the main thread.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, nullable) void ( ^ ) ( CGFloat ) progressHandler</code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>progressHandler</em></dt>
+			<dd><p>The block to be called with progress updates.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The progress handler is called with an estimate of how far along in
+completing the render the context is. The handler is guaranteed to
+be called on the main thread.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AdobeImageEditorContext.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/session" title="session"></a>
+	<h3 class="subsubtitle method-title">session</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The session that the context was generated from.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, weak, readonly) AdobeImageEditorSession *session</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The session that the context was generated from.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AdobeImageEditorContext.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/size" title="size"></a>
+	<h3 class="subsubtitle method-title">size</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The size that the context&rsquo;s image will be output at.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign, readonly) CGSize size</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The size that the context&rsquo;s image will be output at.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AdobeImageEditorContext.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/cancelRendering" title="cancelRendering"></a>
+	<h3 class="subsubtitle method-title">cancelRendering</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Cancels the context&rsquo;s rendering.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)cancelRendering</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Cancels the context&rsquo;s rendering.</p><div class="warning"><p><strong>Warning:</strong> Calling this method from any thread other in the main thread
+may result in undefined behavior.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AdobeImageEditorContext.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/render:" title="render:"></a>
+	<h3 class="subsubtitle method-title">render:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Replays all actions tracked by the generating <a href="../Classes/AdobeImageEditorSession.html">AdobeImageEditorSession</a>
+on the context&rsquo;s image.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)render:(void ( ^ ) ( UIImage *__nullable result ))<em>completion</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>completion</em></dt>
+			<dd><p>The block to be called when the image&rsquo;s render is complete.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Replays all actions tracked by the generating <a href="../Classes/AdobeImageEditorSession.html">AdobeImageEditorSession</a>
+on the context&rsquo;s image.</p>
+
+<p>The completion block will not be called until after the <a href="#//api/name/session"><code>session</code></a> is
+closed, i.e. until the user has closed the
+<a href="../Classes/AdobeUXImageEditorViewController.html">AdobeUXImageEditorViewController</a> that generated the <a href="#//api/name/session"><code>session</code></a>. If the
+user pressed &ldquo;Cancel&rdquo; or took no actions before pressing &ldquo;Done&rdquo;, the
+<code>result</code> UImage in the completion block will be nil. Otherwise, it will
+contain the rendered image. The context will try to render the image
+on the GPU, but it will fall back to the CPU if necessary. See the
+discussion in AdobeImageEditorContext for more details.</p>
+
+<p>Note: This method may be called once per context, as it would not make
+sense to run the same actions on the same image twice. Check
+<a href="#//api/name/hasBegunRendering">hasBegunRendering</a> to see if render has been called.</p><div class="warning"><p><strong>Warning:</strong> Calling this method from any thread other in the main thread
+may result in undefined behavior.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">AdobeImageEditorContext.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+                    
+                    
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2016 Adobe Systems Incorporated. All rights reserved. (Last updated: 2016-07-28)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>
