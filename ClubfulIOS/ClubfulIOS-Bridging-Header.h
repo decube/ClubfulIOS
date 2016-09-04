@@ -8,5 +8,6 @@
 #import <KakaoOpenSDK/KakaoOpenSDK.h>
 #import <AdobeCreativeSDKCore/AdobeCreativeSDKCore.h>
 #import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
+#import <GoogleSignIn/GoogleSignIn.h>
 
 #endif /* AdobeCreative_Bridging_Header_h */

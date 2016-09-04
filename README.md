@@ -29,6 +29,12 @@
 
 ## IOS
 
+-- 주의할점
+AdobeCreativeSDKImage.framework 파일이 100M가 넘기 때문에 git 에 올리지 못한다.
+https://creativesdk.adobe.com/downloads.html 여기서 DOWNLOAD를 누른 후(STATIC아님)
+AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework폴더에 붙여야한다.
+
+
 ##### POD
 
 * ImageSlideshow (이미지슬라이드뷰)
@@ -36,22 +42,26 @@
 * RealmSwift (저장)
 * Alamofire (통신)
 * DLRadioButton (남녀 체크)
+* Firebase (파이어베이스)
+* Firebase/Core (파이어베이스 애널리틱스)
+* Firebase/Auth (파이어베이스 인증(구글,페이스북))
+* GoogleSignIn (구글로그인)
 
 ##### 추가해야할 POD
 
+* FBSDKLoginKit (페이스북 로그인)
 * 쪽지화면 (화면구성)
 * UIViewXXYBoom (재미로)
 
+
 ##### SDK
 
-* kakao (로그인, 친구초대)
+* kakao (카카오톡 로그인, 카카오톡 친구초대)
 * AdobeCreativeSDKCore (이미지편집)
 * AdobeCreativeSDKImage (이미지편집)
 
 ##### 추가해야할 SDK
 
-* facebook (로그인)
-* google (로그인)
 * naver (로그인)
 
 ## Android

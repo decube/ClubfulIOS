@@ -56,10 +56,14 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
         scrollViewHeight = scrollView.frame.height
         
         
-        if user.isLogin == 2{
-            idField.text = "카카오톡으로 로그인 된 아이디입니다."
-        }else if user.isLogin == 1{
+        if user.isLogin == 1{
             idField.text = user.userId
+        } else if user.isLogin == 2{
+            idField.text = "카카오톡으로 로그인 된 아이디입니다."
+        } else if user.isLogin == 3{
+            idField.text = "구글로 로그인 된 아이디입니다."
+        } else if user.isLogin == 4{
+            idField.text = "페으스북으로 로그인 된 아이디입니다."
         }
         nicknameField.text = user.nickName
         if user.sex == "male"{

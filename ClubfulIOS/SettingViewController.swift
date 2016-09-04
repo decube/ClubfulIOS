@@ -8,6 +8,8 @@
 
 import UIKit
 import Alamofire
+import Firebase
+import FirebaseAuth
 
 class SettingViewController : UIViewController{
     
@@ -60,6 +62,18 @@ class SettingViewController : UIViewController{
                     .validate(contentType: ["application/json"])
                     .responseData { response in
                 }
+                
+                
+                if user.isLogin == 1{
+                    //일반로그아웃
+                }else if user.isLogin == 2{
+                    //카톡로그아웃
+                }else if user.isLogin == 3{
+                    //구글로그아웃
+                }else if user.isLogin == 4{
+                    //페북로그아웃
+                }
+                
                 user = Storage.copyUser()
                 user.isLogin = -1
                 user.nickName = ""

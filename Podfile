@@ -10,6 +10,10 @@ pod 'ActionKit', '~> 1.0'
 pod 'RealmSwift'
 pod 'Alamofire', '~> 3.4'
 pod 'DLRadioButton', '~> 1.4'
+pod 'Firebase', '>= 2.5.1'
+pod 'Firebase/Core'
+pod 'Firebase/Auth'
+pod 'GoogleSignIn'
 
 end
 

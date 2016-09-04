@@ -39,7 +39,6 @@
 		6E2F95441D69F440000976A7 /* MapListElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2F95431D69F440000976A7 /* MapListElementView.swift */; };
 		6E2F95461D69F47F000976A7 /* MapListElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E2F95451D69F47F000976A7 /* MapListElementView.xib */; };
 		6E6E16481D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E6E16461D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework */; };
-		6E6E16491D7AFEEB00B0DEF1 /* AdobeCreativeSDKImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E6E16471D7AFEEB00B0DEF1 /* AdobeCreativeSDKImage.framework */; };
 		6E6E164D1D7AFEFD00B0DEF1 /* AdobeCreativeSDKCoreResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6E6E164B1D7AFEFD00B0DEF1 /* AdobeCreativeSDKCoreResources.bundle */; };
 		6E6E164E1D7AFEFD00B0DEF1 /* AdobeCreativeSDKImageResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6E6E164C1D7AFEFD00B0DEF1 /* AdobeCreativeSDKImageResources.bundle */; };
 		6E6E16591D7AFF1B00B0DEF1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E6E164F1D7AFF1B00B0DEF1 /* StoreKit.framework */; };
@@ -76,6 +75,8 @@
 		6E9CF3A01D6B2028004DC36A /* ic_tab_mypage_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3861D6B2028004DC36A /* ic_tab_mypage_s.png */; };
 		6E9CF3A11D6B2028004DC36A /* ic_tab_setting_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3871D6B2028004DC36A /* ic_tab_setting_n.png */; };
 		6E9CF3A21D6B2028004DC36A /* ic_tab_setting_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3881D6B2028004DC36A /* ic_tab_setting_s.png */; };
+		6ECEAF891D7C257A00F1551D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6ECEAF881D7C257A00F1551D /* GoogleService-Info.plist */; };
+		6ECEAF8B1D7C292100F1551D /* AdobeCreativeSDKImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ECEAF8A1D7C292100F1551D /* AdobeCreativeSDKImage.framework */; };
 		6EDA95211D55C85300E029C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA951F1D55C85300E029C8 /* Main.storyboard */; };
 		6EDA95231D55C85300E029C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95221D55C85300E029C8 /* Assets.xcassets */; };
 		6EDA95261D55C85300E029C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95241D55C85300E029C8 /* LaunchScreen.storyboard */; };
@@ -149,7 +150,6 @@
 		6E2F95431D69F440000976A7 /* MapListElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListElementView.swift; sourceTree = "<group>"; };
 		6E2F95451D69F47F000976A7 /* MapListElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapListElementView.xib; sourceTree = "<group>"; };
 		6E6E16461D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKCore.framework; sourceTree = "<group>"; };
-		6E6E16471D7AFEEB00B0DEF1 /* AdobeCreativeSDKImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKImage.framework; sourceTree = "<group>"; };
 		6E6E164B1D7AFEFD00B0DEF1 /* AdobeCreativeSDKCoreResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AdobeCreativeSDKCoreResources.bundle; sourceTree = "<group>"; };
 		6E6E164C1D7AFEFD00B0DEF1 /* AdobeCreativeSDKImageResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AdobeCreativeSDKImageResources.bundle; sourceTree = "<group>"; };
 		6E6E164F1D7AFF1B00B0DEF1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -186,6 +186,8 @@
 		6E9CF3861D6B2028004DC36A /* ic_tab_mypage_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_tab_mypage_s.png; path = resources/img/ic_tab_mypage_s.png; sourceTree = "<group>"; };
 		6E9CF3871D6B2028004DC36A /* ic_tab_setting_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_tab_setting_n.png; path = resources/img/ic_tab_setting_n.png; sourceTree = "<group>"; };
 		6E9CF3881D6B2028004DC36A /* ic_tab_setting_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_tab_setting_s.png; path = resources/img/ic_tab_setting_s.png; sourceTree = "<group>"; };
+		6ECEAF881D7C257A00F1551D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6ECEAF8A1D7C292100F1551D /* AdobeCreativeSDKImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKImage.framework; sourceTree = "<group>"; };
 		6EDA95181D55C85300E029C8 /* ClubfulIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubfulIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EDA95201D55C85300E029C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6EDA95221D55C85300E029C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -231,7 +233,7 @@
 				64A2DEE91461EF0A8E1E5B3C /* Pods_ClubfulIOS.framework in Frameworks */,
 				6E6E165A1D7AFF1B00B0DEF1 /* QuartzCore.framework in Frameworks */,
 				6E6E16591D7AFF1B00B0DEF1 /* StoreKit.framework in Frameworks */,
-				6E6E16491D7AFEEB00B0DEF1 /* AdobeCreativeSDKImage.framework in Frameworks */,
+				6ECEAF8B1D7C292100F1551D /* AdobeCreativeSDKImage.framework in Frameworks */,
 				6E6E165D1D7AFF1B00B0DEF1 /* libz.1.2.5.tbd in Frameworks */,
 				6E6E16621D7AFF1B00B0DEF1 /* libc++.tbd in Frameworks */,
 				6E6E16611D7AFF1B00B0DEF1 /* MobileCoreServices.framework in Frameworks */,
@@ -350,6 +352,7 @@
 				6EDA95221D55C85300E029C8 /* Assets.xcassets */,
 				6EDA95241D55C85300E029C8 /* LaunchScreen.storyboard */,
 				6EDA95271D55C85300E029C8 /* Info.plist */,
+				6ECEAF881D7C257A00F1551D /* GoogleService-Info.plist */,
 				6EDA95491D55CB8200E029C8 /* ClubfulIOS-Bridging-Header.h */,
 			);
 			path = ClubfulIOS;
@@ -515,6 +518,7 @@
 		EB9E07981FDDFFC0ADCF8C47 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DE2CAE3BA3F8BF9D38F05FFD /* Pods_ClubfulIOS.framework */,
 				6E6E164F1D7AFF1B00B0DEF1 /* StoreKit.framework */,
 				6E6E16501D7AFF1B00B0DEF1 /* QuartzCore.framework */,
 				6E6E16511D7AFF1B00B0DEF1 /* OpenGLES.framework */,
@@ -525,10 +529,9 @@
 				6E6E16561D7AFF1B00B0DEF1 /* Accelerate.framework */,
 				6E6E16571D7AFF1B00B0DEF1 /* MobileCoreServices.framework */,
 				6E6E16581D7AFF1B00B0DEF1 /* libc++.tbd */,
-				6E6E16461D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework */,
-				6E6E16471D7AFEEB00B0DEF1 /* AdobeCreativeSDKImage.framework */,
 				6EDA95B51D55CEA700E029C8 /* KakaoOpenSDK.framework */,
-				DE2CAE3BA3F8BF9D38F05FFD /* Pods_ClubfulIOS.framework */,
+				6ECEAF8A1D7C292100F1551D /* AdobeCreativeSDKImage.framework */,
+				6E6E16461D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -654,6 +657,7 @@
 				6EDA95261D55C85300E029C8 /* LaunchScreen.storyboard in Resources */,
 				6E9CF38F1D6B2028004DC36A /* ic_kakaotalk.png in Resources */,
 				6E9CF38E1D6B2028004DC36A /* ic_image.png in Resources */,
+				6ECEAF891D7C257A00F1551D /* GoogleService-Info.plist in Resources */,
 				6E9CF39E1D6B2028004DC36A /* ic_tab_home_s.png in Resources */,
 				6EDA95231D55C85300E029C8 /* Assets.xcassets in Resources */,
 				6E9CF39B1D6B2028004DC36A /* ic_tab_add_n.png in Resources */,
