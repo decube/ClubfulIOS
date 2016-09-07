@@ -220,10 +220,6 @@
                                         <rect key="frame" x="282" y="25" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_kakaotalk.png" id="VTb-ic-PCQ">
-                                        <rect key="frame" x="8" y="25" width="30" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="초대" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1rF-9t-hNu">
                                         <rect key="frame" x="46" y="21" width="68" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -242,6 +238,10 @@
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_setting.png" id="e9E-3S-o5V">
                                         <rect key="frame" x="168" y="25" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_kakao_invite.png" id="VTb-ic-PCQ">
+                                        <rect key="frame" x="8" y="23" width="35" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
@@ -1200,7 +1200,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Iko-9Q-6uk">
-                                <rect key="frame" x="9" y="408" width="303" height="40"/>
+                                <rect key="frame" x="9" y="458" width="303" height="40"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.97254901960784312" green="0.8666666666666667" blue="0.039215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="카카오톡으로 로그인">
@@ -1216,7 +1216,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uIl-JH-3E1">
-                                <rect key="frame" x="9" y="458" width="303" height="40"/>
+                                <rect key="frame" x="9" y="508" width="303" height="40"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.17254901960784313" green="0.2627450980392157" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="페이스북으로 로그인">
@@ -1231,19 +1231,14 @@
                                     <action selector="facebookAction:" destination="pWh-F2-i2Q" eventType="touchUpInside" id="LK0-YH-GHg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ajW-kg-22P">
-                                <rect key="frame" x="9" y="508" width="303" height="40"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" red="0.10980392156862745" green="0.67450980392156867" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="네이버로 로그인">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_kakao.png" id="ftI-hD-hK5">
+                                <rect key="frame" x="20" y="463" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_fb.png" id="30F-7a-6Mp">
+                                <rect key="frame" x="20" y="513" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1688,7 +1683,9 @@
         <image name="ic_back.png" width="52" height="52"/>
         <image name="ic_edit.png" width="64" height="64"/>
         <image name="ic_enter.png" width="50" height="50"/>
-        <image name="ic_kakaotalk.png" width="50" height="50"/>
+        <image name="ic_fb.png" width="512" height="512"/>
+        <image name="ic_kakao.png" width="400" height="400"/>
+        <image name="ic_kakao_invite.png" width="128" height="146"/>
         <image name="ic_location.png" width="50" height="50"/>
         <image name="ic_message.png" width="50" height="50"/>
         <image name="ic_right.png" width="50" height="50"/>

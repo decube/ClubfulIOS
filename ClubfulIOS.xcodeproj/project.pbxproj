@@ -38,6 +38,9 @@
 		6E2F95421D69F390000976A7 /* MapListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2F95411D69F390000976A7 /* MapListView.swift */; };
 		6E2F95441D69F440000976A7 /* MapListElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2F95431D69F440000976A7 /* MapListElementView.swift */; };
 		6E2F95461D69F47F000976A7 /* MapListElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E2F95451D69F47F000976A7 /* MapListElementView.xib */; };
+		6E6556EF1D803CE000697391 /* ic_fb.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E6556ED1D803CE000697391 /* ic_fb.png */; };
+		6E6556F01D803CE000697391 /* ic_kakao.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E6556EE1D803CE000697391 /* ic_kakao.png */; };
+		6E6556F21D803E9000697391 /* ic_kakao_invite.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E6556F11D803E9000697391 /* ic_kakao_invite.png */; };
 		6E6E16481D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E6E16461D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework */; };
 		6E6E164D1D7AFEFD00B0DEF1 /* AdobeCreativeSDKCoreResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6E6E164B1D7AFEFD00B0DEF1 /* AdobeCreativeSDKCoreResources.bundle */; };
 		6E6E164E1D7AFEFD00B0DEF1 /* AdobeCreativeSDKImageResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6E6E164C1D7AFEFD00B0DEF1 /* AdobeCreativeSDKImageResources.bundle */; };
@@ -58,7 +61,6 @@
 		6E9CF38C1D6B2028004DC36A /* ic_edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3721D6B2028004DC36A /* ic_edit.png */; };
 		6E9CF38D1D6B2028004DC36A /* ic_enter.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3731D6B2028004DC36A /* ic_enter.png */; };
 		6E9CF38E1D6B2028004DC36A /* ic_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3741D6B2028004DC36A /* ic_image.png */; };
-		6E9CF38F1D6B2028004DC36A /* ic_kakaotalk.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3751D6B2028004DC36A /* ic_kakaotalk.png */; };
 		6E9CF3901D6B2028004DC36A /* ic_location.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3761D6B2028004DC36A /* ic_location.png */; };
 		6E9CF3911D6B2028004DC36A /* ic_message.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3771D6B2028004DC36A /* ic_message.png */; };
 		6E9CF3921D6B2028004DC36A /* ic_myLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3781D6B2028004DC36A /* ic_myLocation.png */; };
@@ -150,6 +152,9 @@
 		6E2F95411D69F390000976A7 /* MapListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListView.swift; sourceTree = "<group>"; };
 		6E2F95431D69F440000976A7 /* MapListElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListElementView.swift; sourceTree = "<group>"; };
 		6E2F95451D69F47F000976A7 /* MapListElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapListElementView.xib; sourceTree = "<group>"; };
+		6E6556ED1D803CE000697391 /* ic_fb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_fb.png; path = resources/img/ic_fb.png; sourceTree = "<group>"; };
+		6E6556EE1D803CE000697391 /* ic_kakao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_kakao.png; path = resources/img/ic_kakao.png; sourceTree = "<group>"; };
+		6E6556F11D803E9000697391 /* ic_kakao_invite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_kakao_invite.png; path = resources/img/ic_kakao_invite.png; sourceTree = "<group>"; };
 		6E6E16461D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKCore.framework; sourceTree = "<group>"; };
 		6E6E164B1D7AFEFD00B0DEF1 /* AdobeCreativeSDKCoreResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AdobeCreativeSDKCoreResources.bundle; sourceTree = "<group>"; };
 		6E6E164C1D7AFEFD00B0DEF1 /* AdobeCreativeSDKImageResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AdobeCreativeSDKImageResources.bundle; sourceTree = "<group>"; };
@@ -170,7 +175,6 @@
 		6E9CF3721D6B2028004DC36A /* ic_edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_edit.png; path = resources/img/ic_edit.png; sourceTree = "<group>"; };
 		6E9CF3731D6B2028004DC36A /* ic_enter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_enter.png; path = resources/img/ic_enter.png; sourceTree = "<group>"; };
 		6E9CF3741D6B2028004DC36A /* ic_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_image.png; path = resources/img/ic_image.png; sourceTree = "<group>"; };
-		6E9CF3751D6B2028004DC36A /* ic_kakaotalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_kakaotalk.png; path = resources/img/ic_kakaotalk.png; sourceTree = "<group>"; };
 		6E9CF3761D6B2028004DC36A /* ic_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_location.png; path = resources/img/ic_location.png; sourceTree = "<group>"; };
 		6E9CF3771D6B2028004DC36A /* ic_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_message.png; path = resources/img/ic_message.png; sourceTree = "<group>"; };
 		6E9CF3781D6B2028004DC36A /* ic_myLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_myLocation.png; path = resources/img/ic_myLocation.png; sourceTree = "<group>"; };
@@ -395,7 +399,6 @@
 				6E9CF3721D6B2028004DC36A /* ic_edit.png */,
 				6E9CF3731D6B2028004DC36A /* ic_enter.png */,
 				6E9CF3741D6B2028004DC36A /* ic_image.png */,
-				6E9CF3751D6B2028004DC36A /* ic_kakaotalk.png */,
 				6E9CF3761D6B2028004DC36A /* ic_location.png */,
 				6E9CF3771D6B2028004DC36A /* ic_message.png */,
 				6E9CF3781D6B2028004DC36A /* ic_myLocation.png */,
@@ -415,6 +418,9 @@
 				6E9CF3861D6B2028004DC36A /* ic_tab_mypage_s.png */,
 				6E9CF3871D6B2028004DC36A /* ic_tab_setting_n.png */,
 				6E9CF3881D6B2028004DC36A /* ic_tab_setting_s.png */,
+				6E6556ED1D803CE000697391 /* ic_fb.png */,
+				6E6556EE1D803CE000697391 /* ic_kakao.png */,
+				6E6556F11D803E9000697391 /* ic_kakao_invite.png */,
 			);
 			name = img;
 			sourceTree = "<group>";
@@ -664,11 +670,11 @@
 				6E9CF3931D6B2028004DC36A /* ic_right.png in Resources */,
 				6E9CF3A01D6B2028004DC36A /* ic_tab_mypage_s.png in Resources */,
 				6EDA95261D55C85300E029C8 /* LaunchScreen.storyboard in Resources */,
-				6E9CF38F1D6B2028004DC36A /* ic_kakaotalk.png in Resources */,
 				6E9CF38E1D6B2028004DC36A /* ic_image.png in Resources */,
 				6E751D581D7EFF6F0065FC8D /* GoogleService-Info.plist in Resources */,
 				6E9CF39E1D6B2028004DC36A /* ic_tab_home_s.png in Resources */,
 				6EDA95231D55C85300E029C8 /* Assets.xcassets in Resources */,
+				6E6556EF1D803CE000697391 /* ic_fb.png in Resources */,
 				6E9CF39B1D6B2028004DC36A /* ic_tab_add_n.png in Resources */,
 				6EDA95211D55C85300E029C8 /* Main.storyboard in Resources */,
 				6E9CF3901D6B2028004DC36A /* ic_location.png in Resources */,
@@ -679,6 +685,8 @@
 				6E9CF38D1D6B2028004DC36A /* ic_enter.png in Resources */,
 				6EE4F3851D697D4A008B43ED /* MainCourtSearchElementView.xib in Resources */,
 				6E9CF3911D6B2028004DC36A /* ic_message.png in Resources */,
+				6E6556F01D803CE000697391 /* ic_kakao.png in Resources */,
+				6E6556F21D803E9000697391 /* ic_kakao_invite.png in Resources */,
 				6E6E164E1D7AFEFD00B0DEF1 /* AdobeCreativeSDKImageResources.bundle in Resources */,
 				6E2F08B31D6B091100222708 /* NonUserView.xib in Resources */,
 				6E9CF3921D6B2028004DC36A /* ic_myLocation.png in Resources */,
@@ -954,6 +962,10 @@
 				);
 				INFOPLIST_FILE = ClubfulIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ClubfulIOS/thirdPartyModule",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -993,6 +1005,10 @@
 				);
 				INFOPLIST_FILE = ClubfulIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ClubfulIOS/thirdPartyModule",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

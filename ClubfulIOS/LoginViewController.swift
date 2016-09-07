@@ -40,8 +40,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     //로그인
     func login(userId: String, nickName: String, loginType: Int){
         var user = Storage.getRealmUser()
-        self.spin.hidden = false
-        self.spin.startAnimating()
         let parameters : [String: AnyObject] = ["token": user.token, "userId": userId, "password": "", "loginType": 2, "gcmId": user.gcmId, "nickName": nickName, "sex": "", "birth": user.birth.getDate(), "userLatitude": user.userLatitude, "userLongitude": user.userLongitude, "userAddress": user.userAddress, "userAddressShort": user.userAddressShort, "noticePush": user.noticePushCheck, "myInsertPush": user.myCourtPushCheck, "distancePush": user.distancePushCheck, "interestPush": user.interestPushCheck, "startTime": user.startPushTime.getTime(), "endTime": user.endPushTime.getTime()]
         URL.request(self, url: URL.user_login, param: parameters, callback: { (dic) in
             user = Storage.copyUser()
@@ -74,7 +72,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
             Storage.setRealmUser(user)
             self.vc.signCheck()
+            self.spin.hidden = true
+            self.spin.stopAnimating()
             self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        }, codeErrorCallback: {(dic) in
+            self.spin.hidden = true
+            self.spin.stopAnimating()
         })
     }
     
@@ -82,42 +85,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     
     
-    
-    
-    //페이스북 로그인 클릭
-    @IBAction func facebookAction(sender: AnyObject) {
-        let login = FBSDKLoginManager()
-        login.logInWithReadPermissions(["public_profile"], fromViewController: self, handler: { (result, error) in
-            if error != nil{
-                print("Facebook login failed. Error \(error)")
-            } else if result.isCancelled {
-                print("Facebook login isCancelled. result \(result.token)")
-            } else {
-                let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
-                FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
-                    if error != nil {
-                        print("Login failed. \(error)")
-                    } else {
-                        var nickName = "", uid = ""
-                        if let faceNickname = user?.displayName{
-                            nickName = faceNickname
-                        }
-                        if let faceUid = user?.uid{
-                            uid = faceUid
-                        }
-                        self.login(uid, nickName: nickName, loginType: 3)
-                    }
-                }
-            }
-        })
-    }
     
     //카카오톡 로그인 클릭
     @IBAction func kakaoAction(sender: AnyObject) {
         if spin.hidden == false{
             return
         }
-        
+        spin.hidden = false
+        spin.startAnimating()
         let session: KOSession = KOSession.sharedSession();
         if session.isOpen() {
             session.close()
@@ -144,9 +119,38 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         })
     }
-    
-    
-    
+    //페이스북 로그인 클릭
+    @IBAction func facebookAction(sender: AnyObject) {
+        if spin.hidden == false{
+            return
+        }
+        spin.hidden = false
+        spin.startAnimating()
+        let login = FBSDKLoginManager()
+        login.logInWithReadPermissions(["public_profile"], fromViewController: self, handler: { (result, error) in
+            if error != nil{
+                print("Facebook login failed. Error \(error)")
+            } else if result.isCancelled {
+                print("Facebook login isCancelled. result \(result.token)")
+            } else {
+                let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+                FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+                    if error != nil {
+                        print("Login failed. \(error)")
+                    } else {
+                        var nickName = "", uid = ""
+                        if let faceNickname = user?.displayName{
+                            nickName = faceNickname
+                        }
+                        if let faceUid = user?.uid{
+                            uid = faceUid
+                        }
+                        self.login(uid, nickName: nickName, loginType: 3)
+                    }
+                }
+            }
+        })
+    }
     
     
     
@@ -156,7 +160,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     //로그인 클릭
     @IBAction func loginAction(sender: AnyObject) {
         if spin.hidden == false{
-            return;
+            return
         }
         if idField.text?.characters.count < 4{
             Util.alert(self, message: "아이디를 입력해 주세요.")
