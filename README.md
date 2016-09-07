@@ -61,10 +61,6 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 * AdobeCreativeSDKCore (이미지편집)
 * AdobeCreativeSDKImage (이미지편집)
 
-##### 추가해야할 SDK
-
-* naver (로그인)
-
 ## Android
 ....
 
