@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class URL{
     static let urlCheck = "https://clubfulstaticserver-guanho.c9users.io/urlCheck.json"
@@ -32,4 +33,30 @@ class URL{
     static let user_mypage = URL.appServer+"user/mypage_success.json";
     static let user_set = URL.appServer+"user/set_success.json";
     static let user_update = URL.appServer+"user/update_success.json";
+    
+    static func request(ctrl: UIViewController, url: String, param: [String: AnyObject], callback: (([String:AnyObject])-> Void)! = nil, codeErrorCallback: (([String:AnyObject])-> Void)! = nil){
+        Alamofire.request(.GET, url, parameters: param)
+            .validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"])
+            .responseData { response in
+                let data : NSData = response.data!
+                let dic = Util.convertStringToDictionary(data)
+                if let code = dic["code"] as? Int{
+                    if code == 0{
+                        if callback != nil{
+                            callback(dic)
+                        }
+                    }else{
+                        if let isMsgView = dic["isMsgView"] as? Bool{
+                            if isMsgView == true{
+                                Util.alert(ctrl, message: "\(dic["msg"]!)")
+                            }
+                        }
+                        if codeErrorCallback != nil{
+                            codeErrorCallback(dic)
+                        }
+                    }
+                }
+        }
+    }
 }

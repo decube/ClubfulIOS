@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Kakao Corp.
+ * Copyright 2015-2016 Kakao Corp.
  *
  * Redistribution and modification in source or binary forms are not permitted without specific prior written permission.
  *
@@ -98,6 +98,22 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
                        completionHandler:(void (^)(BOOL success, NSError *error))completionHandler;
 
 /*!
+ @abstract 카카오 스토리에 포스팅합니다.
+ @deprecated Replaced by storyPostNoteTaskWithContent or storyPostPhotoTaskWithImageUrls in v1.0.7
+ @param content 내용
+ @param imageUrl 이미지 url(storyImageUploadTaskWithImage 호출 후 반환되는 url을 설정)
+ @param androidExecParamString 안드로이드 앱연결 링크에 추가할 파라미터 설정
+ @param iosExecParamString iOS 앱연결 링크에 추가할 파라미터 설정
+ @param completionHandler 요청 완료시 실행될 핸들러
+ */
++ (instancetype)storyPostTaskWithContent:(NSString *)content
+                              permission:(KOStoryPostPermission)permission
+                                imageUrl:(NSString *)imageUrl
+                  androidExecParamString:(NSString *)androidExecParamString
+                      iosExecParamString:(NSString *)iosExecParamString
+                       completionHandler:(void (^)(BOOL success, NSError *error))completionHandler;
+
+/*!
  @abstract 카카오스토리의 특정 내스토리 정보를 얻을 수 있습니다. comments, likes등의 상세정보도 포함됩니다.
  @param myStoryId 내스토리 정보(myStory)의 id(포스트 id). required.
  @param completionHandler 내스토리 정보를 얻어 처리하는 핸들러
@@ -142,6 +158,22 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
  @param content 내용. required.
  @param permission permission으로 친구공개(KOStoryPostPermissionFriend) 또는 전체공개(KOStoryPostPermissionPublic) 또는 나만보기(KOStoryPostPermissionOnlyMe). default KOStoryPostPermissionPublic. optional.
  @param sharable permission이 친구공개(KOStoryPostPermissionFriend)에 한해서 공유를 허용할지 안할지의 여부. default NO. optional.
+ @param androidExecParamString 안드로이드 앱연결 링크에 추가할 파라미터 설정. optional.
+ @param iosExecParamString iOS 앱연결 링크에 추가할 파라미터 설정. optional.
+ @param completionHandler 요청 완료시 실행될 핸들러
+ */
++ (instancetype)storyPostNoteTaskWithContent:(NSString *)content
+                                  permission:(KOStoryPostPermission)permission
+                                    sharable:(BOOL)sharable
+                      androidExecParamString:(NSString *)androidExecParamString
+                          iosExecParamString:(NSString *)iosExecParamString
+                           completionHandler:(void (^)(KOStoryPostInfo *post, NSError *error))completionHandler;
+
+/*!
+ @abstract 카카오스토리에 글(노트)을 포스팅합니다.
+ @param content 내용. required.
+ @param permission permission으로 친구공개(KOStoryPostPermissionFriend) 또는 전체공개(KOStoryPostPermissionPublic) 또는 나만보기(KOStoryPostPermissionOnlyMe). default KOStoryPostPermissionPublic. optional.
+ @param sharable permission이 친구공개(KOStoryPostPermissionFriend)에 한해서 공유를 허용할지 안할지의 여부. default NO. optional.
  @param androidMarketParam 안드로이드 앱연결 시 마켓으로 이동할 링크에 추가할 파라미터 설정. optional.
  @param iosMarketParam iOS 앱연결 시 마켓으로 이동할 링크에 추가할 파라미터 설정. optional.
  @param androidExecParam 안드로이드 앱연결 링크에 추가할 파라미터 설정. optional.
@@ -155,6 +187,26 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
                               iosMarketParam:(NSDictionary *)iosMarketParam
                             androidExecParam:(NSDictionary *)androidExecParam
                                 iosExecParam:(NSDictionary *)iosExecParam
+                           completionHandler:(void (^)(KOStoryPostInfo *post, NSError *error))completionHandler;
+
+/*!
+ @abstract 카카오스토리에 글(노트)을 포스팅합니다.
+ @param content 내용. required.
+ @param permission permission으로 친구공개(KOStoryPostPermissionFriend) 또는 전체공개(KOStoryPostPermissionPublic) 또는 나만보기(KOStoryPostPermissionOnlyMe). default KOStoryPostPermissionPublic. optional.
+ @param sharable permission이 친구공개(KOStoryPostPermissionFriend)에 한해서 공유를 허용할지 안할지의 여부. default NO. optional.
+ @param androidMarketParamString 안드로이드 앱연결 시 마켓으로 이동할 링크에 추가할 파라미터 설정. optional.
+ @param iosMarketParamString iOS 앱연결 시 마켓으로 이동할 링크에 추가할 파라미터 설정. optional.
+ @param androidExecParamString 안드로이드 앱연결 링크에 추가할 파라미터 설정. optional.
+ @param iosExecParamString iOS 앱연결 링크에 추가할 파라미터 설정. optional.
+ @param completionHandler 요청 완료시 실행될 핸들러
+ */
++ (instancetype)storyPostNoteTaskWithContent:(NSString *)content
+                                  permission:(KOStoryPostPermission)permission
+                                    sharable:(BOOL)sharable
+                    androidMarketParamString:(NSString *)androidMarketParamString
+                        iosMarketParamString:(NSString *)iosMarketParamString
+                      androidExecParamString:(NSString *)androidExecParamString
+                          iosExecParamString:(NSString *)iosExecParamString
                            completionHandler:(void (^)(KOStoryPostInfo *post, NSError *error))completionHandler;
 
 /*!
@@ -181,6 +233,24 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
  @param content 사진과 함께 할 내용. optional.
  @param permission permission으로 친구공개(KOStoryPostPermissionFriend) 또는 전체공개(KOStoryPostPermissionPublic) 또는 나만보기(KOStoryPostPermissionOnlyMe). default KOStoryPostPermissionPublic. optional.
  @param sharable permission이 친구공개(KOStoryPostPermissionFriend)에 한해서 공유를 허용할지 안할지의 여부. default NO. optional.
+ @param androidExecParamString 안드로이드 앱연결 링크에 추가할 파라미터 설정. optional.
+ @param iosExecParamString iOS 앱연결 링크에 추가할 파라미터 설정. optional.
+ @param completionHandler 요청 완료시 실행될 핸들러
+ */
++ (instancetype)storyPostPhotoTaskWithImageUrls:(NSArray *)imageUrls
+                                        content:(NSString *)content
+                                     permission:(KOStoryPostPermission)permission
+                                       sharable:(BOOL)sharable
+                         androidExecParamString:(NSString *)androidExecParamString
+                             iosExecParamString:(NSString *)iosExecParamString
+                              completionHandler:(void (^)(KOStoryPostInfo *post, NSError *error))completionHandler;
+
+/*!
+ @abstract 카카오스토리에 사진(들)을 포스팅합니다.
+ @param imageUrls 이미지 url들을 포함한 array(storyMultiImageUploadTaskWithImages 호출 후 반환되는 url들을 설정). required.
+ @param content 사진과 함께 할 내용. optional.
+ @param permission permission으로 친구공개(KOStoryPostPermissionFriend) 또는 전체공개(KOStoryPostPermissionPublic) 또는 나만보기(KOStoryPostPermissionOnlyMe). default KOStoryPostPermissionPublic. optional.
+ @param sharable permission이 친구공개(KOStoryPostPermissionFriend)에 한해서 공유를 허용할지 안할지의 여부. default NO. optional.
  @param androidMarketParam 안드로이드 앱연결 시 마켓으로 이동할 링크에 추가할 파라미터 설정. optional.
  @param iosMarketParam iOS 앱연결 시 마켓으로 이동할 링크에 추가할 파라미터 설정. optional.
  @param androidExecParam 안드로이드 앱연결 링크에 추가할 파라미터 설정. optional.
@@ -195,6 +265,28 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
                                  iosMarketParam:(NSDictionary *)iosMarketParam
                                androidExecParam:(NSDictionary *)androidExecParam
                                    iosExecParam:(NSDictionary *)iosExecParam
+                              completionHandler:(void (^)(KOStoryPostInfo *post, NSError *error))completionHandler;
+
+/*!
+ @abstract 카카오스토리에 사진(들)을 포스팅합니다.
+ @param imageUrls 이미지 url들을 포함한 array(storyMultiImageUploadTaskWithImages 호출 후 반환되는 url들을 설정). required.
+ @param content 사진과 함께 할 내용. optional.
+ @param permission permission으로 친구공개(KOStoryPostPermissionFriend) 또는 전체공개(KOStoryPostPermissionPublic) 또는 나만보기(KOStoryPostPermissionOnlyMe). default KOStoryPostPermissionPublic. optional.
+ @param sharable permission이 친구공개(KOStoryPostPermissionFriend)에 한해서 공유를 허용할지 안할지의 여부. default NO. optional.
+ @param androidMarketParamString 안드로이드 앱연결 시 마켓으로 이동할 링크에 추가할 파라미터 설정. optional.
+ @param iosMarketParamString iOS 앱연결 시 마켓으로 이동할 링크에 추가할 파라미터 설정. optional.
+ @param androidExecParamString 안드로이드 앱연결 링크에 추가할 파라미터 설정. optional.
+ @param iosExecParamString iOS 앱연결 링크에 추가할 파라미터 설정. optional.
+ @param completionHandler 요청 완료시 실행될 핸들러
+ */
++ (instancetype)storyPostPhotoTaskWithImageUrls:(NSArray *)imageUrls
+                                        content:(NSString *)content
+                                     permission:(KOStoryPostPermission)permission
+                                       sharable:(BOOL)sharable
+                       androidMarketParamString:(NSString *)androidMarketParamString
+                           iosMarketParamString:(NSString *)iosMarketParamString
+                         androidExecParamString:(NSString *)androidExecParamString
+                             iosExecParamString:(NSString *)iosExecParamString
                               completionHandler:(void (^)(KOStoryPostInfo *post, NSError *error))completionHandler;
 
 /*!
@@ -221,6 +313,24 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
  @param content 스크랩을 통해 얻은 링크를 포스팅할 때 함께 할 내용. optional.
  @param permission permission으로 친구공개(KOStoryPostPermissionFriend) 또는 전체공개(KOStoryPostPermissionPublic) 또는 나만보기(KOStoryPostPermissionOnlyMe). default KOStoryPostPermissionPublic. optional.
  @param sharable permission이 친구공개(KOStoryPostPermissionFriend)에 한해서 공유를 허용할지 안할지의 여부. default NO. optional.
+ @param androidExecParamString 안드로이드 앱연결 링크에 추가할 파라미터 설정
+ @param iosExecParamString iOS 앱연결 링크에 추가할 파라미터 설정
+ @param completionHandler 요청 완료시 실행될 핸들러
+ */
++ (instancetype)storyPostLinkTaskWithLinkInfo:(KOStoryLinkInfo *)linkInfo
+                                      content:(NSString *)content
+                                   permission:(KOStoryPostPermission)permission
+                                     sharable:(BOOL)sharable
+                       androidExecParamString:(NSString *)androidExecParamString
+                           iosExecParamString:(NSString *)iosExecParamString
+                            completionHandler:(void (^)(KOStoryPostInfo *post, NSError *error))completionHandler;
+
+/*!
+ @abstract 카카오스토리에 링크(스크랩 정보)를 포스팅합니다.
+ @param linkInfo 스크랩(storyGetLinkInfoTaskWithUrl)을 통해 얻은 링크 객체. requried.
+ @param content 스크랩을 통해 얻은 링크를 포스팅할 때 함께 할 내용. optional.
+ @param permission permission으로 친구공개(KOStoryPostPermissionFriend) 또는 전체공개(KOStoryPostPermissionPublic) 또는 나만보기(KOStoryPostPermissionOnlyMe). default KOStoryPostPermissionPublic. optional.
+ @param sharable permission이 친구공개(KOStoryPostPermissionFriend)에 한해서 공유를 허용할지 안할지의 여부. default NO. optional.
  @param androidMarketParam 안드로이드 앱연결 시 마켓으로 이동할 링크에 추가할 파라미터 설정. optional.
  @param iosMarketParam iOS 앱연결 시 마켓으로 이동할 링크에 추가할 파라미터 설정. optional.
  @param androidExecParam 안드로이드 앱연결 링크에 추가할 파라미터 설정
@@ -235,6 +345,28 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
                                iosMarketParam:(NSDictionary *)iosMarketParam
                              androidExecParam:(NSDictionary *)androidExecParam
                                  iosExecParam:(NSDictionary *)iosExecParam
+                            completionHandler:(void (^)(KOStoryPostInfo *post, NSError *error))completionHandler;
+
+/*!
+ @abstract 카카오스토리에 링크(스크랩 정보)를 포스팅합니다.
+ @param linkInfo 스크랩(storyGetLinkInfoTaskWithUrl)을 통해 얻은 링크 객체. requried.
+ @param content 스크랩을 통해 얻은 링크를 포스팅할 때 함께 할 내용. optional.
+ @param permission permission으로 친구공개(KOStoryPostPermissionFriend) 또는 전체공개(KOStoryPostPermissionPublic) 또는 나만보기(KOStoryPostPermissionOnlyMe). default KOStoryPostPermissionPublic. optional.
+ @param sharable permission이 친구공개(KOStoryPostPermissionFriend)에 한해서 공유를 허용할지 안할지의 여부. default NO. optional.
+ @param androidMarketParamString 안드로이드 앱연결 시 마켓으로 이동할 링크에 추가할 파라미터 설정. optional.
+ @param iosMarketParamString iOS 앱연결 시 마켓으로 이동할 링크에 추가할 파라미터 설정. optional.
+ @param androidExecParamString 안드로이드 앱연결 링크에 추가할 파라미터 설정
+ @param iosExecParamString iOS 앱연결 링크에 추가할 파라미터 설정
+ @param completionHandler 요청 완료시 실행될 핸들러
+ */
++ (instancetype)storyPostLinkTaskWithLinkInfo:(KOStoryLinkInfo *)linkInfo
+                                      content:(NSString *)content
+                                   permission:(KOStoryPostPermission)permission
+                                     sharable:(BOOL)sharable
+                     androidMarketParamString:(NSString *)androidMarketParamString
+                         iosMarketParamString:(NSString *)iosMarketParamString
+                       androidExecParamString:(NSString *)androidExecParamString
+                           iosExecParamString:(NSString *)iosExecParamString
                             completionHandler:(void (^)(KOStoryPostInfo *post, NSError *error))completionHandler;
 
 /*!

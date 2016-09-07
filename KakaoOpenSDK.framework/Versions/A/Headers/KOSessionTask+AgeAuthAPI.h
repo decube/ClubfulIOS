@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Kakao Corp.
+ * Copyright 2015-2016 Kakao Corp.
  *
  * Redistribution and modification in source or binary forms are not permitted without specific prior written permission.
  *
@@ -51,5 +51,32 @@
 
 
 @end
+
+// AgeAuth Results Keys
+/*!
+ 연령인증 정보 확인 시 인증레벨 코드에 대한 키 이름
+ */
+extern NSString *const KOAgeAuthLevelCodeKey;
+
+/*!
+ 연령인증 정보 확인 시 인증레벨 타이틀에 대한 키 이름
+ */
+extern NSString *const KOAgeAuthLevelKey;
+
+/*!
+ 연령인증 정보 확인 시 연령제한 통과 여부에 대한 키 이름
+ */
+extern NSString *const KOAgeAuthBypassLimitKey;
+
+/*!
+ 연령인증 정보 확인 시 CI값에 대한 키 이름
+ */
+extern NSString *const KOAgeAuthCIKey;
+
+/*!
+ 연령인증 정보 확인 시 인증날짜에 대한 키 이름
+ */
+extern NSString *const KOAgeAuthDateKey;
+
 
 #endif

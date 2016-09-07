@@ -44,12 +44,13 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 * DLRadioButton (남녀 체크)
 * Firebase (파이어베이스)
 * Firebase/Core (파이어베이스 애널리틱스)
-* Firebase/Auth (파이어베이스 인증(구글,페이스북))
-* GoogleSignIn (구글로그인)
+* Firebase/Auth (파이어베이스 인증(페이스북))
+* FBSDKCoreKit (페이스북로그인)
+* FBSDKShareKit (페이스북로그인)
+* FBSDKLoginKit (페이스북로그인)
 
 ##### 추가해야할 POD
 
-* FBSDKLoginKit (페이스북 로그인)
 * 쪽지화면 (화면구성)
 * UIViewXXYBoom (재미로)
 

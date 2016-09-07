@@ -8,7 +8,6 @@
 
 import UIKit
 import ImageSlideshow
-import Alamofire
 import MapKit
 
 class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDelegate, CLLocationManagerDelegate{
@@ -79,46 +78,31 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         self.webView.delegate = self
         
         let parameters : [String: AnyObject] = ["token": user.token, "seq": self.courtSeq]
-        Alamofire.request(.GET, URL.court_detail, parameters: parameters)
-            .validate(statusCode: 200..<300)
-            .validate(contentType: ["application/json"])
-            .responseData { response in
-                let data : NSData = response.data!
-                let dic = Util.convertStringToDictionary(data)
-                if let code = dic["code"] as? Int{
-                    if code == 0{
-                        if let courtTmp = dic["result"] as? [String: AnyObject]{
-                            self.court = courtTmp
-                            self.interestLbl.text = "\(self.court["interest"]!)"
-                            self.descTextView.text = "\(self.court["description"]!)"
-                            self.replyFn = "\(self.court["replyFn_ios"]!)"
-                            self.headerLbl.text = "\(self.court["cname"]!) (\(self.court["categoryName"]!))"
-                            //웹뷰 띄우기
-                            self.webView.loadRequest(NSURLRequest(URL : NSURL(string: "\(self.court["replyUrl"]!)")!))
-                            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-                                if let imageList = self.court["imageList"] as? [[String: AnyObject]]{
-                                    var imageSourceList = [ImageSource]()
-                                    for image in imageList{
-                                        let imgSource = ImageSource(image: UIImage(data: NSData(contentsOfURL: NSURL(string: image["image"] as! String)!)!)!)
-                                        imageSourceList.append(imgSource)
-                                    }
-                                    dispatch_async(dispatch_get_main_queue()) {
-                                        self.imageSlide.setImageInputs(imageSourceList)
-                                        self.imageSpin.stopAnimating()
-                                        self.imageSpin.hidden = true
-                                    }
-                                }
-                            }
+        URL.request(self, url: URL.court_detail, param: parameters, callback: { (dic) in
+            if let courtTmp = dic["result"] as? [String: AnyObject]{
+                self.court = courtTmp
+                self.interestLbl.text = "\(self.court["interest"]!)"
+                self.descTextView.text = "\(self.court["description"]!)"
+                self.replyFn = "\(self.court["replyFn_ios"]!)"
+                self.headerLbl.text = "\(self.court["cname"]!) (\(self.court["categoryName"]!))"
+                //웹뷰 띄우기
+                self.webView.loadRequest(NSURLRequest(URL : NSURL(string: "\(self.court["replyUrl"]!)")!))
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+                    if let imageList = self.court["imageList"] as? [[String: AnyObject]]{
+                        var imageSourceList = [ImageSource]()
+                        for image in imageList{
+                            let imgSource = ImageSource(image: UIImage(data: NSData(contentsOfURL: NSURL(string: image["image"] as! String)!)!)!)
+                            imageSourceList.append(imgSource)
                         }
-                    }else{
-                        if let isMsgView = dic["isMsgView"] as? Bool{
-                            if isMsgView == true{
-                                Util.alert(self, message: "\(dic["msg"]!)")
-                            }
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.imageSlide.setImageInputs(imageSourceList)
+                            self.imageSpin.stopAnimating()
+                            self.imageSpin.hidden = true
                         }
                     }
                 }
-        }
+            }
+        })
         
         descTextView.scrollToTop()
         replyInsertField.delegate = self
@@ -147,39 +131,24 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
             type = "goodCancel"
         }
         let parameters : [String: AnyObject] = ["token": user.token, "seq": self.courtSeq, "type": type]
-        Alamofire.request(.GET, URL.court_interest, parameters: parameters)
-            .validate(statusCode: 200..<300)
-            .validate(contentType: ["application/json"])
-            .responseData { response in
-                self.spin.hidden = true
-                self.spin.stopAnimating()
-                let data : NSData = response.data!
-                let dic = Util.convertStringToDictionary(data)
-                if let code = dic["code"] as? Int{
-                    if code == 0{
-                        var starImage = "ic_star_n.png"
-                        if courtStar == nil{
-                            starImage = "ic_star_s.png"
-                            Storage.setStorage("courtStar_\(self.courtSeq)", value: true)
-                        }else{
-                            Storage.removeStorage("courtStar_\(self.courtSeq)")
-                        }
-                        //애니메이션 적용
-                        self.interestBtn.alpha = 0
-                        self.interestBtn.setImage(UIImage(named: starImage), forState: .Normal)
-                        UIView.animateWithDuration(0.4, animations: {
-                            self.interestBtn.alpha = 1
-                            self.interestLbl.text = "\(dic["cnt"]!)"
-                            }, completion: nil)
-                    }else{
-                        if let isMsgView = dic["isMsgView"] as? Bool{
-                            if isMsgView == true{
-                                Util.alert(self, message: "\(dic["msg"]!)")
-                            }
-                        }
-                    }
-                }
-        }
+        URL.request(self, url: URL.court_interest, param: parameters, callback: { (dic) in
+            self.spin.hidden = true
+            self.spin.stopAnimating()
+            var starImage = "ic_star_n.png"
+            if courtStar == nil{
+                starImage = "ic_star_s.png"
+                Storage.setStorage("courtStar_\(self.courtSeq)", value: true)
+            }else{
+                Storage.removeStorage("courtStar_\(self.courtSeq)")
+            }
+            //애니메이션 적용
+            self.interestBtn.alpha = 0
+            self.interestBtn.setImage(UIImage(named: starImage), forState: .Normal)
+            UIView.animateWithDuration(0.4, animations: {
+                self.interestBtn.alpha = 1
+                self.interestLbl.text = "\(dic["cnt"]!)"
+            }, completion: nil)
+        })
     }
     
     
@@ -230,26 +199,11 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
             }else{
                 let parameters : [String: AnyObject] = ["token": user.token, "seq": courtSeq, "context": replyInsertField.text!, "id": user.userId]
                 self.replyInsertField.text = ""
-                Alamofire.request(.GET, URL.court_replyInsert, parameters: parameters)
-                    .validate(statusCode: 200..<300)
-                    .validate(contentType: ["application/json"])
-                    .responseData { response in
-                        let data : NSData = response.data!
-                        let dic = Util.convertStringToDictionary(data)
-                        if let code = dic["code"] as? Int{
-                            if code == 0{
-                                self.webView.stringByEvaluatingJavaScriptFromString("\(self.replyFn)")
-                                self.spin.hidden = true
-                                self.spin.stopAnimating()
-                            }else{
-                                if let isMsgView = dic["isMsgView"] as? Bool{
-                                    if isMsgView == true{
-                                        Util.alert(self, message: "\(dic["msg"]!)")
-                                    }
-                                }
-                            }
-                        }
-                }
+                URL.request(self, url: URL.court_replyInsert, param: parameters, callback: { (dic) in
+                    self.webView.stringByEvaluatingJavaScriptFromString("\(self.replyFn)")
+                    self.spin.hidden = true
+                    self.spin.stopAnimating()
+                })
             }
         }
     }

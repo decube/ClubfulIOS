@@ -1,5 +1,5 @@
 /**
-* Copyright 2015 Kakao Corp.
+* Copyright 2015-2016 Kakao Corp.
 *
 * Redistribution and modification in source or binary forms are not permitted without specific prior written permission.
 *
@@ -77,12 +77,14 @@ typedef NS_ENUM(NSInteger, KOAgeAuthLevel) {
  @abstract KOAgeAuthLimit 연령인증 시 인증 나이.
  @constant KOAgeAuthLimitType12 12세 인증.
  @constant KOAgeAuthLimitType15 15세 인증.
+ @constant KOAgeAuthLimitType18 18세 인증.
  @constant KOAgeAuthLimitType19 19세 인증.
  */
 typedef NS_ENUM(NSInteger, KOAgeAuthLimit) {
     KOAgeAuthLimitTypeNone = 0,
     KOAgeAuthLimitType12 = 12,
     KOAgeAuthLimitType15 = 15,
+    KOAgeAuthLimitType18 = 18,
     KOAgeAuthLimitType19 = 19
 };
 

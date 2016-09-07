@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import DLRadioButton
 
 class JoinViewController: UIViewController, UITextFieldDelegate {
@@ -91,27 +90,14 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             spin.hidden = false
             spin.startAnimating()
             let parameters : [String: AnyObject] = ["token": user.token, "userId": self.idField.text!, "password": self.pwdField.text!, "gcmId": user.gcmId, "nickName": self.nicknameField.text!, "sex": sex, "birth": birthDatePicker.date.getDate(), "userLatitude": self.latitude, "userLongitude": self.longitude, "userAddress": self.address, "userAddressShort": self.addressShort, "noticePush": user.noticePushCheck, "myInsertPush": user.myCourtPushCheck, "distancePush": user.distancePushCheck, "interestPush": user.interestPushCheck, "startTime": user.startPushTime.getTime(), "endTime": user.endPushTime.getTime()]
-            Alamofire.request(.GET, URL.user_join, parameters: parameters)
-                .validate(statusCode: 200..<300)
-                .validate(contentType: ["application/json"])
-                .responseData { response in
-                    let data : NSData = response.data!
-                    let dic = Util.convertStringToDictionary(data)
-                    if let code = dic["code"] as? Int{
-                        if code == 0{
-                            self.loginVC.idField.text = self.idField.text!
-                            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-                        }else{
-                            self.spin.hidden = true
-                            self.spin.stopAnimating()
-                            if let isMsgView = dic["isMsgView"] as? Bool{
-                                if isMsgView == true{
-                                    Util.alert(self, message: "\(dic["msg"]!)")
-                                }
-                            }
-                        }
-                    }
-            }
+            
+            URL.request(self, url: URL.user_join, param: parameters, callback: { (dic) in
+                self.loginVC.idField.text = self.idField.text!
+                self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+            }, codeErrorCallback: { (dic) in
+                self.spin.hidden = true
+                self.spin.stopAnimating()
+            })
         }
     }
     

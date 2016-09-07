@@ -10,7 +10,6 @@ import UIKit
 import ActionKit
 import Darwin
 import MapKit
-import Alamofire
 
 class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate {
     //user 저장소
@@ -86,35 +85,17 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         
         //버전체크 통신
         let parameters : [String: AnyObject] = ["appType": "ios", "appVersion": Util.nsVersion, "deviceCD": NSDate().getFullDate(), "language": Util.language, "deviceId": Util.deviceId, "token": user.token, "categoryVer": user.categoryVer, "noticeVer": user.noticeVer]
-        Alamofire.request(.GET, URL.version_Check, parameters: parameters)
-            .validate(statusCode: 200..<300)
-            .validate(contentType: ["application/json"])
-            .responseData { response in
-                let data : NSData = response.data!
-                let dic = Util.convertStringToDictionary(data)
-                if let code = dic["code"] as? Int{
-                    if code == 0{
-                        self.user = Storage.copyUser()
-                        self.user.token = dic["token"] as! String
-                        Util.newVersion = dic["iosVersion"] as! String
-                        self.user.categoryVer = dic["categoryVer"] as! Int
-                        self.user.noticeVer = dic["noticeVer"] as! Int
-                        if let categoryList = dic["categoryList"] as? [[String: AnyObject]]{
-                            Storage.setStorage("categoryList", value: categoryList)
-                        }
-                        Storage.setRealmUser(self.user)
-                    }else{
-                        if let isMsgView = dic["isMsgView"] as? Bool{
-                            if isMsgView == true{
-                                Util.alert(self, message: "\(dic["msg"]!)")
-                            }
-                        }
-                    }
-                }
-        }
-        
-        
-        
+        URL.request(self, url: URL.version_Check, param: parameters, callback: { (dic) in
+            self.user = Storage.copyUser()
+            self.user.token = dic["token"] as! String
+            Util.newVersion = dic["iosVersion"] as! String
+            self.user.categoryVer = dic["categoryVer"] as! Int
+            self.user.noticeVer = dic["noticeVer"] as! Int
+            if let categoryList = dic["categoryList"] as? [[String: AnyObject]]{
+                Storage.setStorage("categoryList", value: categoryList)
+            }
+            Storage.setRealmUser(self.user)
+        })
         
         
         //현재 나의 위치설정
@@ -182,61 +163,45 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                     let locObjHeight : CGFloat = 80
                     
                     let parameters : [String: AnyObject] = ["token": self.user.token, "address": self.locationView.searchTextField.text!, "language": Util.language]
-                    Alamofire.request(.GET, URL.location_geocode, parameters: parameters)
-                        .validate(statusCode: 200..<300)
-                        .validate(contentType: ["application/json"])
-                        .responseData { response in
-                            let data : NSData = response.data!
-                            let dic = Util.convertStringToDictionary(data)
-                            if let code = dic["code"] as? Int{
-                                if code == 0{
-                                    if let result = dic["results"] as? [String: AnyObject]{
-                                        if let results = result["results"] as? [[String: AnyObject]]{
-                                            for element : [String: AnyObject] in results{
-                                                let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
-                                                
-                                                
-                                                if let customView = NSBundle.mainBundle().loadNibNamed("MainCenterElementView", owner: self, options: nil).first as? MainCenterElementView {
-                                                    customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.locationView.frame.width-10, height: locObjHeight-10)
-                                                    customView.setAddr(addressShort: addressShort, address: address)
-                                                    self.locationView.scrollView.addSubview(customView)
-                                                    customView.setAction({ (_) in
-                                                        UIView.animateWithDuration(0.2, animations: {
-                                                            self.locationView.alpha = 0
-                                                        }) { (_) in
-                                                            self.locationView.hidden = true
-                                                            self.locationView.alpha = 1
-                                                            self.blackScreen.hidden = true
-                                                            let user = Storage.copyUser()
-                                                            user.latitude = latitude
-                                                            user.longitude = longitude
-                                                            user.address = "\(address)"
-                                                            user.addressShort = "\(addressShort)"
-                                                            Storage.setRealmUser(user)
-                                                            self.myLocationSearch = true
-                                                            let span: MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
-                                                            let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
-                                                            let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
-                                                            self.mapView.region = region
-                                                            self.marker.coordinate = location
-                                                            self.locationView.searchTextField.text = ""
-                                                        }
-                                                    })
-                                                }
-                                                i += 1
+                    URL.request(self, url: URL.location_geocode, param: parameters, callback: { (dic) in
+                        if let result = dic["results"] as? [String: AnyObject]{
+                            if let results = result["results"] as? [[String: AnyObject]]{
+                                for element : [String: AnyObject] in results{
+                                    let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
+                                    
+                                    if let customView = NSBundle.mainBundle().loadNibNamed("MainCenterElementView", owner: self, options: nil).first as? MainCenterElementView {
+                                        customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.locationView.frame.width-10, height: locObjHeight-10)
+                                        customView.setAddr(addressShort: addressShort, address: address)
+                                        self.locationView.scrollView.addSubview(customView)
+                                        customView.setAction({ (_) in
+                                            UIView.animateWithDuration(0.2, animations: {
+                                                self.locationView.alpha = 0
+                                            }) { (_) in
+                                                self.locationView.hidden = true
+                                                self.locationView.alpha = 1
+                                                self.blackScreen.hidden = true
+                                                let user = Storage.copyUser()
+                                                user.latitude = latitude
+                                                user.longitude = longitude
+                                                user.address = "\(address)"
+                                                user.addressShort = "\(addressShort)"
+                                                Storage.setRealmUser(user)
+                                                self.myLocationSearch = true
+                                                let span: MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
+                                                let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
+                                                let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
+                                                self.mapView.region = region
+                                                self.marker.coordinate = location
+                                                self.locationView.searchTextField.text = ""
                                             }
-                                            self.locationView.scrollView.contentSize.height = locObjHeight*i
-                                        }
-                                    }else{
-                                        if let isMsgView = dic["isMsgView"] as? Bool{
-                                            if isMsgView == true{
-                                                Util.alert(self, message: "\(dic["msg"]!)")
-                                            }
-                                        }
+                                        })
                                     }
+                                    i += 1
                                 }
+                                self.locationView.scrollView.contentSize.height = locObjHeight*i
                             }
-                    }
+                        }
+                    })
                 }else{
                     Util.alert(self, message: "검색어는 2글자 이상으로 넣어주세요.")
                 }
@@ -283,67 +248,52 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             var i : CGFloat = 0
             let locObjHeight : CGFloat = 90
             let parameters : [String: AnyObject] = ["token": user.token, "address": courtSearchTextField.text!, "category": user.category, "latitude": user.latitude, "longitude": user.longitude]
-            Alamofire.request(.GET, URL.court_listSearch, parameters: parameters)
-                .validate(statusCode: 200..<300)
-                .validate(contentType: ["application/json"])
-                .responseData { response in
-                    let data : NSData = response.data!
-                    let dic = Util.convertStringToDictionary(data)
-                    if let code = dic["code"] as? Int{
-                        if code == 0{
-                            if let list = dic["list"] as? [[String: AnyObject]]{
-                                for obj in list{
-                                    let titleStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["addressShort"]!))"
-                                    let descStr = "\(obj["description"]!)"
-                                    if let customView = NSBundle.mainBundle().loadNibNamed("MainCourtSearchElementView", owner: self, options: nil).first as? MainCourtSearchElementView {
-                                        customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.courtSearchView.frame.width-10, height: locObjHeight-5)
-                                        customView.setLbl(title: titleStr, desc: descStr)
-                                        self.courtSearchView.scrollView.addSubview(customView)
-                                        customView.setAction({ (_) in
-                                            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                                            let uvc = storyBoard.instantiateViewControllerWithIdentifier("courtVC")
-                                            (uvc as! CourtViewController).courtSeq = obj["seq"] as! Int
-                                            uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-                                            self.presentViewController(uvc, animated: true, completion: nil)
-                                        })
-                                        customView.setSimplemapAction({ (_) in
-                                            let sname : String = "내위치".queryValue()
-                                            let sx : Double = (self.locationManager.location?.coordinate.latitude)!
-                                            let sy : Double = (self.locationManager.location?.coordinate.longitude)!
-                                            let ename : String = "\(obj["addressShort"]!)".queryValue()
-                                            let ex : Double = obj["latitude"] as! Double
-                                            let ey : Double = obj["longitude"] as! Double
-                                            let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true"
-                                            if let url = NSURL(string: simplemapUrl){
-                                                if UIApplication.sharedApplication().canOpenURL(url) {
-                                                    UIApplication.sharedApplication().openURL(url)
-                                                }
-                                            }
-                                        })
+            URL.request(self, url: URL.court_listSearch, param: parameters, callback: { (dic) in
+                if let list = dic["list"] as? [[String: AnyObject]]{
+                    for obj in list{
+                        let titleStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["addressShort"]!))"
+                        let descStr = "\(obj["description"]!)"
+                        if let customView = NSBundle.mainBundle().loadNibNamed("MainCourtSearchElementView", owner: self, options: nil).first as? MainCourtSearchElementView {
+                            customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.courtSearchView.frame.width-10, height: locObjHeight-5)
+                            customView.setLbl(title: titleStr, desc: descStr)
+                            self.courtSearchView.scrollView.addSubview(customView)
+                            customView.setAction({ (_) in
+                                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                                let uvc = storyBoard.instantiateViewControllerWithIdentifier("courtVC")
+                                (uvc as! CourtViewController).courtSeq = obj["seq"] as! Int
+                                uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+                                self.presentViewController(uvc, animated: true, completion: nil)
+                            })
+                            customView.setSimplemapAction({ (_) in
+                                let sname : String = "내위치".queryValue()
+                                let sx : Double = (self.locationManager.location?.coordinate.latitude)!
+                                let sy : Double = (self.locationManager.location?.coordinate.longitude)!
+                                let ename : String = "\(obj["addressShort"]!)".queryValue()
+                                let ex : Double = obj["latitude"] as! Double
+                                let ey : Double = obj["longitude"] as! Double
+                                let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true"
+                                if let url = NSURL(string: simplemapUrl){
+                                    if UIApplication.sharedApplication().canOpenURL(url) {
+                                        UIApplication.sharedApplication().openURL(url)
                                     }
-                                    i += 1
                                 }
-                                self.courtSearchView.scrollView.contentSize.height = locObjHeight*i
-                                if self.courtSearchView.hidden != false{
-                                    let tmpRect = self.courtSearchView.frame
-                                    self.courtSearchView.frame.origin.x = -tmpRect.width
-                                    self.courtSearchView.hidden = false
-                                    //애니메이션 적용
-                                    UIView.animateWithDuration(0.2, animations: {
-                                        self.courtSearchView.frame = tmpRect
-                                        }, completion: {(_) in
-                                    })
-                                }
-                            }
-                        }else{
-                            if let isMsgView = dic["isMsgView"] as? Bool{
-                                if isMsgView == true{
-                                    Util.alert(self, message: "\(dic["msg"]!)")
-                                }
-                            }
+                            })
                         }
+                        i += 1
                     }
-            }
+                    self.courtSearchView.scrollView.contentSize.height = locObjHeight*i
+                    if self.courtSearchView.hidden != false{
+                        let tmpRect = self.courtSearchView.frame
+                        self.courtSearchView.frame.origin.x = -tmpRect.width
+                        self.courtSearchView.hidden = false
+                        //애니메이션 적용
+                        UIView.animateWithDuration(0.2, animations: {
+                            self.courtSearchView.frame = tmpRect
+                            }, completion: {(_) in
+                        })
+                    }
+                }
+            })
         }else{
             Util.alert(self, message: "검색어는 2글자 이상으로 넣어주세요.")
         }

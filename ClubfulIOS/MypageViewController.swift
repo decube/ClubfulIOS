@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 class MypageViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var interestCourt: UIScrollView!
@@ -58,45 +57,30 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                 }
             })
             let parameters : [String: AnyObject] = ["token": user.token, "userId": user.userId]
-            Alamofire.request(.GET, URL.user_mypage, parameters: parameters)
-                .validate(statusCode: 200..<300)
-                .validate(contentType: ["application/json"])
-                .responseData { response in
-                    let data : NSData = response.data!
-                    let dic = Util.convertStringToDictionary(data)
-                    if let code = dic["code"] as? Int{
-                        if code == 0{
-                            if let interestList = dic["interestList"] as? [[String: AnyObject]]{
-                                var interestCnt = interestList.count
-                                if interestCnt == 0{
-                                    interestCnt = 1
-                                }
-                                //scrollView 총 넓이
-                                self.interestCourt.contentSize = CGSizeMake(self.interestCourt.frame.size.width*CGFloat(interestCnt) ,self.interestCourt.frame.size.height)
-                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                                    self.interestData(interestList)
-                                })
-                            }
-                            if let myCourtInsertList = dic["myCourtInsert"] as? [[String: AnyObject]]{
-                                var myInsertCnt = myCourtInsertList.count
-                                if myInsertCnt == 0{
-                                    myInsertCnt = 1
-                                }
-                                //scrollView 총 넓이
-                                self.createCourt.contentSize = CGSizeMake(self.createCourt.frame.size.width*CGFloat(myInsertCnt) ,self.createCourt.frame.size.height)
-                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                                    self.myInsertData(myCourtInsertList)
-                                })
-                            }
-                        }else{
-                            if let isMsgView = dic["isMsgView"] as? Bool{
-                                if isMsgView == true{
-                                    Util.alert(self, message: "\(dic["msg"]!)")
-                                }
-                            }
-                        }
+            URL.request(self, url: URL.user_mypage, param: parameters, callback: { (dic) in
+                if let interestList = dic["interestList"] as? [[String: AnyObject]]{
+                    var interestCnt = interestList.count
+                    if interestCnt == 0{
+                        interestCnt = 1
                     }
-            }
+                    //scrollView 총 넓이
+                    self.interestCourt.contentSize = CGSizeMake(self.interestCourt.frame.size.width*CGFloat(interestCnt) ,self.interestCourt.frame.size.height)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        self.interestData(interestList)
+                    })
+                }
+                if let myCourtInsertList = dic["myCourtInsert"] as? [[String: AnyObject]]{
+                    var myInsertCnt = myCourtInsertList.count
+                    if myInsertCnt == 0{
+                        myInsertCnt = 1
+                    }
+                    //scrollView 총 넓이
+                    self.createCourt.contentSize = CGSizeMake(self.createCourt.frame.size.width*CGFloat(myInsertCnt) ,self.createCourt.frame.size.height)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        self.myInsertData(myCourtInsertList)
+                    })
+                }
+            })
         }else{
             self.view.subviews.forEach({ (tempView) in
                 if tempView == nonUserView{

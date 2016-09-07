@@ -51,6 +51,9 @@
 		6E6E16601D7AFF1B00B0DEF1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E6E16561D7AFF1B00B0DEF1 /* Accelerate.framework */; };
 		6E6E16611D7AFF1B00B0DEF1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E6E16571D7AFF1B00B0DEF1 /* MobileCoreServices.framework */; };
 		6E6E16621D7AFF1B00B0DEF1 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E6E16581D7AFF1B00B0DEF1 /* libc++.tbd */; };
+		6E751D141D7EE6B60065FC8D /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E751D131D7EE6B60065FC8D /* KakaoOpenSDK.framework */; };
+		6E751D581D7EFF6F0065FC8D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E751D571D7EFF6F0065FC8D /* GoogleService-Info.plist */; };
+		6E751D5A1D7F02390065FC8D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E751D591D7F02390065FC8D /* MapKit.framework */; };
 		6E9CF38A1D6B2028004DC36A /* ic_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3701D6B2028004DC36A /* ic_back.png */; };
 		6E9CF38C1D6B2028004DC36A /* ic_edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3721D6B2028004DC36A /* ic_edit.png */; };
 		6E9CF38D1D6B2028004DC36A /* ic_enter.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3731D6B2028004DC36A /* ic_enter.png */; };
@@ -75,7 +78,6 @@
 		6E9CF3A01D6B2028004DC36A /* ic_tab_mypage_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3861D6B2028004DC36A /* ic_tab_mypage_s.png */; };
 		6E9CF3A11D6B2028004DC36A /* ic_tab_setting_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3871D6B2028004DC36A /* ic_tab_setting_n.png */; };
 		6E9CF3A21D6B2028004DC36A /* ic_tab_setting_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3881D6B2028004DC36A /* ic_tab_setting_s.png */; };
-		6ECEAF891D7C257A00F1551D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6ECEAF881D7C257A00F1551D /* GoogleService-Info.plist */; };
 		6ECEAF8B1D7C292100F1551D /* AdobeCreativeSDKImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ECEAF8A1D7C292100F1551D /* AdobeCreativeSDKImage.framework */; };
 		6EDA95211D55C85300E029C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA951F1D55C85300E029C8 /* Main.storyboard */; };
 		6EDA95231D55C85300E029C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95221D55C85300E029C8 /* Assets.xcassets */; };
@@ -89,7 +91,6 @@
 		6EDA95B11D55CE1B00E029C8 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95AE1D55CE1B00E029C8 /* URL.swift */; };
 		6EDA95B21D55CE1B00E029C8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95AF1D55CE1B00E029C8 /* User.swift */; };
 		6EDA95B41D55CE4A00E029C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95B31D55CE4A00E029C8 /* AppDelegate.swift */; };
-		6EDA95B61D55CEA700E029C8 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EDA95B51D55CEA700E029C8 /* KakaoOpenSDK.framework */; };
 		6EE4F3771D696200008B43ED /* MainCourtSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EE4F3761D696200008B43ED /* MainCourtSearchView.xib */; };
 		6EE4F3791D696240008B43ED /* MainCourtSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE4F3781D696240008B43ED /* MainCourtSearchView.swift */; };
 		6EE4F3811D6976D1008B43ED /* MainCenterElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EE4F3801D6976D1008B43ED /* MainCenterElementView.xib */; };
@@ -162,6 +163,9 @@
 		6E6E16561D7AFF1B00B0DEF1 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		6E6E16571D7AFF1B00B0DEF1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		6E6E16581D7AFF1B00B0DEF1 /* libc++.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		6E751D131D7EE6B60065FC8D /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
+		6E751D571D7EFF6F0065FC8D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6E751D591D7F02390065FC8D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6E9CF3701D6B2028004DC36A /* ic_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_back.png; path = resources/img/ic_back.png; sourceTree = "<group>"; };
 		6E9CF3721D6B2028004DC36A /* ic_edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_edit.png; path = resources/img/ic_edit.png; sourceTree = "<group>"; };
 		6E9CF3731D6B2028004DC36A /* ic_enter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_enter.png; path = resources/img/ic_enter.png; sourceTree = "<group>"; };
@@ -186,7 +190,6 @@
 		6E9CF3861D6B2028004DC36A /* ic_tab_mypage_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_tab_mypage_s.png; path = resources/img/ic_tab_mypage_s.png; sourceTree = "<group>"; };
 		6E9CF3871D6B2028004DC36A /* ic_tab_setting_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_tab_setting_n.png; path = resources/img/ic_tab_setting_n.png; sourceTree = "<group>"; };
 		6E9CF3881D6B2028004DC36A /* ic_tab_setting_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_tab_setting_s.png; path = resources/img/ic_tab_setting_s.png; sourceTree = "<group>"; };
-		6ECEAF881D7C257A00F1551D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6ECEAF8A1D7C292100F1551D /* AdobeCreativeSDKImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKImage.framework; sourceTree = "<group>"; };
 		6EDA95181D55C85300E029C8 /* ClubfulIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubfulIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EDA95201D55C85300E029C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -207,7 +210,6 @@
 		6EDA95AE1D55CE1B00E029C8 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		6EDA95AF1D55CE1B00E029C8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6EDA95B31D55CE4A00E029C8 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6EDA95B51D55CEA700E029C8 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		6EE4F3761D696200008B43ED /* MainCourtSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainCourtSearchView.xib; sourceTree = "<group>"; };
 		6EE4F3781D696240008B43ED /* MainCourtSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCourtSearchView.swift; sourceTree = "<group>"; };
 		6EE4F3801D6976D1008B43ED /* MainCenterElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainCenterElementView.xib; sourceTree = "<group>"; };
@@ -227,8 +229,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E751D141D7EE6B60065FC8D /* KakaoOpenSDK.framework in Frameworks */,
 				6E6E165B1D7AFF1B00B0DEF1 /* OpenGLES.framework in Frameworks */,
 				6E6E16481D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework in Frameworks */,
+				6E751D5A1D7F02390065FC8D /* MapKit.framework in Frameworks */,
 				6E6E165C1D7AFF1B00B0DEF1 /* MessageUI.framework in Frameworks */,
 				64A2DEE91461EF0A8E1E5B3C /* Pods_ClubfulIOS.framework in Frameworks */,
 				6E6E165A1D7AFF1B00B0DEF1 /* QuartzCore.framework in Frameworks */,
@@ -240,7 +244,6 @@
 				6E6E165E1D7AFF1B00B0DEF1 /* libsqlite3.0.tbd in Frameworks */,
 				6E6E16601D7AFF1B00B0DEF1 /* Accelerate.framework in Frameworks */,
 				6E6E165F1D7AFF1B00B0DEF1 /* CoreData.framework in Frameworks */,
-				6EDA95B61D55CEA700E029C8 /* KakaoOpenSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,7 +355,7 @@
 				6EDA95221D55C85300E029C8 /* Assets.xcassets */,
 				6EDA95241D55C85300E029C8 /* LaunchScreen.storyboard */,
 				6EDA95271D55C85300E029C8 /* Info.plist */,
-				6ECEAF881D7C257A00F1551D /* GoogleService-Info.plist */,
+				6E751D571D7EFF6F0065FC8D /* GoogleService-Info.plist */,
 				6EDA95491D55CB8200E029C8 /* ClubfulIOS-Bridging-Header.h */,
 			);
 			path = ClubfulIOS;
@@ -518,6 +521,8 @@
 		EB9E07981FDDFFC0ADCF8C47 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E751D591D7F02390065FC8D /* MapKit.framework */,
+				6E751D131D7EE6B60065FC8D /* KakaoOpenSDK.framework */,
 				DE2CAE3BA3F8BF9D38F05FFD /* Pods_ClubfulIOS.framework */,
 				6E6E164F1D7AFF1B00B0DEF1 /* StoreKit.framework */,
 				6E6E16501D7AFF1B00B0DEF1 /* QuartzCore.framework */,
@@ -529,7 +534,6 @@
 				6E6E16561D7AFF1B00B0DEF1 /* Accelerate.framework */,
 				6E6E16571D7AFF1B00B0DEF1 /* MobileCoreServices.framework */,
 				6E6E16581D7AFF1B00B0DEF1 /* libc++.tbd */,
-				6EDA95B51D55CEA700E029C8 /* KakaoOpenSDK.framework */,
 				6ECEAF8A1D7C292100F1551D /* AdobeCreativeSDKImage.framework */,
 				6E6E16461D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework */,
 			);
@@ -608,6 +612,11 @@
 					6EDA95171D55C85300E029C8 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 8Z7ZELFAQU;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					6EDA952B1D55C85400E029C8 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -657,7 +666,7 @@
 				6EDA95261D55C85300E029C8 /* LaunchScreen.storyboard in Resources */,
 				6E9CF38F1D6B2028004DC36A /* ic_kakaotalk.png in Resources */,
 				6E9CF38E1D6B2028004DC36A /* ic_image.png in Resources */,
-				6ECEAF891D7C257A00F1551D /* GoogleService-Info.plist in Resources */,
+				6E751D581D7EFF6F0065FC8D /* GoogleService-Info.plist in Resources */,
 				6E9CF39E1D6B2028004DC36A /* ic_tab_home_s.png in Resources */,
 				6EDA95231D55C85300E029C8 /* Assets.xcassets in Resources */,
 				6E9CF39B1D6B2028004DC36A /* ic_tab_add_n.png in Resources */,

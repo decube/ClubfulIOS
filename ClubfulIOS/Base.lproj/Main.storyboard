@@ -213,7 +213,7 @@
                                         <rect key="frame" x="206" y="21" width="68" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right.png" id="6Aj-gh-Jl8">
@@ -228,7 +228,7 @@
                                         <rect key="frame" x="46" y="21" width="68" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right.png" id="byi-Ug-Xf6">
@@ -1199,13 +1199,8 @@
                                     <action selector="joinAction:" destination="pWh-F2-i2Q" eventType="touchUpInside" id="Ifk-sL-nrg"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" id="LUO-fF-YMo" customClass="GIDSignInButton">
-                                <rect key="frame" x="9" y="516" width="303" height="40"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" red="0.85098040100000005" green="0.89019608500000003" blue="0.92156863209999995" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Iko-9Q-6uk">
-                                <rect key="frame" x="9" y="470" width="303" height="40"/>
+                                <rect key="frame" x="9" y="408" width="303" height="40"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.97254901960784312" green="0.8666666666666667" blue="0.039215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="카카오톡으로 로그인">
@@ -1220,11 +1215,39 @@
                                     <action selector="kakaoAction:" destination="pWh-F2-i2Q" eventType="touchUpInside" id="tYF-xj-Oga"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uIl-JH-3E1">
+                                <rect key="frame" x="9" y="458" width="303" height="40"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.17254901960784313" green="0.2627450980392157" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="페이스북으로 로그인">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="facebookAction:" destination="pWh-F2-i2Q" eventType="touchUpInside" id="LK0-YH-GHg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ajW-kg-22P">
+                                <rect key="frame" x="9" y="508" width="303" height="40"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.10980392156862745" green="0.67450980392156867" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="네이버로 로그인">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="googleInButton" destination="LUO-fF-YMo" id="7fV-An-iL0"/>
                         <outlet property="idField" destination="DyY-LS-oLK" id="K9R-rO-tSJ"/>
                         <outlet property="joinBtn" destination="vqO-b1-vYs" id="cmb-K1-fis"/>
                         <outlet property="kakaoLoginBtn" destination="Iko-9Q-6uk" id="yEe-bS-kk0"/>

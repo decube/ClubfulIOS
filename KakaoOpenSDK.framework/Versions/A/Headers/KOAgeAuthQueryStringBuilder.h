@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Kakao Corp.
+ * Copyright 2015-2016 Kakao Corp.
  *
  * Redistribution and modification in source or binary forms are not permitted without specific prior written permission.
  *
@@ -56,7 +56,7 @@
  @property authFrom
  @abstract 서비스 이름(optional, client_id or app_id or service_name)
  */
-@property (nonatomic) NSString *authFrom;
+@property (nonatomic, copy) NSString *authFrom;
 
 - (NSString *) build;
 

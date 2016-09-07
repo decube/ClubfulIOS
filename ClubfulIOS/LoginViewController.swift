@@ -7,9 +7,13 @@
 //
 
 import UIKit
-import Alamofire
+import Firebase
+import FirebaseAuth
+import FBSDKCoreKit
+import FBSDKLoginKit
+import FBSDKShareKit
 
-class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var spin: UIActivityIndicatorView!
     var vc : SettingViewController!
     @IBOutlet var idField: UITextField!
@@ -17,20 +21,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
     @IBOutlet var loginBtn: UIButton!
     @IBOutlet var joinBtn: UIButton!
     @IBOutlet var kakaoLoginBtn: UIButton!
-    @IBOutlet weak var googleInButton: GIDSignInButton!
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("LoginViewController viewDidLoad")
-        
-        
-        //googleAuth
-        GIDSignIn.sharedInstance().uiDelegate = self
-        
-        //delegate
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        appDelegate.loginCtrl = self
         
         spin.hidden = true
         
@@ -44,61 +37,45 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
     
     
     
-    
     //로그인
     func login(userId: String, nickName: String, loginType: Int){
         var user = Storage.getRealmUser()
         self.spin.hidden = false
         self.spin.startAnimating()
         let parameters : [String: AnyObject] = ["token": user.token, "userId": userId, "password": "", "loginType": 2, "gcmId": user.gcmId, "nickName": nickName, "sex": "", "birth": user.birth.getDate(), "userLatitude": user.userLatitude, "userLongitude": user.userLongitude, "userAddress": user.userAddress, "userAddressShort": user.userAddressShort, "noticePush": user.noticePushCheck, "myInsertPush": user.myCourtPushCheck, "distancePush": user.distancePushCheck, "interestPush": user.interestPushCheck, "startTime": user.startPushTime.getTime(), "endTime": user.endPushTime.getTime()]
-        Alamofire.request(.GET, URL.user_login, parameters: parameters)
-            .validate(statusCode: 200..<300)
-            .validate(contentType: ["application/json"])
-            .responseData { response in
-                let data : NSData = response.data!
-                let dic = Util.convertStringToDictionary(data)
-                if let code = dic["code"] as? Int{
-                    if code == 0{
-                        user = Storage.copyUser()
-                        user.isLogin = loginType
-                        user.userId = dic["userId"] as! String
-                        user.nickName = dic["nickName"] as! String
-                        user.sex = dic["sex"] as! String
-                        user.userLatitude = dic["userLatitude"] as! Double
-                        user.userLongitude = dic["userLongitude"] as! Double
-                        user.userAddress = dic["userAddress"] as! String
-                        user.userAddressShort = dic["userAddressShort"] as! String
-                        
-                        let dateMakerFormatter = NSDateFormatter()
-                        dateMakerFormatter.calendar = NSCalendar.currentCalendar()
-                        dateMakerFormatter.dateFormat = "yyyy-MM-dd"
-                        user.birth = dateMakerFormatter.dateFromString("\(dic["birth"] as! String)")!
-                        
-                        
-                        user.noticePushCheck = dic["noticePush"] as! Bool
-                        user.myCourtPushCheck = dic["myCreateCourtPush"] as! Bool
-                        user.distancePushCheck = dic["distancePush"] as! Bool
-                        user.interestPushCheck = dic["interestPush"] as! Bool
-                        
-                        let dateMakerFormatter2 = NSDateFormatter()
-                        dateMakerFormatter2.calendar = NSCalendar.currentCalendar()
-                        dateMakerFormatter2.dateFormat = "hh:mm:ss"
-                        
-                        user.startPushTime = dateMakerFormatter2.dateFromString("\(dic["startTime"] as! String)")!
-                        user.endPushTime = dateMakerFormatter2.dateFromString("\(dic["endTime"] as! String)")!
-                        
-                        Storage.setRealmUser(user)
-                        self.vc.signCheck()
-                        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-                    }else{
-                        if let isMsgView = dic["isMsgView"] as? Bool{
-                            if isMsgView == true{
-                                Util.alert(self, message: "\(dic["msg"]!)")
-                            }
-                        }
-                    }
-                }
-        }
+        URL.request(self, url: URL.user_login, param: parameters, callback: { (dic) in
+            user = Storage.copyUser()
+            user.isLogin = loginType
+            user.userId = dic["userId"] as! String
+            user.nickName = dic["nickName"] as! String
+            user.sex = dic["sex"] as! String
+            user.userLatitude = dic["userLatitude"] as! Double
+            user.userLongitude = dic["userLongitude"] as! Double
+            user.userAddress = dic["userAddress"] as! String
+            user.userAddressShort = dic["userAddressShort"] as! String
+            
+            let dateMakerFormatter = NSDateFormatter()
+            dateMakerFormatter.calendar = NSCalendar.currentCalendar()
+            dateMakerFormatter.dateFormat = "yyyy-MM-dd"
+            user.birth = dateMakerFormatter.dateFromString("\(dic["birth"] as! String)")!
+            
+            
+            user.noticePushCheck = dic["noticePush"] as! Bool
+            user.myCourtPushCheck = dic["myCreateCourtPush"] as! Bool
+            user.distancePushCheck = dic["distancePush"] as! Bool
+            user.interestPushCheck = dic["interestPush"] as! Bool
+            
+            let dateMakerFormatter2 = NSDateFormatter()
+            dateMakerFormatter2.calendar = NSCalendar.currentCalendar()
+            dateMakerFormatter2.dateFormat = "hh:mm:ss"
+            
+            user.startPushTime = dateMakerFormatter2.dateFromString("\(dic["startTime"] as! String)")!
+            user.endPushTime = dateMakerFormatter2.dateFromString("\(dic["endTime"] as! String)")!
+            
+            Storage.setRealmUser(user)
+            self.vc.signCheck()
+            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        })
     }
     
     
@@ -107,29 +84,53 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
     
     
     
-    
-    
+    //페이스북 로그인 클릭
+    @IBAction func facebookAction(sender: AnyObject) {
+        let login = FBSDKLoginManager()
+        login.logInWithReadPermissions(["public_profile"], fromViewController: self, handler: { (result, error) in
+            if error != nil{
+                print("Facebook login failed. Error \(error)")
+            } else if result.isCancelled {
+                print("Facebook login isCancelled. result \(result.token)")
+            } else {
+                let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+                FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+                    if error != nil {
+                        print("Login failed. \(error)")
+                    } else {
+                        var nickName = "", uid = ""
+                        if let faceNickname = user?.displayName{
+                            nickName = faceNickname
+                        }
+                        if let faceUid = user?.uid{
+                            uid = faceUid
+                        }
+                        self.login(uid, nickName: nickName, loginType: 3)
+                    }
+                }
+            }
+        })
+    }
     
     //카카오톡 로그인 클릭
     @IBAction func kakaoAction(sender: AnyObject) {
         if spin.hidden == false{
-            return;
+            return
         }
+        
         let session: KOSession = KOSession.sharedSession();
         if session.isOpen() {
             session.close()
         }
-        session.presentingViewController = self.navigationController
+        session.presentingViewController = self
         session.openWithCompletionHandler({ (error) -> Void in
             if error != nil{
                 print(error.localizedDescription)
             }else if session.isOpen() == true{
-                print("isOpen")
                 KOSessionTask.meTaskWithCompletionHandler({ (profile , error) -> Void in
                     if profile != nil{
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             let kakao : KOUser = profile as! KOUser
-                            
                             var nickName = ""
                             if let kakaoNickname = kakao.properties["nickname"] as? String{
                                 nickName = kakaoNickname
@@ -143,18 +144,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
             }
         })
     }
-    
-    
-    //구글 로그인 콜백
-    func  googleActionCallback(email: String, name: String){
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-           self.login(email, nickName: name, loginType: 3)
-        })
-    }
-    
-    
-    
-    
     
     
     
@@ -178,56 +167,44 @@ class LoginViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDel
             self.spin.hidden = false
             self.spin.startAnimating()
             let parameters : [String: AnyObject] = ["token": user.token, "userId": self.idField.text!, "password": self.pwField.text!, "loginType": 1]
-            Alamofire.request(.GET, URL.user_login, parameters: parameters)
-                .validate(statusCode: 200..<300)
-                .validate(contentType: ["application/json"])
-                .responseData { response in
-                    let data : NSData = response.data!
-                    let dic = Util.convertStringToDictionary(data)
-                    if let code = dic["code"] as? Int{
-                        if code == 0{
-                            user = Storage.copyUser()
-                            user.isLogin = 1
-                            user.userId = dic["userId"] as! String
-                            user.nickName = dic["nickName"] as! String
-                            user.sex = dic["sex"] as! String
-                            user.userLatitude = dic["userLatitude"] as! Double
-                            user.userLongitude = dic["userLongitude"] as! Double
-                            user.userAddress = dic["userAddress"] as! String
-                            user.userAddressShort = dic["userAddressShort"] as! String
-                            
-                            let dateMakerFormatter = NSDateFormatter()
-                            dateMakerFormatter.calendar = NSCalendar.currentCalendar()
-                            dateMakerFormatter.dateFormat = "yyyy-MM-dd"
-                            user.birth = dateMakerFormatter.dateFromString("\(dic["birth"] as! String)")!
-                            
-                            
-                            user.noticePushCheck = dic["noticePush"] as! Bool
-                            user.myCourtPushCheck = dic["myCreateCourtPush"] as! Bool
-                            user.distancePushCheck = dic["distancePush"] as! Bool
-                            user.interestPushCheck = dic["interestPush"] as! Bool
-                            
-                            let dateMakerFormatter2 = NSDateFormatter()
-                            dateMakerFormatter2.calendar = NSCalendar.currentCalendar()
-                            dateMakerFormatter2.dateFormat = "hh:mm:ss"
-                            
-                            user.startPushTime = dateMakerFormatter2.dateFromString("\(dic["startTime"] as! String)")!
-                            user.endPushTime = dateMakerFormatter2.dateFromString("\(dic["endTime"] as! String)")!
-                            
-                            Storage.setRealmUser(user)
-                            self.vc.signCheck()
-                            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-                        }else{
-                            self.spin.hidden = true
-                            self.spin.stopAnimating()
-                            if let isMsgView = dic["isMsgView"] as? Bool{
-                                if isMsgView == true{
-                                    Util.alert(self, message: "\(dic["msg"]!)")
-                                }
-                            }
-                        }
-                    }
-            }
+            
+            
+            URL.request(self, url: URL.user_login, param: parameters, callback: { (dic) in
+                user = Storage.copyUser()
+                user.isLogin = 1
+                user.userId = dic["userId"] as! String
+                user.nickName = dic["nickName"] as! String
+                user.sex = dic["sex"] as! String
+                user.userLatitude = dic["userLatitude"] as! Double
+                user.userLongitude = dic["userLongitude"] as! Double
+                user.userAddress = dic["userAddress"] as! String
+                user.userAddressShort = dic["userAddressShort"] as! String
+                
+                let dateMakerFormatter = NSDateFormatter()
+                dateMakerFormatter.calendar = NSCalendar.currentCalendar()
+                dateMakerFormatter.dateFormat = "yyyy-MM-dd"
+                user.birth = dateMakerFormatter.dateFromString("\(dic["birth"] as! String)")!
+                
+                
+                user.noticePushCheck = dic["noticePush"] as! Bool
+                user.myCourtPushCheck = dic["myCreateCourtPush"] as! Bool
+                user.distancePushCheck = dic["distancePush"] as! Bool
+                user.interestPushCheck = dic["interestPush"] as! Bool
+                
+                let dateMakerFormatter2 = NSDateFormatter()
+                dateMakerFormatter2.calendar = NSCalendar.currentCalendar()
+                dateMakerFormatter2.dateFormat = "hh:mm:ss"
+                
+                user.startPushTime = dateMakerFormatter2.dateFromString("\(dic["startTime"] as! String)")!
+                user.endPushTime = dateMakerFormatter2.dateFromString("\(dic["endTime"] as! String)")!
+                
+                Storage.setRealmUser(user)
+                self.vc.signCheck()
+                self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+            }, codeErrorCallback: { (dic) in
+                self.spin.hidden = true
+                self.spin.stopAnimating()
+            })
         }
     }
     

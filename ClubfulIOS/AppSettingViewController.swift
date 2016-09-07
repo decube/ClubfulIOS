@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 class AppSettingViewController : UIViewController{
     @IBOutlet var noticeSwitch: UISwitch!
@@ -40,33 +39,19 @@ class AppSettingViewController : UIViewController{
     
     @IBAction func saveAction(sender: AnyObject) {
         let parameters : [String: AnyObject] = ["token": realmUser.token, "id": realmUser.userId, "startTime": startTime.date.getTime(), "endTime": endTime.date.getTime(), "noticePush": noticeSwitch.on, "myCreateCourtPush": myCourtSwitch.on, "distancePush": distanceSwitch.on, "interestPush": interestSwitch.on]
-        Alamofire.request(.GET, URL.user_set, parameters: parameters)
-            .validate(statusCode: 200..<300)
-            .validate(contentType: ["application/json"])
-            .responseData { response in
-                let data : NSData = response.data!
-                let dic = Util.convertStringToDictionary(data)
-                if let code = dic["code"] as? Int{
-                    if code == 0{
-                        let user = Storage.copyUser()
-                        user.noticePushCheck = self.noticeSwitch.on
-                        user.myCourtPushCheck = self.myCourtSwitch.on
-                        user.distancePushCheck = self.distanceSwitch.on
-                        user.interestPushCheck = self.interestSwitch.on
-                        user.startPushTime = self.startTime.date
-                        user.endPushTime = self.endTime.date
-                        Storage.setRealmUser(user)
-                        
-                        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-                    }else{
-                        if let isMsgView = dic["isMsgView"] as? Bool{
-                            if isMsgView == true{
-                                Util.alert(self, message: "\(dic["msg"]!)")
-                            }
-                        }
-                    }
-                }
-        }
+        
+        URL.request(self, url: URL.user_set, param: parameters, callback: { (dic) in
+            let user = Storage.copyUser()
+            user.noticePushCheck = self.noticeSwitch.on
+            user.myCourtPushCheck = self.myCourtSwitch.on
+            user.distancePushCheck = self.distanceSwitch.on
+            user.interestPushCheck = self.interestSwitch.on
+            user.startPushTime = self.startTime.date
+            user.endPushTime = self.endTime.date
+            Storage.setRealmUser(user)
+            
+            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        })
     }
     
     @IBAction func noticeAction(sender: AnyObject) {

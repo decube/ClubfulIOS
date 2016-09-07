@@ -298,65 +298,49 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                 spin.hidden = false
                 spin.startAnimating()
                 let parameters : [String: AnyObject] = ["token": self.user.token, "id": self.user.userId, "latitude": self.courtLatitude, "longitude": self.courtLongitude, "address": self.courtAddress, "addressShort": self.courtAddressShort, "category": self.category, "description": self.descTextView.text!, "picArrayCount": picArray.count, "cname": cnameTextField.text!]
-                Alamofire.request(.GET, URL.court_create, parameters: parameters)
-                    .validate(statusCode: 200..<300)
-                    .validate(contentType: ["application/json"])
-                    .responseData { response in
-                        self.spin.hidden = true
-                        self.spin.stopAnimating()
-                        let data : NSData = response.data!
-                        let dic = Util.convertStringToDictionary(data)
-                        if let code = dic["code"] as? Int{
-                            if code == 0{
-                                if let seq = dic["seq"] as? Int{
-                                    //이미지서버로 통신
-                                    self.spin.hidden = false
-                                    self.spin.startAnimating()
-                                    //통신
-                                    Alamofire.upload(.POST, "\(URL.courtUpload)\(seq)",
-                                        multipartFormData: { multipartFormData in
-                                            var idx = 0
-                                            let nameArray = ["pic1", "pic2", "pic3", "pic4"]
-                                            for pic in picArray{
-                                                let imageData : NSData = Util.returnImageData(pic, ext: ExtType.JPEG)
-                                                multipartFormData.appendBodyPart(data: imageData, name: nameArray[idx], fileName: "\(nameArray[idx]).jpeg", mimeType: "image/jpeg")
-                                                idx += 1
-                                            }
-                                        },encodingCompletion: { encodingResult in
-                                            switch encodingResult {
-                                            case .Success(let upload, _, _):
-                                                upload.responseJSON { response in
-                                                    self.spin.hidden = true
-                                                    self.spin.stopAnimating()
-                                                    let data : NSData = response.data!
-                                                    let dic = Util.convertStringToDictionary(data)
-                                                    if let code = dic["code"] as? Int{
-                                                        if code == 0{
-                                                            Util.alert(self, message: "등록이 완료되었습니다.", confirmTitle: "확인", confirmHandler: { (_) in
-                                                                self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-                                                            })
-                                                        }
-                                                    }
-                                                }
-                                            case .Failure(let encodingError):
-                                                print(encodingError)
-                                                self.spin.hidden = true
-                                                self.spin.stopAnimating()
+                URL.request(self, url: URL.court_create, param: parameters, callback: { (dic) in
+                    if let seq = dic["seq"] as? Int{
+                        //이미지서버로 통신
+                        self.spin.hidden = false
+                        self.spin.startAnimating()
+                        //통신
+                        Alamofire.upload(.POST, "\(URL.courtUpload)\(seq)",
+                            multipartFormData: { multipartFormData in
+                                var idx = 0
+                                let nameArray = ["pic1", "pic2", "pic3", "pic4"]
+                                for pic in picArray{
+                                    let imageData : NSData = Util.returnImageData(pic, ext: ExtType.JPEG)
+                                    multipartFormData.appendBodyPart(data: imageData, name: nameArray[idx], fileName: "\(nameArray[idx]).jpeg", mimeType: "image/jpeg")
+                                    idx += 1
+                                }
+                            },encodingCompletion: { encodingResult in
+                                switch encodingResult {
+                                case .Success(let upload, _, _):
+                                    upload.responseJSON { response in
+                                        self.spin.hidden = true
+                                        self.spin.stopAnimating()
+                                        let data : NSData = response.data!
+                                        let dic = Util.convertStringToDictionary(data)
+                                        if let code = dic["code"] as? Int{
+                                            if code == 0{
+                                                Util.alert(self, message: "등록이 완료되었습니다.", confirmTitle: "확인", confirmHandler: { (_) in
+                                                    self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                                                })
                                             }
                                         }
-                                    )
-                                }
-                            }else{
-                                self.spin.hidden = true
-                                self.spin.stopAnimating()
-                                if let isMsgView = dic["isMsgView"] as? Bool{
-                                    if isMsgView == true{
-                                        Util.alert(self, message: "\(dic["msg"]!)")
                                     }
+                                case .Failure(let encodingError):
+                                    print(encodingError)
+                                    self.spin.hidden = true
+                                    self.spin.stopAnimating()
                                 }
                             }
-                        }
-                }
+                        )
+                    }
+                }, codeErrorCallback: { (dic) in
+                    self.spin.hidden = true
+                    self.spin.stopAnimating()
+                })
             }
         }else{
             self.spin.hidden = true

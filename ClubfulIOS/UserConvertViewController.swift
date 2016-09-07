@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import DLRadioButton
 
 class UserConvertViewController: UIViewController, UITextFieldDelegate {
@@ -61,9 +60,9 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
         } else if user.isLogin == 2{
             idField.text = "카카오톡으로 로그인 된 아이디입니다."
         } else if user.isLogin == 3{
-            idField.text = "구글로 로그인 된 아이디입니다."
+            idField.text = "페이스북으로 로그인 된 아이디입니다."
         } else if user.isLogin == 4{
-            idField.text = "페으스북으로 로그인 된 아이디입니다."
+            idField.text = "네이버로 로그인 된 아이디입니다."
         }
         nicknameField.text = user.nickName
         if user.sex == "male"{
@@ -112,36 +111,20 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
             let birth = "\(birthDatePicker.date.year(birthDatePicker.calendar))-\(birthDatePicker.date.month(birthDatePicker.calendar))-\(birthDatePicker.date.day(birthDatePicker.calendar))"
             
             let parameters : [String: AnyObject] = ["token": user.token, "userId": user.userId, "password": self.pwdField.text!, "newPassword": self.newPwdField.text!, "gcmId": user.gcmId, "nickName": self.nicknameField.text!, "sex": sex, "birth": birth, "latitude": self.latitude, "longitude": self.longitude, "address": self.address, "addressShort": self.addressShort]
-            Alamofire.request(.GET, URL.user_update, parameters: parameters)
-                .validate(statusCode: 200..<300)
-                .validate(contentType: ["application/json"])
-                .responseData { response in
-                    let data : NSData = response.data!
-                    let dic = Util.convertStringToDictionary(data)
-                    if let code = dic["code"] as? Int{
-                        if code == 0{
-                            var user = Storage.getRealmUser()
-                            user = Storage.copyUser()
-                            user.userId = self.idField.text!
-                            user.nickName = self.nicknameField.text!
-                            user.sex = sex
-                            user.birth = self.birthDatePicker.date
-                            user.userLatitude = self.latitude
-                            user.userLongitude = self.longitude
-                            user.userAddress = self.address
-                            user.userAddressShort = self.addressShort
-                            Storage.setRealmUser(user)
-                            
-                            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-                        }else{
-                            if let isMsgView = dic["isMsgView"] as? Bool{
-                                if isMsgView == true{
-                                    Util.alert(self, message: "\(dic["msg"]!)")
-                                }
-                            }
-                        }
-                    }
-            }
+            URL.request(self, url: URL.user_update, param: parameters, callback: { (dic) in
+                var user = Storage.getRealmUser()
+                user = Storage.copyUser()
+                user.userId = self.idField.text!
+                user.nickName = self.nicknameField.text!
+                user.sex = sex
+                user.birth = self.birthDatePicker.date
+                user.userLatitude = self.latitude
+                user.userLongitude = self.longitude
+                user.userAddress = self.address
+                user.userAddressShort = self.addressShort
+                Storage.setRealmUser(user)
+                self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+            })
         }
     }
     

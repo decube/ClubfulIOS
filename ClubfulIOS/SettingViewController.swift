@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import Firebase
 import FirebaseAuth
 
@@ -57,21 +56,22 @@ class SettingViewController : UIViewController{
         }else{
             Util.alert(self, title: "알림", message: "로그아웃 하시겠습니까?", confirmTitle: "확인", cancelStr: "취소", confirmHandler: { (alert) in
                 let parameters : [String: AnyObject] = ["token": user.token, "userId": user.userId]
-                Alamofire.request(.GET, URL.user_logout, parameters: parameters)
-                    .validate(statusCode: 200..<300)
-                    .validate(contentType: ["application/json"])
-                    .responseData { response in
-                }
+                URL.request(self, url: URL.user_logout, param: parameters)
                 
                 
                 if user.isLogin == 1{
                     //일반로그아웃
                 }else if user.isLogin == 2{
                     //카톡로그아웃
+                    //KOSessionTask.unlinkTaskWithCompletionHandler({ (success, error) in
+                    //
+                    //})
                 }else if user.isLogin == 3{
-                    //구글로그아웃
-                }else if user.isLogin == 4{
                     //페북로그아웃
+                    //try! FIRAuth.auth()!.signOut()
+                }else if user.isLogin == 4{
+                    //네이버로그아웃
+                    //
                 }
                 
                 user = Storage.copyUser()

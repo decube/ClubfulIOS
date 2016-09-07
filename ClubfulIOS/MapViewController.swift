@@ -8,7 +8,6 @@
 
 import UIKit
 import MapKit
-import Alamofire
 
 class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate {
     
@@ -81,78 +80,69 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
             
             
             let parameters : [String: AnyObject] = ["token": self.user.token, "address": searchField.text!, "language": Util.language]
-            Alamofire.request(.GET, URL.location_geocode, parameters: parameters)
-                .validate(statusCode: 200..<300)
-                .validate(contentType: ["application/json"])
-                .responseData { response in
-                    let data : NSData = response.data!
-                    let dic = Util.convertStringToDictionary(data)
-                    if let code = dic["code"] as? Int{
-                        if code == 0{
-                            if let result = dic["results"] as? [String: AnyObject]{
-                                if let results = result["results"] as? [[String: AnyObject]]{
-                                    //카운트가 1보다 많으면
-                                    if results.count > 1{
-                                        for element : [String: AnyObject] in results{
-                                            let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
-                                            
-                                            
-                                            if let customView = NSBundle.mainBundle().loadNibNamed("MapListElementView", owner: self, options: nil).first as? MapListElementView {
-                                                customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.mapListView.frame.width-10, height: locObjHeight-10)
-                                                customView.setAddr(addressShort: addressShort, address: address)
-                                                self.mapListView.scrollView.addSubview(customView)
-                                                
-                                                if self.mapListView.hidden != false{
-                                                    let tmpRect = self.mapListView.frame
-                                                    self.mapListView.frame.origin.x = -tmpRect.width
-                                                    self.mapListView.hidden = false
-                                                    //애니메이션 적용
-                                                    UIView.animateWithDuration(0.2, animations: {
-                                                        self.mapListView.frame = tmpRect
-                                                        }, completion: {(_) in
-                                                    })
-                                                }
-                                                
-                                                customView.setAction({ (_) in
-                                                    UIView.animateWithDuration(0.2, animations: {
-                                                        self.mapListView.alpha = 0
-                                                    }) { (_) in
-                                                        self.mapListView.hidden = true
-                                                        self.mapListView.alpha = 1
-                                                        self.locationMove(latitude, longitude: longitude)
-                                                    }
-                                                })
-                                                
-                                            }
-                                            i += 1
+            URL.request(self, url: URL.location_geocode, param: parameters, callback: { (dic) in
+                if let result = dic["results"] as? [String: AnyObject]{
+                    if let results = result["results"] as? [[String: AnyObject]]{
+                        //카운트가 1보다 많으면
+                        if results.count > 1{
+                            for element : [String: AnyObject] in results{
+                                let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
+                                
+                                
+                                if let customView = NSBundle.mainBundle().loadNibNamed("MapListElementView", owner: self, options: nil).first as? MapListElementView {
+                                    customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.mapListView.frame.width-10, height: locObjHeight-10)
+                                    customView.setAddr(addressShort: addressShort, address: address)
+                                    self.mapListView.scrollView.addSubview(customView)
+                                    
+                                    if self.mapListView.hidden != false{
+                                        let tmpRect = self.mapListView.frame
+                                        self.mapListView.frame.origin.x = -tmpRect.width
+                                        self.mapListView.hidden = false
+                                        //애니메이션 적용
+                                        UIView.animateWithDuration(0.2, animations: {
+                                            self.mapListView.frame = tmpRect
+                                            }, completion: {(_) in
+                                        })
+                                    }
+                                    
+                                    customView.setAction({ (_) in
+                                        UIView.animateWithDuration(0.2, animations: {
+                                            self.mapListView.alpha = 0
+                                        }) { (_) in
+                                            self.mapListView.hidden = true
+                                            self.mapListView.alpha = 1
+                                            self.locationMove(latitude, longitude: longitude)
                                         }
-                                        self.mapListView.scrollView.contentSize = CGSize(width: self.mapListView.scrollView.frame.width, height: locObjHeight*i)
-                                    }else{
-                                        //카운트가 1개 이면
-                                        for element : [String: AnyObject] in results{
-                                            var elementLatitude = 0.0
-                                            var elementLongitude = 0.0
-                                            if let locationGeometry = element["geometry"] as? [String:AnyObject]{
-                                                if let location = locationGeometry["location"] as? [String:Double]{
-                                                    elementLatitude = location["lat"]!
-                                                    elementLongitude = location["lng"]!
-                                                }
-                                            }
-                                            self.mapListView.scrollView.hidden = true
-                                            self.locationMove(elementLatitude, longitude: elementLongitude)
-                                        }
+                                    })
+                                    
+                                }
+                                i += 1
+                            }
+                            self.mapListView.scrollView.contentSize = CGSize(width: self.mapListView.scrollView.frame.width, height: locObjHeight*i)
+                        }else{
+                            //카운트가 1개 이면
+                            for element : [String: AnyObject] in results{
+                                var elementLatitude = 0.0
+                                var elementLongitude = 0.0
+                                if let locationGeometry = element["geometry"] as? [String:AnyObject]{
+                                    if let location = locationGeometry["location"] as? [String:Double]{
+                                        elementLatitude = location["lat"]!
+                                        elementLongitude = location["lng"]!
                                     }
                                 }
-                            }else{
-                                if let isMsgView = dic["isMsgView"] as? Bool{
-                                    if isMsgView == true{
-                                        Util.alert(self, message: "\(dic["msg"]!)")
-                                    }
-                                }
+                                self.mapListView.scrollView.hidden = true
+                                self.locationMove(elementLatitude, longitude: elementLongitude)
                             }
                         }
                     }
-            }
+                }else{
+                    if let isMsgView = dic["isMsgView"] as? Bool{
+                        if isMsgView == true{
+                            Util.alert(self, message: "\(dic["msg"]!)")
+                        }
+                    }
+                }
+            })
         }
     }
     
@@ -161,51 +151,42 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
     //등록 클릭
     @IBAction func confirmAction(sender: AnyObject) {
         let parameters : [String: AnyObject] = ["token": self.user.token, "latitude": self.mapView.region.center.latitude, "longitude": self.mapView.region.center.longitude, "language": Util.language]
-        Alamofire.request(.GET, URL.location_geocode, parameters: parameters)
-            .validate(statusCode: 200..<300)
-            .validate(contentType: ["application/json"])
-            .responseData { response in
-                let data : NSData = response.data!
-                let dic = Util.convertStringToDictionary(data)
-                if let code = dic["code"] as? Int{
-                    if code == 0{
-                        if let result = dic["results"] as? [String: AnyObject]{
-                            if let results = result["results"] as? [[String: AnyObject]]{
-                                if results.count > 0{
-                                    let element : [String: AnyObject] = results[0]
-                                    let (_, _, addressShort, address) = Util.googleMapParse(element)
-                                    
-                                    if let vc = self.preView as? JoinViewController{
-                                        vc.latitude = self.mapView.region.center.latitude
-                                        vc.longitude = self.mapView.region.center.longitude
-                                        vc.address = "\(address)"
-                                        vc.addressShort = "\(addressShort)"
-                                    }else if let vc = self.preView as? UserConvertViewController{
-                                        vc.latitude = self.mapView.region.center.latitude
-                                        vc.longitude = self.mapView.region.center.longitude
-                                        vc.address = "\(address)"
-                                        vc.addressShort = "\(addressShort)"
-                                    }else if let vc = self.preView as? CourtCreateViewController{
-                                        vc.courtLatitude = self.mapView.region.center.latitude
-                                        vc.courtLongitude = self.mapView.region.center.longitude
-                                        vc.courtAddress = "\(address)"
-                                        vc.courtAddressShort = "\(addressShort)"
-                                    }
-                                    
-                                    self.preBtn.setTitle("\(addressShort)", forState: .Normal)
-                                    self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-                                }
-                            }
-                        }else{
-                            if let isMsgView = dic["isMsgView"] as? Bool{
-                                if isMsgView == true{
-                                    Util.alert(self, message: "\(dic["msg"]!)")
-                                }
-                            }
+        URL.request(self, url: URL.location_geocode, param: parameters, callback: {(dic) in
+            if let result = dic["results"] as? [String: AnyObject]{
+                if let results = result["results"] as? [[String: AnyObject]]{
+                    if results.count > 0{
+                        let element : [String: AnyObject] = results[0]
+                        let (_, _, addressShort, address) = Util.googleMapParse(element)
+                        
+                        if let vc = self.preView as? JoinViewController{
+                            vc.latitude = self.mapView.region.center.latitude
+                            vc.longitude = self.mapView.region.center.longitude
+                            vc.address = "\(address)"
+                            vc.addressShort = "\(addressShort)"
+                        }else if let vc = self.preView as? UserConvertViewController{
+                            vc.latitude = self.mapView.region.center.latitude
+                            vc.longitude = self.mapView.region.center.longitude
+                            vc.address = "\(address)"
+                            vc.addressShort = "\(addressShort)"
+                        }else if let vc = self.preView as? CourtCreateViewController{
+                            vc.courtLatitude = self.mapView.region.center.latitude
+                            vc.courtLongitude = self.mapView.region.center.longitude
+                            vc.courtAddress = "\(address)"
+                            vc.courtAddressShort = "\(addressShort)"
                         }
+                        
+                        self.preBtn.setTitle("\(addressShort)", forState: .Normal)
+                        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
                     }
                 }
-        }
+            }else{
+                if let isMsgView = dic["isMsgView"] as? Bool{
+                    if isMsgView == true{
+                        Util.alert(self, message: "\(dic["msg"]!)")
+                    }
+                }
+            }
+        })
     }
     
     
