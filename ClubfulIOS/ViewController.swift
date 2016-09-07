@@ -46,12 +46,113 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     //코트 검색 텍스트필드
     @IBOutlet var courtSearchTextField: UITextField!
     
+    var mainScreen : UIView!
+    var mainScreenWhite = true
+    var mainScreenBoom = true
+    var boomArray : [UIImageView]!
     
     
     
+    typealias Task = (cancel : Bool) -> ()
+    func delay(time:NSTimeInterval, task:()->()) ->  Task? {
+        func dispatch_later(block:()->()) {
+            dispatch_after(
+                dispatch_time(
+                    DISPATCH_TIME_NOW,
+                    Int64(time * Double(NSEC_PER_SEC))),
+                dispatch_get_main_queue(),
+                block)
+        }
+        var closure: dispatch_block_t? = task
+        var result: Task?
+        let delayedClosure: Task = {
+            cancel in
+            if let internalClosure = closure {
+                if (cancel == false) {
+                    dispatch_async(dispatch_get_main_queue(), internalClosure);
+                }
+            }
+            closure = nil
+            result = nil
+        }
+        result = delayedClosure
+        dispatch_later {
+            if let delayedClosure = result {
+                delayedClosure(cancel: false)
+            }
+        }
+        return result;
+    }
+    
+    func customClick(sender: UIImageView){
+        for item in boomArray {
+            item.boom()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         print("ViewController viewDidLoad")
+        
+        
+        if let customView = NSBundle.mainBundle().loadNibNamed("MainScreen", owner: self, options: nil).first as? MainScreen {
+            mainScreen = customView
+            customView.frame = CGRect(x: 0, y: 20, width: self.view.frame.width, height: self.view.frame.height-20)
+            self.view.addSubview(customView)
+            
+            boomArray = [
+                customView.image1,
+                customView.image2,
+                customView.image3,
+                customView.image4,
+                customView.image5,
+                customView.image6,
+                customView.image7,
+                customView.image8
+            ]
+            
+            mainScreen.userInteractionEnabled = true
+            mainScreen.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.customClick(_:))))
+            
+            
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                while self.mainScreenWhite == true {
+                    if self.mainScreenBoom{
+                        let numberRandom = Int(arc4random_uniform(3) + 3)
+                        var indexArray = [Int]()
+                        var idxAdd = 0
+                        while(idxAdd != numberRandom){
+                            let random = Int(arc4random_uniform(8))
+                            var isAdd = true
+                            for idx in indexArray{
+                                if idx == random{
+                                    isAdd = false
+                                }
+                            }
+                            if isAdd == true{
+                                indexArray.append(random)
+                                idxAdd += 1
+                            }
+                        }
+                        self.delay(0, task: {
+                            dispatch_async(dispatch_get_main_queue()) {
+                                for start in indexArray{
+                                    self.boomArray[start].boom()
+                                }
+                            }
+                        })
+                    }else{
+                        dispatch_async(dispatch_get_main_queue()) {
+                            for image in self.boomArray{
+                                image.reset()
+                            }
+                        }
+                    }
+                    self.mainScreenBoom = !self.mainScreenBoom
+                    sleep(1)
+                }
+            })
+        }
         
         
         //GET Async 동기 통신
@@ -236,7 +337,11 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                 })
             }
         }
-    
+        
+        
+        //boom 종료
+        self.mainScreenWhite = false
+        mainScreen.hidden = true
     }
     
     @IBAction func courtSearchAction(sender: AnyObject) {

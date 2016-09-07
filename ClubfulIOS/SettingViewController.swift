@@ -19,6 +19,7 @@ class SettingViewController : UIViewController{
     @IBOutlet var tab_4: UIView!
     @IBOutlet var tab_5: UIView!
     @IBOutlet var tab_6: UIView!
+    @IBOutlet var tab_7: UIView!
     
     @IBOutlet var signBtn: UIButton!
         
@@ -34,6 +35,7 @@ class SettingViewController : UIViewController{
         borderBottom(tab_4)
         borderBottom(tab_5)
         borderBottom(tab_6)
+        borderBottom(tab_7)
     }
     
     func signCheck(){
@@ -134,7 +136,12 @@ class SettingViewController : UIViewController{
         uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
         self.presentViewController(uvc, animated: true, completion: nil)
     }
-    
+    @IBAction func introAction(sender: AnyObject) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let uvc = storyBoard.instantiateViewControllerWithIdentifier("introVC")
+        uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        self.presentViewController(uvc, animated: true, completion: nil)
+    }
     
     func borderBottom(tab : UIView){
         let border = CALayer()

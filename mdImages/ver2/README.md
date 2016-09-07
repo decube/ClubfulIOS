@@ -4,6 +4,9 @@
 
 # IOS Image
 
+### 인트로<br>
+![Alt text](00.png)
+<br>
 ### 메인<br>
 ![Alt text](01.png)
 <br>
@@ -60,4 +63,13 @@
 <br>
 ### 앱설정<br>
 ![Alt text](13.png)
+<br>
+### 인트로<br>
+![Alt text](14.png)
+<br>
+### 인트로<br>
+![Alt text](14_1.png)
+<br>
+### 인트로<br>
+![Alt text](14_2.png)
 

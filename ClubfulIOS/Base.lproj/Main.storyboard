@@ -151,6 +151,111 @@
             </objects>
             <point key="canvasLocation" x="-675" y="17"/>
         </scene>
+        <!--Intro View Controller-->
+        <scene sceneID="S3z-ir-xLX">
+            <objects>
+                <viewController storyboardIdentifier="introVC" id="u46-hJ-yVG" customClass="IntroViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Irk-g2-Ia5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_1.jpg" id="oQx-6q-YBh">
+                                <rect key="frame" x="31" y="110" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_2.jpg" id="NYN-21-G5f">
+                                <rect key="frame" x="210" y="110" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_3.jpg" id="Dz2-kA-4Jk">
+                                <rect key="frame" x="31" y="226" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_4.jpg" id="U3y-X0-Shu">
+                                <rect key="frame" x="210" y="226" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_5.jpg" id="QV0-CS-d1R">
+                                <rect key="frame" x="31" y="335" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_6.jpg" id="22t-Hi-tQO">
+                                <rect key="frame" x="210" y="335" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_7.jpg" id="PBP-8A-lG0">
+                                <rect key="frame" x="31" y="431" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_8.jpg" id="h2a-C4-UTK">
+                                <rect key="frame" x="210" y="431" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" id="Sjw-71-yw2">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.047058824450000002" green="0.34901961679999999" blue="0.17254902420000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="6HS-D9-LDh">
+                                <rect key="frame" x="0.0" y="20" width="320" height="60"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BZy-l0-PJd">
+                                        <rect key="frame" x="5" y="10" width="35" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="ic_back.png"/>
+                                        <connections>
+                                            <action selector="backAction:" destination="u46-hJ-yVG" eventType="touchUpInside" id="DHQ-3a-cXl"/>
+                                            <action selector="backAction:" destination="pWh-F2-i2Q" eventType="touchUpInside" id="OYe-pB-9ss"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인트로" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5ib-BW-JIH">
+                                        <rect key="frame" x="50" y="0.0" width="220" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="trH-yn-wW6">
+                                        <rect key="frame" x="246" y="15" width="58" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
+                                        <state key="normal" title="100">
+                                            <color key="titleColor" red="0.99146789312362671" green="0.13212743401527405" blue="0.012327488511800766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="scoreAction:" destination="u46-hJ-yVG" eventType="touchUpInside" id="bMf-g7-2sc"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F51-Bd-rm8">
+                                        <rect key="frame" x="220" y="19" width="30" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.047058824450000002" green="0.34901961679999999" blue="0.17254902420000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="gameTimeLbl" destination="F51-Bd-rm8" id="dSV-be-K8I"/>
+                        <outlet property="image1" destination="oQx-6q-YBh" id="ZCd-p4-wke"/>
+                        <outlet property="image2" destination="NYN-21-G5f" id="Nw7-Jb-M8g"/>
+                        <outlet property="image3" destination="Dz2-kA-4Jk" id="Cg8-42-uoQ"/>
+                        <outlet property="image4" destination="U3y-X0-Shu" id="dJ7-pS-uo2"/>
+                        <outlet property="image5" destination="QV0-CS-d1R" id="pib-ZP-Rat"/>
+                        <outlet property="image6" destination="22t-Hi-tQO" id="Mpz-nh-d0g"/>
+                        <outlet property="image7" destination="PBP-8A-lG0" id="dVl-cn-xxZ"/>
+                        <outlet property="image8" destination="h2a-C4-UTK" id="O0r-pk-zv2"/>
+                        <outlet property="score" destination="trH-yn-wW6" id="M4f-Gw-Lac"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R71-y1-Ogh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1008" y="1256"/>
+        </scene>
         <!--Item-->
         <scene sceneID="Ptk-AH-pPU">
             <objects>
@@ -335,6 +440,27 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" id="ZcO-gW-bPh">
+                                <rect key="frame" x="0.0" y="378" width="320" height="50"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ys5-Af-GGp">
+                                        <rect key="frame" x="8" y="0.0" width="266" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <state key="normal" title="인트로">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="introAction:" destination="z8d-C5-ubP" eventType="touchUpInside" id="61U-Bd-Pw1"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right.png" id="O1k-r1-eDD">
+                                        <rect key="frame" x="282" y="8" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -347,6 +473,7 @@
                         <outlet property="tab_4" destination="rAL-cR-ff2" id="lMz-KI-YGR"/>
                         <outlet property="tab_5" destination="YEM-Jm-qVS" id="AMV-51-jjY"/>
                         <outlet property="tab_6" destination="fdX-ht-8Yy" id="JJd-2F-dAp"/>
+                        <outlet property="tab_7" destination="ZcO-gW-bPh" id="WG1-nC-yJ9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yf9-2i-f1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1680,6 +1807,14 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ball_1.jpg" width="500" height="399"/>
+        <image name="ball_2.jpg" width="500" height="513"/>
+        <image name="ball_3.jpg" width="720" height="720"/>
+        <image name="ball_4.jpg" width="500" height="456"/>
+        <image name="ball_5.jpg" width="308" height="308"/>
+        <image name="ball_6.jpg" width="550" height="550"/>
+        <image name="ball_7.jpg" width="750" height="750"/>
+        <image name="ball_8.jpg" width="500" height="500"/>
         <image name="ic_back.png" width="52" height="52"/>
         <image name="ic_edit.png" width="64" height="64"/>
         <image name="ic_enter.png" width="50" height="50"/>

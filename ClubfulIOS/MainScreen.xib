@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MainScreen" customModule="ClubfulIOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="530"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_1.jpg" id="iGA-TE-0N8">
+                    <rect key="frame" x="31" y="50" width="80" height="80"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_2.jpg" id="oF3-Pm-rEP">
+                    <rect key="frame" x="210" y="50" width="80" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_3.jpg" id="b6x-3Q-imk">
+                    <rect key="frame" x="31" y="145" width="80" height="80"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_4.jpg" id="Xnh-mg-17h">
+                    <rect key="frame" x="210" y="145" width="80" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_5.jpg" id="I9k-jO-QXS">
+                    <rect key="frame" x="31" y="239" width="80" height="80"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_6.jpg" id="qe8-Ol-dbA">
+                    <rect key="frame" x="210" y="239" width="80" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_7.jpg" id="PYn-2F-u31">
+                    <rect key="frame" x="31" y="335" width="80" height="80"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_8.jpg" id="Dab-s0-rHb">
+                    <rect key="frame" x="210" y="335" width="80" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="image1" destination="iGA-TE-0N8" id="cuD-iA-dAL"/>
+                <outlet property="image2" destination="oF3-Pm-rEP" id="87J-Bx-4tp"/>
+                <outlet property="image3" destination="b6x-3Q-imk" id="e8h-TU-yOw"/>
+                <outlet property="image4" destination="Xnh-mg-17h" id="vV4-Q7-xza"/>
+                <outlet property="image5" destination="I9k-jO-QXS" id="oeq-fl-VQq"/>
+                <outlet property="image6" destination="qe8-Ol-dbA" id="yrN-H3-Ugx"/>
+                <outlet property="image7" destination="PYn-2F-u31" id="cT8-aE-6AO"/>
+                <outlet property="image8" destination="Dab-s0-rHb" id="VYu-dq-iPq"/>
+            </connections>
+            <point key="canvasLocation" x="371" y="250"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ball_1.jpg" width="500" height="399"/>
+        <image name="ball_2.jpg" width="500" height="513"/>
+        <image name="ball_3.jpg" width="720" height="720"/>
+        <image name="ball_4.jpg" width="500" height="456"/>
+        <image name="ball_5.jpg" width="308" height="308"/>
+        <image name="ball_6.jpg" width="550" height="550"/>
+        <image name="ball_7.jpg" width="750" height="750"/>
+        <image name="ball_8.jpg" width="500" height="500"/>
+    </resources>
+</document>

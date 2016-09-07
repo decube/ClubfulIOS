@@ -41,6 +41,19 @@
 		6E6556EF1D803CE000697391 /* ic_fb.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E6556ED1D803CE000697391 /* ic_fb.png */; };
 		6E6556F01D803CE000697391 /* ic_kakao.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E6556EE1D803CE000697391 /* ic_kakao.png */; };
 		6E6556F21D803E9000697391 /* ic_kakao_invite.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E6556F11D803E9000697391 /* ic_kakao_invite.png */; };
+		6E6556F41D80425400697391 /* MainScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E6556F31D80425400697391 /* MainScreen.xib */; };
+		6E6556F81D80436F00697391 /* UIViewXXYBoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6556F71D80436F00697391 /* UIViewXXYBoom.swift */; };
+		6E6556FA1D80439F00697391 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6556F91D80439F00697391 /* MainScreen.swift */; };
+		6E6557131D804A7B00697391 /* ball_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E65570B1D804A7B00697391 /* ball_1.jpg */; };
+		6E6557141D804A7B00697391 /* ball_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E65570C1D804A7B00697391 /* ball_2.jpg */; };
+		6E6557151D804A7B00697391 /* ball_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E65570D1D804A7B00697391 /* ball_3.jpg */; };
+		6E6557161D804A7B00697391 /* ball_4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E65570E1D804A7B00697391 /* ball_4.jpg */; };
+		6E6557171D804A7B00697391 /* ball_5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E65570F1D804A7B00697391 /* ball_5.jpg */; };
+		6E6557181D804A7B00697391 /* ball_6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E6557101D804A7B00697391 /* ball_6.jpg */; };
+		6E6557191D804A7B00697391 /* ball_7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E6557111D804A7B00697391 /* ball_7.jpg */; };
+		6E65571A1D804A7B00697391 /* ball_8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E6557121D804A7B00697391 /* ball_8.jpg */; };
+		6E65571C1D804E2000697391 /* intro.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E65571B1D804E2000697391 /* intro.jpg */; };
+		6E65571E1D80532000697391 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E65571D1D80532000697391 /* IntroViewController.swift */; };
 		6E6E16481D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E6E16461D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework */; };
 		6E6E164D1D7AFEFD00B0DEF1 /* AdobeCreativeSDKCoreResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6E6E164B1D7AFEFD00B0DEF1 /* AdobeCreativeSDKCoreResources.bundle */; };
 		6E6E164E1D7AFEFD00B0DEF1 /* AdobeCreativeSDKImageResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6E6E164C1D7AFEFD00B0DEF1 /* AdobeCreativeSDKImageResources.bundle */; };
@@ -155,6 +168,19 @@
 		6E6556ED1D803CE000697391 /* ic_fb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_fb.png; path = resources/img/ic_fb.png; sourceTree = "<group>"; };
 		6E6556EE1D803CE000697391 /* ic_kakao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_kakao.png; path = resources/img/ic_kakao.png; sourceTree = "<group>"; };
 		6E6556F11D803E9000697391 /* ic_kakao_invite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_kakao_invite.png; path = resources/img/ic_kakao_invite.png; sourceTree = "<group>"; };
+		6E6556F31D80425400697391 /* MainScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainScreen.xib; sourceTree = "<group>"; };
+		6E6556F71D80436F00697391 /* UIViewXXYBoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewXXYBoom.swift; sourceTree = "<group>"; };
+		6E6556F91D80439F00697391 /* MainScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		6E65570B1D804A7B00697391 /* ball_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ball_1.jpg; path = resources/img/ball_1.jpg; sourceTree = "<group>"; };
+		6E65570C1D804A7B00697391 /* ball_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ball_2.jpg; path = resources/img/ball_2.jpg; sourceTree = "<group>"; };
+		6E65570D1D804A7B00697391 /* ball_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ball_3.jpg; path = resources/img/ball_3.jpg; sourceTree = "<group>"; };
+		6E65570E1D804A7B00697391 /* ball_4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ball_4.jpg; path = resources/img/ball_4.jpg; sourceTree = "<group>"; };
+		6E65570F1D804A7B00697391 /* ball_5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ball_5.jpg; path = resources/img/ball_5.jpg; sourceTree = "<group>"; };
+		6E6557101D804A7B00697391 /* ball_6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ball_6.jpg; path = resources/img/ball_6.jpg; sourceTree = "<group>"; };
+		6E6557111D804A7B00697391 /* ball_7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ball_7.jpg; path = resources/img/ball_7.jpg; sourceTree = "<group>"; };
+		6E6557121D804A7B00697391 /* ball_8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ball_8.jpg; path = resources/img/ball_8.jpg; sourceTree = "<group>"; };
+		6E65571B1D804E2000697391 /* intro.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = intro.jpg; path = resources/img/intro.jpg; sourceTree = "<group>"; };
+		6E65571D1D80532000697391 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		6E6E16461D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKCore.framework; sourceTree = "<group>"; };
 		6E6E164B1D7AFEFD00B0DEF1 /* AdobeCreativeSDKCoreResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AdobeCreativeSDKCoreResources.bundle; sourceTree = "<group>"; };
 		6E6E164C1D7AFEFD00B0DEF1 /* AdobeCreativeSDKImageResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AdobeCreativeSDKImageResources.bundle; sourceTree = "<group>"; };
@@ -271,6 +297,7 @@
 		6E00E1811D695D34009AB282 /* xib */ = {
 			isa = PBXGroup;
 			children = (
+				6E6556F31D80425400697391 /* MainScreen.xib */,
 				6E00E1821D695D51009AB282 /* MainCenterView.xib */,
 				6EE4F3801D6976D1008B43ED /* MainCenterElementView.xib */,
 				6EE4F3761D696200008B43ED /* MainCourtSearchView.xib */,
@@ -285,6 +312,7 @@
 		6E00E1841D695D5C009AB282 /* xib */ = {
 			isa = PBXGroup;
 			children = (
+				6E6556F91D80439F00697391 /* MainScreen.swift */,
 				6E00E1851D695D6A009AB282 /* MainCenterView.swift */,
 				6EE4F3781D696240008B43ED /* MainCourtSearchView.swift */,
 				6EE4F3821D69772B008B43ED /* MainCenterElementView.swift */,
@@ -395,6 +423,15 @@
 		6EDA954E1D55CC8300E029C8 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				6E65571B1D804E2000697391 /* intro.jpg */,
+				6E65570B1D804A7B00697391 /* ball_1.jpg */,
+				6E65570C1D804A7B00697391 /* ball_2.jpg */,
+				6E65570D1D804A7B00697391 /* ball_3.jpg */,
+				6E65570E1D804A7B00697391 /* ball_4.jpg */,
+				6E65570F1D804A7B00697391 /* ball_5.jpg */,
+				6E6557101D804A7B00697391 /* ball_6.jpg */,
+				6E6557111D804A7B00697391 /* ball_7.jpg */,
+				6E6557121D804A7B00697391 /* ball_8.jpg */,
 				6E9CF3701D6B2028004DC36A /* ic_back.png */,
 				6E9CF3721D6B2028004DC36A /* ic_edit.png */,
 				6E9CF3731D6B2028004DC36A /* ic_enter.png */,
@@ -472,6 +509,7 @@
 			children = (
 				6EDA95AB1D55CE0F00E029C8 /* Util.swift */,
 				6E00E16A1D695193009AB282 /* ExtType.swift */,
+				6E6556F71D80436F00697391 /* UIViewXXYBoom.swift */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -511,6 +549,7 @@
 				6E2F952E1D69D556000976A7 /* GuideViewController.swift */,
 				6E2F95301D69D575000976A7 /* InquiryViewController.swift */,
 				6E2F95321D69D5A0000976A7 /* AppSettingViewController.swift */,
+				6E65571D1D80532000697391 /* IntroViewController.swift */,
 			);
 			name = setting;
 			sourceTree = "<group>";
@@ -671,13 +710,17 @@
 				6E9CF3A01D6B2028004DC36A /* ic_tab_mypage_s.png in Resources */,
 				6EDA95261D55C85300E029C8 /* LaunchScreen.storyboard in Resources */,
 				6E9CF38E1D6B2028004DC36A /* ic_image.png in Resources */,
+				6E6557191D804A7B00697391 /* ball_7.jpg in Resources */,
 				6E751D581D7EFF6F0065FC8D /* GoogleService-Info.plist in Resources */,
 				6E9CF39E1D6B2028004DC36A /* ic_tab_home_s.png in Resources */,
 				6EDA95231D55C85300E029C8 /* Assets.xcassets in Resources */,
 				6E6556EF1D803CE000697391 /* ic_fb.png in Resources */,
+				6E6557151D804A7B00697391 /* ball_3.jpg in Resources */,
 				6E9CF39B1D6B2028004DC36A /* ic_tab_add_n.png in Resources */,
 				6EDA95211D55C85300E029C8 /* Main.storyboard in Resources */,
 				6E9CF3901D6B2028004DC36A /* ic_location.png in Resources */,
+				6E65571A1D804A7B00697391 /* ball_8.jpg in Resources */,
+				6E6557171D804A7B00697391 /* ball_5.jpg in Resources */,
 				6E2F95401D69F2BC000976A7 /* MapListView.xib in Resources */,
 				6EE4F38B1D698946008B43ED /* temp.png in Resources */,
 				6E9CF3A11D6B2028004DC36A /* ic_tab_setting_n.png in Resources */,
@@ -693,13 +736,19 @@
 				6E9CF3981D6B2028004DC36A /* ic_simplemap.png in Resources */,
 				6E6E164D1D7AFEFD00B0DEF1 /* AdobeCreativeSDKCoreResources.bundle in Resources */,
 				6E9CF3941D6B2028004DC36A /* ic_search_b.png in Resources */,
+				6E6557181D804A7B00697391 /* ball_6.jpg in Resources */,
 				6E9CF3991D6B2028004DC36A /* ic_star_n.png in Resources */,
+				6E6557161D804A7B00697391 /* ball_4.jpg in Resources */,
 				6E9CF39A1D6B2028004DC36A /* ic_star_s.png in Resources */,
 				6E9CF38A1D6B2028004DC36A /* ic_back.png in Resources */,
+				6E6557141D804A7B00697391 /* ball_2.jpg in Resources */,
 				6E9CF39D1D6B2028004DC36A /* ic_tab_home_n.png in Resources */,
 				6E9CF3A21D6B2028004DC36A /* ic_tab_setting_s.png in Resources */,
+				6E65571C1D804E2000697391 /* intro.jpg in Resources */,
+				6E6556F41D80425400697391 /* MainScreen.xib in Resources */,
 				6E2F95461D69F47F000976A7 /* MapListElementView.xib in Resources */,
 				6E9CF38C1D6B2028004DC36A /* ic_edit.png in Resources */,
+				6E6557131D804A7B00697391 /* ball_1.jpg in Resources */,
 				6EE4F3771D696200008B43ED /* MainCourtSearchView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -785,6 +834,7 @@
 				6EE4F38E1D698A5E008B43ED /* CourtViewController.swift in Sources */,
 				6EE4F3791D696240008B43ED /* MainCourtSearchView.swift in Sources */,
 				6E00E16F1D695205009AB282 /* UIView.swift in Sources */,
+				6E6556F81D80436F00697391 /* UIViewXXYBoom.swift in Sources */,
 				6E00E1771D6952B8009AB282 /* NSDate.swift in Sources */,
 				6E00E1791D6952CD009AB282 /* UIScrollView.swift in Sources */,
 				6E2F08BD1D6B1E6900222708 /* MessageViewController.swift in Sources */,
@@ -800,10 +850,12 @@
 				6EDA95AC1D55CE0F00E029C8 /* Util.swift in Sources */,
 				6E2F95381D69DD8C000976A7 /* JoinViewController.swift in Sources */,
 				6E2F08B51D6B0B9900222708 /* NonUserView.swift in Sources */,
+				6E65571E1D80532000697391 /* IntroViewController.swift in Sources */,
 				6EDA95B11D55CE1B00E029C8 /* URL.swift in Sources */,
 				6E00E1751D695271009AB282 /* UIFont.swift in Sources */,
 				6EF4AA1C1D69A6520040FE52 /* SettingViewController.swift in Sources */,
 				6E2F953A1D69DDA3000976A7 /* MapViewController.swift in Sources */,
+				6E6556FA1D80439F00697391 /* MainScreen.swift in Sources */,
 				6E00E1861D695D6A009AB282 /* MainCenterView.swift in Sources */,
 				6EDA95A31D55CDE800E029C8 /* ViewController.swift in Sources */,
 				6E2F08B71D6B0BEC00222708 /* MypageViewController.swift in Sources */,
