@@ -67,11 +67,6 @@
 ### 인트로<br>
 ![Alt text](14.png)
 <br>
-### 인트로<br>
-![Alt text](14_1.png)
-<br>
-### 인트로<br>
-![Alt text](14_2.png)
-<br>
 
-<iframe width="320" height="568" src="https://www.youtube.com/embed/KuGR5xDZCzo" frameborder="0" allowfullscreen></iframe>
+동영상 클릭
+[![game](video.png)](https://www.youtube.com/embed/KuGR5xDZCzo "game")

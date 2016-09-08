@@ -52,8 +52,7 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 ##### 추가해야할 POD
 
 * 쪽지화면 (화면구성)
-* UIViewXXYBoom (재미로)
-
+* Firebase/Messaging (push 알림)
 
 ##### SDK
 
