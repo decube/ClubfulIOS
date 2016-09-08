@@ -74,4 +74,4 @@
 ![Alt text](14_2.png)
 <br>
 
-<iframe width="320" height="568" src="https://github.com/decube/ClubfulIOS/blob/master/mdImages/ver2/introPlay.mov?raw=true" frameborder="0" allowfullscreen></iframe>
+<iframe width="320" height="568" src="https://www.youtube.com/embed/KuGR5xDZCzo" frameborder="0" allowfullscreen></iframe>
