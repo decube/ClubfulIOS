@@ -69,4 +69,4 @@
 <br>
 
 동영상 클릭
-[![game](video.png)](https://www.youtube.com/embed/KuGR5xDZCzo "game")
+[![game](video.png)](https://www.youtube.com/embed/AhaOC_6YEBQ "game")

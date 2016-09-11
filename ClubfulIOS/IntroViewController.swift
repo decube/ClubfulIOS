@@ -6,15 +6,9 @@
 //  Copyright © 2016년 guanho. All rights reserved.
 //
 
-//
-//  AppSetting.swift
-//  ClubfulIOS
-//
-//  Created by guanho on 2016. 8. 21..
-//  Copyright © 2016년 guanho. All rights reserved.
-//
 
 import UIKit
+import AudioToolbox
 
 class IntroViewController : UIViewController{
     @IBOutlet var image1: UIImageView!
@@ -339,6 +333,7 @@ class IntroViewController : UIViewController{
         if boomArrayBoom[0] == false && self.gamePause == false && self.gameExit == false{
             boomArrayBoom[0] = true
             image1.boom()
+            AudioServicesPlaySystemSound(4095)
             self.delay(1, task:{
                 self.image1.reset()
                 self.randomSize(self.image1)
@@ -351,6 +346,7 @@ class IntroViewController : UIViewController{
         if boomArrayBoom[1] == false && self.gamePause == false && self.gameExit == false{
             boomArrayBoom[1] = true
             image2.boom()
+            AudioServicesPlaySystemSound(4095)
             self.delay(1, task:{
                 self.image2.reset()
                 self.randomSize(self.image2)
@@ -363,6 +359,7 @@ class IntroViewController : UIViewController{
         if boomArrayBoom[2] == false && self.gamePause == false && self.gameExit == false{
             boomArrayBoom[2] = true
             image3.boom()
+            AudioServicesPlaySystemSound(4095)
             self.delay(1, task:{
                 self.image3.reset()
                 self.randomSize(self.image3)
@@ -375,6 +372,7 @@ class IntroViewController : UIViewController{
         if boomArrayBoom[3] == false && self.gamePause == false && self.gameExit == false{
             boomArrayBoom[3] = true
             image4.boom()
+            AudioServicesPlaySystemSound(4095)
             self.delay(1, task:{
                 self.image4.reset()
                 self.randomSize(self.image4)
@@ -387,6 +385,7 @@ class IntroViewController : UIViewController{
         if boomArrayBoom[4] == false && self.gamePause == false && self.gameExit == false{
             boomArrayBoom[4] = true
             image5.boom()
+            AudioServicesPlaySystemSound(4095)
             self.delay(1, task:{
                 self.image5.reset()
                 self.randomSize(self.image5)
@@ -399,6 +398,7 @@ class IntroViewController : UIViewController{
         if boomArrayBoom[5] == false && self.gamePause == false && self.gameExit == false{
             boomArrayBoom[5] = true
             image6.boom()
+            AudioServicesPlaySystemSound(4095)
             self.delay(1, task:{
                 self.image6.reset()
                 self.randomSize(self.image6)
@@ -411,6 +411,7 @@ class IntroViewController : UIViewController{
         if boomArrayBoom[6] == false && self.gamePause == false && self.gameExit == false{
             boomArrayBoom[6] = true
             image7.boom()
+            AudioServicesPlaySystemSound(4095)
             self.delay(1, task:{
                 self.image7.reset()
                 self.randomSize(self.image7)
@@ -423,6 +424,7 @@ class IntroViewController : UIViewController{
         if boomArrayBoom[7] == false && self.gamePause == false && self.gameExit == false{
             boomArrayBoom[7] = true
             image8.boom()
+            AudioServicesPlaySystemSound(4095)
             self.delay(1, task:{
                 self.image8.reset()
                 self.randomSize(self.image8)

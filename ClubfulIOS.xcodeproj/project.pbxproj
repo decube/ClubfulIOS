@@ -70,6 +70,7 @@
 		6E751D141D7EE6B60065FC8D /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E751D131D7EE6B60065FC8D /* KakaoOpenSDK.framework */; };
 		6E751D581D7EFF6F0065FC8D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E751D571D7EFF6F0065FC8D /* GoogleService-Info.plist */; };
 		6E751D5A1D7F02390065FC8D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E751D591D7F02390065FC8D /* MapKit.framework */; };
+		6E775A961D84C1C8003F418C /* BallInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E775A951D84C1C8003F418C /* BallInfo.swift */; };
 		6E9CF38A1D6B2028004DC36A /* ic_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3701D6B2028004DC36A /* ic_back.png */; };
 		6E9CF38C1D6B2028004DC36A /* ic_edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3721D6B2028004DC36A /* ic_edit.png */; };
 		6E9CF38D1D6B2028004DC36A /* ic_enter.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3731D6B2028004DC36A /* ic_enter.png */; };
@@ -93,6 +94,7 @@
 		6E9CF3A01D6B2028004DC36A /* ic_tab_mypage_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3861D6B2028004DC36A /* ic_tab_mypage_s.png */; };
 		6E9CF3A11D6B2028004DC36A /* ic_tab_setting_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3871D6B2028004DC36A /* ic_tab_setting_n.png */; };
 		6E9CF3A21D6B2028004DC36A /* ic_tab_setting_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9CF3881D6B2028004DC36A /* ic_tab_setting_s.png */; };
+		6EBF30FF1D83D14700319D08 /* EggViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBF30FE1D83D14700319D08 /* EggViewController.swift */; };
 		6ECEAF8B1D7C292100F1551D /* AdobeCreativeSDKImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ECEAF8A1D7C292100F1551D /* AdobeCreativeSDKImage.framework */; };
 		6EDA95211D55C85300E029C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA951F1D55C85300E029C8 /* Main.storyboard */; };
 		6EDA95231D55C85300E029C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA95221D55C85300E029C8 /* Assets.xcassets */; };
@@ -197,6 +199,7 @@
 		6E751D131D7EE6B60065FC8D /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		6E751D571D7EFF6F0065FC8D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6E751D591D7F02390065FC8D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		6E775A951D84C1C8003F418C /* BallInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallInfo.swift; sourceTree = "<group>"; };
 		6E9CF3701D6B2028004DC36A /* ic_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_back.png; path = resources/img/ic_back.png; sourceTree = "<group>"; };
 		6E9CF3721D6B2028004DC36A /* ic_edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_edit.png; path = resources/img/ic_edit.png; sourceTree = "<group>"; };
 		6E9CF3731D6B2028004DC36A /* ic_enter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_enter.png; path = resources/img/ic_enter.png; sourceTree = "<group>"; };
@@ -220,6 +223,7 @@
 		6E9CF3861D6B2028004DC36A /* ic_tab_mypage_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_tab_mypage_s.png; path = resources/img/ic_tab_mypage_s.png; sourceTree = "<group>"; };
 		6E9CF3871D6B2028004DC36A /* ic_tab_setting_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_tab_setting_n.png; path = resources/img/ic_tab_setting_n.png; sourceTree = "<group>"; };
 		6E9CF3881D6B2028004DC36A /* ic_tab_setting_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_tab_setting_s.png; path = resources/img/ic_tab_setting_s.png; sourceTree = "<group>"; };
+		6EBF30FE1D83D14700319D08 /* EggViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EggViewController.swift; sourceTree = "<group>"; };
 		6ECEAF8A1D7C292100F1551D /* AdobeCreativeSDKImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKImage.framework; sourceTree = "<group>"; };
 		6EDA95181D55C85300E029C8 /* ClubfulIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubfulIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EDA95201D55C85300E029C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -510,6 +514,7 @@
 				6EDA95AB1D55CE0F00E029C8 /* Util.swift */,
 				6E00E16A1D695193009AB282 /* ExtType.swift */,
 				6E6556F71D80436F00697391 /* UIViewXXYBoom.swift */,
+				6E775A951D84C1C8003F418C /* BallInfo.swift */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -550,6 +555,7 @@
 				6E2F95301D69D575000976A7 /* InquiryViewController.swift */,
 				6E2F95321D69D5A0000976A7 /* AppSettingViewController.swift */,
 				6E65571D1D80532000697391 /* IntroViewController.swift */,
+				6EBF30FE1D83D14700319D08 /* EggViewController.swift */,
 			);
 			name = setting;
 			sourceTree = "<group>";
@@ -832,6 +838,7 @@
 				6EDA95B21D55CE1B00E029C8 /* User.swift in Sources */,
 				6E2F95331D69D5A0000976A7 /* AppSettingViewController.swift in Sources */,
 				6EE4F38E1D698A5E008B43ED /* CourtViewController.swift in Sources */,
+				6EBF30FF1D83D14700319D08 /* EggViewController.swift in Sources */,
 				6EE4F3791D696240008B43ED /* MainCourtSearchView.swift in Sources */,
 				6E00E16F1D695205009AB282 /* UIView.swift in Sources */,
 				6E6556F81D80436F00697391 /* UIViewXXYBoom.swift in Sources */,
@@ -860,6 +867,7 @@
 				6EDA95A31D55CDE800E029C8 /* ViewController.swift in Sources */,
 				6E2F08B71D6B0BEC00222708 /* MypageViewController.swift in Sources */,
 				6E2F952B1D69D501000976A7 /* NoticeViewController.swift in Sources */,
+				6E775A961D84C1C8003F418C /* BallInfo.swift in Sources */,
 				6E00E16B1D695193009AB282 /* ExtType.swift in Sources */,
 				6E2F952D1D69D53A000976A7 /* InfoViewController.swift in Sources */,
 				6EDA95B41D55CE4A00E029C8 /* AppDelegate.swift in Sources */,

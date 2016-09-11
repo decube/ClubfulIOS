@@ -138,7 +138,7 @@ class SettingViewController : UIViewController{
     }
     @IBAction func introAction(sender: AnyObject) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        let uvc = storyBoard.instantiateViewControllerWithIdentifier("introVC")
+        let uvc = storyBoard.instantiateViewControllerWithIdentifier("eggVC")
         uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
         self.presentViewController(uvc, animated: true, completion: nil)
     }

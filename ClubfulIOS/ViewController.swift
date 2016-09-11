@@ -52,43 +52,6 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     var boomArray : [UIImageView]!
     
     
-    
-    typealias Task = (cancel : Bool) -> ()
-    func delay(time:NSTimeInterval, task:()->()) ->  Task? {
-        func dispatch_later(block:()->()) {
-            dispatch_after(
-                dispatch_time(
-                    DISPATCH_TIME_NOW,
-                    Int64(time * Double(NSEC_PER_SEC))),
-                dispatch_get_main_queue(),
-                block)
-        }
-        var closure: dispatch_block_t? = task
-        var result: Task?
-        let delayedClosure: Task = {
-            cancel in
-            if let internalClosure = closure {
-                if (cancel == false) {
-                    dispatch_async(dispatch_get_main_queue(), internalClosure);
-                }
-            }
-            closure = nil
-            result = nil
-        }
-        result = delayedClosure
-        dispatch_later {
-            if let delayedClosure = result {
-                delayedClosure(cancel: false)
-            }
-        }
-        return result;
-    }
-    
-    func customClick(sender: UIImageView){
-        for item in boomArray {
-            item.boom()
-        }
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         print("ViewController viewDidLoad")
@@ -110,11 +73,6 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                 customView.image8
             ]
             
-            mainScreen.userInteractionEnabled = true
-            mainScreen.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.customClick(_:))))
-            
-            
-            
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 while self.mainScreenWhite == true {
                     if self.mainScreenBoom{
@@ -134,7 +92,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                                 idxAdd += 1
                             }
                         }
-                        self.delay(0, task: {
+                        Util.delay(0, task: {
                             dispatch_async(dispatch_get_main_queue()) {
                                 for start in indexArray{
                                     self.boomArray[start].boom()
