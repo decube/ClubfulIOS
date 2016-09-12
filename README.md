@@ -31,9 +31,15 @@
 
 -- 주의할점
 AdobeCreativeSDKImage.framework 파일이 100M가 넘기 때문에 git 에 올리지 못한다.
-https://creativesdk.adobe.com/downloads.html 여기서 STATIC FRAMEWORKS (DEPRECATED) 누른 후(일반 DOWNLOAD가 아님)
+
+[구글드라이브](https://drive.google.com/drive/folders/0B9LPAVZlBrqSeXNRWmE4TC1sNWM?usp=sharing) 에서 
+AdobeCreativeSDKImage.framework 를 다운받고 프로젝트 폴더에 넣고 framework폴더에 붙여야한다.
+
+아니면 [Adobe](https://creativesdk.adobe.com/downloads.html) 여기서 STATIC FRAMEWORKS (DEPRECATED) 누른 후(일반 DOWNLOAD가 아님)
 AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework폴더에 붙여야한다.
 
+
+ 
 
 ##### POD
 
