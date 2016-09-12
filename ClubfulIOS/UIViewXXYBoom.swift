@@ -171,7 +171,7 @@ extension UIView{
         layer.addAnimation(shakeXAnimation, forKey: "shakeXAnimation")
         layer.addAnimation(shakeYAnimation, forKey: "shakeYAnimation")
         
-        _ = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: #selector(UIView.scaleOpacityAnimations), userInfo: nil, repeats: false)
+        _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(UIView.scaleOpacityAnimations), userInfo: nil, repeats: false)
         
         if boomCells == nil{
             boomCells = [CALayer]()
@@ -193,8 +193,9 @@ extension UIView{
             }
         }
         
-        _ = NSTimer.scheduledTimerWithTimeInterval(0.35, target: self, selector: #selector(UIView.cellAnimations), userInfo: nil, repeats: false)
+        _ = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: #selector(UIView.cellAnimations), userInfo: nil, repeats: false)
     }
+    
     
     //重置状态
     func reset(){

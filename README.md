@@ -1,7 +1,7 @@
 
 # Clubful
 
-<br>
+<br><br>
 
 ## Team
 
@@ -31,7 +31,7 @@
 
 -- 주의할점
 AdobeCreativeSDKImage.framework 파일이 100M가 넘기 때문에 git 에 올리지 못한다.
-https://creativesdk.adobe.com/downloads.html 여기서 DOWNLOAD를 누른 후(STATIC아님)
+https://creativesdk.adobe.com/downloads.html 여기서 STATIC FRAMEWORKS (DEPRECATED) 누른 후(일반 DOWNLOAD가 아님)
 AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework폴더에 붙여야한다.
 
 

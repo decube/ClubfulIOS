@@ -589,7 +589,7 @@
                                 <color key="backgroundColor" red="0.047058824450000002" green="0.34901961679999999" blue="0.17254902420000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <webView contentMode="scaleToFill" id="3PZ-DO-NBV">
-                                <rect key="frame" x="0.0" y="79" width="320" height="489"/>
+                                <rect key="frame" x="0.0" y="80" width="320" height="448"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                             </webView>
@@ -602,10 +602,51 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.047058824450000002" green="0.34901961679999999" blue="0.17254902420000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <view contentMode="scaleToFill" id="VJT-ft-vw2">
+                                <rect key="frame" x="0.0" y="528" width="320" height="40"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0pI-0s-YIh">
+                                        <rect key="frame" x="20" y="3" width="34" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="ic_left_false.png"/>
+                                        <connections>
+                                            <action selector="webBackAction:" destination="2wU-Jb-oe2" eventType="touchUpInside" id="LtE-vQ-VEw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6xZ-G1-OOn">
+                                        <rect key="frame" x="105" y="3" width="34" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="ic_right_false.png"/>
+                                        <connections>
+                                            <action selector="webNextAction:" destination="2wU-Jb-oe2" eventType="touchUpInside" id="Knr-6C-n2t"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6CE-Fp-CVI">
+                                        <rect key="frame" x="270" y="5" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="ic_link.png"/>
+                                        <connections>
+                                            <action selector="webLinkAction:" destination="2wU-Jb-oe2" eventType="touchUpInside" id="VoI-4d-QHS"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lqz-fB-6CZ">
+                                        <rect key="frame" x="193" y="3" width="34" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="ic_reload.png"/>
+                                        <connections>
+                                            <action selector="webReloadAction:" destination="2wU-Jb-oe2" eventType="touchUpInside" id="Td9-01-QgI"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.85098040100000005" green="0.89019608500000003" blue="0.92156863209999995" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="backBtn" destination="0pI-0s-YIh" id="RtS-nz-4d7"/>
+                        <outlet property="nextBtn" destination="6xZ-G1-OOn" id="eZP-XC-nfg"/>
                         <outlet property="spin" destination="HnA-rX-JN2" id="rWv-Id-FTb"/>
                         <outlet property="webView" destination="3PZ-DO-NBV" id="NQc-xR-I9R"/>
                     </connections>
@@ -1772,19 +1813,12 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9Jy-XA-wm0">
-                                        <rect key="frame" x="145" y="229" width="30" height="30"/>
+                                        <rect key="frame" x="94" y="219" width="133" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="시작">
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="시작하기">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="startAction:" destination="VZH-1D-w5D" eventType="touchUpInside" id="Mgt-hZ-11o"/>
                                         </connections>
@@ -1814,9 +1848,13 @@
         <image name="ic_fb.png" width="512" height="512"/>
         <image name="ic_kakao.png" width="400" height="400"/>
         <image name="ic_kakao_invite.png" width="128" height="146"/>
+        <image name="ic_left_false.png" width="48" height="48"/>
+        <image name="ic_link.png" width="50" height="50"/>
         <image name="ic_location.png" width="50" height="50"/>
         <image name="ic_message.png" width="50" height="50"/>
+        <image name="ic_reload.png" width="50" height="50"/>
         <image name="ic_right.png" width="50" height="50"/>
+        <image name="ic_right_false.png" width="48" height="48"/>
         <image name="ic_search.png" width="52" height="52"/>
         <image name="ic_search_b.png" width="52" height="52"/>
         <image name="ic_setting.png" width="50" height="50"/>

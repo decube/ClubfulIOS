@@ -14,6 +14,7 @@ class GuideViewController : UIViewController, UIWebViewDelegate{
     //스핀
     @IBOutlet var spin: UIActivityIndicatorView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("GuideViewController viewDidLoad")

@@ -44,7 +44,13 @@ class BallInfo{
                 if currentScore < 0 || currentScore > 1000{
                     BallInfo.exit()
                     BallInfo.gameExit = true
-                    Util.alert(BallInfo.ctrl, message: "게임이 종료되었습니다.")
+                    if currentScore < 0{
+                        Util.alert(BallInfo.ctrl, message: "아쉽네요...")
+                    }else{
+                        Util.alert(BallInfo.ctrl, message: "\(BallInfo.timeLbl.text!) 초 만에 클리어 하셨습니다. 기록을 전송하시겠습니까?", confirmTitle: "전송할께요.", cancelStr: "전송하지 않을래요.", confirmHandler: { (_) in
+                            
+                        })
+                    }
                 }else{
                     currentScore += score
                     BallInfo.currentScoreLbl.text = "\(currentScore)"
@@ -189,15 +195,21 @@ class Ball: UIImageView{
     }
     
     func pop(){
-        if self.isBoom == false && self.exit == false && self.pause == false{
+        if self.isBoom == false && self.hidden == false && self.exit == false && self.pause == false{
             self.isBoom = true
             self.boom()
+            
+            Util.delay(0.3, task:{
+                self.hidden = true
+            })
+                
             if BallInfo.scoreHandeler != nil{
                 BallInfo.scoreHandeler(self.score)
             }
             AudioServicesPlaySystemSound(4095)
             Util.delay((Double(arc4random_uniform(27))+4)/10, task:{
                 if self.isBoom == true && self.exit == false && self.pause == false{
+                    self.hidden = false
                     self.reset()
                     self.changeImage()
                     self.randomSize()
@@ -210,7 +222,7 @@ class Ball: UIImageView{
     
     func selfPop(){
         Util.delay(Double(arc4random_uniform(60))/10+1, task:{
-            if self.isBoom == false && self.exit == false && self.pause == false{
+            if self.isBoom == false && self.hidden == false && self.exit == false && self.pause == false{
                 self.isBoom = true
                 //애니메이션 적용
                 UIView.animateWithDuration(0.2, animations: {
