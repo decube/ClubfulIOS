@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    
     //앱 오픈시 내위치변수
     var vcMyLocationMove = false
     

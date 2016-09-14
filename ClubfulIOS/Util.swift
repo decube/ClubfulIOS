@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 
-
 class Util{
     static let commonColor = UIColor(red:0.41, green:0.66, blue:0.12, alpha:1.00)
     
@@ -125,7 +124,6 @@ class Util{
         let imageData = NSData(base64EncodedString: base64String, options:NSDataBase64DecodingOptions(rawValue: 0))
         return imageData!
     }
-    
     
     static func convertStringToDictionary(data: NSData) -> [String:AnyObject] {
         do {
