@@ -511,15 +511,22 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.047058824449777603" green="0.3490196168422699" blue="0.17254902422428131" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="temp.png" id="AuM-3V-Ow3">
-                                <rect key="frame" x="0.0" y="80" width="320" height="80"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.35548527286717779" green="0.52257159043024948" blue="0.61181891025641022" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" id="pcu-Fa-1fW" customClass="MKMapView">
-                                <rect key="frame" x="0.0" y="159" width="320" height="360"/>
+                            <view contentMode="scaleToFill" id="qwa-NL-Uzd">
+                                <rect key="frame" x="0.0" y="80" width="320" height="438"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="temp.png" id="AuM-3V-Ow3">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.35548527286717779" green="0.52257159043024948" blue="0.61181891025641022" alpha="1" colorSpace="calibratedRGB"/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" id="pcu-Fa-1fW" customClass="MKMapView">
+                                        <rect key="frame" x="0.0" y="78" width="320" height="360"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -528,6 +535,7 @@
                     <connections>
                         <outlet property="adView" destination="AuM-3V-Ow3" id="h63-Xb-Vdc"/>
                         <outlet property="courtSearchTextField" destination="4NP-M1-zpN" id="Xlv-OY-4DM"/>
+                        <outlet property="mainView" destination="qwa-NL-Uzd" id="TcX-ri-JFX"/>
                         <outlet property="mapView" destination="pcu-Fa-1fW" id="TeU-Ub-K8z"/>
                     </connections>
                 </viewController>

@@ -15,6 +15,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     //user 저장소
     var user : User!
     
+    @IBOutlet var mainView: UIView!
     //광고영역
     @IBOutlet var adView: UIImageView!
     
@@ -179,7 +180,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         //코트 검색
         if let customView = NSBundle.mainBundle().loadNibNamed("MainCourtSearchView", owner: self, options: nil).first as? MainCourtSearchView {
             courtSearchView = customView
-            courtSearchView.frame = CGRect(x: 0, y: adView.frame.origin.y, width: Util.screenSize.width/3*2, height: adView.frame.height+mapView.frame.height)
+            courtSearchView.frame = CGRect(x: 0, y: 80, width: Util.screenSize.width/3*2, height: self.mainView.frame.height)
             courtSearchView.backgroundColor = UIColor.whiteColor()
             courtSearchView.hidden = true
             self.view.addSubview(courtSearchView)
@@ -317,8 +318,10 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                         let titleStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["addressShort"]!))"
                         let descStr = "\(obj["description"]!)"
                         if let customView = NSBundle.mainBundle().loadNibNamed("MainCourtSearchElementView", owner: self, options: nil).first as? MainCourtSearchElementView {
-                            customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.courtSearchView.frame.width-10, height: locObjHeight-5)
+                            customView.frame = CGRect(x: 0, y: locObjHeight*i, width: self.courtSearchView.frame.width, height: locObjHeight-1)
                             customView.setLbl(title: titleStr, desc: descStr)
+                            customView.setImage(obj["image"]! as! String, height: locObjHeight-1)
+                            
                             self.courtSearchView.scrollView.addSubview(customView)
                             customView.setAction({ (_) in
                                 let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
@@ -344,7 +347,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                         }
                         i += 1
                     }
-                    self.courtSearchView.scrollView.contentSize.height = locObjHeight*i
+                    self.courtSearchView.scrollView.contentSize.height = locObjHeight*i+i
                     if self.courtSearchView.hidden != false{
                         let tmpRect = self.courtSearchView.frame
                         self.courtSearchView.frame.origin.x = -tmpRect.width
