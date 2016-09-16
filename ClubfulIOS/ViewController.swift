@@ -144,8 +144,8 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         user = Storage.getRealmUser()
         
         //버전체크 통신
-        let parameters : [String: AnyObject] = ["appType": "ios", "appVersion": Util.nsVersion, "deviceCD": NSDate().getFullDate(), "language": Util.language, "deviceId": Util.deviceId, "token": user.token, "categoryVer": user.categoryVer, "noticeVer": user.noticeVer]
-        URL.request(self, url: URL.version_Check, param: parameters, callback: { (dic) in
+        let parameters = URL.vesion_checkParam()
+        URL.request(self, url: URL.version_check, param: parameters, callback: { (dic) in
             self.user = Storage.copyUser()
             self.user.token = dic["token"] as! String
             Util.newVersion = dic["iosVersion"] as! String

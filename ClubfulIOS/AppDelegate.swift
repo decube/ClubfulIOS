@@ -59,9 +59,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vcMyLocationMove = true
         
         //앱 통신
-        var user = Storage.getRealmUser()
-        let parameters : [String: AnyObject] = ["appType": "ios", "appVersion": Util.nsVersion, "deviceCD": NSDate().getFullDate(), "language": Util.language, "deviceId": Util.deviceId, "token": user.token, "categoryVer": user.categoryVer, "noticeVer": user.noticeVer]
-        URL.request((self.window?.rootViewController)!, url: URL.version_Check, param: parameters, callback: { (dic) in
+        let parameters = URL.vesion_checkParam()
+        URL.request((self.window?.rootViewController)!, url: URL.version_check, param: parameters, callback: { (dic) in
+            var user = Storage.getRealmUser()
             user = Storage.copyUser()
             user.token = dic["token"] as! String
             Util.newVersion = dic["iosVersion"] as! String

@@ -16,7 +16,7 @@ class URL{
     static var imageServer = ""
     static var courtUpload = ""
     
-    static let version_Check = URL.appServer+"version/check_success.json";
+    static let version_check = URL.appServer+"version/check_success.json";
     static let version_app = URL.appServer+"version/app_success.json";
     
     static let court_create = URL.appServer+"court/create_success.json";
@@ -58,5 +58,11 @@ class URL{
                     }
                 }
         }
+    }
+    
+    static func vesion_checkParam() -> [String: AnyObject]{
+        let user = Storage.getRealmUser()
+        let parameters : [String: AnyObject] = ["appType": "ios", "appVersion": Util.nsVersion, "sendDate": NSDate().getFullDate(), "language": Util.language, "deviceId": Util.deviceId, "token": user.token, "categoryVer": user.categoryVer, "noticeVer": user.noticeVer]
+        return parameters
     }
 }
