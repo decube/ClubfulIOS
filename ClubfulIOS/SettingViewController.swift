@@ -58,7 +58,7 @@ class SettingViewController : UIViewController{
         }else{
             Util.alert(self, title: "알림", message: "로그아웃 하시겠습니까?", confirmTitle: "확인", cancelStr: "취소", confirmHandler: { (alert) in
                 let parameters : [String: AnyObject] = ["token": user.token, "userId": user.userId]
-                URL.request(self, url: URL.user_logout, param: parameters)
+                URL.request(self, url: URL.apiServer+URL.api_user_logout, param: parameters)
                 
                 
                 if user.isLogin == 1{

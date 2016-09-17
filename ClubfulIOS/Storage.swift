@@ -11,6 +11,9 @@ import UIKit
 import RealmSwift
 
 class Storage{
+    static var latitude: Double! = 37.551591
+    static var longitude: Double! = 126.924975
+    
     //스트로지 저장
     static func setStorage(key : String, value : AnyObject){
         NSUserDefaults.standardUserDefaults().setObject(value, forKey: key)
@@ -126,5 +129,16 @@ class Storage{
         user.category = realmUser.category
         user.categoryName = realmUser.categoryName
         return user
+    }
+    
+    static func locationThread(ctrl: UIViewController){
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            while(true){
+                let user = Storage.getRealmUser()
+                let param: [String: AnyObject] = ["token": user.token, "latitude": Storage.latitude, "longitude": Storage.longitude]
+                URL.request(ctrl, url: URL.apiServer+URL.api_location_user, param: param)
+                sleep(300)
+            }
+        })
     }
 }

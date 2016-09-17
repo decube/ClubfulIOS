@@ -10,29 +10,32 @@ import Foundation
 import Alamofire
 
 class URL{
-    static let urlCheck = "https://clubfulstaticserver-guanho.c9users.io/urlCheck.json"
+    static let urlCheck = "https://decubestaticserver-guanho.c9users.io/clubful_url.json"
     
-    static var appServer = ""
-    static var imageServer = ""
+    static var apiServer = ""
+    static var viewServer = ""
     static var courtUpload = ""
     
-    static let version_check = URL.appServer+"version/check_success.json";
-    static let version_app = URL.appServer+"version/app_success.json";
+    static var view_info = ""
+    static var view_notice = ""
+    static var view_guide = ""
+    static var view_inquiry = ""
     
-    static let court_create = URL.appServer+"court/create_success.json";
-    static let court_detail = URL.appServer+"court/detail_success.json";
-    static let court_interest = URL.appServer+"court/interest_success.json";
-    static let court_listSearch = URL.appServer+"court/listSearch_success.json";
-    static let court_replyInsert = URL.appServer+"court/replyInsert_success.json";
-    
-    static let location_geocode = URL.appServer+"location/geocode_success.json";
-    
-    static let user_join = URL.appServer+"user/join_success.json";
-    static let user_login = URL.appServer+"user/login_success.json";
-    static let user_logout = URL.appServer+"user/logout_success.json";
-    static let user_mypage = URL.appServer+"user/mypage_success.json";
-    static let user_set = URL.appServer+"user/set_success.json";
-    static let user_update = URL.appServer+"user/update_success.json";
+    static var api_version_check = ""
+    static var api_version_app = ""
+    static var api_court_create = ""
+    static var api_court_detail = ""
+    static var api_court_interest = ""
+    static var api_court_listSearch = ""
+    static var api_court_replyInsert = ""
+    static var api_location_geocode = ""
+    static var api_location_user = ""
+    static var api_user_join = ""
+    static var api_user_login = ""
+    static var api_user_logout = ""
+    static var api_user_mypage = ""
+    static var api_user_set = ""
+    static var api_user_update = ""
     
     static func request(ctrl: UIViewController, url: String, param: [String: AnyObject], callback: (([String:AnyObject])-> Void)! = nil, codeErrorCallback: (([String:AnyObject])-> Void)! = nil){
         Alamofire.request(.GET, url, parameters: param)

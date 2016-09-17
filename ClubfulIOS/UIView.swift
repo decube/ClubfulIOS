@@ -23,6 +23,23 @@ extension UIView {
         shapeLayer.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: cornerRadius).CGPath
         self.layer.addSublayer(shapeLayer)
     }
+    func layer(rect: UIRectEdge = .Bottom, borderWidth : CGFloat = 1, color : UIColor = UIColor.blackColor(), border : CALayer = CALayer()) -> CALayer{
+        UIRectEdge.Top
+        border.borderColor = color.CGColor
+        border.borderWidth = borderWidth
+        self.layer.addSublayer(border)
+        self.layer.masksToBounds = true
+        if rect == UIRectEdge.Top{
+            border.frame = CGRect(x: 0, y: 0, width:  self.frame.size.width, height: borderWidth)
+        }else if rect == UIRectEdge.Bottom{
+            border.frame = CGRect(x: 0, y: self.frame.size.height - borderWidth, width:  self.frame.size.width, height: borderWidth)
+        }else if rect == UIRectEdge.Left{
+            border.frame = CGRect(x: 0, y: 0, width: borderWidth, height: self.frame.size.height)
+        }else if rect == UIRectEdge.Right{
+            border.frame = CGRect(x: self.frame.size.width - borderWidth, y: 0, width: borderWidth, height: self.frame.size.height)
+        }
+        return border
+    }
 }
 
 

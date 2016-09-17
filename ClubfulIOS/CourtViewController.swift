@@ -8,15 +8,9 @@
 
 import UIKit
 import ImageSlideshow
-import MapKit
 
-class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDelegate, CLLocationManagerDelegate{
+class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDelegate{
     var courtSeq : Int!
-    
-    //현재위치 manager
-    let locationManager = CLLocationManager()
-    var currentLatitude : Double!
-    var currentLongitude : Double!
     
     //스핀
     @IBOutlet var imageSpin: UIActivityIndicatorView!
@@ -55,16 +49,6 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         print("CourtViewController viewDidLoad")
         
         
-        //현재 나의 위치설정
-        self.locationManager.requestAlwaysAuthorization()
-        self.locationManager.requestWhenInUseAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        }
-        
-        
         spin.hidden = true
         
         imageSlide.backgroundColor = UIColor.whiteColor()
@@ -78,7 +62,7 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         self.webView.delegate = self
         
         let parameters : [String: AnyObject] = ["token": user.token, "seq": self.courtSeq]
-        URL.request(self, url: URL.court_detail, param: parameters, callback: { (dic) in
+        URL.request(self, url: URL.apiServer+URL.api_court_detail, param: parameters, callback: { (dic) in
             if let courtTmp = dic["result"] as? [String: AnyObject]{
                 self.court = courtTmp
                 self.interestLbl.text = "\(self.court["interest"]!)"
@@ -91,8 +75,14 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
                     if let imageList = self.court["imageList"] as? [[String: AnyObject]]{
                         var imageSourceList = [ImageSource]()
                         for image in imageList{
-                            let imgSource = ImageSource(image: UIImage(data: NSData(contentsOfURL: NSURL(string: image["image"] as! String)!)!)!)
-                            imageSourceList.append(imgSource)
+                            if let imageUrl = NSURL(string: image["image"] as! String){
+                                if let imageData = NSData(contentsOfURL: imageUrl){
+                                    if let imageUI = UIImage(data: imageData){
+                                        let imgSource = ImageSource(image: imageUI)
+                                        imageSourceList.append(imgSource)
+                                    }
+                                }
+                            }
                         }
                         dispatch_async(dispatch_get_main_queue()) {
                             self.imageSlide.setImageInputs(imageSourceList)
@@ -131,7 +121,7 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
             type = "goodCancel"
         }
         let parameters : [String: AnyObject] = ["token": user.token, "seq": self.courtSeq, "type": type]
-        URL.request(self, url: URL.court_interest, param: parameters, callback: { (dic) in
+        URL.request(self, url: URL.apiServer+URL.api_court_interest, param: parameters, callback: { (dic) in
             self.spin.hidden = true
             self.spin.stopAnimating()
             var starImage = "ic_star_n.png"
@@ -163,8 +153,8 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         if let latitude = court["latitude"] as? Double{
             if let longitude = court["longitude"] as? Double{
                 let sname : String = "내위치".queryValue()
-                let sx : Double = currentLatitude
-                let sy : Double = currentLongitude
+                let sx : Double = Storage.latitude
+                let sy : Double = Storage.longitude
                 let ename : String = "\(court["address"]!)".queryValue()
                 let ex : Double = latitude
                 let ey : Double = longitude
@@ -181,7 +171,7 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     //리플 등록 클릭
     @IBAction func replyInsertAction(sender: AnyObject) {
         if spin.hidden == false{
-            return;
+            return
         }
         spin.hidden = false
         spin.startAnimating()
@@ -199,7 +189,7 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
             }else{
                 let parameters : [String: AnyObject] = ["token": user.token, "seq": courtSeq, "context": replyInsertField.text!, "id": user.userId]
                 self.replyInsertField.text = ""
-                URL.request(self, url: URL.court_replyInsert, param: parameters, callback: { (dic) in
+                URL.request(self, url: URL.apiServer+URL.api_court_replyInsert, param: parameters, callback: { (dic) in
                     self.webView.stringByEvaluatingJavaScriptFromString("\(self.replyFn)")
                     self.spin.hidden = true
                     self.spin.stopAnimating()
@@ -250,25 +240,5 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-    
-    
-    
-    
-    
-    //현재 나의위치 가져오기 실패함
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        if NSProcessInfo.processInfo().environment["SIMULATOR_DEVICE_NAME"] != nil{
-            print("It's an iOS Simulator")
-        }else{
-            print("It's a device")
-            Util.alert(self, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
-        }
-    }
-    //현재 나의 위치
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        currentLatitude = locValue.latitude
-        currentLongitude = locValue.longitude
     }
 }

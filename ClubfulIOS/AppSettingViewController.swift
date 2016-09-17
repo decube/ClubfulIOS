@@ -40,7 +40,7 @@ class AppSettingViewController : UIViewController{
     @IBAction func saveAction(sender: AnyObject) {
         let parameters : [String: AnyObject] = ["token": realmUser.token, "id": realmUser.userId, "startTime": startTime.date.getTime(), "endTime": endTime.date.getTime(), "noticePush": noticeSwitch.on, "myCreateCourtPush": myCourtSwitch.on, "distancePush": distanceSwitch.on, "interestPush": interestSwitch.on]
         
-        URL.request(self, url: URL.user_set, param: parameters, callback: { (dic) in
+        URL.request(self, url: URL.apiServer+URL.api_user_set, param: parameters, callback: { (dic) in
             let user = Storage.copyUser()
             user.noticePushCheck = self.noticeSwitch.on
             user.myCourtPushCheck = self.myCourtSwitch.on

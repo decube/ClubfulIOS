@@ -91,7 +91,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             spin.startAnimating()
             let parameters : [String: AnyObject] = ["token": user.token, "userId": self.idField.text!, "password": self.pwdField.text!, "gcmId": user.gcmId, "nickName": self.nicknameField.text!, "sex": sex, "birth": birthDatePicker.date.getDate(), "userLatitude": self.latitude, "userLongitude": self.longitude, "userAddress": self.address, "userAddressShort": self.addressShort, "noticePush": user.noticePushCheck, "myInsertPush": user.myCourtPushCheck, "distancePush": user.distancePushCheck, "interestPush": user.interestPushCheck, "startTime": user.startPushTime.getTime(), "endTime": user.endPushTime.getTime()]
             
-            URL.request(self, url: URL.user_join, param: parameters, callback: { (dic) in
+            URL.request(self, url: URL.apiServer+URL.api_user_join, param: parameters, callback: { (dic) in
                 self.loginVC.idField.text = self.idField.text!
                 self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
             }, codeErrorCallback: { (dic) in

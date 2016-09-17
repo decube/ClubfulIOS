@@ -111,7 +111,7 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
             let birth = "\(birthDatePicker.date.year(birthDatePicker.calendar))-\(birthDatePicker.date.month(birthDatePicker.calendar))-\(birthDatePicker.date.day(birthDatePicker.calendar))"
             
             let parameters : [String: AnyObject] = ["token": user.token, "userId": user.userId, "password": self.pwdField.text!, "newPassword": self.newPwdField.text!, "gcmId": user.gcmId, "nickName": self.nicknameField.text!, "sex": sex, "birth": birth, "latitude": self.latitude, "longitude": self.longitude, "address": self.address, "addressShort": self.addressShort]
-            URL.request(self, url: URL.user_update, param: parameters, callback: { (dic) in
+            URL.request(self, url: URL.apiServer+URL.api_user_update, param: parameters, callback: { (dic) in
                 var user = Storage.getRealmUser()
                 user = Storage.copyUser()
                 user.userId = self.idField.text!

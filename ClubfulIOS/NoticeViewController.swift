@@ -24,7 +24,7 @@ class NoticeViewController : UIViewController, UIWebViewDelegate{
         //웹뷰 딜리게이트 추가
         self.webView.delegate = self
         //웹뷰 띄우기
-        self.webView.loadRequest(NSURLRequest(URL : NSURL(string: "https://pikachu987.github.io/")!))
+        self.webView.loadRequest(NSURLRequest(URL : NSURL(string: URL.viewServer+URL.view_notice)!))
     }
     
     //웹뷰 가져옴

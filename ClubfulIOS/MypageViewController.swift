@@ -57,7 +57,7 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                 }
             })
             let parameters : [String: AnyObject] = ["token": user.token, "userId": user.userId]
-            URL.request(self, url: URL.user_mypage, param: parameters, callback: { (dic) in
+            URL.request(self, url: URL.apiServer+URL.api_user_mypage, param: parameters, callback: { (dic) in
                 if let interestList = dic["interestList"] as? [[String: AnyObject]]{
                     var interestCnt = interestList.count
                     if interestCnt == 0{
@@ -91,8 +91,23 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    
-    
+    //사이즈 비율 계산
+    func calLayoutRate(fullSize fullSize: CGSize, imageSize: CGSize) -> CGRect{
+        var widthValue = fullSize.width
+        var heightValue = fullSize.height
+        let imageWidth = imageSize.width
+        let imageHeight = imageSize.height
+        
+        let rateWidth = imageWidth/widthValue
+        let rateHeight = imageHeight/heightValue
+        
+        if rateWidth > rateHeight{
+            heightValue = widthValue * imageHeight / imageWidth
+        }else{
+            widthValue = heightValue * imageWidth / imageHeight
+        }
+        return CGRect(x: (fullSize.width-widthValue)/2, y: (fullSize.height-heightValue)/2, width: widthValue, height: heightValue)
+    }
     
     //찜한 코트
     func setInterestImageLayout(tmpList : [[String: AnyObject]], courtInfo: UIScrollView){
@@ -101,7 +116,6 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
             for obj in tmpList{
                 if let imgUI = obj["image"] as? UIImage{
                     let imgBtn = UIButton(frame: CGRect(x: courtInfo.frame.width * i, y: 0, width: courtInfo.frame.width, height: courtInfo.frame.height-40))
-                    imgBtn.setImage(imgUI, forState: .Normal)
                     imgBtn.addControlEvent(.AllTouchEvents){
                         imgBtn.highlighted = false
                     }
@@ -115,6 +129,10 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                         }
                     }
                     courtInfo.addSubview(imgBtn)
+                    
+                    let imgView = UIImageView(frame: self.calLayoutRate(fullSize: imgBtn.frame.size, imageSize: imgUI.size))
+                    imgView.image = imgUI
+                    imgBtn.addSubview(imgView)
                 }
                 
                 let infoStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["address"]!))"
@@ -138,7 +156,6 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                 
                 if let imgUI = obj["image"] as? UIImage{
                     let imgBtn = UIButton(frame: CGRect(x: courtInfo.frame.width * i, y: 0, width: courtInfo.frame.width, height: courtInfo.frame.height-40))
-                    imgBtn.setImage(imgUI, forState: .Normal)
                     imgBtn.addControlEvent(.AllTouchEvents){
                         imgBtn.highlighted = false
                     }
@@ -152,6 +169,10 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                         }
                     }
                     courtInfo.addSubview(imgBtn)
+                    
+                    let imgView = UIImageView(frame: self.calLayoutRate(fullSize: imgBtn.frame.size, imageSize: imgUI.size))
+                    imgView.image = imgUI
+                    imgBtn.addSubview(imgView)
                 }
                 
                 let infoStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["address"]!))"

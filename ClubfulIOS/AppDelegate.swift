@@ -60,11 +60,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //앱 통신
         let parameters = URL.vesion_checkParam()
-        URL.request((self.window?.rootViewController)!, url: URL.version_check, param: parameters, callback: { (dic) in
+        URL.request((self.window?.rootViewController)!, url: URL.apiServer+URL.api_version_check, param: parameters, callback: { (dic) in
             var user = Storage.getRealmUser()
             user = Storage.copyUser()
             user.token = dic["token"] as! String
-            Util.newVersion = dic["iosVersion"] as! String
+            Util.newVersion = dic["ver"] as! String
             user.categoryVer = dic["categoryVer"] as! Int
             user.noticeVer = dic["noticeVer"] as! Int
             if let categoryList = dic["categoryList"] as? [[String: AnyObject]]{

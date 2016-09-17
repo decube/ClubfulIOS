@@ -76,6 +76,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     }
     
     func layoutInit(){
+        picList = [UIButton]()
         picScrollView.subviews.forEach({$0.removeFromSuperview()})
         locationBtn.setTitle("위치 설정", forState: .Normal)
         courtLatitude = nil
@@ -92,21 +93,25 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         let pic3 = UIButton(frame: CGRect(x: 0, y: imageHeight+10, width: imageWidth, height: imageHeight))
         let pic4 = UIButton(frame: CGRect(x: picScrollView.frame.width/2+5, y: imageHeight+10, width: imageWidth, height: imageHeight))
         
-        picList.append(pic1)
-        picList.append(pic2)
-        picList.append(pic3)
-        picList.append(pic4)
+        var picTempList = [UIButton]()
+        picTempList.append(pic1)
+        picTempList.append(pic2)
+        picTempList.append(pic3)
+        picTempList.append(pic4)
         
-        for picObj in picList{
+        for picObj in picTempList{
             picScrollView.addSubview(picObj)
             
             //하나의 버튼 더 만듬
             let picBtn = UIButton(frame: CGRect(x: 0, y: 0, width: picObj.frame.width, height: picObj.frame.height))
             picBtn.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.00)
-            picBtn.setImage(picAddImage, forState: .Normal)
-            picObj.addSubview(picBtn)
+            picBtn.setImage(self.picAddImage, forState: .Normal)
             
+            picList.append(picBtn)
+            
+            picObj.addSubview(picBtn)
             func btnClick(){
+                self.view.endEditing(true)
                 self.tempImageBtn = picBtn
                 let alert = UIAlertController(title: "", message: "사진타입선택", preferredStyle: .ActionSheet)
                 alert.addAction(UIAlertAction(title: "카메라", style: .Default, handler: { (alert) in
@@ -115,7 +120,11 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                 alert.addAction(UIAlertAction(title: "사진첩", style: .Default, handler: { (alert) in
                     self.imageCallback(UIImagePickerControllerSourceType.PhotoLibrary)
                 }))
-                self.presentViewController(alert, animated: false, completion: {(_) in})
+                alert.addAction(UIAlertAction(title: "취소", style: .Default, handler: { (alert) in
+                    
+                }))
+                self.presentViewController(alert, animated: false, completion: {(_) in
+                })
             }
             
             picObj.addControlEvent(.TouchUpInside){
@@ -234,8 +243,9 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     
     //위치설정 클릭
     @IBAction func locationAction(sender: AnyObject) {
+        self.view.endEditing(true)
         if spin.hidden == false{
-            return;
+            return
         }
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let uvc = storyBoard.instantiateViewControllerWithIdentifier("mapVC")
@@ -247,6 +257,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     
     //종목설정 클릭
     @IBAction func categoryAction(sender: AnyObject) {
+        self.view.endEditing(true)
         if spin.hidden == false{
             return
         }
@@ -263,8 +274,9 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     
     //등록 클릭
     @IBAction func saveAction(sender: AnyObject) {
+        self.view.endEditing(true)
         if spin.hidden == false{
-            return;
+            return
         }
         var cropImageCnt = 0
         for btn in self.picList{
@@ -289,16 +301,20 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
             }else{
                 //이미지 배열
                 var picArray : [UIImage] = [UIImage]()
+                var picNameArray : [String] = []
+                var idx = 1
                 for btn in self.picList{
                     if btn.currentImage != self.picAddImage{
                         let img = btn.currentImage
                         picArray.append(img!)
+                        picNameArray.append("pic\(idx).jpeg")
+                        idx += 1
                     }
                 }
                 spin.hidden = false
                 spin.startAnimating()
-                let parameters : [String: AnyObject] = ["token": self.user.token, "id": self.user.userId, "latitude": self.courtLatitude, "longitude": self.courtLongitude, "address": self.courtAddress, "addressShort": self.courtAddressShort, "category": self.category, "description": self.descTextView.text!, "picArrayCount": picArray.count, "cname": cnameTextField.text!]
-                URL.request(self, url: URL.court_create, param: parameters, callback: { (dic) in
+                let parameters : [String: AnyObject] = ["token": self.user.token, "id": self.user.userId, "latitude": self.courtLatitude, "longitude": self.courtLongitude, "address": self.courtAddress, "addressShort": self.courtAddressShort, "category": self.category, "description": self.descTextView.text!, "picNameArray": picNameArray, "cname": cnameTextField.text!]
+                URL.request(self, url: URL.apiServer+URL.api_court_create, param: parameters, callback: { (dic) in
                     if let seq = dic["seq"] as? Int{
                         //이미지서버로 통신
                         self.spin.hidden = false
@@ -324,6 +340,8 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                                         if let code = dic["code"] as? Int{
                                             if code == 0{
                                                 Util.alert(self, message: "등록이 완료되었습니다.", confirmTitle: "확인", confirmHandler: { (_) in
+                                                    self.layoutInit()
+                                                    self.view.endEditing(true)
                                                     self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
                                                 })
                                             }
@@ -346,6 +364,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
             self.spin.hidden = true
             self.spin.stopAnimating()
             Util.alert(self, message: "이미지를 2장 이상 올려야 됩니다.")
+            self.view.endEditing(true)
         }
     }
     

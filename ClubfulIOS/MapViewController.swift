@@ -80,7 +80,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
             
             
             let parameters : [String: AnyObject] = ["token": self.user.token, "address": searchField.text!, "language": Util.language]
-            URL.request(self, url: URL.location_geocode, param: parameters, callback: { (dic) in
+            URL.request(self, url: URL.apiServer+URL.api_location_geocode, param: parameters, callback: { (dic) in
                 if let result = dic["results"] as? [String: AnyObject]{
                     if let results = result["results"] as? [[String: AnyObject]]{
                         //카운트가 1보다 많으면
@@ -151,7 +151,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
     //등록 클릭
     @IBAction func confirmAction(sender: AnyObject) {
         let parameters : [String: AnyObject] = ["token": self.user.token, "latitude": self.mapView.region.center.latitude, "longitude": self.mapView.region.center.longitude, "language": Util.language]
-        URL.request(self, url: URL.location_geocode, param: parameters, callback: {(dic) in
+        URL.request(self, url: URL.apiServer+URL.api_location_geocode, param: parameters, callback: {(dic) in
             if let result = dic["results"] as? [String: AnyObject]{
                 if let results = result["results"] as? [[String: AnyObject]]{
                     if results.count > 0{

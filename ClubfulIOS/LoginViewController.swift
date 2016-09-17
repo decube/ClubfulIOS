@@ -41,7 +41,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func login(userId: String, nickName: String, loginType: Int){
         var user = Storage.getRealmUser()
         let parameters : [String: AnyObject] = ["token": user.token, "userId": userId, "password": "", "loginType": 2, "gcmId": user.gcmId, "nickName": nickName, "sex": "", "birth": user.birth.getDate(), "userLatitude": user.userLatitude, "userLongitude": user.userLongitude, "userAddress": user.userAddress, "userAddressShort": user.userAddressShort, "noticePush": user.noticePushCheck, "myInsertPush": user.myCourtPushCheck, "distancePush": user.distancePushCheck, "interestPush": user.interestPushCheck, "startTime": user.startPushTime.getTime(), "endTime": user.endPushTime.getTime()]
-        URL.request(self, url: URL.user_login, param: parameters, callback: { (dic) in
+        
+        URL.request(self, url: URL.apiServer+URL.api_user_login, param: parameters, callback: { (dic) in
             user = Storage.copyUser()
             user.isLogin = loginType
             user.userId = dic["userId"] as! String
@@ -99,6 +100,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         session.presentingViewController = self
         session.openWithCompletionHandler({ (error) -> Void in
+            self.spin.hidden = true
+            self.spin.stopAnimating()
             if error != nil{
                 print(error.localizedDescription)
             }else if session.isOpen() == true{
@@ -128,6 +131,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         spin.startAnimating()
         let login = FBSDKLoginManager()
         login.logInWithReadPermissions(["public_profile"], fromViewController: self, handler: { (result, error) in
+            self.spin.hidden = true
+            self.spin.stopAnimating()
             if error != nil{
                 print("Facebook login failed. Error \(error)")
             } else if result.isCancelled {
@@ -172,8 +177,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.spin.startAnimating()
             let parameters : [String: AnyObject] = ["token": user.token, "userId": self.idField.text!, "password": self.pwField.text!, "loginType": 1]
             
-            
-            URL.request(self, url: URL.user_login, param: parameters, callback: { (dic) in
+            URL.request(self, url: URL.apiServer+URL.api_user_login, param: parameters, callback: { (dic) in
                 user = Storage.copyUser()
                 user.isLogin = 1
                 user.userId = dic["userId"] as! String

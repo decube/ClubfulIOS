@@ -53,6 +53,9 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     var boomArray : [UIImageView]!
     
     
+    //위치 관련 앱을 실행했는지 실행 하지 않았는지
+    var isFirstLocation = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("ViewController viewDidLoad")
@@ -113,6 +116,10 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             })
         }
         
+        //cache지우기
+        NSURLCache.sharedURLCache().removeAllCachedResponses()
+        NSURLCache.sharedURLCache().diskCapacity = 0
+        NSURLCache.sharedURLCache().memoryCapacity = 0
         
         //GET Async 동기 통신
         var request : NSMutableURLRequest
@@ -130,9 +137,31 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
         do{
             let json = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! [String: AnyObject]
-            URL.appServer = json["appServer"] as! String
-            URL.imageServer = json["imageServer"] as! String
+            URL.apiServer = json["apiServer"] as! String
+            URL.viewServer = json["viewServer"] as! String
             URL.courtUpload = json["courtUpload"] as! String
+            
+            URL.view_info = json["view_info"] as! String
+            URL.view_notice = json["view_notice"] as! String
+            URL.view_guide = json["view_guide"] as! String
+            URL.view_inquiry = json["view_inquiry"] as! String
+            
+            URL.api_version_check = json["api_version_check"] as! String
+            URL.api_version_app = json["api_version_app"] as! String
+            URL.api_court_create = json["api_court_create"] as! String
+            URL.api_court_detail = json["api_court_detail"] as! String
+            URL.api_court_interest = json["api_court_interest"] as! String
+            URL.api_court_listSearch = json["api_court_listSearch"] as! String
+            URL.api_court_replyInsert = json["api_court_replyInsert"] as! String
+            URL.api_location_geocode = json["api_location_geocode"] as! String
+            URL.api_location_user = json["api_location_user"] as! String
+            URL.api_user_join = json["api_user_join"] as! String
+            URL.api_user_login = json["api_user_login"] as! String
+            URL.api_user_logout = json["api_user_logout"] as! String
+            URL.api_user_mypage = json["api_user_mypage"] as! String
+            URL.api_user_set = json["api_user_set"] as! String
+            URL.api_user_update = json["api_user_update"] as! String
+            
             self.setLoad()
         } catch _ as NSError {}
     }
@@ -145,10 +174,10 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         
         //버전체크 통신
         let parameters = URL.vesion_checkParam()
-        URL.request(self, url: URL.version_check, param: parameters, callback: { (dic) in
+        URL.request(self, url: URL.apiServer+URL.api_version_check, param: parameters, callback: { (dic) in
             self.user = Storage.copyUser()
             self.user.token = dic["token"] as! String
-            Util.newVersion = dic["iosVersion"] as! String
+            Util.newVersion = dic["ver"] as! String
             self.user.categoryVer = dic["categoryVer"] as! Int
             self.user.noticeVer = dic["noticeVer"] as! Int
             if let categoryList = dic["categoryList"] as? [[String: AnyObject]]{
@@ -223,7 +252,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                     let locObjHeight : CGFloat = 80
                     
                     let parameters : [String: AnyObject] = ["token": self.user.token, "address": self.locationView.searchTextField.text!, "language": Util.language]
-                    URL.request(self, url: URL.location_geocode, param: parameters, callback: { (dic) in
+                    URL.request(self, url: URL.apiServer+URL.api_location_geocode, param: parameters, callback: { (dic) in
                         if let result = dic["results"] as? [String: AnyObject]{
                             if let results = result["results"] as? [[String: AnyObject]]{
                                 for element : [String: AnyObject] in results{
@@ -281,9 +310,6 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         
         //블랙스크린 클릭
         blackScreen.addControlEvent(.TouchUpInside){
-            if self.courtSearchView.hidden == false{
-                
-            }
             if self.locationView.hidden == false{
                 let tmpRect = self.locationView.frame
                 //애니메이션 적용
@@ -312,7 +338,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             var i : CGFloat = 0
             let locObjHeight : CGFloat = 90
             let parameters : [String: AnyObject] = ["token": user.token, "address": courtSearchTextField.text!, "category": user.category, "latitude": user.latitude, "longitude": user.longitude]
-            URL.request(self, url: URL.court_listSearch, param: parameters, callback: { (dic) in
+            URL.request(self, url: URL.apiServer+URL.api_court_listSearch, param: parameters, callback: { (dic) in
                 if let list = dic["list"] as? [[String: AnyObject]]{
                     for obj in list{
                         let titleStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["addressShort"]!))"
@@ -321,7 +347,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                             customView.frame = CGRect(x: 0, y: locObjHeight*i, width: self.courtSearchView.frame.width, height: locObjHeight-1)
                             customView.setLbl(title: titleStr, desc: descStr)
                             customView.setImage(obj["image"]! as! String, height: locObjHeight-1)
-                            
+                            customView.layer()
                             self.courtSearchView.scrollView.addSubview(customView)
                             customView.setAction({ (_) in
                                 let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
@@ -411,6 +437,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             }) { (_) in
                 self.courtSearchView.frame = tmpRect
                 self.courtSearchView.hidden = true
+                self.courtSearchView.scrollView.subviews.forEach({$0.removeFromSuperview()})
                 self.courtSearchView.scrollView.scrollToTop()
         }
     }
@@ -428,6 +455,17 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         isMyLocation = true
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        Storage.latitude = locValue.latitude
+        Storage.longitude = locValue.longitude
+        
+        if isFirstLocation == true{
+            isFirstLocation = false
+            Storage.locationThread(self)
+        }
+        
+        
+        
+        
         if myLocationSearch == false{
             user = Storage.copyUser()
             user.latitude = locValue.latitude
