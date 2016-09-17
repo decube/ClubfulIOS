@@ -18,13 +18,16 @@
 ## language
 
 * Server - node.js
-* IOS - Swift 2.2
+* IOS - Swift 2
 
 ## Server
 
-* ImageServer
-* ApiServer
-* AdminServer
+* DecubeStaticServer
+* DecubeImageServer
+* DecubeViewServer
+* DecubeAdminServer
+* DecubeDBServer
+* ClubfulApiServer
 
 
 ## IOS
@@ -79,7 +82,7 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 * 2016-09-03 Adobe 이미지 편집 추가
 * 2016-09-10 페이스북로그인, 카카오톡 로그인 추가
 * 2016-09-10 easter egg 게임 추가(설정 - 인트로)
-
+* 2016-09-17 ApiServerUrl 전체 수정
 
 ## 기능
 * 사용자가 직접 코트 등록하기
