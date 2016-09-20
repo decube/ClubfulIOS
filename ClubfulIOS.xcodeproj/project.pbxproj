@@ -44,6 +44,9 @@
 		6E2F95421D69F390000976A7 /* MapListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2F95411D69F390000976A7 /* MapListView.swift */; };
 		6E2F95441D69F440000976A7 /* MapListElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2F95431D69F440000976A7 /* MapListElementView.swift */; };
 		6E2F95461D69F47F000976A7 /* MapListElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E2F95451D69F47F000976A7 /* MapListElementView.xib */; };
+		6E63424B1D914932001FE972 /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E63424A1D914932001FE972 /* UIControl.swift */; };
+		6E63424F1D914D21001FE972 /* ic_radio_unselected.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E63424D1D914D21001FE972 /* ic_radio_unselected.jpg */; };
+		6E6342511D915248001FE972 /* ic_radio_selected.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E6342501D915248001FE972 /* ic_radio_selected.jpg */; };
 		6E6556EF1D803CE000697391 /* ic_fb.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E6556ED1D803CE000697391 /* ic_fb.png */; };
 		6E6556F01D803CE000697391 /* ic_kakao.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E6556EE1D803CE000697391 /* ic_kakao.png */; };
 		6E6556F21D803E9000697391 /* ic_kakao_invite.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E6556F11D803E9000697391 /* ic_kakao_invite.png */; };
@@ -178,6 +181,9 @@
 		6E2F95411D69F390000976A7 /* MapListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListView.swift; sourceTree = "<group>"; };
 		6E2F95431D69F440000976A7 /* MapListElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListElementView.swift; sourceTree = "<group>"; };
 		6E2F95451D69F47F000976A7 /* MapListElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapListElementView.xib; sourceTree = "<group>"; };
+		6E63424A1D914932001FE972 /* UIControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
+		6E63424D1D914D21001FE972 /* ic_radio_unselected.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ic_radio_unselected.jpg; path = resources/img/ic_radio_unselected.jpg; sourceTree = "<group>"; };
+		6E6342501D915248001FE972 /* ic_radio_selected.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ic_radio_selected.jpg; path = resources/img/ic_radio_selected.jpg; sourceTree = "<group>"; };
 		6E6556ED1D803CE000697391 /* ic_fb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_fb.png; path = resources/img/ic_fb.png; sourceTree = "<group>"; };
 		6E6556EE1D803CE000697391 /* ic_kakao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_kakao.png; path = resources/img/ic_kakao.png; sourceTree = "<group>"; };
 		6E6556F11D803E9000697391 /* ic_kakao_invite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_kakao_invite.png; path = resources/img/ic_kakao_invite.png; sourceTree = "<group>"; };
@@ -262,6 +268,7 @@
 		6EE4F3861D697ED8008B43ED /* MainCourtSearchElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCourtSearchElementView.swift; sourceTree = "<group>"; };
 		6EE4F38A1D698946008B43ED /* temp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = temp.png; sourceTree = "<group>"; };
 		6EE4F38D1D698A5E008B43ED /* CourtViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtViewController.swift; sourceTree = "<group>"; };
+		6EE66F3A1D90341200D1DCC7 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/ClubfulIOS-gzminswoumcaliccyinxupisvkdp/Build/Products/Debug-iphoneos/Alamofire.framework"; sourceTree = "<group>"; };
 		6EF4AA1B1D69A6520040FE52 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		B5F3C028185CBB0F65EC39EF /* Pods-ClubfulIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubfulIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubfulIOS/Pods-ClubfulIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		C7A14839D31466A36B0FC0CD /* Pods-ClubfulIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubfulIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClubfulIOS/Pods-ClubfulIOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -437,6 +444,8 @@
 		6EDA954E1D55CC8300E029C8 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				6E6342501D915248001FE972 /* ic_radio_selected.jpg */,
+				6E63424D1D914D21001FE972 /* ic_radio_unselected.jpg */,
 				6E2D1C421D85ABA70064393F /* ic_left_false.png */,
 				6E2D1C431D85ABA70064393F /* ic_left_true.png */,
 				6E2D1C441D85ABA70064393F /* ic_link.png */,
@@ -548,6 +557,7 @@
 				6E00E1781D6952CD009AB282 /* UIScrollView.swift */,
 				6E00E17A1D6952E2009AB282 /* UIImage.swift */,
 				6E2F953B1D69DE30000976A7 /* UITextField.swift */,
+				6E63424A1D914932001FE972 /* UIControl.swift */,
 			);
 			name = custom;
 			sourceTree = "<group>";
@@ -587,6 +597,7 @@
 		EB9E07981FDDFFC0ADCF8C47 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6EE66F3A1D90341200D1DCC7 /* Alamofire.framework */,
 				6E751D591D7F02390065FC8D /* MapKit.framework */,
 				6E751D131D7EE6B60065FC8D /* KakaoOpenSDK.framework */,
 				DE2CAE3BA3F8BF9D38F05FFD /* Pods_ClubfulIOS.framework */,
@@ -742,6 +753,7 @@
 				6EDA95211D55C85300E029C8 /* Main.storyboard in Resources */,
 				6E9CF3901D6B2028004DC36A /* ic_location.png in Resources */,
 				6E65571A1D804A7B00697391 /* ball_8.jpg in Resources */,
+				6E63424F1D914D21001FE972 /* ic_radio_unselected.jpg in Resources */,
 				6E6557171D804A7B00697391 /* ball_5.jpg in Resources */,
 				6E2F95401D69F2BC000976A7 /* MapListView.xib in Resources */,
 				6EE4F38B1D698946008B43ED /* temp.png in Resources */,
@@ -776,6 +788,7 @@
 				6E2F95461D69F47F000976A7 /* MapListElementView.xib in Resources */,
 				6E9CF38C1D6B2028004DC36A /* ic_edit.png in Resources */,
 				6E6557131D804A7B00697391 /* ball_1.jpg in Resources */,
+				6E6342511D915248001FE972 /* ic_radio_selected.jpg in Resources */,
 				6EE4F3771D696200008B43ED /* MainCourtSearchView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -863,6 +876,7 @@
 				6EE4F3791D696240008B43ED /* MainCourtSearchView.swift in Sources */,
 				6E00E16F1D695205009AB282 /* UIView.swift in Sources */,
 				6E6556F81D80436F00697391 /* UIViewXXYBoom.swift in Sources */,
+				6E63424B1D914932001FE972 /* UIControl.swift in Sources */,
 				6E00E1771D6952B8009AB282 /* NSDate.swift in Sources */,
 				6E00E1791D6952CD009AB282 /* UIScrollView.swift in Sources */,
 				6E2F08BD1D6B1E6900222708 /* MessageViewController.swift in Sources */,
@@ -1042,19 +1056,12 @@
 				);
 				INFOPLIST_FILE = ClubfulIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/ClubfulIOS/thirdPartyModule",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-framework",
-					"\"ActionKit\"",
-					"-framework",
 					"\"Alamofire\"",
-					"-framework",
-					"\"DLRadioButton\"",
 					"-framework",
 					"\"ImageSlideshow\"",
 					"-framework",
@@ -1085,19 +1092,12 @@
 				);
 				INFOPLIST_FILE = ClubfulIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/ClubfulIOS/thirdPartyModule",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-framework",
-					"\"ActionKit\"",
-					"-framework",
 					"\"Alamofire\"",
-					"-framework",
-					"\"DLRadioButton\"",
 					"-framework",
 					"\"ImageSlideshow\"",
 					"-framework",

@@ -1,5 +1,4 @@
 PODS:
-  - ActionKit (1.0)
   - Alamofire (3.4.1)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
@@ -7,7 +6,6 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
-  - DLRadioButton (1.4.9)
   - FBSDKCoreKit (4.15.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.15.0):
@@ -54,9 +52,7 @@ PODS:
     - Realm (= 1.0.1)
 
 DEPENDENCIES:
-  - ActionKit (~> 1.0)
   - Alamofire (~> 3.4)
-  - DLRadioButton (~> 1.4)
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
@@ -67,10 +63,8 @@ DEPENDENCIES:
   - RealmSwift
 
 SPEC CHECKSUMS:
-  ActionKit: 6c45e3d92252dd34b18e7c3d8e9f811ee52558b1
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  DLRadioButton: 7bb8a6e3768b572469ace553391ab4d2af6f9c19
   FBSDKCoreKit: 6680cbd33a4243d80700f182d0af36b3fa7f3118
   FBSDKLoginKit: 96d9b70b5784490f02ab86119e542a1f182017a8
   FBSDKShareKit: 06ef20cb2f16828ca4b20055333313dd445de362

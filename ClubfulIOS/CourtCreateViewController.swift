@@ -127,10 +127,10 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                 })
             }
             
-            picObj.addControlEvent(.TouchUpInside){
+            picObj.addAction(.TouchUpInside){
                 btnClick()
             }
-            picBtn.addControlEvent(.TouchUpInside){
+            picBtn.addAction(.TouchUpInside){
                 btnClick()
             }
         }

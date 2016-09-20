@@ -18,10 +18,10 @@ class MapListElementView : UIView{
     }
     
     func setAction(action : ((Void) -> Void)){
-        addressShort.addControlEvent(.TouchUpInside) {
+        addressShort.addAction(.TouchUpInside) { (_) in
             action()
         }
-        address.addControlEvent(.TouchUpInside) {
+        address.addAction(.TouchUpInside) { (_) in
             action()
         }
     }

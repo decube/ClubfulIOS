@@ -116,10 +116,10 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
             for obj in tmpList{
                 if let imgUI = obj["image"] as? UIImage{
                     let imgBtn = UIButton(frame: CGRect(x: courtInfo.frame.width * i, y: 0, width: courtInfo.frame.width, height: courtInfo.frame.height-40))
-                    imgBtn.addControlEvent(.AllTouchEvents){
+                    imgBtn.addAction(.AllTouchEvents){
                         imgBtn.highlighted = false
                     }
-                    imgBtn.addControlEvent(.TouchUpInside){
+                    imgBtn.addAction(.TouchUpInside){
                         if let seq = obj["seq"] as? Int{
                             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
                             let uvc = storyBoard.instantiateViewControllerWithIdentifier("courtVC")
@@ -156,10 +156,10 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                 
                 if let imgUI = obj["image"] as? UIImage{
                     let imgBtn = UIButton(frame: CGRect(x: courtInfo.frame.width * i, y: 0, width: courtInfo.frame.width, height: courtInfo.frame.height-40))
-                    imgBtn.addControlEvent(.AllTouchEvents){
+                    imgBtn.addAction(.AllTouchEvents){
                         imgBtn.highlighted = false
                     }
-                    imgBtn.addControlEvent(.TouchUpInside){
+                    imgBtn.addAction(.TouchUpInside){
                         if let seq = obj["seq"] as? Int{
                             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
                             let uvc = storyBoard.instantiateViewControllerWithIdentifier("courtVC")

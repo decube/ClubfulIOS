@@ -1063,6 +1063,10 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.047058824450000002" green="0.34901961679999999" blue="0.17254902420000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="OjP-6A-DVy">
+                                <rect key="frame" x="150" y="270" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="qV7-CH-jba">
                                 <rect key="frame" x="0.0" y="80" width="320" height="488"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1132,42 +1136,54 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xa8-K5-QzN" customClass="DLRadioButton">
+                                    <view contentMode="scaleToFill" id="mcW-Ui-7js">
                                         <rect key="frame" x="20" y="196" width="70" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="남성">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <outletCollection property="otherButtons" destination="kry-8M-jvO" id="KSU-Qu-b43"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kry-8M-jvO" customClass="DLRadioButton">
-                                        <rect key="frame" x="125" y="196" width="70" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="남자" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oSN-TN-PH3">
+                                                <rect key="frame" x="23" y="4" width="39" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_radio_unselected.jpg" id="HgJ-Ds-wWh">
+                                                <rect key="frame" x="0.0" y="6" width="18" height="18"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="TfO-92-bmo">
+                                        <rect key="frame" x="107" y="196" width="70" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="여성">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <outletCollection property="otherButtons" destination="xa8-K5-QzN" id="Q7d-44-gkg"/>
-                                        </connections>
-                                    </button>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="여자" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ulb-VV-33G">
+                                                <rect key="frame" x="23" y="4" width="39" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_radio_unselected.jpg" id="nIU-26-uY6">
+                                                <rect key="frame" x="0.0" y="6" width="18" height="18"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                    </view>
                                 </subviews>
                             </scrollView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="OjP-6A-DVy">
-                                <rect key="frame" x="150" y="270" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="birthDatePicker" destination="ke2-df-Y0m" id="1aw-2Z-HKI"/>
-                        <outlet property="femaleRadio" destination="kry-8M-jvO" id="cVG-kQ-3Lv"/>
+                        <outlet property="femaleImage" destination="nIU-26-uY6" id="Jd2-PY-GJ9"/>
+                        <outlet property="femaleRadio" destination="TfO-92-bmo" id="lne-vL-uDv"/>
                         <outlet property="idField" destination="7N5-0g-3yR" id="XId-no-gEw"/>
                         <outlet property="joinBtn" destination="1hH-GQ-hpX" id="S3D-F1-slU"/>
                         <outlet property="locationBtn" destination="LhF-7C-vOI" id="ZiA-cn-3FT"/>
-                        <outlet property="maleRadio" destination="xa8-K5-QzN" id="k94-eC-uTu"/>
+                        <outlet property="maleImage" destination="HgJ-Ds-wWh" id="a93-Kc-tFF"/>
+                        <outlet property="maleRadio" destination="mcW-Ui-7js" id="GmB-Mg-MBL"/>
                         <outlet property="nicknameField" destination="q4w-gg-xPu" id="1FJ-H6-Nql"/>
                         <outlet property="pwdField" destination="AER-kB-DQe" id="S6j-0p-Kpw"/>
                         <outlet property="repwdField" destination="aYU-Rm-Tak" id="gf5-we-7GH"/>
@@ -1436,26 +1452,40 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WkJ-lz-KGc" customClass="DLRadioButton">
+                                    <view contentMode="scaleToFill" id="I1g-Rj-ws2">
                                         <rect key="frame" x="20" y="196" width="70" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="남성">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <outletCollection property="otherButtons" destination="FXt-iE-niN" id="qah-vw-Qk5"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="FXt-iE-niN" customClass="DLRadioButton">
-                                        <rect key="frame" x="125" y="196" width="70" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="남자" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="17x-9H-Qps">
+                                                <rect key="frame" x="23" y="4" width="39" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_radio_unselected.jpg" id="cgY-JJ-8qJ">
+                                                <rect key="frame" x="0.0" y="6" width="18" height="18"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="iTR-bA-G12">
+                                        <rect key="frame" x="107" y="196" width="70" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="여성">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <outletCollection property="otherButtons" destination="WkJ-lz-KGc" id="2en-lC-4hN"/>
-                                        </connections>
-                                    </button>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="여자" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sQU-Ee-uuh">
+                                                <rect key="frame" x="23" y="4" width="39" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_radio_unselected.jpg" id="qkA-ND-htt">
+                                                <rect key="frame" x="0.0" y="6" width="18" height="18"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                    </view>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -1465,10 +1495,12 @@
                     <connections>
                         <outlet property="birthDatePicker" destination="Yzj-Cr-66u" id="cid-1Z-hIl"/>
                         <outlet property="convertBtn" destination="eRe-8Y-elo" id="ABr-D2-qOR"/>
-                        <outlet property="femaleRadio" destination="FXt-iE-niN" id="n7f-fK-eif"/>
+                        <outlet property="femaleImage" destination="qkA-ND-htt" id="VFL-q3-1Xz"/>
+                        <outlet property="femaleRadio" destination="iTR-bA-G12" id="Z94-jm-LHx"/>
                         <outlet property="idField" destination="kDc-cM-TGJ" id="tbQ-2g-PI0"/>
                         <outlet property="locationBtn" destination="XkU-7K-TVg" id="Zpr-o3-Mef"/>
-                        <outlet property="maleRadio" destination="WkJ-lz-KGc" id="l1y-dL-VPa"/>
+                        <outlet property="maleImage" destination="cgY-JJ-8qJ" id="Vgv-0Q-eTa"/>
+                        <outlet property="maleRadio" destination="I1g-Rj-ws2" id="1DA-KC-1qs"/>
                         <outlet property="newPwdField" destination="bPX-Cg-G0h" id="EJF-aI-RMC"/>
                         <outlet property="newRepwdField" destination="87i-JL-qZx" id="hzB-PR-B4L"/>
                         <outlet property="nicknameField" destination="l3O-cq-qt3" id="jqG-W4-jjZ"/>
@@ -1860,6 +1892,7 @@
         <image name="ic_link.png" width="50" height="50"/>
         <image name="ic_location.png" width="50" height="50"/>
         <image name="ic_message.png" width="50" height="50"/>
+        <image name="ic_radio_unselected.jpg" width="30" height="30"/>
         <image name="ic_reload.png" width="50" height="50"/>
         <image name="ic_right.png" width="50" height="50"/>
         <image name="ic_right_false.png" width="48" height="48"/>

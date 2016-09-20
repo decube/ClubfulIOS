@@ -18,7 +18,7 @@
 ## language
 
 * Server - node.js
-* IOS - Swift 2
+* IOS - Swift 2.3
 
 ## Server
 
@@ -46,11 +46,11 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 
 ##### POD
 
-* ImageSlideshow (이미지슬라이드뷰)
-* ActionKit (이벤트)
+* ~~ImageSlideshow (이미지슬라이드뷰)(직접만듬)~~
+* ~~ActionKit (이벤트)(직접만듬)~~
+* ~~DLRadioButton (남녀 체크)(직접만듬)~~
 * RealmSwift (저장)
 * Alamofire (통신)
-* DLRadioButton (남녀 체크)
 * Firebase (파이어베이스)
 * Firebase/Core (파이어베이스 애널리틱스)
 * Firebase/Auth (파이어베이스 인증(페이스북))
@@ -62,6 +62,7 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 
 * 쪽지화면 (화면구성)
 * Firebase/Messaging (push 알림)
+* Firebase/AdMob (광고)
 
 ##### SDK
 

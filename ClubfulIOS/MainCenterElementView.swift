@@ -18,11 +18,11 @@ class MainCenterElementView : UIView{
     }
     
     func setAction(action : ((Void) -> Void)){
-        addressShort.addControlEvent(.TouchUpInside) {
+        addressShort.addAction(.TouchUpInside, action: {
             action()
-        }
-        address.addControlEvent(.TouchUpInside) {
+        })
+        address.addAction(.TouchUpInside, action: {
             action()
-        }
+        })
     }
 }

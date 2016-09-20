@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ActionKit
 import Darwin
 import MapKit
 
@@ -307,26 +306,26 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         self.mapView.userInteractionEnabled = true
         self.mapView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.mapViewTouch(_:))))
         
-        
         //블랙스크린 클릭
-        blackScreen.addControlEvent(.TouchUpInside){
-            if self.locationView.hidden == false{
-                let tmpRect = self.locationView.frame
-                //애니메이션 적용
-                UIView.animateWithDuration(0.2, animations: {
-                    self.locationView.frame.origin.y = -tmpRect.height
-                    }, completion: {(_) in
-                        self.blackScreen.hidden = true
-                        self.locationView.hidden = true
-                        self.locationView.frame = tmpRect
-                })
-            }
-        }
-        
+        blackScreen.addTarget(self, action: #selector(self.blackScreenAction), forControlEvents: .TouchUpInside)
         
         //boom 종료
         self.mainScreenWhite = false
         mainScreen.hidden = true
+    }
+    
+    func blackScreenAction(){
+        if self.locationView.hidden == false{
+            let tmpRect = self.locationView.frame
+            //애니메이션 적용
+            UIView.animateWithDuration(0.2, animations: {
+                self.locationView.frame.origin.y = -tmpRect.height
+                }, completion: {(_) in
+                    self.blackScreen.hidden = true
+                    self.locationView.hidden = true
+                    self.locationView.frame = tmpRect
+            })
+        }
     }
     
     @IBAction func courtSearchAction(sender: AnyObject) {

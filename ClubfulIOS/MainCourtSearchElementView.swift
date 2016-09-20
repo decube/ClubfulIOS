@@ -56,7 +56,7 @@ class MainCourtSearchElementView: UIView{
         self.elementAction()
     }
     func setSimplemapAction(action : ((Void) -> Void)){
-        simplemap.addControlEvent(.TouchUpInside) {
+        simplemap.addAction(.TouchUpInside){
             action()
         }
     }

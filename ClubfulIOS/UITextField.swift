@@ -17,7 +17,7 @@ extension UITextField{
         self.rightViewMode = UITextFieldViewMode.Always
     }
     func maxLength(maxLength : Int){
-        self.addControlEvent(.EditingChanged){
+        self.addAction(.EditingChanged) {
             if (self.text?.characters.count > maxLength) {
                 self.deleteBackward()
             }

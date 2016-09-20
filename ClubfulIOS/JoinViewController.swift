@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DLRadioButton
 
 class JoinViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var spin: UIActivityIndicatorView!
@@ -23,8 +22,12 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var birthDatePicker: UIDatePicker!
     @IBOutlet var locationBtn: UIButton!
     
-    @IBOutlet var maleRadio: DLRadioButton!
-    @IBOutlet var femaleRadio: DLRadioButton!
+    @IBOutlet var maleRadio: UIView!
+    @IBOutlet var femaleRadio: UIView!
+    @IBOutlet var maleImage: UIImageView!
+    @IBOutlet var femaleImage: UIImageView!
+    let radioSelect = UIImage(named: "ic_radio_selected.jpg")
+    let radioUnselect = UIImage(named: "ic_radio_unselected.jpg")
     
     //위치 변수
     //위치 변수
@@ -50,7 +53,24 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         repwdField.maxLength(14)
         nicknameField.maxLength(10)
         
+        maleImage.image = self.radioUnselect
+        femaleImage.image = self.radioUnselect
+        
         scrollViewHeight = scrollView.frame.height
+        
+        maleRadio.userInteractionEnabled = true
+        femaleRadio.userInteractionEnabled = true
+        maleRadio.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.maleAction)))
+        femaleRadio.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.femaleAction)))
+    }
+    
+    func maleAction(){
+        maleImage.image = self.radioSelect
+        femaleImage.image = self.radioUnselect
+    }
+    func femaleAction(){
+        maleImage.image = self.radioUnselect
+        femaleImage.image = self.radioSelect
     }
     
     //위치 클릭
@@ -82,11 +102,12 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             Util.alert(self, message: "위치설정을 해주세요.")
         }else{
             var sex = ""
-            if maleRadio.selected == true{
+            if maleImage.image == self.radioSelect{
                 sex = "male"
-            }else if femaleRadio.selected == true {
+            }else if femaleImage.image == self.radioSelect{
                 sex = "female"
             }
+            
             spin.hidden = false
             spin.startAnimating()
             let parameters : [String: AnyObject] = ["token": user.token, "userId": self.idField.text!, "password": self.pwdField.text!, "gcmId": user.gcmId, "nickName": self.nicknameField.text!, "sex": sex, "birth": birthDatePicker.date.getDate(), "userLatitude": self.latitude, "userLongitude": self.longitude, "userAddress": self.address, "userAddressShort": self.addressShort, "noticePush": user.noticePushCheck, "myInsertPush": user.myCourtPushCheck, "distancePush": user.distancePushCheck, "interestPush": user.interestPushCheck, "startTime": user.startPushTime.getTime(), "endTime": user.endPushTime.getTime()]

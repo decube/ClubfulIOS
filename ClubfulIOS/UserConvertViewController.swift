@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DLRadioButton
 
 class UserConvertViewController: UIViewController, UITextFieldDelegate {
     
@@ -19,8 +18,13 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var newRepwdField: UITextField!
     @IBOutlet var nicknameField: UITextField!
     @IBOutlet var convertBtn: UIButton!
-    @IBOutlet var maleRadio: DLRadioButton!
-    @IBOutlet var femaleRadio: DLRadioButton!
+    @IBOutlet var maleRadio: UIView!
+    @IBOutlet var femaleRadio: UIView!
+    @IBOutlet var maleImage: UIImageView!
+    @IBOutlet var femaleImage: UIImageView!
+    let radioSelect = UIImage(named: "ic_radio_selected.jpg")
+    let radioUnselect = UIImage(named: "ic_radio_unselected.jpg")
+    
     @IBOutlet var birthDatePicker: UIDatePicker!
     @IBOutlet var locationBtn: UIButton!
     
@@ -66,17 +70,34 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
         }
         nicknameField.text = user.nickName
         if user.sex == "male"{
-            maleRadio.selected = true
-            femaleRadio.selected = false
+            maleImage.image = self.radioSelect
+            femaleImage.image = self.radioUnselect
         }else if user.sex == "femail"{
-            maleRadio.selected = false
-            femaleRadio.selected = true
+            maleImage.image = self.radioUnselect
+            femaleImage.image = self.radioSelect
+        }else{
+            maleImage.image = self.radioUnselect
+            femaleImage.image = self.radioUnselect
         }
         birthDatePicker.date = user.birth
         self.latitude = user.userLatitude
         self.longitude = user.userLongitude
         self.address = user.userAddress
         self.addressShort = user.userAddressShort
+        
+        maleRadio.userInteractionEnabled = true
+        femaleRadio.userInteractionEnabled = true
+        maleRadio.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.maleAction)))
+        femaleRadio.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.femaleAction)))
+    }
+    
+    func maleAction(){
+        maleImage.image = self.radioSelect
+        femaleImage.image = self.radioUnselect
+    }
+    func femaleAction(){
+        maleImage.image = self.radioUnselect
+        femaleImage.image = self.radioSelect
     }
     
     //위치 클릭
@@ -102,9 +123,9 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
             Util.alert(self, message: "닉네임을 2자 이상 입력해 주세요.")
         }else{
             var sex = ""
-            if maleRadio.selected == true{
+            if maleImage.image == self.radioSelect{
                 sex = "male"
-            }else if femaleRadio.selected == true {
+            }else if femaleImage.image == self.radioSelect{
                 sex = "female"
             }
             
