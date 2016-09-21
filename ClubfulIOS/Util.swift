@@ -135,6 +135,43 @@ class Util{
     }
     
     
+    static func imageSaveHandler(ctrl: UIViewController, imageUrl: String, image: UIImage){
+        let alert = UIAlertController(title:"알림",message:"저장하실 방법을 선택하세요.", preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title:"URL 복사",style: .Default,handler:{(_) in
+            UIPasteboard.generalPasteboard().string = imageUrl
+            Util.alert(ctrl, message: "복사되었습니다.")
+        }))
+        alert.addAction(UIAlertAction(title:"갤러리 저장",style: .Default,handler:{(_) in
+            PhotoAlbumUtil.saveImageInAlbum(image, albumName: "clubful", completion: { (result) in
+                switch result {
+                case .SUCCESS:
+                    dispatch_async(dispatch_get_main_queue(), {
+                        Util.alert(ctrl, message: "저장되었습니다.")
+                    })
+                    break
+                case .ERROR:
+                    break
+                case .DENIED:
+                    break
+                }
+            })
+        }))
+        alert.addAction(UIAlertAction(title:"공유하기",style: .Default,handler:{(_) in
+            let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
+            ctrl.presentViewController(vc, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title:"인터넷으로 열기",style: .Default,handler:{(_) in
+            if let url = NSURL(string: imageUrl){
+                if UIApplication.sharedApplication().canOpenURL(url) {
+                    UIApplication.sharedApplication().openURL(url)
+                }
+            }
+        }))
+        alert.addAction(UIAlertAction(title:"취소",style: .Cancel,handler:nil))
+        ctrl.presentViewController(alert, animated: false, completion: {(_) in })
+    }
+    
+    
     static func googleMapParse(element : [String: AnyObject]) -> (Double, Double, String, String){
         var latitude = 0.0
         var longitude = 0.0

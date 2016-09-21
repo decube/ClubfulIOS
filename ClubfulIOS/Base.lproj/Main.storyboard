@@ -1676,10 +1676,15 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.047058824450000002" green="0.34901961679999999" blue="0.17254902420000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <view contentMode="scaleToFill" id="ZaH-vC-Z5H" customClass="ImageSlideshow" customModule="ImageSlideshow">
+                            <view contentMode="scaleToFill" id="ZaH-vC-Z5H">
                                 <rect key="frame" x="0.0" y="90" width="320" height="150"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="oUS-65-2IP">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    </scrollView>
+                                </subviews>
                             </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="YOn-lD-uqD">
                                 <rect key="frame" x="150" y="155" width="20" height="20"/>
@@ -1766,8 +1771,9 @@
                         <outlet property="contentView" destination="TSc-F2-vGa" id="E4q-j2-b3e"/>
                         <outlet property="descTextView" destination="UBt-jX-2sq" id="fp6-jY-5sQ"/>
                         <outlet property="headerLbl" destination="k4g-3K-mO9" id="gT5-CO-Tro"/>
-                        <outlet property="imageSlide" destination="ZaH-vC-Z5H" id="ZdA-Lj-u20"/>
+                        <outlet property="imageSlide" destination="oUS-65-2IP" id="Fed-4v-MjR"/>
                         <outlet property="imageSpin" destination="YOn-lD-uqD" id="ch0-Qq-Ely"/>
+                        <outlet property="imageView" destination="ZaH-vC-Z5H" id="q0h-Gc-5AW"/>
                         <outlet property="interestBtn" destination="W7V-PB-hRM" id="CVW-HF-QmR"/>
                         <outlet property="interestLbl" destination="owW-Iw-ZZG" id="IeC-9U-7RZ"/>
                         <outlet property="replyInsertBtn" destination="5QT-JN-oEA" id="g15-LT-zgv"/>

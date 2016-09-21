@@ -116,9 +116,9 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         }
         
         //cache지우기
-        NSURLCache.sharedURLCache().removeAllCachedResponses()
-        NSURLCache.sharedURLCache().diskCapacity = 0
-        NSURLCache.sharedURLCache().memoryCapacity = 0
+//        NSURLCache.sharedURLCache().removeAllCachedResponses()
+//        NSURLCache.sharedURLCache().diskCapacity = 0
+//        NSURLCache.sharedURLCache().memoryCapacity = 0
         
         //GET Async 동기 통신
         var request : NSMutableURLRequest

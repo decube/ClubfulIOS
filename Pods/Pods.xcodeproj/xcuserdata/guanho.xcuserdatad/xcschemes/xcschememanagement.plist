@@ -29,16 +29,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ImageSlideshow-ImageSlideshow.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>ImageSlideshow.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-ClubfulIOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,12 +47,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2CA2D449B695617DAFE6FFA8255BE4D2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3153FA3CBC38577FD74A2A9B76B4072C</key>
+		<key>0DC448B7DE59DAB9F84A18482B22B82C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,7 +72,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>911E905AD39404AFFF5FBFC4504D0993</key>
+		<key>9916048D772EE156B39421E4D3AB5868</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,12 +82,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C15C986904B4FDA1D278FECFB1CFF1FE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E7BEAF4DCE4B39E319ED8628F0399557</key>
+		<key>B54944DB0AF82DE4F9FAC71CB3472A74</key>
 		<dict>
 			<key>primary</key>
 			<true/>

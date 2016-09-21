@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import ImageSlideshow
 
-class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDelegate{
+class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDelegate, UIScrollViewDelegate{
     var courtSeq : Int!
     
     //스핀
@@ -22,8 +21,10 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     @IBOutlet var interestLbl: UILabel!
     //헤더라벨
     @IBOutlet var headerLbl: UILabel!
+    //이미지 부모 뷰
+    @IBOutlet var imageView: UIView!
     //이미지
-    @IBOutlet var imageSlide: ImageSlideshow!
+    @IBOutlet var imageSlide: UIScrollView!
     //내용 뷰
     @IBOutlet var contentView: UIView!
     //내용 뷰 origin Y
@@ -39,10 +40,21 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     @IBOutlet var webView: UIWebView!
     
     
+    
+    //이미지 URL 저장
+    var imageURLList = [String]()
+    //이미지 리스트 저장
+    var imageViewList = [UIImageView]()
+    //이미지 하단 네비 저장
+    var imageBottomIndex : [UIView] = []
+    
+    
     var court : [String: AnyObject]!
     let user = Storage.getRealmUser()
     //웹뷰 리플등록 액션
     var replyFn : String!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,12 +63,12 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         
         spin.hidden = true
         
-        imageSlide.backgroundColor = UIColor.whiteColor()
-        imageSlide.pageControlPosition = PageControlPosition.UnderScrollView
-        imageSlide.pageControl.currentPageIndicatorTintColor = Util.commonColor
-        imageSlide.pageControl.pageIndicatorTintColor = UIColor.blackColor()
-        imageSlide.zoomEnabled = true
         
+        imageSlide.delegate = self
+        //슬라이드 효과
+        imageSlide.pagingEnabled = true
+        imageSlide.showsVerticalScrollIndicator = false
+        imageSlide.showsHorizontalScrollIndicator = false
         
         //웹뷰 딜리게이트 추가
         self.webView.delegate = self
@@ -72,20 +84,61 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
                 //웹뷰 띄우기
                 self.webView.loadRequest(NSURLRequest(URL : NSURL(string: "\(self.court["replyUrl"]!)")!))
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-                    if let imageList = self.court["imageList"] as? [[String: AnyObject]]{
-                        var imageSourceList = [ImageSource]()
-                        for image in imageList{
-                            if let imageUrl = NSURL(string: image["image"] as! String){
+                    if let imageListValue = self.court["imageList"] as? [[String: AnyObject]]{
+                        for image in imageListValue{
+                            let imageURL = image["image"] as! String
+                            self.imageURLList.append(imageURL)
+                            if let imageUrl = NSURL(string: imageURL){
                                 if let imageData = NSData(contentsOfURL: imageUrl){
                                     if let imageUI = UIImage(data: imageData){
-                                        let imgSource = ImageSource(image: imageUI)
-                                        imageSourceList.append(imgSource)
+                                        let imgView = UIImageView(image: imageUI)
+                                        self.imageViewList.append(imgView)
                                     }
                                 }
                             }
                         }
                         dispatch_async(dispatch_get_main_queue()) {
-                            self.imageSlide.setImageInputs(imageSourceList)
+                            var idx : CGFloat = 0
+                            for imageSource in self.imageViewList{
+                                var frame = self.calLayoutRate(fullSize: self.imageSlide.frame.size, imageSize: imageSource.image!.size)
+                                frame.origin.x = frame.origin.x+(self.imageSlide.frame.width*idx)
+                                imageSource.frame = frame
+                                
+                                self.imageSlide.addSubview(imageSource)
+                                idx += 1
+                            }
+                            
+                            
+                            
+                            //더블클릭
+                            let doubleTap = UITapGestureRecognizer(target: self, action: #selector(self.interestAction(_:)))
+                            doubleTap.numberOfTapsRequired = 2
+                            self.imageSlide.addGestureRecognizer(doubleTap)
+                            //길게클릭
+                            self.imageSlide.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed(_:))))
+                            
+                            
+                            self.imageSlide.userInteractionEnabled = true
+                            self.imageSlide.contentSize.width = self.imageSlide.frame.width*idx
+                            
+                            
+                            
+                            //이미지 하단 네비
+                            let ovalSize: CGFloat = 10
+                            let ovalMargin: CGFloat = 10
+                            let firstX = (self.imageView.frame.width - idx*(ovalSize+ovalMargin))/2
+                            for i in 0 ..< Int(idx){
+                                let ovalView = UIView(frame: CGRect(x: firstX+(ovalMargin)/2+(ovalSize+ovalMargin) * CGFloat(i), y: self.imageView.frame.height-ovalSize, width: ovalSize, height: ovalSize))
+                                ovalView.layer.cornerRadius = ovalSize/2
+                                if i == 0{
+                                    ovalView.backgroundColor = Util.commonColor
+                                }else{
+                                    ovalView.backgroundColor = UIColor.blackColor()
+                                }
+                                self.imageBottomIndex.append(ovalView)
+                                self.imageView.addSubview(ovalView)
+                            }
+                            
                             self.imageSpin.stopAnimating()
                             self.imageSpin.hidden = true
                         }
@@ -105,6 +158,69 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         }
         self.interestBtn.setImage(UIImage(named: starImage), forState: .Normal)
     }
+    
+    func longPressed(sender: UILongPressGestureRecognizer){
+        if sender.state == .Ended {
+            //Do Whatever You want on End of Gesture
+        }else if sender.state == .Began {
+            //Do Whatever You want on Began of Gesture
+            Util.imageSaveHandler(self, imageUrl: "\(self.imageURLList[self.idx])", image: self.imageViewList[self.idx].image!)
+        }
+    }
+    
+    
+    
+    
+    //이미지 더블클릭
+    
+    
+    
+    
+    
+    
+    
+    var idx = 0
+    //스크롤뷰 슬라이더 딜리게이트
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let width = Double(scrollView.bounds.size.width)
+        let offset = Double(scrollView.contentOffset.x)
+        let idx = Int(offset/width)
+        if self.idx != idx{
+            self.idx = idx
+            self.imageBottomIndex.forEach({ (__) in
+                __.backgroundColor = UIColor.blackColor()
+            })
+            self.imageBottomIndex[idx].backgroundColor = Util.commonColor
+        }
+    }
+    
+    
+    
+    
+    
+    
+    //사이즈 비율 계산
+    func calLayoutRate(fullSize fullSize: CGSize, imageSize: CGSize) -> CGRect{
+        var widthValue = fullSize.width
+        var heightValue = fullSize.height
+        let imageWidth = imageSize.width
+        let imageHeight = imageSize.height
+        
+        let rateWidth = imageWidth/widthValue
+        let rateHeight = imageHeight/heightValue
+        
+        if rateWidth > rateHeight{
+            heightValue = widthValue * imageHeight / imageWidth
+        }else{
+            widthValue = heightValue * imageWidth / imageHeight
+        }
+        return CGRect(x: (fullSize.width-widthValue)/2, y: (fullSize.height-heightValue)/2, width: widthValue, height: heightValue)
+    }
+    
+    
+    
+    
+    
     
     
     //관심 클릭
@@ -143,10 +259,17 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     
     
     
+    
+    
+    
     //gcm 클릭
     @IBAction func gcmPushAction(sender: AnyObject) {
         print("gcm")
     }
+    
+    
+    
+    
     
     //약도보기 클릭
     @IBAction func courtMapAction(sender: AnyObject) {
@@ -167,6 +290,11 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
             }
         }
     }
+    
+    
+    
+    
+    
     
     //리플 등록 클릭
     @IBAction func replyInsertAction(sender: AnyObject) {
@@ -198,10 +326,17 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         }
     }
     
+    
+    
+    
+    
     //뒤로가기
     @IBAction func backAction(sender: AnyObject) {
         self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    
+    
     
     
     

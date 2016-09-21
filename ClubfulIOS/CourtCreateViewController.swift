@@ -120,7 +120,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                 alert.addAction(UIAlertAction(title: "사진첩", style: .Default, handler: { (alert) in
                     self.imageCallback(UIImagePickerControllerSourceType.PhotoLibrary)
                 }))
-                alert.addAction(UIAlertAction(title: "취소", style: .Default, handler: { (alert) in
+                alert.addAction(UIAlertAction(title: "취소", style: .Cancel, handler: { (alert) in
                     
                 }))
                 self.presentViewController(alert, animated: false, completion: {(_) in
@@ -269,6 +269,9 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                 self.category = category["seq"] as! Int
             }))
         }
+        alert.addAction(UIAlertAction(title: "취소", style: .Cancel, handler: { (alert) in
+            
+        }))
         self.presentViewController(alert, animated: false, completion: {(_) in})
     }
     

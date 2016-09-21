@@ -89,7 +89,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-ClubfulIOS/FBSDKCoreKit.framework"
   install_framework "Pods-ClubfulIOS/FBSDKLoginKit.framework"
   install_framework "Pods-ClubfulIOS/FBSDKShareKit.framework"
-  install_framework "Pods-ClubfulIOS/ImageSlideshow.framework"
   install_framework "Pods-ClubfulIOS/Realm.framework"
   install_framework "Pods-ClubfulIOS/RealmSwift.framework"
 fi
@@ -99,7 +98,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-ClubfulIOS/FBSDKCoreKit.framework"
   install_framework "Pods-ClubfulIOS/FBSDKLoginKit.framework"
   install_framework "Pods-ClubfulIOS/FBSDKShareKit.framework"
-  install_framework "Pods-ClubfulIOS/ImageSlideshow.framework"
   install_framework "Pods-ClubfulIOS/Realm.framework"
   install_framework "Pods-ClubfulIOS/RealmSwift.framework"
 fi

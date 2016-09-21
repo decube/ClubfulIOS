@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '1ED0A1C56154C6C40B35C799'
+               BlueprintIdentifier = '375E880523287402B7ADD54F'
                BlueprintName = 'Pods-ClubfulIOS'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_ClubfulIOS.framework'>

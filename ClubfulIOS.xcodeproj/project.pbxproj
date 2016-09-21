@@ -61,7 +61,6 @@
 		6E6557181D804A7B00697391 /* ball_6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E6557101D804A7B00697391 /* ball_6.jpg */; };
 		6E6557191D804A7B00697391 /* ball_7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E6557111D804A7B00697391 /* ball_7.jpg */; };
 		6E65571A1D804A7B00697391 /* ball_8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E6557121D804A7B00697391 /* ball_8.jpg */; };
-		6E65571C1D804E2000697391 /* intro.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E65571B1D804E2000697391 /* intro.jpg */; };
 		6E6E16481D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E6E16461D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework */; };
 		6E6E164D1D7AFEFD00B0DEF1 /* AdobeCreativeSDKCoreResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6E6E164B1D7AFEFD00B0DEF1 /* AdobeCreativeSDKCoreResources.bundle */; };
 		6E6E164E1D7AFEFD00B0DEF1 /* AdobeCreativeSDKImageResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6E6E164C1D7AFEFD00B0DEF1 /* AdobeCreativeSDKImageResources.bundle */; };
@@ -198,7 +197,6 @@
 		6E6557101D804A7B00697391 /* ball_6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ball_6.jpg; path = resources/img/ball_6.jpg; sourceTree = "<group>"; };
 		6E6557111D804A7B00697391 /* ball_7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ball_7.jpg; path = resources/img/ball_7.jpg; sourceTree = "<group>"; };
 		6E6557121D804A7B00697391 /* ball_8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ball_8.jpg; path = resources/img/ball_8.jpg; sourceTree = "<group>"; };
-		6E65571B1D804E2000697391 /* intro.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = intro.jpg; path = resources/img/intro.jpg; sourceTree = "<group>"; };
 		6E6E16461D7AFEEB00B0DEF1 /* AdobeCreativeSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKCore.framework; sourceTree = "<group>"; };
 		6E6E164B1D7AFEFD00B0DEF1 /* AdobeCreativeSDKCoreResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AdobeCreativeSDKCoreResources.bundle; sourceTree = "<group>"; };
 		6E6E164C1D7AFEFD00B0DEF1 /* AdobeCreativeSDKImageResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AdobeCreativeSDKImageResources.bundle; sourceTree = "<group>"; };
@@ -452,7 +450,6 @@
 				6E2D1C451D85ABA70064393F /* ic_reload.png */,
 				6E2D1C461D85ABA70064393F /* ic_right_false.png */,
 				6E2D1C471D85ABA70064393F /* ic_right_true.png */,
-				6E65571B1D804E2000697391 /* intro.jpg */,
 				6E65570B1D804A7B00697391 /* ball_1.jpg */,
 				6E65570C1D804A7B00697391 /* ball_2.jpg */,
 				6E65570D1D804A7B00697391 /* ball_3.jpg */,
@@ -783,7 +780,6 @@
 				6E6557141D804A7B00697391 /* ball_2.jpg in Resources */,
 				6E9CF39D1D6B2028004DC36A /* ic_tab_home_n.png in Resources */,
 				6E9CF3A21D6B2028004DC36A /* ic_tab_setting_s.png in Resources */,
-				6E65571C1D804E2000697391 /* intro.jpg in Resources */,
 				6E6556F41D80425400697391 /* MainScreen.xib in Resources */,
 				6E2F95461D69F47F000976A7 /* MapListElementView.xib in Resources */,
 				6E9CF38C1D6B2028004DC36A /* ic_edit.png in Resources */,
@@ -1063,8 +1059,6 @@
 					"-framework",
 					"\"Alamofire\"",
 					"-framework",
-					"\"ImageSlideshow\"",
-					"-framework",
 					"\"Realm\"",
 					"-framework",
 					"\"RealmSwift\"",
@@ -1098,8 +1092,6 @@
 					"-ObjC",
 					"-framework",
 					"\"Alamofire\"",
-					"-framework",
-					"\"ImageSlideshow\"",
 					"-framework",
 					"\"Realm\"",
 					"-framework",

@@ -5,9 +5,8 @@
 
 target ‘ClubfulIOS’ do
 use_frameworks!
-pod 'ImageSlideshow', '~> 0.5'
-pod 'RealmSwift'
 pod 'Alamofire', '~> 3.4'
+pod 'RealmSwift'
 pod 'Firebase'
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
