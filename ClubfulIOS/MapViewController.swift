@@ -24,11 +24,24 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
     
     var user = Storage.getRealmUser()
     
-    var mapListView : MapListView!
+    var mapListView : UIScrollView!
+    
+    
+    //회전됬을때
+    func rotated(){
+        mapListView.frame = CGRect(x: 0, y: mapView.frame.origin.y, width: self.view.frame.width/3*2, height: mapView.frame.height)
+        if mapListView.hidden == false{
+            mapListView.hidden = true
+            self.setSearchLayout()
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("JoinMapViewController viewDidLoad")
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.rotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
         
         self.marker = MKPointAnnotation()
         mapView.addAnnotation(marker)
@@ -45,13 +58,10 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
         
         
         //코트 검색
-        if let customView = NSBundle.mainBundle().loadNibNamed("MapListView", owner: self, options: nil).first as? MapListView {
-            mapListView = customView
-            mapListView.frame = CGRect(x: 0, y: mapView.frame.origin.y, width: Util.screenSize.width/3*2, height: mapView.frame.height)
-            mapListView.backgroundColor = UIColor.whiteColor()
-            mapListView.hidden = true
-            self.view.addSubview(mapListView)
-        }
+        mapListView = UIScrollView(frame: CGRect(x: 0, y: mapView.frame.origin.y, width: self.view.frame.width/3*2, height: mapView.frame.height))
+        mapListView.backgroundColor = UIColor(red:0.86, green:0.90, blue:0.93, alpha:1.00)
+        mapListView.hidden = true
+        self.view.addSubview(mapListView)
     }
     
     
@@ -65,19 +75,18 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
         marker.coordinate = location
     }
     
+    
+    var tempSearchData : [[String: AnyObject]]!
     //검색 클릭
     @IBAction func searchAction(sender: AnyObject) {
         if searchField.text?.characters.count < 2{
             Util.alert(self, message: "검색어를 2글자 이상 넣어주세요")
         }else{
             self.view.endEditing(true)
-            mapListView.scrollView.subviews.forEach({$0.removeFromSuperview()})
-            mapListView.scrollView.scrollToTop()
+            mapListView.subviews.forEach({$0.removeFromSuperview()})
+            mapListView.scrollToTop()
             
             //지도 검색 통신
-            var i : CGFloat = 0
-            let locObjHeight : CGFloat = 80
-            
             
             let parameters : [String: AnyObject] = ["token": self.user.token, "address": searchField.text!, "language": Util.language]
             URL.request(self, url: URL.apiServer+URL.api_location_geocode, param: parameters, callback: { (dic) in
@@ -85,40 +94,8 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
                     if let results = result["results"] as? [[String: AnyObject]]{
                         //카운트가 1보다 많으면
                         if results.count > 1{
-                            for element : [String: AnyObject] in results{
-                                let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
-                                
-                                
-                                if let customView = NSBundle.mainBundle().loadNibNamed("MapListElementView", owner: self, options: nil).first as? MapListElementView {
-                                    customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.mapListView.frame.width-10, height: locObjHeight-10)
-                                    customView.setAddr(addressShort: addressShort, address: address)
-                                    self.mapListView.scrollView.addSubview(customView)
-                                    
-                                    if self.mapListView.hidden != false{
-                                        let tmpRect = self.mapListView.frame
-                                        self.mapListView.frame.origin.x = -tmpRect.width
-                                        self.mapListView.hidden = false
-                                        //애니메이션 적용
-                                        UIView.animateWithDuration(0.2, animations: {
-                                            self.mapListView.frame = tmpRect
-                                            }, completion: {(_) in
-                                        })
-                                    }
-                                    
-                                    customView.setAction({ (_) in
-                                        UIView.animateWithDuration(0.2, animations: {
-                                            self.mapListView.alpha = 0
-                                        }) { (_) in
-                                            self.mapListView.hidden = true
-                                            self.mapListView.alpha = 1
-                                            self.locationMove(latitude, longitude: longitude)
-                                        }
-                                    })
-                                    
-                                }
-                                i += 1
-                            }
-                            self.mapListView.scrollView.contentSize = CGSize(width: self.mapListView.scrollView.frame.width, height: locObjHeight*i)
+                            self.tempSearchData = results
+                            self.setSearchLayout()
                         }else{
                             //카운트가 1개 이면
                             for element : [String: AnyObject] in results{
@@ -130,7 +107,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
                                         elementLongitude = location["lng"]!
                                     }
                                 }
-                                self.mapListView.scrollView.hidden = true
+                                self.mapListView.hidden = true
                                 self.locationMove(elementLatitude, longitude: elementLongitude)
                             }
                         }
@@ -144,6 +121,48 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
                 }
             })
         }
+    }
+    
+    func setSearchLayout(){
+        self.view.endEditing(true)
+        mapListView.subviews.forEach({$0.removeFromSuperview()})
+        var i : CGFloat = 0
+        let locObjHeight : CGFloat = 80
+        
+        for element : [String: AnyObject] in self.tempSearchData{
+            let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
+            
+            
+            if let customView = NSBundle.mainBundle().loadNibNamed("MapListElementView", owner: self, options: nil).first as? MapListElementView {
+                customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.mapListView.frame.width-10, height: locObjHeight-10)
+                customView.setAddr(addressShort: addressShort, address: address)
+                self.mapListView.addSubview(customView)
+                
+                if self.mapListView.hidden != false{
+                    let tmpRect = self.mapListView.frame
+                    self.mapListView.frame.origin.x = -tmpRect.width
+                    self.mapListView.hidden = false
+                    //애니메이션 적용
+                    UIView.animateWithDuration(0.2, animations: {
+                        self.mapListView.frame = tmpRect
+                        }, completion: {(_) in
+                    })
+                }
+                
+                customView.setAction({ (_) in
+                    UIView.animateWithDuration(0.2, animations: {
+                        self.mapListView.alpha = 0
+                    }) { (_) in
+                        self.mapListView.hidden = true
+                        self.mapListView.alpha = 1
+                        self.locationMove(latitude, longitude: longitude)
+                    }
+                })
+                
+            }
+            i += 1
+        }
+        self.mapListView.contentSize = CGSize(width: self.mapListView.frame.width, height: locObjHeight*i)
     }
     
     
@@ -229,7 +248,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
         }) { (_) in
             self.mapListView.frame = tmpRect
             self.mapListView.hidden = true
-            self.mapListView.scrollView.scrollToTop()
+            self.mapListView.scrollToTop()
         }
     }
     

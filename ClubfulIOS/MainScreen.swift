@@ -13,8 +13,4 @@ class MainScreen : UIView{
     @IBOutlet weak var image2: UIImageView!
     @IBOutlet weak var image3: UIImageView!
     @IBOutlet weak var image4: UIImageView!
-    @IBOutlet weak var image5: UIImageView!
-    @IBOutlet weak var image6: UIImageView!
-    @IBOutlet weak var image7: UIImageView!
-    @IBOutlet weak var image8: UIImageView!
 }

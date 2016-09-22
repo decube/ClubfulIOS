@@ -16,6 +16,13 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     
     var user = Storage.getRealmUser()
     
+    //이미지 URL 저장
+    var imageURLList1 = [String]()
+    var imageURLList2 = [String]()
+    //이미지 리스트 저장
+    var imageList1 = [UIImage]()
+    var imageList2 = [UIImage]()
+    
     var nonUserView : NonUserView!
     override func viewWillAppear(animated: Bool) {
         print("MypageViewController viewWillAppear")
@@ -143,6 +150,10 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                 
                 i += 1
             }
+            //길게클릭
+            courtInfo.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed1(_:))))
+            courtInfo.userInteractionEnabled = true
+            
             self.interestSpin.stopAnimating()
             self.interestSpin.hidden = true
         }
@@ -183,6 +194,10 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                 
                 i += 1
             }
+            //길게클릭
+            courtInfo.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed2(_:))))
+            courtInfo.userInteractionEnabled = true
+            
             self.createSpin.stopAnimating()
             self.createSpin.hidden = true
         }
@@ -208,13 +223,16 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
         }else{
             var i : CGFloat = 0
             var tmpList = [[String: AnyObject]]()
+            imageURLList1 = []
+            imageList1 = []
             for obj in list{
                 var tmpObj = [String: AnyObject]()
                 if let img = obj["image"] as? String{
                     if let imgURL = NSURL(string: img){
                         if let imgData = NSData(contentsOfURL: imgURL){
                             if let imgUI = UIImage(data: imgData){
-                                
+                                imageURLList1.append(img)
+                                imageList1.append(imgUI)
                                 tmpObj["image"] = imgUI
                                 
                                 if let addressText = obj["address"] as? String{
@@ -260,13 +278,16 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
         }else{
             var i : CGFloat = 0
             var tmpList = [[String: AnyObject]]()
+            imageURLList2 = []
+            imageList2 = []
             for obj in list{
                 var tmpObj = [String: AnyObject]()
                 if let img = obj["image"] as? String{
                     if let imgURL = NSURL(string: img){
                         if let imgData = NSData(contentsOfURL: imgURL){
                             if let imgUI = UIImage(data: imgData){
-                                
+                                imageURLList2.append(img)
+                                imageList2.append(imgUI)
                                 tmpObj["image"] = imgUI
                                 
                                 if let addressText = obj["address"] as? String{
@@ -295,6 +316,48 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                 }
             }
         }
+    }
+    
+    
+    
+    func longPressed1(sender: UILongPressGestureRecognizer){
+        if sender.state == .Ended {
+            //Do Whatever You want on End of Gesture
+        }else if sender.state == .Began {
+            //Do Whatever You want on Began of Gesture
+            Util.imageSaveHandler(self, imageUrl: "\(self.imageURLList1[self.idx1])", image: self.imageList1[self.idx1])
+        }
+    }
+    func longPressed2(sender: UILongPressGestureRecognizer){
+        if sender.state == .Ended {
+            //Do Whatever You want on End of Gesture
+        }else if sender.state == .Began {
+            //Do Whatever You want on Began of Gesture
+            Util.imageSaveHandler(self, imageUrl: "\(self.imageURLList2[self.idx2])", image: self.imageList2[self.idx2])
+        }
+    }
+    
+    
+    
+    var idx1 = 0
+    var idx2 = 0
+    //스크롤뷰 슬라이더 딜리게이트
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let width = Double(scrollView.bounds.size.width)
+        let offset = Double(scrollView.contentOffset.x)
+        let idx = Int(offset/width)
+        if scrollView == interestCourt{
+            if self.idx1 != idx{
+                self.idx1 = idx
+                
+            }
+        }else if scrollView == createCourt{
+            if self.idx2 != idx{
+                self.idx2 = idx
+                
+            }
+        }
+        
     }
     
     

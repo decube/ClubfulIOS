@@ -15,7 +15,7 @@ class MainCourtSearchElementView: UIView{
     @IBOutlet var simplemap: UIButton!
     @IBOutlet var image: UIImageView!
     var elementAction : ((Void) -> Void)!
-    func setImage(imagePath: String, height: CGFloat){
+    func setImage(imagePath: String, height: CGFloat, isCenter : Bool = false){
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             if let imageURL = NSURL(string: imagePath){
                 if let imageData = NSData(contentsOfURL: imageURL){
@@ -34,8 +34,12 @@ class MainCourtSearchElementView: UIView{
                     }else{
                         widthValue = heightValue * imageWidth / imageHeight
                     }
+                    var x : CGFloat = 0
+                    if isCenter == true{
+                        x = (self.image.frame.width-widthValue)/2
+                    }
                     dispatch_async(dispatch_get_main_queue()) {
-                        self.image.frame = CGRect(x: 0, y: (height-heightValue)/2, width: widthValue, height: heightValue)
+                        self.image.frame = CGRect(x: x, y: (height-heightValue)/2, width: widthValue, height: heightValue)
                         self.image.image = courtImage
                     }
                 }

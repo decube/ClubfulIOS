@@ -35,8 +35,45 @@ class TabBar: UITabBarController {
     let tabLbl03 = UILabel()
     let tabLbl04 = UILabel()
     
+    //회전됬을때
+    func rotated(){
+        func setRotate(){
+            customTabBarView.frame = CGRectMake(0, self.view.frame.height-60, self.view.frame.size.width, 60)
+            let widthOfOneBtn = self.tabBar.frame.size.width/4
+            let heightOfOneBtn = self.customTabBarView.frame.height
+            
+            tabBtn01.frame = CGRectMake(widthOfOneBtn*0, 0, widthOfOneBtn, heightOfOneBtn)
+            tabBtn02.frame = CGRectMake(widthOfOneBtn*1, 0, widthOfOneBtn, heightOfOneBtn)
+            tabBtn03.frame = CGRectMake(widthOfOneBtn*2, 0, widthOfOneBtn, heightOfOneBtn)
+            tabBtn04.frame = CGRectMake(widthOfOneBtn*3, 0, widthOfOneBtn, heightOfOneBtn)
+            
+            let widthPadding = (widthOfOneBtn-(heightOfOneBtn-30))/2
+            
+            tabImg01.frame = CGRectMake(widthPadding, 5, heightOfOneBtn-30, heightOfOneBtn-30)
+            tabImg02.frame = CGRectMake(widthPadding, 5, heightOfOneBtn-30, heightOfOneBtn-30)
+            tabImg03.frame = CGRectMake(widthPadding, 5, heightOfOneBtn-30, heightOfOneBtn-30)
+            tabImg04.frame = CGRectMake(widthPadding, 5, heightOfOneBtn-30, heightOfOneBtn-30)
+            
+            tabLbl01.frame = CGRectMake(0, heightOfOneBtn-25, widthOfOneBtn, 25)
+            tabLbl02.frame = CGRectMake(0, heightOfOneBtn-25, widthOfOneBtn, 25)
+            tabLbl03.frame = CGRectMake(0, heightOfOneBtn-25, widthOfOneBtn, 25)
+            tabLbl04.frame = CGRectMake(0, heightOfOneBtn-25, widthOfOneBtn, 25)
+        }
+        if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)){
+            setRotate()
+        }
+        if(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation)){
+            setRotate()
+        }
+        
+    }
+    
+    
     override func viewDidLoad(){
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.rotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
+        
         self.tabBar.hidden = true
         
         customTabBarView.frame = CGRectMake(0, self.view.frame.height-60, self.view.frame.size.width, 60)

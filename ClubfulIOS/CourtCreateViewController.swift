@@ -26,8 +26,6 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     var picList = [UIButton]()
     //이미지 피커
     let picker = UIImagePickerController()
-    //블랙스크린
-    var blackScreen : UIButton!
     
     //이미지 사이즈
     var imageWidth : CGFloat!
@@ -60,6 +58,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     
     //temp이미지버튼
     var tempImageBtn: UIButton!
+    
     
     override func viewDidLoad() {
         print("CourtCreateViewController viewDidLoad")
@@ -379,8 +378,8 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         print("CourtCreateViewController viewWillAppear")
         if nonUserView == nil{
             if let customView = NSBundle.mainBundle().loadNibNamed("NonUserView", owner: self, options: nil).first as? NonUserView {
-                customView.frame = self.view.frame
                 nonUserView = customView
+                nonUserView.frame = self.view.frame
                 layout()
             }
         }else{

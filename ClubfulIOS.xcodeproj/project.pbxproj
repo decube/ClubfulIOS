@@ -40,8 +40,6 @@
 		6E2F95381D69DD8C000976A7 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2F95371D69DD8C000976A7 /* JoinViewController.swift */; };
 		6E2F953A1D69DDA3000976A7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2F95391D69DDA3000976A7 /* MapViewController.swift */; };
 		6E2F953C1D69DE30000976A7 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2F953B1D69DE30000976A7 /* UITextField.swift */; };
-		6E2F95401D69F2BC000976A7 /* MapListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E2F953F1D69F2BC000976A7 /* MapListView.xib */; };
-		6E2F95421D69F390000976A7 /* MapListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2F95411D69F390000976A7 /* MapListView.swift */; };
 		6E2F95441D69F440000976A7 /* MapListElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2F95431D69F440000976A7 /* MapListElementView.swift */; };
 		6E2F95461D69F47F000976A7 /* MapListElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E2F95451D69F47F000976A7 /* MapListElementView.xib */; };
 		6E63424B1D914932001FE972 /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E63424A1D914932001FE972 /* UIControl.swift */; };
@@ -115,8 +113,6 @@
 		6EDA95B11D55CE1B00E029C8 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95AE1D55CE1B00E029C8 /* URL.swift */; };
 		6EDA95B21D55CE1B00E029C8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95AF1D55CE1B00E029C8 /* User.swift */; };
 		6EDA95B41D55CE4A00E029C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA95B31D55CE4A00E029C8 /* AppDelegate.swift */; };
-		6EE4F3771D696200008B43ED /* MainCourtSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EE4F3761D696200008B43ED /* MainCourtSearchView.xib */; };
-		6EE4F3791D696240008B43ED /* MainCourtSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE4F3781D696240008B43ED /* MainCourtSearchView.swift */; };
 		6EE4F3811D6976D1008B43ED /* MainCenterElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EE4F3801D6976D1008B43ED /* MainCenterElementView.xib */; };
 		6EE4F3831D69772B008B43ED /* MainCenterElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE4F3821D69772B008B43ED /* MainCenterElementView.swift */; };
 		6EE4F3851D697D4A008B43ED /* MainCourtSearchElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EE4F3841D697D4A008B43ED /* MainCourtSearchElementView.xib */; };
@@ -176,8 +172,6 @@
 		6E2F95371D69DD8C000976A7 /* JoinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		6E2F95391D69DDA3000976A7 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		6E2F953B1D69DE30000976A7 /* UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
-		6E2F953F1D69F2BC000976A7 /* MapListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapListView.xib; sourceTree = "<group>"; };
-		6E2F95411D69F390000976A7 /* MapListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListView.swift; sourceTree = "<group>"; };
 		6E2F95431D69F440000976A7 /* MapListElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListElementView.swift; sourceTree = "<group>"; };
 		6E2F95451D69F47F000976A7 /* MapListElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapListElementView.xib; sourceTree = "<group>"; };
 		6E63424A1D914932001FE972 /* UIControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
@@ -258,8 +252,6 @@
 		6EDA95AE1D55CE1B00E029C8 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		6EDA95AF1D55CE1B00E029C8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6EDA95B31D55CE4A00E029C8 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6EE4F3761D696200008B43ED /* MainCourtSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainCourtSearchView.xib; sourceTree = "<group>"; };
-		6EE4F3781D696240008B43ED /* MainCourtSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCourtSearchView.swift; sourceTree = "<group>"; };
 		6EE4F3801D6976D1008B43ED /* MainCenterElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainCenterElementView.xib; sourceTree = "<group>"; };
 		6EE4F3821D69772B008B43ED /* MainCenterElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCenterElementView.swift; sourceTree = "<group>"; };
 		6EE4F3841D697D4A008B43ED /* MainCourtSearchElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainCourtSearchElementView.xib; sourceTree = "<group>"; };
@@ -319,9 +311,7 @@
 				6E6556F31D80425400697391 /* MainScreen.xib */,
 				6E00E1821D695D51009AB282 /* MainCenterView.xib */,
 				6EE4F3801D6976D1008B43ED /* MainCenterElementView.xib */,
-				6EE4F3761D696200008B43ED /* MainCourtSearchView.xib */,
 				6EE4F3841D697D4A008B43ED /* MainCourtSearchElementView.xib */,
-				6E2F953F1D69F2BC000976A7 /* MapListView.xib */,
 				6E2F95451D69F47F000976A7 /* MapListElementView.xib */,
 				6E2F08B21D6B091100222708 /* NonUserView.xib */,
 			);
@@ -333,10 +323,8 @@
 			children = (
 				6E6556F91D80439F00697391 /* MainScreen.swift */,
 				6E00E1851D695D6A009AB282 /* MainCenterView.swift */,
-				6EE4F3781D696240008B43ED /* MainCourtSearchView.swift */,
 				6EE4F3821D69772B008B43ED /* MainCenterElementView.swift */,
 				6EE4F3861D697ED8008B43ED /* MainCourtSearchElementView.swift */,
-				6E2F95411D69F390000976A7 /* MapListView.swift */,
 				6E2F95431D69F440000976A7 /* MapListElementView.swift */,
 				6E2F08B41D6B0B9900222708 /* NonUserView.swift */,
 			);
@@ -752,7 +740,6 @@
 				6E65571A1D804A7B00697391 /* ball_8.jpg in Resources */,
 				6E63424F1D914D21001FE972 /* ic_radio_unselected.jpg in Resources */,
 				6E6557171D804A7B00697391 /* ball_5.jpg in Resources */,
-				6E2F95401D69F2BC000976A7 /* MapListView.xib in Resources */,
 				6EE4F38B1D698946008B43ED /* temp.png in Resources */,
 				6E9CF3A11D6B2028004DC36A /* ic_tab_setting_n.png in Resources */,
 				6E9CF39C1D6B2028004DC36A /* ic_tab_add_s.png in Resources */,
@@ -785,7 +772,6 @@
 				6E9CF38C1D6B2028004DC36A /* ic_edit.png in Resources */,
 				6E6557131D804A7B00697391 /* ball_1.jpg in Resources */,
 				6E6342511D915248001FE972 /* ic_radio_selected.jpg in Resources */,
-				6EE4F3771D696200008B43ED /* MainCourtSearchView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -859,7 +845,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E2F95361D69DD5A000976A7 /* LoginViewController.swift in Sources */,
-				6E2F95421D69F390000976A7 /* MapListView.swift in Sources */,
 				6E2F08B91D6B142D00222708 /* CourtCreateViewController.swift in Sources */,
 				6E2F95311D69D575000976A7 /* InquiryViewController.swift in Sources */,
 				6EE4F3831D69772B008B43ED /* MainCenterElementView.swift in Sources */,
@@ -869,7 +854,6 @@
 				6E2F95331D69D5A0000976A7 /* AppSettingViewController.swift in Sources */,
 				6EE4F38E1D698A5E008B43ED /* CourtViewController.swift in Sources */,
 				6EBF30FF1D83D14700319D08 /* EggViewController.swift in Sources */,
-				6EE4F3791D696240008B43ED /* MainCourtSearchView.swift in Sources */,
 				6E00E16F1D695205009AB282 /* UIView.swift in Sources */,
 				6E6556F81D80436F00697391 /* UIViewXXYBoom.swift in Sources */,
 				6E63424B1D914932001FE972 /* UIControl.swift in Sources */,

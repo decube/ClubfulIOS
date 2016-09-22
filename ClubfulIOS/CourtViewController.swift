@@ -11,6 +11,7 @@ import UIKit
 class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDelegate, UIScrollViewDelegate{
     var courtSeq : Int!
     
+    @IBOutlet var scrollView: UIScrollView!
     //스핀
     @IBOutlet var imageSpin: UIActivityIndicatorView!
     @IBOutlet var replySpin: UIActivityIndicatorView!
@@ -25,10 +26,6 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     @IBOutlet var imageView: UIView!
     //이미지
     @IBOutlet var imageSlide: UIScrollView!
-    //내용 뷰
-    @IBOutlet var contentView: UIView!
-    //내용 뷰 origin Y
-    var contentViewY: CGFloat!
     //설명 textView
     @IBOutlet var descTextView: UITextView!
     //댓글 입력 필드
@@ -87,11 +84,11 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
                     if let imageListValue = self.court["imageList"] as? [[String: AnyObject]]{
                         for image in imageListValue{
                             let imageURL = image["image"] as! String
-                            self.imageURLList.append(imageURL)
                             if let imageUrl = NSURL(string: imageURL){
                                 if let imageData = NSData(contentsOfURL: imageUrl){
                                     if let imageUI = UIImage(data: imageData){
                                         let imgView = UIImageView(image: imageUI)
+                                        self.imageURLList.append(imageURL)
                                         self.imageViewList.append(imgView)
                                     }
                                 }
@@ -149,7 +146,6 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         
         descTextView.scrollToTop()
         replyInsertField.delegate = self
-        contentViewY = contentView.frame.origin.y
         
         let courtStar = Storage.getStorage("courtStar_\(self.courtSeq)")
         var starImage = "ic_star_s.png"
@@ -159,6 +155,10 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         self.interestBtn.setImage(UIImage(named: starImage), forState: .Normal)
     }
     
+    
+    
+    
+    //길게 클릭
     func longPressed(sender: UILongPressGestureRecognizer){
         if sender.state == .Ended {
             //Do Whatever You want on End of Gesture
@@ -167,11 +167,6 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
             Util.imageSaveHandler(self, imageUrl: "\(self.imageURLList[self.idx])", image: self.imageViewList[self.idx].image!)
         }
     }
-    
-    
-    
-    
-    //이미지 더블클릭
     
     
     
@@ -358,12 +353,13 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     //키보드생길때
     func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-            contentView.frame.origin.y = contentViewY - keyboardSize.height
+            scrollView.contentSize.height = scrollView.frame.height + keyboardSize.height
+            scrollView.scrollToBottom()
         }
     }
     //키보드없어질때
     func keyboardWillHide(notification: NSNotification) {
-        contentView.frame.origin.y = contentViewY
+        scrollView.contentSize.height = scrollView.frame.height
     }
     
     

@@ -36,7 +36,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     //blackScreen
     var blackScreen : UIButton!
     //코트검색뷰
-    var courtSearchView : MainCourtSearchView!
+    var courtSearchView : UIScrollView!
     //위치찾기뷰
     var locationView : MainCenterView!
     //위치찾기스크롤
@@ -55,10 +55,27 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     //위치 관련 앱을 실행했는지 실행 하지 않았는지
     var isFirstLocation = true
     
+    
+    //회전됬을때
+    func rotated(){
+        blackScreen.frame = CGRect(x: 0, y: 20, width: self.view.frame.width, height: self.view.frame.height)
+        courtSearchView.frame = CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.mainView.frame.height)
+        locationView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
+        if self.courtSearchView.hidden == false{
+            self.courtSearchView.hidden = true
+            self.setCourtLayout()
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         print("ViewController viewDidLoad")
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.rotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
+
+        //cache지우기
+//                NSURLCache.sharedURLCache().removeAllCachedResponses()
+//                NSURLCache.sharedURLCache().diskCapacity = 0
+//                NSURLCache.sharedURLCache().memoryCapacity = 0
         
         if let customView = NSBundle.mainBundle().loadNibNamed("MainScreen", owner: self, options: nil).first as? MainScreen {
             mainScreen = customView
@@ -69,21 +86,17 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                 customView.image1,
                 customView.image2,
                 customView.image3,
-                customView.image4,
-                customView.image5,
-                customView.image6,
-                customView.image7,
-                customView.image8
+                customView.image4
             ]
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 while self.mainScreenWhite == true {
                     if self.mainScreenBoom{
-                        let numberRandom = Int(arc4random_uniform(3) + 3)
+                        let numberRandom = Int(arc4random_uniform(1) + 2)
                         var indexArray = [Int]()
                         var idxAdd = 0
                         while(idxAdd != numberRandom){
-                            let random = Int(arc4random_uniform(8))
+                            let random = Int(arc4random_uniform(4))
                             var isAdd = true
                             for idx in indexArray{
                                 if idx == random{
@@ -114,11 +127,6 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                 }
             })
         }
-        
-        //cache지우기
-//        NSURLCache.sharedURLCache().removeAllCachedResponses()
-//        NSURLCache.sharedURLCache().diskCapacity = 0
-//        NSURLCache.sharedURLCache().memoryCapacity = 0
         
         //GET Async 동기 통신
         var request : NSMutableURLRequest
@@ -200,25 +208,22 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         
         //layout create
         blackScreen = UIButton()
-        blackScreen.frame = CGRect(x: 0, y: 20, width: Util.screenSize.width, height: Util.screenSize.height)
+        blackScreen.frame = CGRect(x: 0, y: 20, width: self.view.frame.width, height: self.view.frame.height)
         blackScreen.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.6)
         blackScreen.hidden = true
         self.view.addSubview(blackScreen)
         
         //코트 검색
-        if let customView = NSBundle.mainBundle().loadNibNamed("MainCourtSearchView", owner: self, options: nil).first as? MainCourtSearchView {
-            courtSearchView = customView
-            courtSearchView.frame = CGRect(x: 0, y: 80, width: Util.screenSize.width/3*2, height: self.mainView.frame.height)
-            courtSearchView.backgroundColor = UIColor.whiteColor()
-            courtSearchView.hidden = true
-            self.view.addSubview(courtSearchView)
-        }
+        courtSearchView = UIScrollView(frame: CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.mainView.frame.height))                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+        courtSearchView.backgroundColor = UIColor.whiteColor()
+        courtSearchView.hidden = true
+        self.view.addSubview(courtSearchView)
         
         
         //자기 위치 설정
         if let customView = NSBundle.mainBundle().loadNibNamed("MainCenterView", owner: self, options: nil).first as? MainCenterView {
             locationView = customView
-            locationView.frame = CGRect(x: (Util.screenSize.width-300)/2, y: (Util.screenSize.height-300)/2, width: 300, height: 300)
+            locationView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
             locationView.backgroundColor = UIColor.whiteColor()
             locationView.hidden = true
             locationView.searchTextField.delegate = self
@@ -286,7 +291,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                                     }
                                     i += 1
                                 }
-                                self.locationView.scrollView.contentSize.height = locObjHeight*i
+                                self.locationView.scrollView.contentSize.height = locObjHeight*i+30
                             }
                         }
                     })
@@ -328,65 +333,80 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         }
     }
     
+    
+    var tempCourtData: [[String:AnyObject]]!
     @IBAction func courtSearchAction(sender: AnyObject) {
         if courtSearchTextField.text?.characters.count >= 2{
             self.view.endEditing(true)
-            courtSearchView.scrollView.subviews.forEach({$0.removeFromSuperview()})
-            courtSearchView.scrollView.scrollToTop()
+            courtSearchView.subviews.forEach({$0.removeFromSuperview()})
+            courtSearchView.scrollToTop()
             //코트 검색 통신
-            var i : CGFloat = 0
-            let locObjHeight : CGFloat = 90
+            
             let parameters : [String: AnyObject] = ["token": user.token, "address": courtSearchTextField.text!, "category": user.category, "latitude": user.latitude, "longitude": user.longitude]
             URL.request(self, url: URL.apiServer+URL.api_court_listSearch, param: parameters, callback: { (dic) in
                 if let list = dic["list"] as? [[String: AnyObject]]{
-                    for obj in list{
-                        let titleStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["addressShort"]!))"
-                        let descStr = "\(obj["description"]!)"
-                        if let customView = NSBundle.mainBundle().loadNibNamed("MainCourtSearchElementView", owner: self, options: nil).first as? MainCourtSearchElementView {
-                            customView.frame = CGRect(x: 0, y: locObjHeight*i, width: self.courtSearchView.frame.width, height: locObjHeight-1)
-                            customView.setLbl(title: titleStr, desc: descStr)
-                            customView.setImage(obj["image"]! as! String, height: locObjHeight-1)
-                            customView.layer()
-                            self.courtSearchView.scrollView.addSubview(customView)
-                            customView.setAction({ (_) in
-                                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                                let uvc = storyBoard.instantiateViewControllerWithIdentifier("courtVC")
-                                (uvc as! CourtViewController).courtSeq = obj["seq"] as! Int
-                                uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-                                self.presentViewController(uvc, animated: true, completion: nil)
-                            })
-                            customView.setSimplemapAction({ (_) in
-                                let sname : String = "내위치".queryValue()
-                                let sx : Double = (self.locationManager.location?.coordinate.latitude)!
-                                let sy : Double = (self.locationManager.location?.coordinate.longitude)!
-                                let ename : String = "\(obj["addressShort"]!)".queryValue()
-                                let ex : Double = obj["latitude"] as! Double
-                                let ey : Double = obj["longitude"] as! Double
-                                let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true"
-                                if let url = NSURL(string: simplemapUrl){
-                                    if UIApplication.sharedApplication().canOpenURL(url) {
-                                        UIApplication.sharedApplication().openURL(url)
-                                    }
-                                }
-                            })
-                        }
-                        i += 1
-                    }
-                    self.courtSearchView.scrollView.contentSize.height = locObjHeight*i+i
-                    if self.courtSearchView.hidden != false{
-                        let tmpRect = self.courtSearchView.frame
-                        self.courtSearchView.frame.origin.x = -tmpRect.width
-                        self.courtSearchView.hidden = false
-                        //애니메이션 적용
-                        UIView.animateWithDuration(0.2, animations: {
-                            self.courtSearchView.frame = tmpRect
-                            }, completion: {(_) in
-                        })
-                    }
+                    self.tempCourtData = list
+                    self.setCourtLayout()
                 }
             })
         }else{
             Util.alert(self, message: "검색어는 2글자 이상으로 넣어주세요.")
+        }
+    }
+    //코트 실제 레이아웃만듬
+    func setCourtLayout(){
+        self.view.endEditing(true)
+        courtSearchView.subviews.forEach({$0.removeFromSuperview()})
+        var i : CGFloat = 0
+        let locObjHeight : CGFloat = 90
+        for obj in self.tempCourtData{
+            let titleStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["addressShort"]!))"
+            let descStr = "\(obj["description"]!)"
+            if let customView = NSBundle.mainBundle().loadNibNamed("MainCourtSearchElementView", owner: self, options: nil).first as? MainCourtSearchElementView {
+                customView.frame = CGRect(x: 0, y: locObjHeight*i, width: self.courtSearchView.frame.width, height: locObjHeight-1)
+                customView.setLbl(title: titleStr, desc: descStr)
+                if self.view.frame.width > self.view.frame.height{
+                    customView.setImage(obj["image"]! as! String, height: locObjHeight-1, isCenter: true)
+                }else{
+                    customView.setImage(obj["image"]! as! String, height: locObjHeight-1)
+                }
+                
+                customView.layer()
+                self.courtSearchView.addSubview(customView)
+                customView.setAction({ (_) in
+                    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                    let uvc = storyBoard.instantiateViewControllerWithIdentifier("courtVC")
+                    (uvc as! CourtViewController).courtSeq = obj["seq"] as! Int
+                    uvc.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+                    self.presentViewController(uvc, animated: true, completion: nil)
+                })
+                customView.setSimplemapAction({ (_) in
+                    let sname : String = "내위치".queryValue()
+                    let sx : Double = (self.locationManager.location?.coordinate.latitude)!
+                    let sy : Double = (self.locationManager.location?.coordinate.longitude)!
+                    let ename : String = "\(obj["addressShort"]!)".queryValue()
+                    let ex : Double = obj["latitude"] as! Double
+                    let ey : Double = obj["longitude"] as! Double
+                    let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true"
+                    if let url = NSURL(string: simplemapUrl){
+                        if UIApplication.sharedApplication().canOpenURL(url) {
+                            UIApplication.sharedApplication().openURL(url)
+                        }
+                    }
+                })
+            }
+            i += 1
+        }
+        self.courtSearchView.contentSize.height = locObjHeight*i+i
+        if self.courtSearchView.hidden != false{
+            let tmpRect = self.courtSearchView.frame
+            self.courtSearchView.frame.origin.x = -tmpRect.width
+            self.courtSearchView.hidden = false
+            //애니메이션 적용
+            UIView.animateWithDuration(0.2, animations: {
+                self.courtSearchView.frame = tmpRect
+                }, completion: {(_) in
+            })
         }
     }
     
@@ -433,11 +453,11 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         //애니메이션 적용
         UIView.animateWithDuration(0.2, animations: { 
             self.courtSearchView.frame.origin.x = -tmpRect.width
-            }) { (_) in
-                self.courtSearchView.frame = tmpRect
-                self.courtSearchView.hidden = true
-                self.courtSearchView.scrollView.subviews.forEach({$0.removeFromSuperview()})
-                self.courtSearchView.scrollView.scrollToTop()
+        }) { (_) in
+            self.courtSearchView.frame = tmpRect
+            self.courtSearchView.hidden = true
+            self.courtSearchView.subviews.forEach({$0.removeFromSuperview()})
+            self.courtSearchView.scrollToTop()
         }
     }
     //현재 나의위치 가져오기 실패함
