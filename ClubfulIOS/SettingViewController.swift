@@ -12,7 +12,7 @@ import FirebaseAuth
 
 class SettingViewController : UIViewController{
     
-    
+    @IBOutlet var signBtn: UIButton!
     @IBOutlet var tab_1: UIView!
     @IBOutlet var tab_2: UIView!
     @IBOutlet var tab_3: UIView!
@@ -21,7 +21,7 @@ class SettingViewController : UIViewController{
     @IBOutlet var tab_6: UIView!
     @IBOutlet var tab_7: UIView!
     
-    @IBOutlet var signBtn: UIButton!
+    
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +36,23 @@ class SettingViewController : UIViewController{
         borderBottom(tab_5)
         borderBottom(tab_6)
         borderBottom(tab_7)
+        
+        self.tab_1.isUserInteractionEnabled = true
+        self.tab_2.isUserInteractionEnabled = true
+        self.tab_3.isUserInteractionEnabled = true
+        self.tab_4.isUserInteractionEnabled = true
+        self.tab_5.isUserInteractionEnabled = true
+        self.tab_6.isUserInteractionEnabled = true
+        self.tab_7.isUserInteractionEnabled = true
+        self.tab_1.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.askAction(_:))))
+        self.tab_2.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.settingAction(_:))))
+        self.tab_3.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.noticeAction(_:))))
+        self.tab_4.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.infoAction(_:))))
+        self.tab_5.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.guideAction(_:))))
+        self.tab_6.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.inquiryAction(_:))))
+        self.tab_7.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.introAction(_:))))
+        
+        
     }
     
     func signCheck(){
@@ -91,7 +108,7 @@ class SettingViewController : UIViewController{
                 })
         }
     }
-    @IBAction func askAction(_ sender: AnyObject) {
+    func askAction(_ sender: AnyObject) {
         func dummyLinkObject() -> [KakaoTalkLinkObject] {
             let image = KakaoTalkLinkObject.createImage("https://developers.kakao.com/assets/img/link_sample.jpg", width: 138, height: 80)
             let androidAppAction = KakaoTalkLinkAction.createAppAction(KakaoTalkLinkActionOSPlatform.android, devicetype: KakaoTalkLinkActionDeviceType.phone, execparam: [:])
@@ -106,37 +123,37 @@ class SettingViewController : UIViewController{
             print("Cannot open kakaotalk.")
         }
     }
-    @IBAction func settingAction(_ sender: AnyObject) {
+    func settingAction(_ sender: AnyObject) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let uvc = storyBoard.instantiateViewController(withIdentifier: "appSettingVC")
         uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
         self.present(uvc, animated: true, completion: nil)
     }
-    @IBAction func noticeAction(_ sender: AnyObject) {
+    func noticeAction(_ sender: AnyObject) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let uvc = storyBoard.instantiateViewController(withIdentifier: "noticeVC")
         uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
         self.present(uvc, animated: true, completion: nil)
     }
-    @IBAction func infoAction(_ sender: AnyObject) {
+    func infoAction(_ sender: AnyObject) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let uvc = storyBoard.instantiateViewController(withIdentifier: "infoVC")
         uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
         self.present(uvc, animated: true, completion: nil)
     }
-    @IBAction func guideAction(_ sender: AnyObject) {
+    func guideAction(_ sender: AnyObject) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let uvc = storyBoard.instantiateViewController(withIdentifier: "guideVC")
         uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
         self.present(uvc, animated: true, completion: nil)
     }
-    @IBAction func inquiryAction(_ sender: AnyObject) {
+    func inquiryAction(_ sender: AnyObject) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let uvc = storyBoard.instantiateViewController(withIdentifier: "inquiryVC")
         uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
         self.present(uvc, animated: true, completion: nil)
     }
-    @IBAction func introAction(_ sender: AnyObject) {
+    func introAction(_ sender: AnyObject) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let uvc = storyBoard.instantiateViewController(withIdentifier: "eggVC")
         uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
