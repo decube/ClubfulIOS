@@ -26,7 +26,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var spin: UIActivityIndicatorView!
-    var vc : SettingViewController!
+    var vc : SetViewController!
     @IBOutlet var idField: UITextField!
     @IBOutlet var pwField: UITextField!
     @IBOutlet var loginBtn: UIButton!

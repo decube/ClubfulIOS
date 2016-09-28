@@ -1,5 +1,5 @@
 //
-//  SettingViewController.swift
+//  SetViewController.swift
 //  ClubfulIOS
 //
 //  Created by guanho on 2016. 8. 21..
@@ -10,9 +10,9 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class SettingViewController : UIViewController{
+class SetViewController : UIViewController{
     
-    @IBOutlet var signBtn: UIButton!
+    @IBOutlet var tab_0: UIView!
     @IBOutlet var tab_1: UIView!
     @IBOutlet var tab_2: UIView!
     @IBOutlet var tab_3: UIView!
@@ -20,15 +20,17 @@ class SettingViewController : UIViewController{
     @IBOutlet var tab_5: UIView!
     @IBOutlet var tab_6: UIView!
     @IBOutlet var tab_7: UIView!
+    @IBOutlet var signLbl: UILabel!
     
     
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("SettingViewController viewDidLoad")
+        print("SetViewController viewDidLoad")
         
         signCheck()
         
+        borderBottom(tab_0)
         borderBottom(tab_1)
         borderBottom(tab_2)
         borderBottom(tab_3)
@@ -37,6 +39,7 @@ class SettingViewController : UIViewController{
         borderBottom(tab_6)
         borderBottom(tab_7)
         
+        self.tab_3.isUserInteractionEnabled = true
         self.tab_1.isUserInteractionEnabled = true
         self.tab_2.isUserInteractionEnabled = true
         self.tab_3.isUserInteractionEnabled = true
@@ -44,6 +47,7 @@ class SettingViewController : UIViewController{
         self.tab_5.isUserInteractionEnabled = true
         self.tab_6.isUserInteractionEnabled = true
         self.tab_7.isUserInteractionEnabled = true
+        self.tab_0.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.signAction(_:))))
         self.tab_1.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.askAction(_:))))
         self.tab_2.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.settingAction(_:))))
         self.tab_3.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.noticeAction(_:))))
@@ -51,20 +55,20 @@ class SettingViewController : UIViewController{
         self.tab_5.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.guideAction(_:))))
         self.tab_6.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.inquiryAction(_:))))
         self.tab_7.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.introAction(_:))))
-        
+//
         
     }
     
     func signCheck(){
         let user = Storage.getRealmUser()
         if user.isLogin == -1{
-            signBtn.setTitle("로그인", for: UIControlState())
+            signLbl.text = "로그인"
         }else{
-            signBtn.setTitle("로그아웃", for: UIControlState())
+            signLbl.text = "로그아웃"
         }
     }
-    
-    @IBAction func signAction(_ sender: AnyObject) {
+
+    func signAction(_ sender: AnyObject) {
         var user = Storage.getRealmUser()
         if user.isLogin == -1{
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -105,9 +109,11 @@ class SettingViewController : UIViewController{
                 user.userAddressShort = ""
                 Storage.setRealmUser(user)
                 self.signCheck()
-                })
+            })
         }
     }
+
+    
     func askAction(_ sender: AnyObject) {
         func dummyLinkObject() -> [KakaoTalkLinkObject] {
             let image = KakaoTalkLinkObject.createImage("https://developers.kakao.com/assets/img/link_sample.jpg", width: 138, height: 80)

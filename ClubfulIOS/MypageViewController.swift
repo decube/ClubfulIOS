@@ -16,6 +16,10 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     
     var user = Storage.getRealmUser()
     
+    var courtInterestListData : [[String: AnyObject]]!
+    var courtCreateListData : [[String: AnyObject]]!
+    
+    
     //이미지 URL 저장
     var imageURLList1 = [String]()
     var imageURLList2 = [String]()
@@ -24,6 +28,8 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     var imageList2 = [UIImage]()
     
     var nonUserView : NonUserView!
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         print("MypageViewController viewWillAppear")
         if nonUserView == nil{
@@ -36,10 +42,20 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
             layout()
         }
     }
-
+    
+    
+    //회전됬을때
+    func rotated(){
+        if user.isLogin != -1{
+            setInterestImageLayout()
+            setMyCreateImageLayout()
+        }
+    }
     
     override func viewDidLoad() {
         print("MypageViewController viewDidLoad")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         
         interestCourt.delegate = self
         createCourt.delegate = self
@@ -56,8 +72,6 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     
     func layout(){
         if user.isLogin != -1{
-            self.interestCourt.subviews.forEach({$0.removeFromSuperview()})
-            self.createCourt.subviews.forEach({$0.removeFromSuperview()})
             self.view.subviews.forEach({ (tempView) in
                 if tempView == nonUserView{
                     tempView.removeFromSuperview()
@@ -66,23 +80,11 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
             let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "userId": user.userId as AnyObject]
             URL.request(self, url: URL.apiServer+URL.api_user_mypage, param: parameters, callback: { (dic) in
                 if let interestList = dic["interestList"] as? [[String: AnyObject]]{
-                    var interestCnt = interestList.count
-                    if interestCnt == 0{
-                        interestCnt = 1
-                    }
-                    //scrollView 총 넓이
-                    self.interestCourt.contentSize = CGSize(width: self.interestCourt.frame.size.width*CGFloat(interestCnt) ,height: self.interestCourt.frame.size.height)
                     DispatchQueue.global().async {
                         self.interestData(interestList)
                     }
                 }
                 if let myCourtInsertList = dic["myCourtInsert"] as? [[String: AnyObject]]{
-                    var myInsertCnt = myCourtInsertList.count
-                    if myInsertCnt == 0{
-                        myInsertCnt = 1
-                    }
-                    //scrollView 총 넓이
-                    self.createCourt.contentSize = CGSize(width: self.createCourt.frame.size.width*CGFloat(myInsertCnt) ,height: self.createCourt.frame.size.height)
                     DispatchQueue.global().async{
                         self.myInsertData(myCourtInsertList)
                     }
@@ -116,13 +118,22 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
         return CGRect(x: (fullSize.width-widthValue)/2, y: (fullSize.height-heightValue)/2, width: widthValue, height: heightValue)
     }
     
-    //찜한 코트
-    func setInterestImageLayout(_ tmpList : [[String: AnyObject]], courtInfo: UIScrollView){
+    
+    
+    
+    //실제 레이아웃 만들기
+    
+    //찜한 코트 레이아웃
+    func setInterestImageLayout(){
         DispatchQueue.main.async {
+            self.interestCourt.subviews.forEach({$0.removeFromSuperview()})
+            self.interestSpin.startAnimating()
+            self.interestSpin.isHidden = false
+            
             var i : CGFloat = 0
-            for obj in tmpList{
+            for obj in self.courtInterestListData{
                 if let imgUI = obj["image"] as? UIImage{
-                    let imgBtn = UIButton(frame: CGRect(x: courtInfo.frame.width * i, y: 0, width: courtInfo.frame.width, height: courtInfo.frame.height-40))
+                    let imgBtn = UIButton(frame: CGRect(x: self.interestCourt.frame.width * i, y: 0, width: self.interestCourt.frame.width, height: self.interestCourt.frame.height-40))
                     imgBtn.addAction(.allTouchEvents){
                         imgBtn.isHighlighted = false
                     }
@@ -135,7 +146,7 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                             self.present(uvc, animated: true, completion: nil)
                         }
                     }
-                    courtInfo.addSubview(imgBtn)
+                    self.interestCourt.addSubview(imgBtn)
                     
                     let imgView = UIImageView(frame: self.calLayoutRate(fullSize: imgBtn.frame.size, imageSize: imgUI.size))
                     imgView.image = imgUI
@@ -143,30 +154,34 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                 }
                 
                 let infoStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["address"]!))"
-                let objLbl = UILabel(frame: CGRect(x: courtInfo.frame.width * i + 10, y: courtInfo.frame.height-40, width: courtInfo.frame.width-10, height: 40))
+                let objLbl = UILabel(frame: CGRect(x: self.interestCourt.frame.width * i + 10, y: self.interestCourt.frame.height-40, width: self.interestCourt.frame.width-10, height: 40))
                 objLbl.text = "\(infoStr)"
                 objLbl.font = UIFont(name: (objLbl.font?.fontName)!, size: 12)
-                courtInfo.addSubview(objLbl)
+                self.interestCourt.addSubview(objLbl)
                 
                 i += 1
             }
-            //길게클릭
-            courtInfo.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed1(_:))))
-            courtInfo.isUserInteractionEnabled = true
+            //scrollView 총 넓이
+            self.interestCourt.contentSize = CGSize(width: self.interestCourt.frame.size.width*CGFloat(i) ,height: self.interestCourt.frame.size.height)
             
             self.interestSpin.stopAnimating()
             self.interestSpin.isHidden = true
+            self.interestCourt.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         }
     }
     
-    //내가등록한 코트
-    func setMyInsertImageLayout(_ tmpList : [[String: AnyObject]], courtInfo: UIScrollView){
+    //내가등록한 코트 레이아웃
+    func setMyCreateImageLayout(){
         DispatchQueue.main.async {
+            self.createCourt.subviews.forEach({$0.removeFromSuperview()})
+            self.createSpin.startAnimating()
+            self.createSpin.isHidden = false
+            
             var i : CGFloat = 0
-            for obj in tmpList{
+            for obj in self.courtCreateListData{
                 
                 if let imgUI = obj["image"] as? UIImage{
-                    let imgBtn = UIButton(frame: CGRect(x: courtInfo.frame.width * i, y: 0, width: courtInfo.frame.width, height: courtInfo.frame.height-40))
+                    let imgBtn = UIButton(frame: CGRect(x: self.createCourt.frame.width * i, y: 0, width: self.createCourt.frame.width, height: self.createCourt.frame.height-40))
                     imgBtn.addAction(.allTouchEvents){
                         imgBtn.isHighlighted = false
                     }
@@ -179,7 +194,7 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                             self.present(uvc, animated: true, completion: nil)
                         }
                     }
-                    courtInfo.addSubview(imgBtn)
+                    self.createCourt.addSubview(imgBtn)
                     
                     let imgView = UIImageView(frame: self.calLayoutRate(fullSize: imgBtn.frame.size, imageSize: imgUI.size))
                     imgView.image = imgUI
@@ -187,19 +202,20 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                 }
                 
                 let infoStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["address"]!))"
-                let objLbl = UILabel(frame: CGRect(x: courtInfo.frame.width * i + 10, y: courtInfo.frame.height-40, width: courtInfo.frame.width-10, height: 40))
+                let objLbl = UILabel(frame: CGRect(x: self.createCourt.frame.width * i + 10, y: self.createCourt.frame.height-40, width: self.createCourt.frame.width-10, height: 40))
                 objLbl.text = "\(infoStr)"
                 objLbl.font = UIFont(name: (objLbl.font?.fontName)!, size: 12)
-                courtInfo.addSubview(objLbl)
+                self.createCourt.addSubview(objLbl)
                 
                 i += 1
             }
-            //길게클릭
-            courtInfo.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed2(_:))))
-            courtInfo.isUserInteractionEnabled = true
+            
+            //scrollView 총 넓이
+            self.createCourt.contentSize = CGSize(width: self.createCourt.frame.size.width*CGFloat(i) ,height: self.createCourt.frame.size.height)
             
             self.createSpin.stopAnimating()
             self.createSpin.isHidden = true
+            self.createCourt.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         }
     }
     
@@ -210,7 +226,13 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     
     
     
-    //찜한 코트 리스트
+    
+    
+    
+    
+    // 데이터 만들기
+    
+    //찜한 코트 리스트 데이터 만들기
     func interestData(_ list: [[String: AnyObject]]){
         if list.count == 0{
             let noneLbl = UILabel(frame: CGRect(x: 0, y: 0, width: interestCourt.frame.width, height: interestCourt.frame.height))
@@ -253,7 +275,11 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                                 tmpList.append(tmpObj)
                                 i += 1
                                 if i == CGFloat(list.count){
-                                    setInterestImageLayout(tmpList, courtInfo: self.interestCourt)
+                                    self.courtInterestListData = tmpList
+                                    setInterestImageLayout()
+                                    //길게클릭
+                                    self.interestCourt.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed1(_:))))
+                                    self.interestCourt.isUserInteractionEnabled = true
                                 }
                             }
                         }
@@ -265,7 +291,7 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     
     
     
-    //내가 등록한 코트 리스트
+    //내가 등록한 코트 리스트 데이터 만들기
     func myInsertData(_ list: [[String: AnyObject]]){
         if list.count == 0{
             let noneLbl = UILabel(frame: CGRect(x: 0, y: 0, width: createCourt.frame.width, height: createCourt.frame.height))
@@ -308,7 +334,11 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                                 tmpList.append(tmpObj)
                                 i += 1
                                 if i == CGFloat(list.count){
-                                    setMyInsertImageLayout(tmpList, courtInfo: self.createCourt)
+                                    self.courtCreateListData = tmpList
+                                    setMyCreateImageLayout()
+                                    //길게클릭
+                                    self.createCourt.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed2(_:))))
+                                    self.createCourt.isUserInteractionEnabled = true
                                 }
                             }
                         }
