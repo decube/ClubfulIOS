@@ -30,15 +30,6 @@ class SetViewController : UIViewController{
         
         signCheck()
         
-        borderBottom(tab_0)
-        borderBottom(tab_1)
-        borderBottom(tab_2)
-        borderBottom(tab_3)
-        borderBottom(tab_4)
-        borderBottom(tab_5)
-        borderBottom(tab_6)
-        borderBottom(tab_7)
-        
         self.tab_3.isUserInteractionEnabled = true
         self.tab_1.isUserInteractionEnabled = true
         self.tab_2.isUserInteractionEnabled = true
@@ -164,14 +155,5 @@ class SetViewController : UIViewController{
         let uvc = storyBoard.instantiateViewController(withIdentifier: "eggVC")
         uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
         self.present(uvc, animated: true, completion: nil)
-    }
-    
-    func borderBottom(_ tab : UIView){
-        let border = CALayer()
-        border.borderColor = UIColor.gray.cgColor
-        border.borderWidth = 1
-        border.frame = CGRect(x: 0, y: tab.frame.height - 1, width:  tab.frame.width, height: 1)
-        tab.layer.addSublayer(border)
-        tab.layer.masksToBounds = true
     }
 }

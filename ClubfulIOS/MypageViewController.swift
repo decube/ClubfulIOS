@@ -16,8 +16,8 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     
     var user = Storage.getRealmUser()
     
-    var courtInterestListData : [[String: AnyObject]]!
-    var courtCreateListData : [[String: AnyObject]]!
+    var courtInterestListData = [[String: AnyObject]]()
+    var courtCreateListData = [[String: AnyObject]]()
     
     
     //이미지 URL 저장

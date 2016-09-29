@@ -31,7 +31,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var pwField: UITextField!
     @IBOutlet var loginBtn: UIButton!
     @IBOutlet var joinBtn: UIButton!
-    @IBOutlet var kakaoLoginBtn: UIButton!
+    
+    @IBOutlet var kakaoLogin: UIView!
+    @IBOutlet var facebookLogin: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("LoginViewController viewDidLoad")
@@ -42,6 +45,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         pwField.delegate = self
         idField.maxLength(14)
         pwField.maxLength(14)
+        
+        self.kakaoLogin.isUserInteractionEnabled = true
+        self.kakaoLogin.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.kakaoAction(_:))))
+        self.facebookLogin.isUserInteractionEnabled = true
+        self.facebookLogin.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.facebookAction(_:))))
     }
     
     
@@ -117,7 +125,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     
     //카카오톡 로그인 클릭
-    @IBAction func kakaoAction(_ sender: AnyObject) {
+    func kakaoAction(_ sender: AnyObject) {
         if spin.isHidden == false{
             return
         }
@@ -152,7 +160,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         })
     }
     //페이스북 로그인 클릭
-    @IBAction func facebookAction(_ sender: AnyObject) {
+    func facebookAction(_ sender: AnyObject) {
         if spin.isHidden == false{
             return
         }

@@ -15,7 +15,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     //전체 스크롤 뷰
     @IBOutlet var mainScrollView: UIScrollView!
     //전체 스크롤뷰 스크롤 height
-    var mainScrollViewHeight: CGFloat!
+    var mainScrollViewHeight: CGFloat = 0
     //이미지 스크롤 뷰
     @IBOutlet var picScrollView: UIScrollView!
     //크롭버튼 어떤것을 클릭했는지 담아두는 변수
@@ -60,18 +60,45 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     var tempImageBtn: UIButton!
     
     
+    let pic1 = UIButton()
+    let pic2 = UIButton()
+    let pic3 = UIButton()
+    let pic4 = UIButton()
+    var picBtnList = [UIButton]()
+    
+    //회전됬을때
+    func rotated(){
+        if user.isLogin != -1{
+            self.view.endEditing(true)
+            picLayout()
+            print("rotate : \(mainScrollView.bounds.height)")
+        }
+    }
+    
     override func viewDidLoad() {
         print("CourtCreateViewController viewDidLoad")
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        //mainScrollViewHeight = mainScrollView.bounds.height
         spin.isHidden = true
-        mainScrollViewHeight = mainScrollView.frame.height
-        imageWidth = picScrollView.frame.width/2-5
-        imageHeight = imageWidth * 120 / 192
-        picScrollView.contentSize = CGSize(width: picScrollView.frame.width, height: (imageHeight+10)*2)
+        
         cnameTextField.delegate = self
         descTextView.delegate = self
-        
         layoutInit()
+    }
+    
+    func picLayout(){
+        self.imageWidth = self.view.frame.width/2-5
+        self.imageHeight = self.imageWidth * 120 / 192
+        self.picScrollView.contentSize = CGSize(width: self.view.frame.width, height: (imageHeight+10)*2)
+        
+        self.pic1.frame = CGRect(x: 0, y: 0, width: imageWidth, height: imageHeight)
+        self.pic2.frame = CGRect(x: imageWidth+10, y: 0, width: imageWidth, height: imageHeight)
+        self.pic3.frame = CGRect(x: 0, y: imageHeight+10, width: imageWidth, height: imageHeight)
+        self.pic4.frame = CGRect(x: imageWidth+10, y: imageHeight+10, width: imageWidth, height: imageHeight)
+        for picObj in picList{
+            picObj.frame = CGRect(x: 0, y: 0, width: imageWidth, height: imageHeight)
+        }
     }
     
     func layoutInit(){
@@ -87,18 +114,12 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         cnameTextField.text = ""
         descTextView.text = ""
         
-        let pic1 = UIButton(frame: CGRect(x: 0, y: 0, width: imageWidth, height: imageHeight))
-        let pic2 = UIButton(frame: CGRect(x: picScrollView.frame.width/2+5, y: 0, width: imageWidth, height: imageHeight))
-        let pic3 = UIButton(frame: CGRect(x: 0, y: imageHeight+10, width: imageWidth, height: imageHeight))
-        let pic4 = UIButton(frame: CGRect(x: picScrollView.frame.width/2+5, y: imageHeight+10, width: imageWidth, height: imageHeight))
+        picBtnList.append(pic1)
+        picBtnList.append(pic2)
+        picBtnList.append(pic3)
+        picBtnList.append(pic4)
         
-        var picTempList = [UIButton]()
-        picTempList.append(pic1)
-        picTempList.append(pic2)
-        picTempList.append(pic3)
-        picTempList.append(pic4)
-        
-        for picObj in picTempList{
+        for picObj in picBtnList{
             picScrollView.addSubview(picObj)
             
             //하나의 버튼 더 만듬
@@ -133,6 +154,8 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                 btnClick()
             }
         }
+        
+        picLayout()
     }
     
     //로그인했을때 로그아웃했을때 레이아웃 변경
@@ -397,15 +420,13 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     //키보드생길때
     func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = ((notification as NSNotification).userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            
-            mainScrollView.contentSize = CGSize(width: mainScrollView.frame.width, height: mainScrollViewHeight+keyboardSize.height+10)
-            mainScrollView.scrollToBottom()
+            print("keyboardWillShow : \(self.view.bounds.height)")
+            mainScrollView.contentSize.height = mainScrollView.bounds.height+keyboardSize.height
         }
     }
     //키보드없어질때
     func keyboardWillHide(_ notification: Notification) {
-        mainScrollView.contentSize = CGSize(width: mainScrollView.frame.width, height: mainScrollViewHeight)
-        mainScrollView.scrollToTop()
+        mainScrollView.contentSize.height = mainScrollView.bounds.height
     }
     
     
