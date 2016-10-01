@@ -70,8 +70,12 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     func rotated(){
         if user.isLogin != -1{
             self.view.endEditing(true)
-            picLayout()
-            print("rotate : \(mainScrollView.bounds.height)")
+            DispatchQueue.global().async {
+                Thread.sleep(forTimeInterval: 1)
+                DispatchQueue.main.async {
+                    self.mainScrollViewHeight = self.mainScrollView.contentSize.height
+                }
+            }
         }
     }
     
@@ -79,7 +83,6 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         print("CourtCreateViewController viewDidLoad")
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
-        //mainScrollViewHeight = mainScrollView.bounds.height
         spin.isHidden = true
         
         cnameTextField.delegate = self
@@ -87,19 +90,6 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         layoutInit()
     }
     
-    func picLayout(){
-        self.imageWidth = self.view.frame.width/2-5
-        self.imageHeight = self.imageWidth * 120 / 192
-        self.picScrollView.contentSize = CGSize(width: self.view.frame.width, height: (imageHeight+10)*2)
-        
-        self.pic1.frame = CGRect(x: 0, y: 0, width: imageWidth, height: imageHeight)
-        self.pic2.frame = CGRect(x: imageWidth+10, y: 0, width: imageWidth, height: imageHeight)
-        self.pic3.frame = CGRect(x: 0, y: imageHeight+10, width: imageWidth, height: imageHeight)
-        self.pic4.frame = CGRect(x: imageWidth+10, y: imageHeight+10, width: imageWidth, height: imageHeight)
-        for picObj in picList{
-            picObj.frame = CGRect(x: 0, y: 0, width: imageWidth, height: imageHeight)
-        }
-    }
     
     func layoutInit(){
         picList = [UIButton]()
@@ -155,7 +145,25 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
             }
         }
         
-        picLayout()
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 0.1)
+            DispatchQueue.main.async {
+                self.mainScrollViewHeight = self.mainScrollView.contentSize.height
+                
+                self.imageWidth = self.picScrollView.frame.width/2-5
+                self.imageHeight = self.imageWidth * 120 / 192
+                
+                self.picScrollView.contentSize = CGSize(width: self.picScrollView.frame.width, height: (self.imageHeight+10)*2)
+                
+                self.pic1.frame = CGRect(x: 0, y: 0, width: self.imageWidth, height: self.imageHeight)
+                self.pic2.frame = CGRect(x: self.imageWidth+10, y: 0, width: self.imageWidth, height: self.imageHeight)
+                self.pic3.frame = CGRect(x: 0, y: self.imageHeight+10, width: self.imageWidth, height: self.imageHeight)
+                self.pic4.frame = CGRect(x: self.imageWidth+10, y: self.imageHeight+10, width: self.imageWidth, height: self.imageHeight)
+                for picObj in self.picList{
+                    picObj.frame = CGRect(x: 0, y: 0, width: self.imageWidth, height: self.imageHeight)
+                }
+            }
+        }
     }
     
     //로그인했을때 로그아웃했을때 레이아웃 변경
@@ -420,13 +428,12 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     //키보드생길때
     func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = ((notification as NSNotification).userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            print("keyboardWillShow : \(self.view.bounds.height)")
-            mainScrollView.contentSize.height = mainScrollView.bounds.height+keyboardSize.height
+            mainScrollView.contentSize.height = self.mainScrollViewHeight+keyboardSize.height
         }
     }
     //키보드없어질때
     func keyboardWillHide(_ notification: Notification) {
-        mainScrollView.contentSize.height = mainScrollView.bounds.height
+        mainScrollView.contentSize.height = self.mainScrollViewHeight
     }
     
     

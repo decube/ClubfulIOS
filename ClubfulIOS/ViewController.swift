@@ -35,7 +35,6 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     //user 저장소
     var user : User!
     
-    @IBOutlet var mainView: UIView!
     //광고영역
     @IBOutlet var adView: UIImageView!
     
@@ -75,8 +74,13 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     //회전됬을때
     func rotated(){
         blackScreen.frame = CGRect(x: 0, y: 20, width: self.view.frame.width, height: self.view.frame.height)
-        courtSearchView.frame = CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.mainView.frame.height)
+        courtSearchView.frame = CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.adView.frame.height+self.mapView.frame.height)
         locationView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
+        if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
+            mapView.frame = CGRect(x: 0, y: 120, width: self.view.frame.width, height: self.view.frame.height - 120)
+        }else if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
+            mapView.frame = CGRect(x: 0, y: 140, width: self.view.frame.width, height: self.view.frame.height - 140)
+        }
         if self.courtSearchView.isHidden == false{
             self.courtSearchView.isHidden = true
             self.setCourtLayout()
@@ -180,7 +184,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         self.view.addSubview(blackScreen)
         
         //코트 검색
-        courtSearchView = UIScrollView(frame: CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.mainView.frame.height))
+        courtSearchView = UIScrollView(frame: CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.adView.frame.height+self.mapView.frame.height))
         courtSearchView.backgroundColor = UIColor.white
         courtSearchView.isHidden = true
         self.view.addSubview(courtSearchView)
@@ -267,6 +271,8 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             }
         }
         
+        
+        self.rotated()
         
         
         let location = setMapLocation(user.latitude, longitude: user.longitude)

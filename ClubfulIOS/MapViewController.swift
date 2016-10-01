@@ -188,17 +188,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
                         let element : [String: AnyObject] = results[0]
                         let (_, _, addressShort, address) = Util.googleMapParse(element)
                         
-                        if let vc = self.preView as? JoinViewController{
-                            vc.latitude = self.mapView.region.center.latitude
-                            vc.longitude = self.mapView.region.center.longitude
-                            vc.address = "\(address)"
-                            vc.addressShort = "\(addressShort)"
-                        }else if let vc = self.preView as? UserConvertViewController{
-                            vc.latitude = self.mapView.region.center.latitude
-                            vc.longitude = self.mapView.region.center.longitude
-                            vc.address = "\(address)"
-                            vc.addressShort = "\(addressShort)"
-                        }else if let vc = self.preView as? CourtCreateViewController{
+                        if let vc = self.preView as? CourtCreateViewController{
                             vc.courtLatitude = self.mapView.region.center.latitude
                             vc.courtLongitude = self.mapView.region.center.longitude
                             vc.courtAddress = "\(address)"

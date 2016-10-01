@@ -30,7 +30,7 @@ class SetViewController : UIViewController{
         
         signCheck()
         
-        self.tab_3.isUserInteractionEnabled = true
+        self.tab_0.isUserInteractionEnabled = true
         self.tab_1.isUserInteractionEnabled = true
         self.tab_2.isUserInteractionEnabled = true
         self.tab_3.isUserInteractionEnabled = true

@@ -13,30 +13,27 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     var loginVC : LoginViewController!
     
     @IBOutlet var scrollView: UIScrollView!
-    var scrollViewHeight : CGFloat!
+    var scrollViewHeight : CGFloat = 0
     @IBOutlet var idField: UITextField!
     @IBOutlet var pwdField: UITextField!
     @IBOutlet var repwdField: UITextField!
     @IBOutlet var nicknameField: UITextField!
-    @IBOutlet var joinBtn: UIButton!
-    @IBOutlet var birthDatePicker: UIDatePicker!
-    @IBOutlet var locationBtn: UIButton!
-    
-    @IBOutlet var maleRadio: UIView!
-    @IBOutlet var femaleRadio: UIView!
-    @IBOutlet var maleImage: UIImageView!
-    @IBOutlet var femaleImage: UIImageView!
-    let radioSelect = UIImage(named: "ic_radio_selected.jpg")
-    let radioUnselect = UIImage(named: "ic_radio_unselected.jpg")
-    
-    //위치 변수
-    //위치 변수
-    var latitude : Double!
-    var longitude : Double!
-    var address : String!
-    var addressShort : String!
     
     var user = Storage.getRealmUser()
+    
+    var orientations = true
+    //회전됬을때
+    func rotated(){
+        self.view.endEditing(true)
+        if(orientations == false && UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
+            orientations = true
+            scrollViewHeight = self.scrollView.frame.height
+        }
+        if(orientations == true && UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
+            orientations = false
+            scrollViewHeight = self.scrollView.contentSize.height
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,38 +50,20 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         repwdField.maxLength(14)
         nicknameField.maxLength(10)
         
-        maleImage.image = self.radioUnselect
-        femaleImage.image = self.radioUnselect
-        
-        scrollViewHeight = scrollView.frame.height
-        
-        maleRadio.isUserInteractionEnabled = true
-        femaleRadio.isUserInteractionEnabled = true
-        maleRadio.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.maleAction)))
-        femaleRadio.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.femaleAction)))
-    }
-    
-    func maleAction(){
-        maleImage.image = self.radioSelect
-        femaleImage.image = self.radioUnselect
-    }
-    func femaleAction(){
-        maleImage.image = self.radioUnselect
-        femaleImage.image = self.radioSelect
-    }
-    
-    //위치 클릭
-    @IBAction func locationAction(_ sender: AnyObject) {
-        if spin.isHidden == false{
-            return
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 1)
+            if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
+                self.orientations = true
+                self.scrollViewHeight = self.scrollView.frame.height
+            }
+            if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
+                self.orientations = false
+                self.scrollViewHeight = self.scrollView.contentSize.height
+            }
         }
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let uvc = storyBoard.instantiateViewController(withIdentifier: "mapVC")
-        (uvc as! MapViewController).preView = self
-        (uvc as! MapViewController).preBtn = locationBtn
-        uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        self.present(uvc, animated: true, completion: nil)
     }
+    
+    
     //회원가입 클릭
     @IBAction func joinAction(_ sender: AnyObject) {
         if spin.isHidden == false{
@@ -98,15 +77,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             Util.alert(self, message: "비밀번호가 틀립니다.")
         }else if nicknameField.text!.characters.count < 2{
             Util.alert(self, message: "닉네임을 2자 이상 입력해 주세요.")
-        }else if latitude == nil || longitude == nil || address == nil || addressShort == nil{
-            Util.alert(self, message: "위치설정을 해주세요.")
         }else{
-            var sex = ""
-            if maleImage.image == self.radioSelect{
-                sex = "male"
-            }else if femaleImage.image == self.radioSelect{
-                sex = "female"
-            }
             
             spin.isHidden = false
             spin.startAnimating()
@@ -118,12 +89,6 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             parameters.updateValue(self.pwdField.text! as AnyObject, forKey: "password")
             parameters.updateValue(user.gcmId as AnyObject, forKey: "gcmId")
             parameters.updateValue(self.nicknameField.text! as AnyObject, forKey: "nickName")
-            parameters.updateValue(sex as AnyObject, forKey: "sex")
-            parameters.updateValue(birthDatePicker.date.getDate() as AnyObject, forKey: "birth")
-            parameters.updateValue(self.latitude as AnyObject, forKey: "userLatitude")
-            parameters.updateValue(self.longitude as AnyObject, forKey: "userLongitude")
-            parameters.updateValue(self.address as AnyObject, forKey: "userAddress")
-            parameters.updateValue(addressShort as AnyObject, forKey: "userAddressShort")
             parameters.updateValue(user.noticePushCheck as AnyObject, forKey: "noticePush")
             parameters.updateValue(user.myCourtPushCheck as AnyObject, forKey: "myInsertPush")
             parameters.updateValue(user.distancePushCheck as AnyObject, forKey: "distancePush")
@@ -151,22 +116,21 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
-    //view 사라지기 전 작동
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self)
-    }
     //키보드생길때
     func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = ((notification as NSNotification).userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            scrollView.contentSize = CGSize(width: scrollView.frame.width, height: scrollViewHeight+keyboardSize.height)
+            scrollView.contentSize.height = self.scrollViewHeight+keyboardSize.height
         }
     }
     //키보드없어질때
     func keyboardWillHide(_ notification: Notification) {
-        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: scrollViewHeight)
+        scrollView.contentSize.height = self.scrollViewHeight
     }
     
-    
+    //view 사라지기 전 작동
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+    }
     //인풋창 끝나면 키보드 없애기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
