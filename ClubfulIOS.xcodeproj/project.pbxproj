@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0821451EC0BAE3D497A2F86A /* Pods_ClubfulIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7676E2D18473C2715C92E3 /* Pods_ClubfulIOS.framework */; };
+		6E7514BD1DA117F900A0740F /* background_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E7514BB1DA117F900A0740F /* background_landscape.png */; };
+		6E7514BE1DA117F900A0740F /* background_portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E7514BC1DA117F900A0740F /* background_portrait.png */; };
 		6E7DA8DA1D9948910098D7DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA8D91D9948910098D7DA /* AppDelegate.swift */; };
 		6E7DA8DC1D9948910098D7DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA8DB1D9948910098D7DA /* ViewController.swift */; };
 		6E7DA8DF1D9948910098D7DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA8DD1D9948910098D7DA /* Main.storyboard */; };
@@ -142,6 +144,8 @@
 		2DFA4C9A1F0748219FE9E959 /* Pods_ClubfulIOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubfulIOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4964696397EF65213A1B1D17 /* Pods-ClubfulIOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubfulIOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubfulIOSUITests/Pods-ClubfulIOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		49974A46F672D49681011BDF /* Pods_ClubfulIOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubfulIOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E7514BB1DA117F900A0740F /* background_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background_landscape.png; path = resources/img/background_landscape.png; sourceTree = "<group>"; };
+		6E7514BC1DA117F900A0740F /* background_portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background_portrait.png; path = resources/img/background_portrait.png; sourceTree = "<group>"; };
 		6E7DA8D61D9948910098D7DA /* ClubfulIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubfulIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7DA8D91D9948910098D7DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E7DA8DB1D9948910098D7DA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -400,6 +404,8 @@
 		6E7DA92E1D994A340098D7DA /* img */ = {
 			isa = PBXGroup;
 			children = (
+				6E7514BB1DA117F900A0740F /* background_landscape.png */,
+				6E7514BC1DA117F900A0740F /* background_portrait.png */,
 				6E7DA9311D994A410098D7DA /* ball_1.jpg */,
 				6E7DA9321D994A410098D7DA /* ball_2.jpg */,
 				6E7DA9331D994A410098D7DA /* ball_3.jpg */,
@@ -741,6 +747,7 @@
 				6E7DA97C1D994A410098D7DA /* ic_star_s.png in Resources */,
 				6E7DA9771D994A410098D7DA /* ic_search.png in Resources */,
 				6E7DA95F1D994A410098D7DA /* ball_5.jpg in Resources */,
+				6E7514BE1DA117F900A0740F /* background_portrait.png in Resources */,
 				6E7DA90A1D99490A0098D7DA /* AdobeCreativeSDKCoreResources.bundle in Resources */,
 				6E7DA8E41D9948910098D7DA /* LaunchScreen.storyboard in Resources */,
 				6E7DA8E11D9948910098D7DA /* Assets.xcassets in Resources */,
@@ -753,6 +760,7 @@
 				6E7DA9E41D994D4A0098D7DA /* NonUserView.xib in Resources */,
 				6E7DA95D1D994A410098D7DA /* ball_3.jpg in Resources */,
 				6E7DA9E01D994D4A0098D7DA /* MainCenterElementView.xib in Resources */,
+				6E7514BD1DA117F900A0740F /* background_landscape.png in Resources */,
 				6E7DA96B1D994A410098D7DA /* ic_left_true.png in Resources */,
 				6E7DA9761D994A410098D7DA /* ic_search_b.png in Resources */,
 				6E7DA95B1D994A410098D7DA /* ball_1.jpg in Resources */,

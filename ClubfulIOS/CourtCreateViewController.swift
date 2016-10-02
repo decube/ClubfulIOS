@@ -66,10 +66,20 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     let pic4 = UIButton()
     var picBtnList = [UIButton]()
     
+    
+    var isRotated = true
+    
     //회전됬을때
     func rotated(){
         if user.isLogin != -1{
-            self.view.endEditing(true)
+            if(self.isRotated == false && UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
+                self.isRotated = true
+                self.view.endEditing(true)
+            }
+            if(self.isRotated == true && UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
+                self.isRotated = false
+                self.view.endEditing(true)
+            }
             DispatchQueue.global().async {
                 Thread.sleep(forTimeInterval: 1)
                 DispatchQueue.main.async {

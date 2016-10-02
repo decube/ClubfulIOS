@@ -21,23 +21,32 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     
     var user = Storage.getRealmUser()
     
-    var orientations = true
+    @IBOutlet var backgroundImage: UIImageView!
+    let background_landscape = UIImage(named: "background_landscape.png")
+    let background_portrait = UIImage(named: "background_portrait.png")
+    
+    var isRotated = true
     //회전됬을때
     func rotated(){
-        self.view.endEditing(true)
-        if(orientations == false && UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-            orientations = true
-            scrollViewHeight = self.scrollView.frame.height
+        if(self.isRotated == false && UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
+            self.isRotated = true
+            self.view.endEditing(true)
+            self.scrollViewHeight = self.scrollView.frame.height
+            self.backgroundImage.image = self.background_portrait
         }
-        if(orientations == true && UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-            orientations = false
-            scrollViewHeight = self.scrollView.contentSize.height
+        if(self.isRotated == true && UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
+            self.isRotated = false
+            self.view.endEditing(true)
+            self.scrollViewHeight = self.scrollView.frame.height
+            self.backgroundImage.image = self.background_landscape
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("JoinViewController viewDidLoad")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         
         spin.isHidden = true
         idField.delegate = self
@@ -50,14 +59,20 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         repwdField.maxLength(14)
         nicknameField.maxLength(10)
         
+        if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
+            self.backgroundImage.image = self.background_portrait
+        }
+        if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
+            self.backgroundImage.image = self.background_landscape
+        }
         DispatchQueue.global().async {
             Thread.sleep(forTimeInterval: 1)
             if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-                self.orientations = true
+                self.isRotated = true
                 self.scrollViewHeight = self.scrollView.frame.height
             }
             if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-                self.orientations = false
+                self.isRotated = false
                 self.scrollViewHeight = self.scrollView.contentSize.height
             }
         }
