@@ -36,6 +36,7 @@ class URL{
     static var api_user_mypage = ""
     static var api_user_set = ""
     static var api_user_update = ""
+    static var api_user_info = ""
     
     static func request(_ ctrl: UIViewController, url: String, param: [String: AnyObject], callback: (([String:AnyObject])-> Void)! = nil, codeErrorCallback: (([String:AnyObject])-> Void)! = nil){
         Alamofire.request(url, method: .get, parameters: param)

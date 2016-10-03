@@ -481,6 +481,7 @@
 			isa = PBXGroup;
 			children = (
 				6E7DA8DB1D9948910098D7DA /* ViewController.swift */,
+				6E7DA9AA1D994B3A0098D7DA /* TabBar.swift */,
 			);
 			name = main;
 			sourceTree = "<group>";
@@ -565,7 +566,6 @@
 				6E7DA9A51D994B3A0098D7DA /* NSDate.swift */,
 				6E7DA9A61D994B3A0098D7DA /* PhotoAlbumCustom.swift */,
 				6E7DA9A91D994B3A0098D7DA /* String.swift */,
-				6E7DA9AA1D994B3A0098D7DA /* TabBar.swift */,
 				6E7DA9AB1D994B3A0098D7DA /* UIColor.swift */,
 				6E7DA9AC1D994B3A0098D7DA /* UIControl.swift */,
 				6E7DA9AD1D994B3A0098D7DA /* UIFont.swift */,

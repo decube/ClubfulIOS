@@ -70,20 +70,35 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     //위치 관련 앱을 실행했는지 실행 하지 않았는지
     var isFirstLocation = true
     
+    //위치 리스트
+    var locationResults : [[String: AnyObject]]!
+    
+    var isRotated = true
     
     //회전됬을때
     func rotated(){
-        blackScreen.frame = CGRect(x: 0, y: 20, width: self.view.frame.width, height: self.view.frame.height)
-        courtSearchView.frame = CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.adView.frame.height+self.mapView.frame.height)
-        locationView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
-        if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-            mapView.frame = CGRect(x: 0, y: 120, width: self.view.frame.width, height: self.view.frame.height - 120)
-        }else if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-            mapView.frame = CGRect(x: 0, y: 140, width: self.view.frame.width, height: self.view.frame.height - 140)
+        func rotatedSet(){
+            blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+            locationView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
+            if self.courtSearchView.isHidden == false{
+                self.courtSearchView.isHidden = true
+                self.setCourtLayout()
+            }
+            if self.locationView.isHidden == false{
+                self.locationSetLayout()
+            }
         }
-        if self.courtSearchView.isHidden == false{
-            self.courtSearchView.isHidden = true
-            self.setCourtLayout()
+        if(self.isRotated == false && UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
+            self.isRotated = true
+            mapView.frame = CGRect(x: 0, y: 140, width: self.view.frame.width, height: self.view.frame.height - 140)
+            courtSearchView.frame = CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.adView.frame.height+self.mapView.frame.height)
+            rotatedSet()
+        }
+        if(self.isRotated == true && UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
+            self.isRotated = false
+            mapView.frame = CGRect(x: 0, y: 120, width: self.view.frame.width, height: self.view.frame.height - 120)
+            courtSearchView.frame = CGRect(x: 0, y: 60, width: self.view.frame.width/3*2, height: self.adView.frame.height+self.mapView.frame.height)
+            rotatedSet()
         }
     }
     
@@ -138,6 +153,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             URL.api_user_mypage = json["api_user_mypage"] as! String
             URL.api_user_set = json["api_user_set"] as! String
             URL.api_user_update = json["api_user_update"] as! String
+            URL.api_user_info = json["api_user_info"] as! String
             
             self.setLoad()
         } catch _ as NSError {}
@@ -178,7 +194,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         
         //layout create
         blackScreen = UIButton()
-        blackScreen.frame = CGRect(x: 0, y: 20, width: self.view.frame.width, height: self.view.frame.height)
+        blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         blackScreen.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.6)
         blackScreen.isHidden = true
         self.view.addSubview(blackScreen)
@@ -188,6 +204,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         courtSearchView.backgroundColor = UIColor.white
         courtSearchView.isHidden = true
         self.view.addSubview(courtSearchView)
+        
         
         
         //자기 위치 설정
@@ -222,46 +239,12 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                     self.view.endEditing(true)
                     self.locationView.scrollView.subviews.forEach({$0.removeFromSuperview()})
                     //자기위치 검색 통신
-                    var i : CGFloat = 0
-                    let locObjHeight : CGFloat = 80
-                    
                     let parameters : [String: AnyObject] = ["token": self.user.token as AnyObject, "address": self.locationView.searchTextField.text! as AnyObject, "language": Util.language as AnyObject]
                     URL.request(self, url: URL.apiServer+URL.api_location_geocode, param: parameters, callback: { (dic) in
                         if let result = dic["results"] as? [String: AnyObject]{
                             if let results = result["results"] as? [[String: AnyObject]]{
-                                for element : [String: AnyObject] in results{
-                                    let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
-                                    
-                                    if let customView = Bundle.main.loadNibNamed("MainCenterElementView", owner: self, options: nil)?.first as? MainCenterElementView {
-                                        customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.locationView.frame.width-10, height: locObjHeight-10)
-                                        customView.setAddr(addressShort: addressShort, address: address)
-                                        self.locationView.scrollView.addSubview(customView)
-                                        customView.setAction({ (_) in
-                                            UIView.animate(withDuration: 0.2, animations: {
-                                                self.locationView.alpha = 0
-                                                }, completion: { (_) in
-                                                    self.locationView.isHidden = true
-                                                    self.locationView.alpha = 1
-                                                    self.blackScreen.isHidden = true
-                                                    let user = Storage.copyUser()
-                                                    user.latitude = latitude
-                                                    user.longitude = longitude
-                                                    user.address = "\(address)"
-                                                    user.addressShort = "\(addressShort)"
-                                                    Storage.setRealmUser(user)
-                                                    self.myLocationSearch = true
-                                                    let span: MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
-                                                    let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
-                                                    let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
-                                                    self.mapView.region = region
-                                                    self.marker.coordinate = location
-                                                    self.locationView.searchTextField.text = ""
-                                            })
-                                        })
-                                    }
-                                    i += 1
-                                }
-                                self.locationView.scrollView.contentSize.height = locObjHeight*i+30
+                                self.locationResults = results
+                                self.locationSetLayout()
                             }
                         }
                     })
@@ -285,7 +268,63 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         
         //블랙스크린 클릭
         blackScreen.addTarget(self, action: #selector(self.blackScreenAction), for: .touchUpInside)
+        
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 0.01)
+            DispatchQueue.main.async {
+                if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
+                    self.isRotated = true
+                    self.mapView.frame = CGRect(x: 0, y: 140, width: self.view.frame.width, height: self.view.frame.height - 140)
+                    self.courtSearchView.frame = CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.adView.frame.height+self.mapView.frame.height)
+                }
+                if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
+                    self.isRotated = false
+                    self.mapView.frame = CGRect(x: 0, y: 120, width: self.view.frame.width, height: self.view.frame.height - 120)
+                    self.courtSearchView.frame = CGRect(x: 0, y: 60, width: self.view.frame.width/3*2, height: self.adView.frame.height+self.mapView.frame.height)
+                }
+            }
+        }
     }
+    
+    func locationSetLayout(){
+        var i : CGFloat = 0
+        let locObjHeight : CGFloat = 80
+        self.locationView.scrollView.subviews.forEach({$0.removeFromSuperview()})
+        for element : [String: AnyObject] in self.locationResults{
+            let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
+            
+            if let customView = Bundle.main.loadNibNamed("MainCenterElementView", owner: self, options: nil)?.first as? MainCenterElementView {
+                customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.locationView.frame.width-10, height: locObjHeight-10)
+                customView.setAddr(addressShort: addressShort, address: address)
+                self.locationView.scrollView.addSubview(customView)
+                customView.setAction({ (_) in
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.locationView.alpha = 0
+                        }, completion: { (_) in
+                            self.locationView.isHidden = true
+                            self.locationView.alpha = 1
+                            self.blackScreen.isHidden = true
+                            let user = Storage.copyUser()
+                            user.latitude = latitude
+                            user.longitude = longitude
+                            user.address = "\(address)"
+                            user.addressShort = "\(addressShort)"
+                            Storage.setRealmUser(user)
+                            self.myLocationSearch = true
+                            let span: MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
+                            let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
+                            let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
+                            self.mapView.region = region
+                            self.marker.coordinate = location
+                            self.locationView.searchTextField.text = ""
+                    })
+                })
+            }
+            i += 1
+        }
+        self.locationView.scrollView.contentSize.height = locObjHeight*i+30
+    }
+    
     
     func blackScreenAction(){
         if self.locationView.isHidden == false{
@@ -345,8 +384,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
                     let uvc = storyBoard.instantiateViewController(withIdentifier: "courtVC")
                     (uvc as! CourtViewController).courtSeq = obj["seq"] as! Int
-                    uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-                    self.present(uvc, animated: true, completion: nil)
+                    self.navigationController?.pushViewController(uvc, animated: true)
                 })
                 customView.setSimplemapAction({ (_) in
                     let sname : String = "내위치".queryValue()
@@ -369,7 +407,7 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             }
             i += 1
         }
-        self.courtSearchView.contentSize.height = locObjHeight*i+i
+        self.courtSearchView.contentSize.height = locObjHeight*i+i+50
         if self.courtSearchView.isHidden != false{
             let tmpRect = self.courtSearchView.frame
             self.courtSearchView.frame.origin.x = -tmpRect.width
@@ -442,6 +480,8 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             Util.alert(self, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
         }
     }
+    
+    
     //현재 나의 위치
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         isMyLocation = true
@@ -453,9 +493,6 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             isFirstLocation = false
             Storage.locationThread(self)
         }
-        
-        
-        
         
         if myLocationSearch == false{
             user = Storage.copyUser()

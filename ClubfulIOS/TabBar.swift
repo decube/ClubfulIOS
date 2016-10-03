@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TabBar: UITabBarController {
+class TabBar: UITabBarController{
     let customTabBarView = UIView()
     let tabBtn01 = UIButton()
     let tabBtn02 = UIButton()
@@ -34,6 +34,10 @@ class TabBar: UITabBarController {
     let tabLbl02 = UILabel()
     let tabLbl03 = UILabel()
     let tabLbl04 = UILabel()
+    
+    //navVC
+    var navVC : UINavigationController!
+    
     
     //회전됬을때
     func rotated(){
@@ -175,7 +179,14 @@ class TabBar: UITabBarController {
                 }
             }
         })
-        self.selectedIndex = sender.tag
+        if self.selectedIndex == sender.tag{
+            if navVC != nil{
+                navVC.popViewController(animated: true)
+                navVC = nil
+            }
+        }else{
+            self.selectedIndex = sender.tag
+        }
     }
     
     

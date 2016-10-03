@@ -142,8 +142,7 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
                             let uvc = storyBoard.instantiateViewController(withIdentifier: "courtVC")
                             (uvc as! CourtViewController).courtSeq = seq
-                            uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-                            self.present(uvc, animated: true, completion: nil)
+                            self.navigationController?.pushViewController(uvc, animated: true)
                         }
                     }
                     self.interestCourt.addSubview(imgBtn)
@@ -190,8 +189,8 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
                             let uvc = storyBoard.instantiateViewController(withIdentifier: "courtVC")
                             (uvc as! CourtViewController).courtSeq = seq
-                            uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-                            self.present(uvc, animated: true, completion: nil)
+                            self.navigationController?.pushViewController(uvc, animated: true)
+                            
                         }
                     }
                     self.createCourt.addSubview(imgBtn)

@@ -45,6 +45,11 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
             mapListView.isHidden = true
             self.setSearchLayout()
         }
+        if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
+            mapView.frame = CGRect(x: 0, y: 110, width: self.view.frame.width, height: self.view.frame.height - 110-40)
+        }else if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
+            mapView.frame = CGRect(x: 0, y: 130, width: self.view.frame.width, height: self.view.frame.height - 130-40)
+        }
     }
     
     

@@ -41,8 +41,6 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     @IBOutlet var descTextView: UITextView!
     //댓글 입력 필드
     @IBOutlet var replyInsertField: UITextField!
-    //댓글 입력 버튼
-    @IBOutlet var replyInsertBtn: UIButton!
     
     //웹뷰
     @IBOutlet var webView: UIWebView!
@@ -62,16 +60,58 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     //웹뷰 리플등록 액션
     var replyFn : String!
     
-    
+    var scrollViewHeight : CGFloat = 0
+    var isRotated = true
+    //회전됬을때
+    func rotated(){
+        if(self.isRotated == false && UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
+            self.isRotated = true
+            self.view.endEditing(true)
+            self.idx = 0
+            self.setImages()
+            DispatchQueue.global().async {
+                Thread.sleep(forTimeInterval: 0.5)
+                DispatchQueue.main.async {
+                    self.scrollViewHeight = self.scrollView.frame.height
+                }
+            }
+        }
+        if(self.isRotated == true && UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
+            self.isRotated = false
+            self.view.endEditing(true)
+            self.idx = 0
+            self.setImages()
+            DispatchQueue.global().async {
+                Thread.sleep(forTimeInterval: 0.5)
+                DispatchQueue.main.async {
+                    self.scrollViewHeight = self.scrollView.contentSize.height
+                }
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("CourtViewController viewDidLoad")
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 0.1)
+            DispatchQueue.main.async {
+                self.scrollViewHeight = self.scrollView.contentSize.height
+                if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
+                    self.isRotated = true
+                    self.scrollViewHeight = self.scrollView.frame.height
+                }
+                if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
+                    self.isRotated = false
+                    self.scrollViewHeight = self.scrollView.contentSize.height
+                }
+            }
+        }
+        
         
         spin.isHidden = true
-        
-        
         imageSlide.delegate = self
         //슬라이드 효과
         imageSlide.isPagingEnabled = true
@@ -105,51 +145,12 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
                                 }
                             }
                         }
-                        DispatchQueue.main.async {
-                            var idx : CGFloat = 0
-                            for imageSource in self.imageViewList{
-                                var frame = self.calLayoutRate(fullSize: self.imageSlide.frame.size, imageSize: imageSource.image!.size)
-                                frame.origin.x = frame.origin.x+(self.imageSlide.frame.width*idx)
-                                imageSource.frame = frame
-                                
-                                self.imageSlide.addSubview(imageSource)
-                                idx += 1
-                            }
-                            
-                            
-                            
-                            //더블클릭
-                            let doubleTap = UITapGestureRecognizer(target: self, action: #selector(self.interestAction(_:)))
-                            doubleTap.numberOfTapsRequired = 2
-                            self.imageSlide.addGestureRecognizer(doubleTap)
-                            //길게클릭
-                            self.imageSlide.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed(_:))))
-                            
-                            
-                            self.imageSlide.isUserInteractionEnabled = true
-                            self.imageSlide.contentSize.width = self.imageSlide.frame.width*idx
-                            
-                            
-                            
-                            //이미지 하단 네비
-                            let ovalSize: CGFloat = 10
-                            let ovalMargin: CGFloat = 10
-                            let firstX = (self.imageView.frame.width - idx*(ovalSize+ovalMargin))/2
-                            for i in 0 ..< Int(idx){
-                                let ovalView = UIView(frame: CGRect(x: firstX+(ovalMargin)/2+(ovalSize+ovalMargin) * CGFloat(i), y: self.imageView.frame.height-ovalSize, width: ovalSize, height: ovalSize))
-                                ovalView.layer.cornerRadius = ovalSize/2
-                                if i == 0{
-                                    ovalView.backgroundColor = Util.commonColor
-                                }else{
-                                    ovalView.backgroundColor = UIColor.black
-                                }
-                                self.imageBottomIndex.append(ovalView)
-                                self.imageView.addSubview(ovalView)
-                            }
-                            
-                            self.imageSpin.stopAnimating()
-                            self.imageSpin.isHidden = true
+                        for _ in 0 ..< Int(self.imageViewList.count){
+                            let ovalView = UIView()
+                            self.imageBottomIndex.append(ovalView)
                         }
+                        
+                        self.setImages()
                     }
                 }
             }
@@ -166,6 +167,62 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         self.interestBtn.setImage(UIImage(named: starImage), for: UIControlState())
     }
     
+    
+    func setImages(){
+        DispatchQueue.main.async {
+            self.imageSlide.subviews.forEach({$0.removeFromSuperview()})
+            self.imageView.subviews.forEach({ (v) in
+                if String(describing: v.classForCoder) == "UIView"{
+                    v.removeFromSuperview()
+                }
+            })
+            
+            var idx : CGFloat = 0
+            for imageSource in self.imageViewList{
+                var frame = self.calLayoutRate(fullSize: self.imageSlide.frame.size, imageSize: imageSource.image!.size)
+                frame.origin.x = frame.origin.x+(self.imageSlide.frame.width*idx)
+                imageSource.frame = frame
+                
+                self.imageSlide.addSubview(imageSource)
+                idx += 1
+            }
+            
+            
+            
+            //더블클릭
+            let doubleTap = UITapGestureRecognizer(target: self, action: #selector(self.interestAction(_:)))
+            doubleTap.numberOfTapsRequired = 2
+            self.imageSlide.addGestureRecognizer(doubleTap)
+            //길게클릭
+            self.imageSlide.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed(_:))))
+            
+            
+            self.imageSlide.isUserInteractionEnabled = true
+            self.imageSlide.contentSize.width = self.imageSlide.frame.width*idx
+            self.imageSlide.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+            
+            
+            //이미지 하단 네비
+            let ovalSize: CGFloat = 10
+            let ovalMargin: CGFloat = 10
+            let firstX = (self.imageView.frame.width - idx*(ovalSize+ovalMargin))/2
+            var i = 0
+            for ovalView in self.imageBottomIndex{
+                ovalView.frame = CGRect(x: firstX+(ovalMargin)/2+(ovalSize+ovalMargin) * CGFloat(i), y: self.imageView.frame.height-ovalSize, width: ovalSize, height: ovalSize)
+                ovalView.layer.cornerRadius = ovalSize/2
+                if i == 0{
+                    ovalView.backgroundColor = Util.commonColor
+                }else{
+                    ovalView.backgroundColor = UIColor.black
+                }
+                self.imageView.addSubview(ovalView)
+                i += 1
+            }
+            
+            self.imageSpin.stopAnimating()
+            self.imageSpin.isHidden = true
+        }
+    }
     
     
     
@@ -342,13 +399,8 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     
     //뒤로가기
     @IBAction func backAction(_ sender: AnyObject) {
-        self.presentingViewController?.dismiss(animated: true, completion: nil)
+        _ = self.navigationController?.popViewController(animated: true)
     }
-    
-    
-    
-    
-    
     
     //웹뷰 가져옴
     func webViewDidFinishLoad(_ webView: UIWebView) {
@@ -360,6 +412,7 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        ((UIApplication.shared.delegate as! AppDelegate).window?.rootViewController as! TabBar).navVC = self.navigationController
     }
     //view 사라지기 전 작동
     override func viewWillDisappear(_ animated: Bool) {
@@ -368,13 +421,12 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     //키보드생길때
     func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = ((notification as NSNotification).userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            scrollView.contentSize.height = scrollView.frame.height + keyboardSize.height
-            scrollView.scrollToBottom()
+            scrollView.contentSize.height = self.scrollViewHeight + keyboardSize.height
         }
     }
     //키보드없어질때
     func keyboardWillHide(_ notification: Notification) {
-        scrollView.contentSize.height = scrollView.frame.height
+        scrollView.contentSize.height = self.scrollViewHeight
     }
     
     
