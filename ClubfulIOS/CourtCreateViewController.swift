@@ -362,6 +362,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                         //이미지서버로 통신
                         self.spin.isHidden = false
                         self.spin.startAnimating()
+                        
                         //통신
                         Alamofire.upload(
                             multipartFormData: { multipartFormData in
@@ -369,7 +370,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                                 let nameArray = ["pic1", "pic2", "pic3", "pic4"]
                                 for pic in picArray{
                                     let imageData : Data = Util.returnImageData(pic, ext: ExtType.jpeg)
-                                    multipartFormData.append(imageData, withName: "\(nameArray[idx]).jpeg")
+                                    multipartFormData.append(imageData, withName: nameArray[idx], fileName: "\(nameArray[idx]).jpeg", mimeType: "image/jpeg")
                                     idx += 1
                                 }
                             },
