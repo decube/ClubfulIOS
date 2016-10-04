@@ -114,7 +114,8 @@ class SetViewController : UIViewController{
             return [image!, appLink!]
         }
         if KOAppCall.canOpenKakaoTalkAppLink() {
-            KOAppCall.openKakaoTalkAppLink(dummyLinkObject())
+            Util.alert(self, message: "카카오톡이 지원하지 않는 기능입니다.")
+            //KOAppCall.openKakaoTalkAppLink(dummyLinkObject())
         } else {
             print("Cannot open kakaotalk.")
         }

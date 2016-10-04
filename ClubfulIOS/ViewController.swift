@@ -75,11 +75,16 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     
     var isRotated = true
     
+    //추가정보
+    var addView : AddView!
+    
     //회전됬을때
     func rotated(){
         func rotatedSet(){
+            self.isRotated = true
             blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
             locationView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
+            addView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
             if self.courtSearchView.isHidden == false{
                 self.courtSearchView.isHidden = true
                 self.setCourtLayout()
@@ -253,6 +258,39 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                 }
             }
         }
+        
+        
+        
+        //추가정보
+        if let customView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView {
+            self.addView = customView
+            self.addView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
+            self.addView.isHidden = true
+            self.view.addSubview(self.addView)
+            self.addView.setLayout(ctrl: self, callback: { (_) in
+                let vo = Storage.copyUser()
+                vo.userLatitude = self.addView.userLatitude
+                vo.userLongitude = self.addView.userLongitude
+                vo.userAddress = self.addView.userAddress
+                vo.userAddressShort = self.addView.userAddressShort
+                vo.birth = self.addView.birth.date
+                vo.sex = self.addView.isSexString()
+                Storage.setRealmUser(vo)
+                
+                let param = ["token":vo.token, "userId":vo.userId, "sex": vo.sex, "birth": vo.birth, "userLatitude": vo.userLatitude, "userLongitude": vo.userLongitude, "userAddress": vo.userAddress, "userAddressShort": vo.userAddressShort] as [String : Any]
+                URL.request(self, url: URL.apiServer+URL.api_user_info, param: param as [String : AnyObject])
+                
+                //애니메이션 적용
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.addView.alpha = 0
+                }, completion: {(_) in
+                    self.blackScreen.isHidden = true
+                    self.addView.isHidden = true
+                    self.addView.alpha = 1
+                })
+            })
+        }
+        
         
         
         self.rotated()
@@ -529,5 +567,24 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if self.addView.isHidden == true{
+            Util.alert(self, title: "알림", message: "더 정확하게 코트를 찾으시려면 추가정보를 입력하셔야 합니다.", confirmTitle: "입력할께요", cancelStr: "안할래요", confirmHandler: { (_) in
+                
+                self.view.endEditing(true)
+                self.addView.setView()
+                
+                self.blackScreen.isHidden = false
+                self.addView.isHidden = false
+                let tmpRect = self.addView.frame
+                self.addView.frame.origin.y = -tmpRect.height
+                //애니메이션 적용
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.addView.frame = tmpRect
+                }, completion: nil)
+            })
+        }
     }
 }

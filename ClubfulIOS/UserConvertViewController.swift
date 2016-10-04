@@ -28,6 +28,8 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
     
     var isRotated = true
     
+    var blackScreen = UIButton()
+    var addView : AddView!
     
     //회전됬을때
     func rotated(){
@@ -36,12 +38,16 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
             self.view.endEditing(true)
             self.scrollViewHeight = self.scrollView.frame.height
             self.backgroundImage.image = self.background_portrait
+            self.blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+            self.addView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
         }
         if(self.isRotated == true && UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
             self.isRotated = false
             self.view.endEditing(true)
             self.scrollViewHeight = self.scrollView.frame.height
             self.backgroundImage.image = self.background_landscape
+            self.blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+            self.addView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
         }
     }
     
@@ -50,6 +56,51 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
         print("UserConvertViewController viewDidLoad")
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        
+        
+        self.blackScreen.isHidden = true
+        self.blackScreen.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.6)
+        self.blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.view.addSubview(self.blackScreen)
+        if let customView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView {
+            self.addView = customView
+            self.addView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
+            self.addView.isHidden = true
+            self.view.addSubview(self.addView)
+            self.addView.setLayout(ctrl: self, callback: { (_) in
+                let vo = Storage.copyUser()
+                vo.userLatitude = self.addView.userLatitude
+                vo.userLongitude = self.addView.userLongitude
+                vo.userAddress = self.addView.userAddress
+                vo.userAddressShort = self.addView.userAddressShort
+                vo.birth = self.addView.birth.date
+                vo.sex = self.addView.isSexString()
+                Storage.setRealmUser(vo)
+                
+                let param = ["token":vo.token, "userId":vo.userId, "sex": vo.sex, "birth": vo.birth, "userLatitude": vo.userLatitude, "userLongitude": vo.userLongitude, "userAddress": vo.userAddress, "userAddressShort": vo.userAddressShort] as [String : Any]
+                URL.request(self, url: URL.apiServer+URL.api_user_info, param: param as [String : AnyObject])
+                
+                //애니메이션 적용
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.addView.alpha = 0
+                }, completion: {(_) in
+                    self.blackScreen.isHidden = true
+                    self.addView.isHidden = true
+                    self.addView.alpha = 1
+                })
+            })
+        }
+        self.blackScreen.addAction(.touchUpInside) { (_) in
+            let tmpRect = self.addView.frame
+            //애니메이션 적용
+            UIView.animate(withDuration: 0.2, animations: {
+                self.addView.frame.origin.y = -tmpRect.height
+            }, completion: {(_) in
+                self.blackScreen.isHidden = true
+                self.addView.isHidden = true
+                self.addView.frame = tmpRect
+            })
+        }
         
         spin.isHidden = true
         idField.delegate = self
@@ -122,6 +173,22 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    
+    @IBAction func addAction(_ sender: AnyObject) {
+        self.view.endEditing(true)
+        self.addView.setView()
+        
+        self.blackScreen.isHidden = false
+        self.addView.isHidden = false
+        let tmpRect = self.addView.frame
+        self.addView.frame.origin.y = -tmpRect.height
+        //애니메이션 적용
+        UIView.animate(withDuration: 0.2, animations: {
+            self.addView.frame = tmpRect
+        }, completion: {(_) in
+            
+        })
+    }
     //뒤로가기
     @IBAction func backAction(_ sender: AnyObject) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)

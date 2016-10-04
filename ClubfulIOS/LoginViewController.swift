@@ -46,6 +46,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         idField.maxLength(14)
         pwField.maxLength(14)
         
+        
         self.kakaoLogin.isUserInteractionEnabled = true
         self.kakaoLogin.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.kakaoAction(_:))))
         self.facebookLogin.isUserInteractionEnabled = true

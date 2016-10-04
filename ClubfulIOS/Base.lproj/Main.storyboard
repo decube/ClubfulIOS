@@ -2480,7 +2480,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1I1-uo-Sml">
-                                        <frame key="frameInset" minY="19" width="14.00%" maxX="100" maxY="20"/>
+                                        <frame key="frameInset" minY="19" width="13.82%" maxX="100" maxY="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2525,7 +2525,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7F6-IA-eH4">
-                                        <frame key="frameInset" minX="50.21%" minY="50.00%" width="133" height="50"/>
+                                        <frame key="frameInset" minX="50.41%" minY="50.09%" width="133" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="시작하기">
@@ -2590,6 +2590,16 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBq-U7-XUv">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="0ae-QS-URb"/>
+                                            <constraint firstAttribute="width" constant="30" id="iQ6-fr-XJK"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_add.png"/>
+                                        <connections>
+                                            <action selector="addAction:" destination="lNO-56-Dkh" eventType="touchUpInside" id="zgw-h7-Z8u"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.047058824450000002" green="0.34901961679999999" blue="0.17254902420000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -2597,8 +2607,11 @@
                                     <constraint firstAttribute="height" constant="60" id="4eD-ws-acX"/>
                                     <constraint firstItem="GVc-5B-EGo" firstAttribute="top" secondItem="bcq-ya-9y3" secondAttribute="top" id="7Hl-KG-OgF"/>
                                     <constraint firstAttribute="bottom" secondItem="IOV-w2-ppM" secondAttribute="bottom" constant="10" id="D9M-8s-qh6"/>
+                                    <constraint firstAttribute="bottom" secondItem="kBq-U7-XUv" secondAttribute="bottom" constant="15" id="IOh-Qq-3UX"/>
                                     <constraint firstItem="GVc-5B-EGo" firstAttribute="centerX" secondItem="bcq-ya-9y3" secondAttribute="centerX" id="JeN-NK-pwH"/>
+                                    <constraint firstItem="kBq-U7-XUv" firstAttribute="top" secondItem="bcq-ya-9y3" secondAttribute="top" constant="15" id="KpU-Fr-XLe"/>
                                     <constraint firstItem="IOV-w2-ppM" firstAttribute="leading" secondItem="bcq-ya-9y3" secondAttribute="leading" constant="6" id="Whd-bL-949"/>
+                                    <constraint firstAttribute="trailing" secondItem="kBq-U7-XUv" secondAttribute="trailing" constant="8" id="gTc-OI-j3a"/>
                                     <constraint firstItem="IOV-w2-ppM" firstAttribute="top" secondItem="bcq-ya-9y3" secondAttribute="top" constant="10" id="lxg-LQ-ScC"/>
                                 </constraints>
                             </view>
@@ -2746,6 +2759,7 @@
     </scenes>
     <resources>
         <image name="background_portrait.png" width="642" height="978"/>
+        <image name="ic_add.png" width="32" height="32"/>
         <image name="ic_back.png" width="52" height="52"/>
         <image name="ic_edit.png" width="64" height="64"/>
         <image name="ic_enter.png" width="50" height="50"/>

@@ -14,20 +14,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_1.jpg" id="lD9-YF-aKn">
-                                <frame key="frameInset" minX="8.30%" minY="9.61%" width="134" height="157"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ball_6.jpg" id="490-9C-mqa">
+                                <frame key="frameInset" minX="93.73%" minY="96.34%" width="120" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_6.jpg" id="490-9C-mqa">
-                                <frame key="frameInset" minX="95.67%" minY="88.81%" width="121" height="140"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ball_5.jpg" id="W8B-V1-lUr">
+                                <frame key="frameInset" minX="6.28%" minY="68.37%" width="120" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_5.jpg" id="W8B-V1-lUr">
-                                <frame key="frameInset" minX="7.58%" minY="67.66%" width="111" height="132"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ball_2.jpg" id="Hl4-PJ-kvX">
+                                <frame key="frameInset" minX="93.47%" minY="36.13%" width="130" height="130"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball_2.jpg" id="Hl4-PJ-kvX">
-                                <frame key="frameInset" minX="95.42%" minY="31.76%" width="135" height="138"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ball_1.jpg" id="lD9-YF-aKn">
+                                <frame key="frameInset" minX="6.28%" minY="8.23%" width="120" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
