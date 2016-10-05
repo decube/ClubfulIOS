@@ -570,8 +570,18 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if self.addView.isHidden == true{
-            Util.alert(self, title: "알림", message: "더 정확하게 코트를 찾으시려면 추가정보를 입력하셔야 합니다.", confirmTitle: "입력할께요", cancelStr: "안할래요", confirmHandler: { (_) in
+        let addInfoDate = Storage.getStorage("addInfo")
+        var addViewIsShow = true
+        if let date = addInfoDate as? Date{
+            var saveDate = date
+            let addDate = Date()
+            saveDate.addTimeInterval(30)
+            if saveDate.timeIntervalSince1970 > addDate.timeIntervalSince1970{
+                addViewIsShow = false
+            }
+        }
+        if self.addView.isHidden == true && addViewIsShow == true{
+            Util.alert(self, title: "알림", message: "더 정확하게 코트를 찾으시려면 추가정보를 입력하셔야 합니다.", confirmTitle: "입력할께요", cancelStr: "오늘 하루 안할께요", confirmHandler: { (_) in
                 
                 self.view.endEditing(true)
                 self.addView.setView()
@@ -584,6 +594,8 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
                 UIView.animate(withDuration: 0.2, animations: {
                     self.addView.frame = tmpRect
                 }, completion: nil)
+            }, cancelHandler: { (_) in
+                Storage.setStorage("addInfo", value: Date() as AnyObject)
             })
         }
     }
