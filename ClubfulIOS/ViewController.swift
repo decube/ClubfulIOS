@@ -117,6 +117,9 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
         //                NSURLCache.sharedURLCache().diskCapacity = 0
         //                NSURLCache.sharedURLCache().memoryCapacity = 0
         
+        self.setLoad()
+        
+        
         
         //GET Async 동기 통신
         var request : NSMutableURLRequest
@@ -160,7 +163,20 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             URL.api_user_update = json["api_user_update"] as! String
             URL.api_user_info = json["api_user_info"] as! String
             
-            self.setLoad()
+            //버전체크 통신
+            let parameters = URL.vesion_checkParam()
+            URL.request(self, url: URL.apiServer+URL.api_version_check, param: parameters, callback: { (dic) in
+                self.user = Storage.copyUser()
+                self.user.token = dic["token"] as! String
+                Util.newVersion = dic["ver"] as! String
+                self.user.categoryVer = dic["categoryVer"] as! Int
+                self.user.noticeVer = dic["noticeVer"] as! Int
+                if let categoryList = dic["categoryList"] as? [[String: AnyObject]]{
+                    Storage.setStorage("categoryList", value: categoryList as AnyObject)
+                }
+                Storage.setRealmUser(self.user)
+            })
+            
         } catch _ as NSError {}
     }
     
@@ -169,21 +185,8 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
     func setLoad(){
         //유저 객체
         user = Storage.getRealmUser()
-        
-        //버전체크 통신
-        let parameters = URL.vesion_checkParam()
-        URL.request(self, url: URL.apiServer+URL.api_version_check, param: parameters, callback: { (dic) in
-            self.user = Storage.copyUser()
-            self.user.token = dic["token"] as! String
-            Util.newVersion = dic["ver"] as! String
-            self.user.categoryVer = dic["categoryVer"] as! Int
-            self.user.noticeVer = dic["noticeVer"] as! Int
-            if let categoryList = dic["categoryList"] as? [[String: AnyObject]]{
-                Storage.setStorage("categoryList", value: categoryList as AnyObject)
-            }
-            Storage.setRealmUser(self.user)
-        })
-        
+        let location = setMapLocation(user.latitude, longitude: user.longitude)
+        initMarket(location)
         
         //현재 나의 위치설정
         self.locationManager.requestAlwaysAuthorization()
@@ -291,21 +294,14 @@ class ViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate, 
             })
         }
         
-        
-        
-        self.rotated()
-        
-        
-        let location = setMapLocation(user.latitude, longitude: user.longitude)
-        initMarket(location)
-        
-        
         //맵뷰 터치했을때 이벤트
         self.mapView.isUserInteractionEnabled = true
         self.mapView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.mapViewTouch(_:))))
         
         //블랙스크린 클릭
         blackScreen.addTarget(self, action: #selector(self.blackScreenAction), for: .touchUpInside)
+        
+        self.rotated()
         
         DispatchQueue.global().async {
             Thread.sleep(forTimeInterval: 0.01)
