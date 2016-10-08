@@ -18,7 +18,7 @@
 ## language
 
 * Server - node.js
-* IOS - Swift 2.3
+* IOS - Swift 3.0
 
 ## Server
 
@@ -84,6 +84,7 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 * 2016-09-10 페이스북로그인, 카카오톡 로그인 추가
 * 2016-09-10 easter egg 게임 추가(설정 - 인트로)
 * 2016-09-17 ApiServerUrl 전체 수정
+* 2016-10-02 swift2.3 -> swift3.0 migration(easter egg no migration)
 
 ## 기능
 * 사용자가 직접 코트 등록하기
