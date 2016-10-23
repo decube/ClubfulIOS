@@ -17,7 +17,8 @@ class User: Object {
     //gcmId
     dynamic var gcmId : String = ""
     
-    
+    //search
+    dynamic var search : String = ""
     
     ///////////유저 정보
     //id

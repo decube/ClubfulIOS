@@ -39,44 +39,9 @@ class TabBar: UITabBarController{
     var navVC : UINavigationController!
     
     
-    //회전됬을때
-    func rotated(){
-        func setRotate(){
-            customTabBarView.frame = CGRect(x: 0, y: self.view.frame.height-60, width: self.view.frame.size.width, height: 60)
-            let widthOfOneBtn = self.tabBar.frame.size.width/4
-            let heightOfOneBtn = self.customTabBarView.frame.height
-            
-            tabBtn01.frame = CGRect(x: widthOfOneBtn*0, y: 0, width: widthOfOneBtn, height: heightOfOneBtn)
-            tabBtn02.frame = CGRect(x: widthOfOneBtn*1, y: 0, width: widthOfOneBtn, height: heightOfOneBtn)
-            tabBtn03.frame = CGRect(x: widthOfOneBtn*2, y: 0, width: widthOfOneBtn, height: heightOfOneBtn)
-            tabBtn04.frame = CGRect(x: widthOfOneBtn*3, y: 0, width: widthOfOneBtn, height: heightOfOneBtn)
-            
-            let widthPadding = (widthOfOneBtn-(heightOfOneBtn-30))/2
-            
-            tabImg01.frame = CGRect(x: widthPadding, y: 5, width: heightOfOneBtn-30, height: heightOfOneBtn-30)
-            tabImg02.frame = CGRect(x: widthPadding, y: 5, width: heightOfOneBtn-30, height: heightOfOneBtn-30)
-            tabImg03.frame = CGRect(x: widthPadding, y: 5, width: heightOfOneBtn-30, height: heightOfOneBtn-30)
-            tabImg04.frame = CGRect(x: widthPadding, y: 5, width: heightOfOneBtn-30, height: heightOfOneBtn-30)
-            
-            tabLbl01.frame = CGRect(x: 0, y: heightOfOneBtn-25, width: widthOfOneBtn, height: 25)
-            tabLbl02.frame = CGRect(x: 0, y: heightOfOneBtn-25, width: widthOfOneBtn, height: 25)
-            tabLbl03.frame = CGRect(x: 0, y: heightOfOneBtn-25, width: widthOfOneBtn, height: 25)
-            tabLbl04.frame = CGRect(x: 0, y: heightOfOneBtn-25, width: widthOfOneBtn, height: 25)
-        }
-        if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-            setRotate()
-        }
-        if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-            setRotate()
-        }
-        
-    }
-    
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         
         self.tabBar.isHidden = true
         

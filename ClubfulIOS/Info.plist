@@ -78,6 +78,14 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>크롭할 이미지를 선택합니다.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>위치정보를 통해서 코트를 쉽게 검색합니다.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>위치정보를 통해서 코트를 쉽게 검색합니다.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>크롭할 이미지를 선택합니다.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
@@ -90,19 +98,9 @@
 	<array>
 		<string>armv7</string>
 	</array>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>위치정보를 통해서 코트를 쉽게 검색합니다.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>크롭할 이미지를 선택합니다.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>위치정보를 통해서 코트를 쉽게 검색합니다.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>크롭할 이미지를 선택합니다.</string>
 </dict>
 </plist>

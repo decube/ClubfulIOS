@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0821451EC0BAE3D497A2F86A /* Pods_ClubfulIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7676E2D18473C2715C92E3 /* Pods_ClubfulIOS.framework */; };
+		6E3ADD7E1DBCA43600E37F06 /* ic_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E3ADD7D1DBCA43600E37F06 /* ic_cancel.png */; };
 		6E63239C1DA3BD49001FCD9E /* ic_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E63239B1DA3BD49001FCD9E /* ic_add.png */; };
 		6E63239E1DA3BF38001FCD9E /* AddView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E63239D1DA3BF38001FCD9E /* AddView.xib */; };
 		6E6323A01DA3BF52001FCD9E /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E63239F1DA3BF52001FCD9E /* AddView.swift */; };
@@ -147,6 +148,7 @@
 		2DFA4C9A1F0748219FE9E959 /* Pods_ClubfulIOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubfulIOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4964696397EF65213A1B1D17 /* Pods-ClubfulIOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubfulIOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubfulIOSUITests/Pods-ClubfulIOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		49974A46F672D49681011BDF /* Pods_ClubfulIOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubfulIOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E3ADD7D1DBCA43600E37F06 /* ic_cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_cancel.png; path = resources/img/ic_cancel.png; sourceTree = "<group>"; };
 		6E63239B1DA3BD49001FCD9E /* ic_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_add.png; path = resources/img/ic_add.png; sourceTree = "<group>"; };
 		6E63239D1DA3BF38001FCD9E /* AddView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddView.xib; sourceTree = "<group>"; };
 		6E63239F1DA3BF52001FCD9E /* AddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 		6E7DA92D1D994A270098D7DA /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				6E3ADD7D1DBCA43600E37F06 /* ic_cancel.png */,
 				6E7DA92F1D994A3A0098D7DA /* temp.png */,
 				6E7DA92E1D994A340098D7DA /* img */,
 			);
@@ -699,7 +702,7 @@
 				TargetAttributes = {
 					6E7DA8D51D9948910098D7DA = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 8Z7ZELFAQU;
+						DevelopmentTeam = K57U5L5VXJ;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -789,6 +792,7 @@
 				6E63239E1DA3BF38001FCD9E /* AddView.xib in Resources */,
 				6E7DA97E1D994A410098D7DA /* ic_tab_add_s.png in Resources */,
 				6E7DA9791D994A410098D7DA /* ic_simplemap_w.png in Resources */,
+				6E3ADD7E1DBCA43600E37F06 /* ic_cancel.png in Resources */,
 				6E7DA9681D994A410098D7DA /* ic_kakao_invite.png in Resources */,
 				6E7DA96A1D994A410098D7DA /* ic_left_false.png in Resources */,
 				6E7DA9661D994A410098D7DA /* ic_fb.png in Resources */,
@@ -1164,7 +1168,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 8Z7ZELFAQU;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = K57U5L5VXJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1187,7 +1192,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 8Z7ZELFAQU;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = K57U5L5VXJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

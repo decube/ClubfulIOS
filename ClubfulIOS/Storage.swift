@@ -63,6 +63,7 @@ class Storage{
         if user.language == "" || user.language != Util.language{
             let userTmp = Storage.copyUser(false)
             userTmp.userId = ""
+            userTmp.search = ""
             userTmp.isLogin = -1
             userTmp.nickName = ""
             userTmp.sex = ""
@@ -100,6 +101,7 @@ class Storage{
     static func copyUser(_ isFirst : Bool = true) -> User{
         let realmUser = Storage.getRealmUser(isFirst)
         let user = User()
+        user.search = realmUser.search
         user.id = realmUser.id
         user.gcmId = realmUser.gcmId
         user.userId = realmUser.userId
