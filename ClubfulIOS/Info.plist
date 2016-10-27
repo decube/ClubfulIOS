@@ -34,7 +34,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1407241915958801</string>
+				<string>fb1803581469884139</string>
 			</array>
 		</dict>
 		<dict>
@@ -42,25 +42,25 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao0329e2b5292eda286e04e13a4dca2b6f</string>
+				<string>kakaod26986d1b8b260098f5a9adceba6a4ba</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>FacebookAppID</key>
-	<string>1407241915958801</string>
+	<string>1803581469884139</string>
 	<key>FacebookDisplayName</key>
-	<string>club</string>
+	<string>Clubful</string>
 	<key>KAKAO_APP_KEY</key>
-	<string>0329e2b5292eda286e04e13a4dca2b6f</string>
+	<string>d26986d1b8b260098f5a9adceba6a4ba</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
-		<string>kakao0329e2b5292eda286e04e13a4dca2b6f</string>
+		<string>kakaod26986d1b8b260098f5a9adceba6a4ba</string>
 		<string>kakaokompassauth</string>
 		<string>storykompassauth</string>
 		<string>kakaolink</string>
@@ -79,13 +79,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>크롭할 이미지를 선택합니다.</string>
+	<string></string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>위치정보를 통해서 코트를 쉽게 검색합니다.</string>
+	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>위치정보를 통해서 코트를 쉽게 검색합니다.</string>
+	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>크롭할 이미지를 선택합니다.</string>
+	<string></string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

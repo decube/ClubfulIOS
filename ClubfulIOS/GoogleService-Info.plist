@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>235351354692-88lu10mu430s76pvt9304esn77lg7ph9.apps.googleusercontent.com</string>
+	<string>1060579091110-hkphp1n1pf57ifvo34gv8imh6q4ooqck.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.235351354692-88lu10mu430s76pvt9304esn77lg7ph9</string>
+	<string>com.googleusercontent.apps.1060579091110-hkphp1n1pf57ifvo34gv8imh6q4ooqck</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBjTIG7zoBv0yh1cVQ_v0sLGtXp6aq_foM</string>
+	<string>AIzaSyCSb2fkA6buA0qgsrr5o5fx3aSKi9fxXeg</string>
 	<key>GCM_SENDER_ID</key>
-	<string>235351354692</string>
+	<string>1060579091110</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.clubful.ClubfulIOS</string>
+	<string>com.decube.Clubful</string>
 	<key>PROJECT_ID</key>
-	<string>club-52ce3</string>
+	<string>clubful-713f9</string>
 	<key>STORAGE_BUCKET</key>
-	<string>club-52ce3.appspot.com</string>
+	<string>clubful-713f9.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:235351354692:ios:1ec759ec1dbc66be</string>
+	<string>1:1060579091110:ios:3aeee5116b997bee</string>
 	<key>DATABASE_URL</key>
-	<string>https://club-52ce3.firebaseio.com</string>
+	<string>https://clubful-713f9.firebaseio.com</string>
 </dict>
 </plist>

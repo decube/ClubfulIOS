@@ -36,7 +36,6 @@
 		6E7DA9231D99496E0098D7DA /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7DA9221D99496E0098D7DA /* MessageUI.framework */; };
 		6E7DA9251D9949740098D7DA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7DA9241D9949740098D7DA /* OpenGLES.framework */; };
 		6E7DA9271D9949860098D7DA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7DA9261D9949860098D7DA /* MapKit.framework */; };
-		6E7DA92C1D994A250098D7DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA92B1D994A250098D7DA /* GoogleService-Info.plist */; };
 		6E7DA9301D994A3A0098D7DA /* temp.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA92F1D994A3A0098D7DA /* temp.png */; };
 		6E7DA95B1D994A410098D7DA /* ball_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9311D994A410098D7DA /* ball_1.jpg */; };
 		6E7DA95C1D994A410098D7DA /* ball_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9321D994A410098D7DA /* ball_2.jpg */; };
@@ -122,6 +121,7 @@
 		6E7DA9E31D994D4A0098D7DA /* MapListElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DE1D994D4A0098D7DA /* MapListElementView.xib */; };
 		6E7DA9E41D994D4A0098D7DA /* NonUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DF1D994D4A0098D7DA /* NonUserView.xib */; };
 		6E7DA9E61D994EA50098D7DA /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7DA9E51D994EA50098D7DA /* KakaoOpenSDK.framework */; };
+		6E7EB6641DBEE88600A618DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E7EB6631DBEE88600A618DA /* GoogleService-Info.plist */; };
 		6E8AB6B11D9C08F200B8E488 /* SetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8AB6B01D9C08F200B8E488 /* SetViewController.swift */; };
 		F212D8118A03412B8CEBE9E8 /* Pods_ClubfulIOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49974A46F672D49681011BDF /* Pods_ClubfulIOSUITests.framework */; };
 		F7C3C84D37E154D503807FEF /* Pods_ClubfulIOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DFA4C9A1F0748219FE9E959 /* Pods_ClubfulIOSTests.framework */; };
@@ -183,7 +183,6 @@
 		6E7DA9241D9949740098D7DA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		6E7DA9261D9949860098D7DA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6E7DA9281D994A020098D7DA /* ClubfulIOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ClubfulIOS-Bridging-Header.h"; sourceTree = "<group>"; };
-		6E7DA92B1D994A250098D7DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6E7DA92F1D994A3A0098D7DA /* temp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = temp.png; sourceTree = "<group>"; };
 		6E7DA9311D994A410098D7DA /* ball_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ball_1.jpg; path = resources/img/ball_1.jpg; sourceTree = "<group>"; };
 		6E7DA9321D994A410098D7DA /* ball_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ball_2.jpg; path = resources/img/ball_2.jpg; sourceTree = "<group>"; };
@@ -269,6 +268,7 @@
 		6E7DA9DE1D994D4A0098D7DA /* MapListElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapListElementView.xib; sourceTree = "<group>"; };
 		6E7DA9DF1D994D4A0098D7DA /* NonUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NonUserView.xib; sourceTree = "<group>"; };
 		6E7DA9E51D994EA50098D7DA /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
+		6E7EB6631DBEE88600A618DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6E8AB6B01D9C08F200B8E488 /* SetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewController.swift; sourceTree = "<group>"; };
 		7255EBCCA4BAB905D120BE0B /* Pods-ClubfulIOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubfulIOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClubfulIOSTests/Pods-ClubfulIOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		9D7676E2D18473C2715C92E3 /* Pods_ClubfulIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubfulIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -367,7 +367,7 @@
 				6E7DA8E01D9948910098D7DA /* Assets.xcassets */,
 				6E7DA8E21D9948910098D7DA /* LaunchScreen.storyboard */,
 				6E7DA8E51D9948910098D7DA /* Info.plist */,
-				6E7DA92B1D994A250098D7DA /* GoogleService-Info.plist */,
+				6E7EB6631DBEE88600A618DA /* GoogleService-Info.plist */,
 				6E7DA9281D994A020098D7DA /* ClubfulIOS-Bridging-Header.h */,
 			);
 			path = ClubfulIOS;
@@ -702,7 +702,7 @@
 				TargetAttributes = {
 					6E7DA8D51D9948910098D7DA = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = K57U5L5VXJ;
+						DevelopmentTeam = 95YHHS8BGP;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -778,6 +778,7 @@
 				6E7DA95B1D994A410098D7DA /* ball_1.jpg in Resources */,
 				6E7DA9671D994A410098D7DA /* ic_image.png in Resources */,
 				6E7DA9751D994A410098D7DA /* ic_right.png in Resources */,
+				6E7EB6641DBEE88600A618DA /* GoogleService-Info.plist in Resources */,
 				6E7DA9831D994A410098D7DA /* ic_tab_setting_n.png in Resources */,
 				6E7DA9621D994A410098D7DA /* ball_8.jpg in Resources */,
 				6E7DA9E21D994D4A0098D7DA /* MainCourtSearchElementView.xib in Resources */,
@@ -797,7 +798,6 @@
 				6E7DA96A1D994A410098D7DA /* ic_left_false.png in Resources */,
 				6E7DA9661D994A410098D7DA /* ic_fb.png in Resources */,
 				6E7DA95C1D994A410098D7DA /* ball_2.jpg in Resources */,
-				6E7DA92C1D994A250098D7DA /* GoogleService-Info.plist in Resources */,
 				6E7DA96C1D994A410098D7DA /* ic_link.png in Resources */,
 				6E7DA95E1D994A410098D7DA /* ball_4.jpg in Resources */,
 				6E7DA9741D994A410098D7DA /* ic_right_true.png in Resources */,
@@ -1169,7 +1169,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = K57U5L5VXJ;
+				DEVELOPMENT_TEAM = 95YHHS8BGP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1177,7 +1177,7 @@
 				INFOPLIST_FILE = ClubfulIOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.clubful.ClubfulIOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.decube.Clubful;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ClubfulIOS/ClubfulIOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1193,7 +1193,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = K57U5L5VXJ;
+				DEVELOPMENT_TEAM = 95YHHS8BGP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1201,7 +1201,7 @@
 				INFOPLIST_FILE = ClubfulIOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.clubful.ClubfulIOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.decube.Clubful;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ClubfulIOS/ClubfulIOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

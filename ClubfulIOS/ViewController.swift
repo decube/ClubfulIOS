@@ -12,83 +12,132 @@ import Darwin
 import MapKit
 
 class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
-//    //user 저장소
-//    var user : User!
-//    
-//    //광고영역
-//    @IBOutlet var adView: UIImageView!
-//    
-//    //내위치 표시 변수
-//    var myLocationMove = true
-//    //현재 내위치 검색
-//    var myLocationSearch = false
-//    //위치가져왔는지 못가져왔는지
-//    var isMyLocation = false
-//    
-//    //현재위치 manager
-//    let locationManager = CLLocationManager()
-//    
-//    //blackScreen
-//    var blackScreen : UIButton!
-//    //코트검색뷰
-//    var courtSearchView : UIScrollView!
-//    //위치찾기뷰
-//    var locationView : MainCenterView!
-//    //위치찾기스크롤
-//    var locationScrollView : UIScrollView!
-//    
-//    
-//    //코트 검색 텍스트필드
-//    @IBOutlet var courtSearchTextField: UITextField!
-//    
-//    
-//    //위치 관련 앱을 실행했는지 실행 하지 않았는지
-//    var isFirstLocation = true
-//    
-//    //위치 리스트
-//    var locationResults : [[String: AnyObject]]!
-//    
-//    
-//    //추가정보
-//    var addView : AddView!
+    //현재위치 manager
+    let locationManager = CLLocationManager()
     
+    //위치 관련 앱을 실행했는지 실행 하지 않았는지
+    var isFirstLocation = true
+
+    //위치가져왔는지 못가져왔는지
+    var isMyLocation = false
     
-    
-    
-    
+    //scrollView
+    @IBOutlet var scrollView: UIScrollView!
+    //spin
+    @IBOutlet var spin: UIActivityIndicatorView!
     //검색 텍스트 필드
     @IBOutlet var searchTextField: UITextField!
     //검색 텍스트필드 x 이미지뷰
     @IBOutlet var searchCancelImageView: UIView!
     
+    //blackScreen
+    var blackScreen : UIButton!
+    //위치찾기뷰
+    var locationView : MainCenterView!
+    //코트검색뷰
+    var courtSearchView : UIScrollView!
     
+    func removeCache(){
+        //cache지우기
+        URLCache.shared.removeAllCachedResponses()
+        URLCache.shared.diskCapacity = 0
+        URLCache.shared.memoryCapacity = 0
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         print("ViewController viewDidLoad")
         
+        //self.removeCache()
+        
         let user = Storage.getRealmUser()
         
-        searchTextField.borderStyle = .none
+        self.searchTextField.borderStyle = .none
+        self.searchTextField.delegate = self
         if user.search == ""{
             self.searchCancelImageView.alpha = 0
         }else{
-            searchTextField.text = user.search
+            self.searchTextField.text = user.search
             self.searchCancelImageView.alpha = 1
         }
         
         self.searchCancelImageView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.searchCancelAction)))
         
+        self.setLoad()
+        
+        //현재 나의 위치설정
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            self.locationManager.delegate = self
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            self.locationManager.startUpdatingLocation()
+        }
         
         
-        //cache지우기
-        //                NSURLCache.sharedURLCache().removeAllCachedResponses()
-        //                NSURLCache.sharedURLCache().diskCapacity = 0
-        //                NSURLCache.sharedURLCache().memoryCapacity = 0
+        //layout create
+        self.blackScreen = UIButton()
+        self.blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.blackScreen.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.6)
+        self.blackScreen.isHidden = true
+        self.view.addSubview(self.blackScreen)
         
-//        self.setLoad()
-//        
-//        
-//        
+        //블랙스크린 클릭
+        self.blackScreen.addTarget(self, action: #selector(self.blackScreenAction), for: .touchUpInside)
+        
+        //코트 검색
+        self.courtSearchView = UIScrollView(frame: CGRect(x: 0, y: 60, width: self.view.frame.width/3*2, height: 400))
+        self.courtSearchView.backgroundColor = UIColor.white
+        self.courtSearchView.isHidden = true
+        self.view.addSubview(self.courtSearchView)
+        
+        
+        
+        //자기 위치 설정 뷰 만들기
+        if let customView = Bundle.main.loadNibNamed("MainCenterView", owner: self, options: nil)?.first as? MainCenterView {
+            locationView = customView
+            locationView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
+            locationView.backgroundColor = UIColor.white
+            locationView.isHidden = true
+            locationView.searchTextField.delegate = self
+            self.view.addSubview(locationView)
+            
+            locationView.myLocationActionCallback = {(_) in
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.locationView.alpha = 0
+                    }, completion: { (_) in
+                        self.locationView.isHidden = true
+                        self.locationView.alpha = 1
+                        self.blackScreen.isHidden = true
+                        if self.isMyLocation == false{
+                            Util.alert(self, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
+                        }else{
+                            self.locationManager.startUpdatingLocation()
+                        }
+                })
+            }
+            
+            
+            locationView.searchActionCallback = {(_) in
+                if (self.locationView.searchTextField.text?.characters.count)! >= 2{
+                    self.view.endEditing(true)
+                    self.locationView.scrollView.subviews.forEach({$0.removeFromSuperview()})
+                    //자기위치 검색 통신
+                    let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "address": self.locationView.searchTextField.text! as AnyObject, "language": Util.language as AnyObject]
+                    URL.request(self, url: URL.apiServer+URL.api_location_geocode, param: parameters, callback: { (dic) in
+                        if let result = dic["results"] as? [String: AnyObject]{
+                            if let results = result["results"] as? [[String: AnyObject]]{
+                                //self.locationResults = results
+                                //self.locationSetLayout()
+                            }
+                        }
+                    })
+                }else{
+                    Util.alert(self, message: "검색어는 2글자 이상으로 넣어주세요.")
+                }
+            }
+        }
+        
+        
 //        //GET Async 동기 통신
 //        var request : NSMutableURLRequest
 //        let apiUrl = Foundation.URL(string: URL.urlCheck)
@@ -147,6 +196,179 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
 //            
 //        } catch _ as NSError {}
     }
+    
+    func blackScreenAction(){
+        if self.locationView.isHidden == false{
+            let tmpRect = self.locationView.frame
+            //애니메이션 적용
+            UIView.animate(withDuration: 0.2, animations: {
+                self.locationView.frame.origin.y = -tmpRect.height
+                }, completion: {(_) in
+                    self.blackScreen.isHidden = true
+                    self.locationView.isHidden = true
+                    self.locationView.frame = tmpRect
+            })
+        }
+    }
+    //자기위치 설정 뷰 나타내기
+    @IBAction func locationSearchAction(_ sender: AnyObject) {
+        locationView.scrollView.subviews.forEach({$0.removeFromSuperview()})
+        locationView.scrollView.scrollToTop()
+        blackScreen.isHidden = false
+        locationView.isHidden = false
+        courtSearchView.isHidden = true
+        
+        let tmpRect = locationView.frame
+        locationView.frame.origin.y = -tmpRect.height
+        //애니메이션 적용
+        UIView.animate(withDuration: 0.3, animations: {
+            self.locationView.frame = tmpRect
+            }, completion: nil)
+    }
+    
+        func setLoad(){
+//            //유저 객체
+//            let user = Storage.getRealmUser()
+//    
+//            
+//    
+//            
+//    
+//            
+//    
+//    
+//    
+//            
+//    
+//    
+//    
+//            //추가정보
+//            if let customView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView {
+//                self.addView = customView
+//                self.addView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
+//                self.addView.isHidden = true
+//                self.view.addSubview(self.addView)
+//                self.addView.setLayout(ctrl: self, callback: { (_) in
+//                    let vo = Storage.copyUser()
+//                    vo.userLatitude = self.addView.userLatitude
+//                    vo.userLongitude = self.addView.userLongitude
+//                    vo.userAddress = self.addView.userAddress
+//                    vo.userAddressShort = self.addView.userAddressShort
+//                    vo.birth = self.addView.birth.date
+//                    vo.sex = self.addView.isSexString()
+//                    Storage.setRealmUser(vo)
+//    
+//                    let param = ["token":vo.token, "userId":vo.userId, "sex": vo.sex, "birth": vo.birth, "userLatitude": vo.userLatitude, "userLongitude": vo.userLongitude, "userAddress": vo.userAddress, "userAddressShort": vo.userAddressShort] as [String : Any]
+//                    URL.request(self, url: URL.apiServer+URL.api_user_info, param: param as [String : AnyObject])
+//    
+//                    //애니메이션 적용
+//                    UIView.animate(withDuration: 0.2, animations: {
+//                        self.addView.alpha = 0
+//                    }, completion: {(_) in
+//                        self.blackScreen.isHidden = true
+//                        self.addView.isHidden = true
+//                        self.addView.alpha = 1
+//                    })
+//                })
+//            }
+//    
+//    
+
+//    
+//            self.rotated()
+//    
+//            DispatchQueue.global().async {
+//                Thread.sleep(forTimeInterval: 0.01)
+//                DispatchQueue.main.async {
+//                    if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
+//                        self.isRotated = true
+//                        self.mapView.frame = CGRect(x: 0, y: 140, width: self.view.frame.width, height: self.view.frame.height - 140)
+//                        self.courtSearchView.frame = CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.adView.frame.height+self.mapView.frame.height)
+//                    }
+//                    if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
+//                        self.isRotated = false
+//                        self.mapView.frame = CGRect(x: 0, y: 120, width: self.view.frame.width, height: self.view.frame.height - 120)
+//                        self.courtSearchView.frame = CGRect(x: 0, y: 60, width: self.view.frame.width/3*2, height: self.adView.frame.height+self.mapView.frame.height)
+//                    }
+//                }
+//            }
+//        }
+//    
+//        func locationSetLayout(){
+//            var i : CGFloat = 0
+//            let locObjHeight : CGFloat = 80
+//            self.locationView.scrollView.subviews.forEach({$0.removeFromSuperview()})
+//            for element : [String: AnyObject] in self.locationResults{
+//                let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
+//    
+//                if let customView = Bundle.main.loadNibNamed("MainCenterElementView", owner: self, options: nil)?.first as? MainCenterElementView {
+//                    customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.locationView.frame.width-10, height: locObjHeight-10)
+//                    customView.setAddr(addressShort: addressShort, address: address)
+//                    self.locationView.scrollView.addSubview(customView)
+//                    customView.setAction({ (_) in
+//                        UIView.animate(withDuration: 0.2, animations: {
+//                            self.locationView.alpha = 0
+//                            }, completion: { (_) in
+//                                self.locationView.isHidden = true
+//                                self.locationView.alpha = 1
+//                                self.blackScreen.isHidden = true
+//                                let user = Storage.copyUser()
+//                                user.latitude = latitude
+//                                user.longitude = longitude
+//                                user.address = "\(address)"
+//                                user.addressShort = "\(addressShort)"
+//                                Storage.setRealmUser(user)
+//                                self.myLocationSearch = true
+//                                let span: MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
+//                                let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
+//                                let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
+//                                self.mapView.region = region
+//                                self.marker.coordinate = location
+//                                self.locationView.searchTextField.text = ""
+//                        })
+//                    })
+//                }
+//                i += 1
+//            }
+//            self.locationView.scrollView.contentSize.height = locObjHeight*i+30
+        }
+    
+    
+    //    //user 저장소
+    //    var user : User!
+    //
+    //    //광고영역
+    //    @IBOutlet var adView: UIImageView!
+    //
+    //    //내위치 표시 변수
+    //    var myLocationMove = true
+    //    //현재 내위치 검색
+    //    var myLocationSearch = false
+
+    //
+    //
+    
+    
+
+    //    //위치찾기스크롤
+    //    var locationScrollView : UIScrollView!
+    //
+    //
+    //    //코트 검색 텍스트필드
+    //    @IBOutlet var courtSearchTextField: UITextField!
+    //
+    //
+    
+    //
+    //    //위치 리스트
+    //    var locationResults : [[String: AnyObject]]!
+    //    
+    //    
+    //    //추가정보
+    //    var addView : AddView!
+    
+    
+    
     
     
     
@@ -260,12 +482,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
 //            })
 //        }
 //        
-//        
-//        //블랙스크린 클릭
-//        blackScreen.addTarget(self, action: #selector(self.blackScreenAction), for: .touchUpInside)
-//        
-//        self.rotated()
-//        
+    
 //        DispatchQueue.global().async {
 //            Thread.sleep(forTimeInterval: 0.01)
 //            DispatchQueue.main.async {
@@ -323,19 +540,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
 //    }
 //    
 //    
-//    func blackScreenAction(){
-//        if self.locationView.isHidden == false{
-//            let tmpRect = self.locationView.frame
-//            //애니메이션 적용
-//            UIView.animate(withDuration: 0.2, animations: {
-//                self.locationView.frame.origin.y = -tmpRect.height
-//                }, completion: {(_) in
-//                    self.blackScreen.isHidden = true
-//                    self.locationView.isHidden = true
-//                    self.locationView.frame = tmpRect
-//            })
-//        }
-//    }
+
 //    
 //    
 //    var tempCourtData: [[String:AnyObject]]!
@@ -416,66 +621,36 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
 //            })
 //        }
 //    }
-//    
-//    @IBAction func locationSearchAction(_ sender: AnyObject) {
-//        locationView.scrollView.subviews.forEach({$0.removeFromSuperview()})
-//        locationView.scrollView.scrollToTop()
-//        blackScreen.isHidden = false
-//        locationView.isHidden = false
-//        courtSearchView.isHidden = true
-//        
-//        let tmpRect = locationView.frame
-//        locationView.frame.origin.y = -tmpRect.height
-//        //애니메이션 적용
-//        UIView.animate(withDuration: 0.3, animations: {
-//            self.locationView.frame = tmpRect
-//            }, completion: nil)
-//    }
-//    
-//    
-//    //현재 나의위치 가져오기 실패함
-//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-//        isMyLocation = false
-//        if ProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] != nil{
-//            print("It's an iOS Simulator")
-//        }else{
-//            print("It's a device")
-//            Util.alert(self, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
-//        }
-//    }
-//    
-//    //현재 나의 위치
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        isMyLocation = true
-//        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-//        Storage.latitude = locValue.latitude
-//        Storage.longitude = locValue.longitude
-//        
-//        if isFirstLocation == true{
-//            isFirstLocation = false
-//            Storage.locationThread(self)
-//        }
-//        
-//        if myLocationSearch == false{
-//            user = Storage.copyUser()
-//            user.latitude = locValue.latitude
-//            user.longitude = locValue.longitude
-//            Storage.setRealmUser(user)
-//            let appDelegateLocationMove = (UIApplication.shared.delegate as! AppDelegate).vcMyLocationMove
-//            
-//            if myLocationMove == true || appDelegateLocationMove == true{
-//                myLocationMove = false
-//                (UIApplication.shared.delegate as! AppDelegate).vcMyLocationMove = false
-//                let location = setMapLocation(user.latitude, longitude: user.longitude)
-//                markerMove(location)
-//            }else{
-//                let location = setMapLocation(user.latitude, longitude: user.longitude, mapViewRegion: false)
-//                markerMove(location)
-//            }
-//        }
-//    }
-//    
-//   
+//
+    
+    
+    
+    
+    //현재 나의위치 가져오기 실패함
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        self.isMyLocation = false
+        if ProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] != nil{
+            print("It's an iOS Simulator")
+        }else{
+            print("It's a device")
+            Util.alert(self, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
+        }
+    }
+    
+    //현재 나의 위치
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.isMyLocation = true
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        Storage.latitude = locValue.latitude
+        Storage.longitude = locValue.longitude
+        
+        if isFirstLocation == true{
+            isFirstLocation = false
+            Storage.locationThread(self)
+        }
+    }
+    
+   
     
     
     
