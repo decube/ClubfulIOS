@@ -37,6 +37,12 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     //코트검색뷰
     var courtSearchView : UIScrollView!
     
+    
+    //추가정보 뷰
+    var addView : AddView!
+    
+    
+    
     func removeCache(){
         //cache지우기
         URLCache.shared.removeAllCachedResponses()
@@ -62,8 +68,6 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         
         self.searchCancelImageView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.searchCancelAction)))
         
-        self.setLoad()
-        
         //현재 나의 위치설정
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
@@ -85,11 +89,16 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         self.blackScreen.addTarget(self, action: #selector(self.blackScreenAction), for: .touchUpInside)
         
         //코트 검색
-        self.courtSearchView = UIScrollView(frame: CGRect(x: 0, y: 60, width: self.view.frame.width/3*2, height: 400))
+        self.courtSearchView = UIScrollView()
         self.courtSearchView.backgroundColor = UIColor.white
         self.courtSearchView.isHidden = true
         self.view.addSubview(self.courtSearchView)
-        
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 0.01)
+            DispatchQueue.main.async {
+                self.courtSearchView.frame = CGRect(x: 0, y: self.scrollView.frame.origin.y, width: self.view.frame.width/3*2, height: self.scrollView.frame.height)
+            }
+        }
         
         
         //자기 위치 설정 뷰 만들기
@@ -116,7 +125,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                 })
             }
             
-            
+            //자기위치 설정뷰 검색 콜백
             locationView.searchActionCallback = {(_) in
                 if (self.locationView.searchTextField.text?.characters.count)! >= 2{
                     self.view.endEditing(true)
@@ -126,8 +135,38 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                     URL.request(self, url: URL.apiServer+URL.api_location_geocode, param: parameters, callback: { (dic) in
                         if let result = dic["results"] as? [String: AnyObject]{
                             if let results = result["results"] as? [[String: AnyObject]]{
-                                //self.locationResults = results
-                                //self.locationSetLayout()
+                                var i : CGFloat = 0
+                                let locObjHeight : CGFloat = 80
+                                self.locationView.scrollView.subviews.forEach({$0.removeFromSuperview()})
+                                for element : [String: AnyObject] in results{
+                                    let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
+                                    
+                                    if let customView = Bundle.main.loadNibNamed("MainCenterElementView", owner: self, options: nil)?.first as? MainCenterElementView {
+                                        customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.locationView.frame.width-10, height: locObjHeight-10)
+                                        customView.setAddr(addressShort: addressShort, address: address)
+                                        self.locationView.scrollView.addSubview(customView)
+                                        //
+                                        //위치 선택
+                                        //
+                                        customView.setAction({ (_) in
+                                            UIView.animate(withDuration: 0.2, animations: {
+                                                self.locationView.alpha = 0
+                                                }, completion: { (_) in
+                                                    self.locationView.isHidden = true
+                                                    self.locationView.alpha = 1
+                                                    self.blackScreen.isHidden = true
+                                                    let user = Storage.copyUser()
+                                                    user.latitude = latitude
+                                                    user.longitude = longitude
+                                                    user.address = "\(address)"
+                                                    user.addressShort = "\(addressShort)"
+                                                    Storage.setRealmUser(user)
+                                            })
+                                        })
+                                    }
+                                    i += 1
+                                }
+                                self.locationView.scrollView.contentSize.height = locObjHeight*i+30
                             }
                         }
                     })
@@ -138,66 +177,122 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         }
         
         
-//        //GET Async 동기 통신
-//        var request : NSMutableURLRequest
-//        let apiUrl = Foundation.URL(string: URL.urlCheck)
-//        request = NSMutableURLRequest(url: apiUrl!)
-//        request.httpMethod = "GET"
-//        var data = Data()
-//        let semaphore = DispatchSemaphore(value: 0)
-//        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(responseData,_,_) -> Void in
-//            if responseData != nil{
-//                data = responseData!
-//            }
-//            semaphore.signal()
-//        }).resume()
-//        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
-//        do{
-//            let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String: AnyObject]
-//            URL.apiServer = json["apiServer"] as! String
-//            URL.viewServer = json["viewServer"] as! String
-//            URL.courtUpload = json["courtUpload"] as! String
-//            
-//            URL.view_info = json["view_info"] as! String
-//            URL.view_notice = json["view_notice"] as! String
-//            URL.view_guide = json["view_guide"] as! String
-//            URL.view_inquiry = json["view_inquiry"] as! String
-//            
-//            URL.api_version_check = json["api_version_check"] as! String
-//            URL.api_version_app = json["api_version_app"] as! String
-//            URL.api_court_create = json["api_court_create"] as! String
-//            URL.api_court_detail = json["api_court_detail"] as! String
-//            URL.api_court_interest = json["api_court_interest"] as! String
-//            URL.api_court_listSearch = json["api_court_listSearch"] as! String
-//            URL.api_court_replyInsert = json["api_court_replyInsert"] as! String
-//            URL.api_location_geocode = json["api_location_geocode"] as! String
-//            URL.api_location_user = json["api_location_user"] as! String
-//            URL.api_user_join = json["api_user_join"] as! String
-//            URL.api_user_login = json["api_user_login"] as! String
-//            URL.api_user_logout = json["api_user_logout"] as! String
-//            URL.api_user_mypage = json["api_user_mypage"] as! String
-//            URL.api_user_set = json["api_user_set"] as! String
-//            URL.api_user_update = json["api_user_update"] as! String
-//            URL.api_user_info = json["api_user_info"] as! String
-//            
-//            //버전체크 통신
-//            let parameters = URL.vesion_checkParam()
-//            URL.request(self, url: URL.apiServer+URL.api_version_check, param: parameters, callback: { (dic) in
-//                self.user = Storage.copyUser()
-//                self.user.token = dic["token"] as! String
-//                Util.newVersion = dic["ver"] as! String
-//                self.user.categoryVer = dic["categoryVer"] as! Int
-//                self.user.noticeVer = dic["noticeVer"] as! Int
-//                if let categoryList = dic["categoryList"] as? [[String: AnyObject]]{
-//                    Storage.setStorage("categoryList", value: categoryList as AnyObject)
-//                }
-//                Storage.setRealmUser(self.user)
-//            })
-//            
-//        } catch _ as NSError {}
+        
+        
+        
+        
+        //추가정보 뷰 만들기
+        if let customView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView {
+            self.addView = customView
+            self.addView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
+            self.addView.isHidden = true
+            self.view.addSubview(self.addView)
+            self.addView.setLayout(ctrl: self, callback: { (_) in
+                let vo = Storage.copyUser()
+                vo.userLatitude = self.addView.userLatitude
+                vo.userLongitude = self.addView.userLongitude
+                vo.userAddress = self.addView.userAddress
+                vo.userAddressShort = self.addView.userAddressShort
+                vo.birth = self.addView.birth.date
+                vo.sex = self.addView.isSexString()
+                Storage.setRealmUser(vo)
+                
+                let param = ["token":vo.token, "userId":vo.userId, "sex": vo.sex, "birth": vo.birth, "userLatitude": vo.userLatitude, "userLongitude": vo.userLongitude, "userAddress": vo.userAddress, "userAddressShort": vo.userAddressShort] as [String : Any]
+                URL.request(self, url: URL.apiServer+URL.api_user_info, param: param as [String : AnyObject])
+                
+                //애니메이션 적용
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.addView.alpha = 0
+                    }, completion: {(_) in
+                        self.blackScreen.isHidden = true
+                        self.addView.isHidden = true
+                        self.addView.alpha = 1
+                })
+            })
+        }
+        
+        
+        
+        
+        
+        ///////////////////
+        //GET Async 동기 통신
+        ///////////////////
+        var request : NSMutableURLRequest
+        let apiUrl = Foundation.URL(string: URL.urlCheck)
+        request = NSMutableURLRequest(url: apiUrl!)
+        request.httpMethod = "GET"
+        var data = Data()
+        let semaphore = DispatchSemaphore(value: 0)
+        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(responseData,_,_) -> Void in
+            if responseData != nil{
+                data = responseData!
+            }
+            semaphore.signal()
+        }).resume()
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        do{
+            let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String: AnyObject]
+            URL.apiServer = json["apiServer"] as! String
+            URL.viewServer = json["viewServer"] as! String
+            URL.courtUpload = json["courtUpload"] as! String
+            
+            URL.view_info = json["view_info"] as! String
+            URL.view_notice = json["view_notice"] as! String
+            URL.view_guide = json["view_guide"] as! String
+            URL.view_inquiry = json["view_inquiry"] as! String
+            
+            URL.api_version_check = json["api_version_check"] as! String
+            URL.api_version_app = json["api_version_app"] as! String
+            URL.api_court_create = json["api_court_create"] as! String
+            URL.api_court_detail = json["api_court_detail"] as! String
+            URL.api_court_interest = json["api_court_interest"] as! String
+            URL.api_court_listSearch = json["api_court_listSearch"] as! String
+            URL.api_court_replyInsert = json["api_court_replyInsert"] as! String
+            URL.api_location_geocode = json["api_location_geocode"] as! String
+            URL.api_location_user = json["api_location_user"] as! String
+            URL.api_user_join = json["api_user_join"] as! String
+            URL.api_user_login = json["api_user_login"] as! String
+            URL.api_user_logout = json["api_user_logout"] as! String
+            URL.api_user_mypage = json["api_user_mypage"] as! String
+            URL.api_user_set = json["api_user_set"] as! String
+            URL.api_user_update = json["api_user_update"] as! String
+            URL.api_user_info = json["api_user_info"] as! String
+            
+            //버전체크 통신
+            let parameters = URL.vesion_checkParam()
+            URL.request(self, url: URL.apiServer+URL.api_version_check, param: parameters, callback: { (dic) in
+                let user = Storage.copyUser()
+                user.token = dic["token"] as! String
+                Util.newVersion = dic["ver"] as! String
+                user.categoryVer = dic["categoryVer"] as! Int
+                user.noticeVer = dic["noticeVer"] as! Int
+                if let categoryList = dic["categoryList"] as? [[String: AnyObject]]{
+                    Storage.setStorage("categoryList", value: categoryList as AnyObject)
+                }
+                Storage.setRealmUser(user)
+            })
+            
+        } catch _ as NSError {}
+        
+        
+        
+        
     }
     
+    //검색 취소 X표시 버튼 액션
+    func searchCancelAction(){
+        self.searchTextField.text = ""
+        self.view.endEditing(true)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.searchCancelImageView.alpha = 0
+        })
+    }
+    
+    
+    //블랙스크린 클릭 액션
     func blackScreenAction(){
+        self.view.endEditing(true)
         if self.locationView.isHidden == false{
             let tmpRect = self.locationView.frame
             //애니메이션 적용
@@ -210,8 +305,13 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
             })
         }
     }
+    
+    
+    
+    
     //자기위치 설정 뷰 나타내기
     @IBAction func locationSearchAction(_ sender: AnyObject) {
+        self.view.endEditing(true)
         locationView.scrollView.subviews.forEach({$0.removeFromSuperview()})
         locationView.scrollView.scrollToTop()
         blackScreen.isHidden = false
@@ -226,402 +326,93 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
             }, completion: nil)
     }
     
-        func setLoad(){
-//            //유저 객체
-//            let user = Storage.getRealmUser()
-//    
-//            
-//    
-//            
-//    
-//            
-//    
-//    
-//    
-//            
-//    
-//    
-//    
-//            //추가정보
-//            if let customView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView {
-//                self.addView = customView
-//                self.addView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
-//                self.addView.isHidden = true
-//                self.view.addSubview(self.addView)
-//                self.addView.setLayout(ctrl: self, callback: { (_) in
-//                    let vo = Storage.copyUser()
-//                    vo.userLatitude = self.addView.userLatitude
-//                    vo.userLongitude = self.addView.userLongitude
-//                    vo.userAddress = self.addView.userAddress
-//                    vo.userAddressShort = self.addView.userAddressShort
-//                    vo.birth = self.addView.birth.date
-//                    vo.sex = self.addView.isSexString()
-//                    Storage.setRealmUser(vo)
-//    
-//                    let param = ["token":vo.token, "userId":vo.userId, "sex": vo.sex, "birth": vo.birth, "userLatitude": vo.userLatitude, "userLongitude": vo.userLongitude, "userAddress": vo.userAddress, "userAddressShort": vo.userAddressShort] as [String : Any]
-//                    URL.request(self, url: URL.apiServer+URL.api_user_info, param: param as [String : AnyObject])
-//    
-//                    //애니메이션 적용
-//                    UIView.animate(withDuration: 0.2, animations: {
-//                        self.addView.alpha = 0
-//                    }, completion: {(_) in
-//                        self.blackScreen.isHidden = true
-//                        self.addView.isHidden = true
-//                        self.addView.alpha = 1
-//                    })
-//                })
-//            }
-//    
-//    
-
-//    
-//            self.rotated()
-//    
-//            DispatchQueue.global().async {
-//                Thread.sleep(forTimeInterval: 0.01)
-//                DispatchQueue.main.async {
-//                    if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-//                        self.isRotated = true
-//                        self.mapView.frame = CGRect(x: 0, y: 140, width: self.view.frame.width, height: self.view.frame.height - 140)
-//                        self.courtSearchView.frame = CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.adView.frame.height+self.mapView.frame.height)
-//                    }
-//                    if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-//                        self.isRotated = false
-//                        self.mapView.frame = CGRect(x: 0, y: 120, width: self.view.frame.width, height: self.view.frame.height - 120)
-//                        self.courtSearchView.frame = CGRect(x: 0, y: 60, width: self.view.frame.width/3*2, height: self.adView.frame.height+self.mapView.frame.height)
-//                    }
-//                }
-//            }
-//        }
-//    
-//        func locationSetLayout(){
-//            var i : CGFloat = 0
-//            let locObjHeight : CGFloat = 80
-//            self.locationView.scrollView.subviews.forEach({$0.removeFromSuperview()})
-//            for element : [String: AnyObject] in self.locationResults{
-//                let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
-//    
-//                if let customView = Bundle.main.loadNibNamed("MainCenterElementView", owner: self, options: nil)?.first as? MainCenterElementView {
-//                    customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.locationView.frame.width-10, height: locObjHeight-10)
-//                    customView.setAddr(addressShort: addressShort, address: address)
-//                    self.locationView.scrollView.addSubview(customView)
-//                    customView.setAction({ (_) in
-//                        UIView.animate(withDuration: 0.2, animations: {
-//                            self.locationView.alpha = 0
-//                            }, completion: { (_) in
-//                                self.locationView.isHidden = true
-//                                self.locationView.alpha = 1
-//                                self.blackScreen.isHidden = true
-//                                let user = Storage.copyUser()
-//                                user.latitude = latitude
-//                                user.longitude = longitude
-//                                user.address = "\(address)"
-//                                user.addressShort = "\(addressShort)"
-//                                Storage.setRealmUser(user)
-//                                self.myLocationSearch = true
-//                                let span: MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
-//                                let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
-//                                let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
-//                                self.mapView.region = region
-//                                self.marker.coordinate = location
-//                                self.locationView.searchTextField.text = ""
-//                        })
-//                    })
-//                }
-//                i += 1
-//            }
-//            self.locationView.scrollView.contentSize.height = locObjHeight*i+30
+    
+    
+    
+    
+    //코트 검색 액션
+    func courtSearchAction() {
+        if (searchTextField.text?.characters.count)! >= 2{
+            self.view.endEditing(true)
+            courtSearchView.subviews.forEach({$0.removeFromSuperview()})
+            courtSearchView.scrollToTop()
+            //코트 검색 통신
+            let user = Storage.getRealmUser()
+            let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "address": searchTextField.text! as AnyObject, "category": user.category as AnyObject, "latitude": user.latitude as AnyObject, "longitude": user.longitude as AnyObject]
+            URL.request(self, url: URL.apiServer+URL.api_court_listSearch, param: parameters, callback: { (dic) in
+                if let list = dic["list"] as? [[String: AnyObject]]{
+                    self.view.endEditing(true)
+                    self.courtSearchView.subviews.forEach({$0.removeFromSuperview()})
+                    var i : CGFloat = 0
+                    let locObjHeight : CGFloat = 90
+                    for obj in list{
+                        let titleStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["addressShort"]!))"
+                        let descStr = "\(obj["description"]!)"
+                        if let customView = Bundle.main.loadNibNamed("MainCourtSearchElementView", owner: self, options: nil)?.first as? MainCourtSearchElementView {
+                            customView.frame = CGRect(x: 0, y: locObjHeight*i, width: self.courtSearchView.frame.width, height: locObjHeight-1)
+                            customView.setLbl(title: titleStr, desc: descStr)
+                            if self.view.frame.width > self.view.frame.height{
+                                customView.setImage(obj["image"]! as! String, height: locObjHeight-1, isCenter: true)
+                            }else{
+                                customView.setImage(obj["image"]! as! String, height: locObjHeight-1)
+                            }
+                            
+                            _ = customView.layer()
+                            self.courtSearchView.addSubview(customView)
+                            customView.setAction({ (_) in
+                                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                                let uvc = storyBoard.instantiateViewController(withIdentifier: "courtVC")
+                                (uvc as! CourtViewController).courtSeq = obj["seq"] as! Int
+                                self.navigationController?.pushViewController(uvc, animated: true)
+                            })
+                            customView.setSimplemapAction({ (_) in
+                                let sname : String = "내위치".queryValue()
+                                let sx : Double = (self.locationManager.location?.coordinate.latitude)!
+                                let sy : Double = (self.locationManager.location?.coordinate.longitude)!
+                                let ename : String = "\(obj["addressShort"]!)".queryValue()
+                                let ex : Double = obj["latitude"] as! Double
+                                let ey : Double = obj["longitude"] as! Double
+                                let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true"
+                                if let url = Foundation.URL(string: simplemapUrl){
+                                    if UIApplication.shared.canOpenURL(url) {
+                                        if #available(iOS 10.0, *) {
+                                            UIApplication.shared.open(url, options: [:])
+                                        } else {
+                                            UIApplication.shared.openURL(url)
+                                        }
+                                    }
+                                }
+                            })
+                        }
+                        i += 1
+                    }
+                    self.courtSearchView.contentSize.height = locObjHeight*i+i+50
+                    if self.courtSearchView.isHidden != false{
+                        let tmpRect = self.courtSearchView.frame
+                        self.courtSearchView.frame.origin.x = -tmpRect.width
+                        self.courtSearchView.isHidden = false
+                        //애니메이션 적용
+                        UIView.animate(withDuration: 0.2, animations: {
+                            self.courtSearchView.frame = tmpRect
+                            }, completion: {(_) in
+                        })
+                    }
+                }
+            })
+        }else{
+            Util.alert(self, message: "검색어는 2글자 이상으로 넣어주세요.")
         }
+    }
     
     
-    //    //user 저장소
-    //    var user : User!
-    //
-    //    //광고영역
-    //    @IBOutlet var adView: UIImageView!
-    //
-    //    //내위치 표시 변수
-    //    var myLocationMove = true
-    //    //현재 내위치 검색
-    //    var myLocationSearch = false
-
-    //
-    //
-    
-    
-
-    //    //위치찾기스크롤
-    //    var locationScrollView : UIScrollView!
-    //
-    //
-    //    //코트 검색 텍스트필드
-    //    @IBOutlet var courtSearchTextField: UITextField!
-    //
-    //
-    
-    //
-    //    //위치 리스트
-    //    var locationResults : [[String: AnyObject]]!
-    //    
-    //    
-    //    //추가정보
-    //    var addView : AddView!
-    
-    
-    
-    
-    
-    
-//    func setLoad(){
-//        //유저 객체
-//        user = Storage.getRealmUser()
-//        
-//        //현재 나의 위치설정
-//        self.locationManager.requestAlwaysAuthorization()
-//        self.locationManager.requestWhenInUseAuthorization()
-//        if CLLocationManager.locationServicesEnabled() {
-//            locationManager.delegate = self
-//            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-//            locationManager.startUpdatingLocation()
-//        }
-//        
-//        
-//        courtSearchTextField.delegate = self
-//        
-//        //layout create
-//        blackScreen = UIButton()
-//        blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-//        blackScreen.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.6)
-//        blackScreen.isHidden = true
-//        self.view.addSubview(blackScreen)
-//        
-//        //코트 검색
-//        courtSearchView = UIScrollView(frame: CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.adView.frame.height+self.mapView.frame.height))
-//        courtSearchView.backgroundColor = UIColor.white
-//        courtSearchView.isHidden = true
-//        self.view.addSubview(courtSearchView)
-//        
-//        
-//        
-//        //자기 위치 설정
-//        if let customView = Bundle.main.loadNibNamed("MainCenterView", owner: self, options: nil)?.first as? MainCenterView {
-//            locationView = customView
-//            locationView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
-//            locationView.backgroundColor = UIColor.white
-//            locationView.isHidden = true
-//            locationView.searchTextField.delegate = self
-//            self.view.addSubview(locationView)
-//            
-//            locationView.myLocationActionCallback = {(_) in
-//                UIView.animate(withDuration: 0.2, animations: {
-//                    self.locationView.alpha = 0
-//                    }, completion: { (_) in
-//                        self.locationView.isHidden = true
-//                        self.locationView.alpha = 1
-//                        self.blackScreen.isHidden = true
-//                        self.myLocationSearch = false
-//                        self.myLocationMove = true
-//                        if self.isMyLocation == false{
-//                            Util.alert(self, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
-//                        }else{
-//                            self.locationManager.startUpdatingLocation()
-//                        }
-//                })
-//            }
-//            
-//            
-//            locationView.searchActionCallback = {(_) in
-//                if self.locationView.searchTextField.text?.characters.count >= 2{
-//                    self.view.endEditing(true)
-//                    self.locationView.scrollView.subviews.forEach({$0.removeFromSuperview()})
-//                    //자기위치 검색 통신
-//                    let parameters : [String: AnyObject] = ["token": self.user.token as AnyObject, "address": self.locationView.searchTextField.text! as AnyObject, "language": Util.language as AnyObject]
-//                    URL.request(self, url: URL.apiServer+URL.api_location_geocode, param: parameters, callback: { (dic) in
-//                        if let result = dic["results"] as? [String: AnyObject]{
-//                            if let results = result["results"] as? [[String: AnyObject]]{
-//                                self.locationResults = results
-//                                self.locationSetLayout()
-//                            }
-//                        }
-//                    })
-//                }else{
-//                    Util.alert(self, message: "검색어는 2글자 이상으로 넣어주세요.")
-//                }
-//            }
-//        }
-//        
-//        
-//        
-//        //추가정보
-//        if let customView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView {
-//            self.addView = customView
-//            self.addView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
-//            self.addView.isHidden = true
-//            self.view.addSubview(self.addView)
-//            self.addView.setLayout(ctrl: self, callback: { (_) in
-//                let vo = Storage.copyUser()
-//                vo.userLatitude = self.addView.userLatitude
-//                vo.userLongitude = self.addView.userLongitude
-//                vo.userAddress = self.addView.userAddress
-//                vo.userAddressShort = self.addView.userAddressShort
-//                vo.birth = self.addView.birth.date
-//                vo.sex = self.addView.isSexString()
-//                Storage.setRealmUser(vo)
-//                
-//                let param = ["token":vo.token, "userId":vo.userId, "sex": vo.sex, "birth": vo.birth, "userLatitude": vo.userLatitude, "userLongitude": vo.userLongitude, "userAddress": vo.userAddress, "userAddressShort": vo.userAddressShort] as [String : Any]
-//                URL.request(self, url: URL.apiServer+URL.api_user_info, param: param as [String : AnyObject])
-//                
-//                //애니메이션 적용
-//                UIView.animate(withDuration: 0.2, animations: {
-//                    self.addView.alpha = 0
-//                }, completion: {(_) in
-//                    self.blackScreen.isHidden = true
-//                    self.addView.isHidden = true
-//                    self.addView.alpha = 1
-//                })
-//            })
-//        }
-//        
-    
-//        DispatchQueue.global().async {
-//            Thread.sleep(forTimeInterval: 0.01)
-//            DispatchQueue.main.async {
-//                if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-//                    self.isRotated = true
-//                    self.mapView.frame = CGRect(x: 0, y: 140, width: self.view.frame.width, height: self.view.frame.height - 140)
-//                    self.courtSearchView.frame = CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.adView.frame.height+self.mapView.frame.height)
-//                }
-//                if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-//                    self.isRotated = false
-//                    self.mapView.frame = CGRect(x: 0, y: 120, width: self.view.frame.width, height: self.view.frame.height - 120)
-//                    self.courtSearchView.frame = CGRect(x: 0, y: 60, width: self.view.frame.width/3*2, height: self.adView.frame.height+self.mapView.frame.height)
-//                }
-//            }
-//        }
-//    }
-//    
-//    func locationSetLayout(){
-//        var i : CGFloat = 0
-//        let locObjHeight : CGFloat = 80
-//        self.locationView.scrollView.subviews.forEach({$0.removeFromSuperview()})
-//        for element : [String: AnyObject] in self.locationResults{
-//            let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
-//            
-//            if let customView = Bundle.main.loadNibNamed("MainCenterElementView", owner: self, options: nil)?.first as? MainCenterElementView {
-//                customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.locationView.frame.width-10, height: locObjHeight-10)
-//                customView.setAddr(addressShort: addressShort, address: address)
-//                self.locationView.scrollView.addSubview(customView)
-//                customView.setAction({ (_) in
-//                    UIView.animate(withDuration: 0.2, animations: {
-//                        self.locationView.alpha = 0
-//                        }, completion: { (_) in
-//                            self.locationView.isHidden = true
-//                            self.locationView.alpha = 1
-//                            self.blackScreen.isHidden = true
-//                            let user = Storage.copyUser()
-//                            user.latitude = latitude
-//                            user.longitude = longitude
-//                            user.address = "\(address)"
-//                            user.addressShort = "\(addressShort)"
-//                            Storage.setRealmUser(user)
-//                            self.myLocationSearch = true
-//                            let span: MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
-//                            let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
-//                            let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
-//                            self.mapView.region = region
-//                            self.marker.coordinate = location
-//                            self.locationView.searchTextField.text = ""
-//                    })
-//                })
-//            }
-//            i += 1
-//        }
-//        self.locationView.scrollView.contentSize.height = locObjHeight*i+30
-//    }
-//    
-//    
-
-//    
-//    
-//    var tempCourtData: [[String:AnyObject]]!
-//    @IBAction func courtSearchAction(_ sender: AnyObject) {
-//        if courtSearchTextField.text?.characters.count >= 2{
-//            self.view.endEditing(true)
-//            courtSearchView.subviews.forEach({$0.removeFromSuperview()})
-//            courtSearchView.scrollToTop()
-//            //코트 검색 통신
-//            
-//            let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "address": courtSearchTextField.text! as AnyObject, "category": user.category as AnyObject, "latitude": user.latitude as AnyObject, "longitude": user.longitude as AnyObject]
-//            URL.request(self, url: URL.apiServer+URL.api_court_listSearch, param: parameters, callback: { (dic) in
-//                if let list = dic["list"] as? [[String: AnyObject]]{
-//                    self.tempCourtData = list
-//                    self.setCourtLayout()
-//                }
-//            })
-//        }else{
-//            Util.alert(self, message: "검색어는 2글자 이상으로 넣어주세요.")
-//        }
-//    }
-//    //코트 실제 레이아웃만듬
-//    func setCourtLayout(){
-//        self.view.endEditing(true)
-//        courtSearchView.subviews.forEach({$0.removeFromSuperview()})
-//        var i : CGFloat = 0
-//        let locObjHeight : CGFloat = 90
-//        for obj in self.tempCourtData{
-//            let titleStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["addressShort"]!))"
-//            let descStr = "\(obj["description"]!)"
-//            if let customView = Bundle.main.loadNibNamed("MainCourtSearchElementView", owner: self, options: nil)?.first as? MainCourtSearchElementView {
-//                customView.frame = CGRect(x: 0, y: locObjHeight*i, width: self.courtSearchView.frame.width, height: locObjHeight-1)
-//                customView.setLbl(title: titleStr, desc: descStr)
-//                if self.view.frame.width > self.view.frame.height{
-//                    customView.setImage(obj["image"]! as! String, height: locObjHeight-1, isCenter: true)
-//                }else{
-//                    customView.setImage(obj["image"]! as! String, height: locObjHeight-1)
-//                }
-//                
-//                _ = customView.layer()
-//                self.courtSearchView.addSubview(customView)
-//                customView.setAction({ (_) in
-//                    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-//                    let uvc = storyBoard.instantiateViewController(withIdentifier: "courtVC")
-//                    (uvc as! CourtViewController).courtSeq = obj["seq"] as! Int
-//                    self.navigationController?.pushViewController(uvc, animated: true)
-//                })
-//                customView.setSimplemapAction({ (_) in
-//                    let sname : String = "내위치".queryValue()
-//                    let sx : Double = (self.locationManager.location?.coordinate.latitude)!
-//                    let sy : Double = (self.locationManager.location?.coordinate.longitude)!
-//                    let ename : String = "\(obj["addressShort"]!)".queryValue()
-//                    let ex : Double = obj["latitude"] as! Double
-//                    let ey : Double = obj["longitude"] as! Double
-//                    let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true"
-//                    if let url = Foundation.URL(string: simplemapUrl){
-//                        if UIApplication.shared.canOpenURL(url) {
-//                            if #available(iOS 10.0, *) {
-//                                UIApplication.shared.open(url, options: [:])
-//                            } else {
-//                                UIApplication.shared.openURL(url)
-//                            }
-//                        }
-//                    }
-//                })
-//            }
-//            i += 1
-//        }
-//        self.courtSearchView.contentSize.height = locObjHeight*i+i+50
-//        if self.courtSearchView.isHidden != false{
-//            let tmpRect = self.courtSearchView.frame
-//            self.courtSearchView.frame.origin.x = -tmpRect.width
-//            self.courtSearchView.isHidden = false
-//            //애니메이션 적용
-//            UIView.animate(withDuration: 0.2, animations: {
-//                self.courtSearchView.frame = tmpRect
-//                }, completion: {(_) in
-//            })
-//        }
-//    }
-//
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == self.searchTextField {
+            textField.resignFirstResponder()
+            self.courtSearchAction()
+            return false
+        }
+        return true
+    }
     
     
     
@@ -654,15 +445,8 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     
     
     
-    func searchCancelAction(){
-        self.searchTextField.text = ""
-        self.view.endEditing(true)
-        UIView.animate(withDuration: 0.3, animations: {
-            self.searchCancelImageView.alpha = 0
-        })
-    }
     
-    //키보드 생김/사라짐 셀렉터
+    //화면 생겼을 때 키보드 생김/사라짐 셀렉터
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -682,7 +466,6 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
             })
         }
     }
-    
     //인풋창 끝나면 키보드 없애기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)

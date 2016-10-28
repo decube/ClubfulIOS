@@ -204,10 +204,10 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
                             vc.addView.userAddress = "\(address)"
                             vc.addView.userAddressShort = "\(addressShort)"
                         }else if let vc = self.preView as? ViewController{
-//                            vc.addView.userLatitude = self.mapView.region.center.latitude
-//                            vc.addView.userLongitude = self.mapView.region.center.longitude
-//                            vc.addView.userAddress = "\(address)"
-//                            vc.addView.userAddressShort = "\(addressShort)"
+                            vc.addView.userLatitude = self.mapView.region.center.latitude
+                            vc.addView.userLongitude = self.mapView.region.center.longitude
+                            vc.addView.userAddress = "\(address)"
+                            vc.addView.userAddressShort = "\(addressShort)"
                         }
                         
                         self.preBtn.setTitle("\(addressShort)", for: UIControlState())
