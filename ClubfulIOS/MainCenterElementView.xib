@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -12,9 +12,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mQo-GE-otY">
-                    <frame key="frameInset" minX="8" height="28.57%" maxX="12"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQo-GE-otY">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="Zgz-H5-qV7"/>
+                    </constraints>
                     <state key="normal" title="Button">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
@@ -24,9 +25,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7XU-NE-LOa">
-                    <frame key="frameInset" minX="21" minY="20" height="100.00%" maxX="12"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7XU-NE-LOa">
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="Button">
@@ -44,6 +43,18 @@
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="7XU-NE-LOa" secondAttribute="bottom" id="Bn3-nG-pHJ"/>
+                <constraint firstAttribute="trailing" secondItem="7XU-NE-LOa" secondAttribute="trailing" constant="10" id="Itb-yr-hBD"/>
+                <constraint firstItem="mQo-GE-otY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Rth-PH-Muk"/>
+                <constraint firstItem="7XU-NE-LOa" firstAttribute="top" secondItem="mQo-GE-otY" secondAttribute="bottom" id="hNT-7j-txi"/>
+                <constraint firstItem="mQo-GE-otY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="p72-h0-HQA"/>
+                <constraint firstAttribute="trailing" secondItem="mQo-GE-otY" secondAttribute="trailing" constant="5" id="q0s-Cz-Ch4"/>
+                <constraint firstItem="7XU-NE-LOa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="v8Z-Kx-ZCQ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -57,9 +68,4 @@
             <point key="canvasLocation" x="292" y="173"/>
         </view>
     </objects>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
-    </simulatedMetricsContainer>
 </document>

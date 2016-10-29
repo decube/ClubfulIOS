@@ -10,6 +10,7 @@
 import UIKit
 import Darwin
 import MapKit
+import Alamofire
 
 class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     //현재위치 manager
@@ -35,13 +36,16 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     //위치찾기뷰
     var locationView : MainCenterView!
     //코트검색뷰
-    var courtSearchView : UIScrollView!
-    
-    
+    @IBOutlet var courtSearchView: UIView!
+    @IBOutlet var courtSearchScrollView : UIScrollView!
     //추가정보 뷰
     var addView : AddView!
     
-    
+    //제스처
+    var direction: Direction!
+    let interactor = Interactor()
+    @IBOutlet var leftEdge: UIScreenEdgePanGestureRecognizer!
+    @IBOutlet var rightEdge: UIScreenEdgePanGestureRecognizer!
     
     func removeCache(){
         //cache지우기
@@ -49,14 +53,19 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         URLCache.shared.diskCapacity = 0
         URLCache.shared.memoryCapacity = 0
     }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("ViewController viewDidLoad")
         
         //self.removeCache()
         
-        let user = Storage.getRealmUser()
         
+        
+        let user = Storage.getRealmUser()
+        //검색 필드 스타일
         self.searchTextField.borderStyle = .none
         self.searchTextField.delegate = self
         if user.search == ""{
@@ -66,7 +75,14 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
             self.searchCancelImageView.alpha = 1
         }
         
+        //검색 취소 액션 추가
         self.searchCancelImageView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.searchCancelAction)))
+        
+        
+        //엣지 설정
+        self.leftEdge.edges = .left
+        self.rightEdge.edges = .right
+        
         
         //현재 나의 위치설정
         self.locationManager.requestAlwaysAuthorization()
@@ -78,141 +94,45 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         }
         
         
-        //layout create
+        
+        
+        //블랙스크린 만들기
         self.blackScreen = UIButton()
         self.blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         self.blackScreen.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.6)
         self.blackScreen.isHidden = true
         self.view.addSubview(self.blackScreen)
-        
         //블랙스크린 클릭
-        self.blackScreen.addTarget(self, action: #selector(self.blackScreenAction), for: .touchUpInside)
-        
-        //코트 검색
-        self.courtSearchView = UIScrollView()
-        self.courtSearchView.backgroundColor = UIColor.white
-        self.courtSearchView.isHidden = true
-        self.view.addSubview(self.courtSearchView)
-        DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 0.01)
-            DispatchQueue.main.async {
-                self.courtSearchView.frame = CGRect(x: 0, y: self.scrollView.frame.origin.y, width: self.view.frame.width/3*2, height: self.scrollView.frame.height)
+        self.blackScreen.addAction(.touchUpInside) { (_) in
+            self.view.endEditing(true)
+            if self.locationView.isHidden == false{
+                let tmpRect = self.locationView.frame
+                //애니메이션 적용
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.locationView.frame.origin.y = -tmpRect.height
+                    }, completion: {(_) in
+                        self.blackScreen.isHidden = true
+                        self.locationView.isHidden = true
+                        self.locationView.frame = tmpRect
+                })
             }
         }
+        
+        
         
         
         //자기 위치 설정 뷰 만들기
         if let customView = Bundle.main.loadNibNamed("MainCenterView", owner: self, options: nil)?.first as? MainCenterView {
-            locationView = customView
-            locationView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
-            locationView.backgroundColor = UIColor.white
-            locationView.isHidden = true
-            locationView.searchTextField.delegate = self
-            self.view.addSubview(locationView)
-            
-            locationView.myLocationActionCallback = {(_) in
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.locationView.alpha = 0
-                    }, completion: { (_) in
-                        self.locationView.isHidden = true
-                        self.locationView.alpha = 1
-                        self.blackScreen.isHidden = true
-                        if self.isMyLocation == false{
-                            Util.alert(self, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
-                        }else{
-                            self.locationManager.startUpdatingLocation()
-                        }
-                })
-            }
-            
-            //자기위치 설정뷰 검색 콜백
-            locationView.searchActionCallback = {(_) in
-                if (self.locationView.searchTextField.text?.characters.count)! >= 2{
-                    self.view.endEditing(true)
-                    self.locationView.scrollView.subviews.forEach({$0.removeFromSuperview()})
-                    //자기위치 검색 통신
-                    let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "address": self.locationView.searchTextField.text! as AnyObject, "language": Util.language as AnyObject]
-                    URL.request(self, url: URL.apiServer+URL.api_location_geocode, param: parameters, callback: { (dic) in
-                        if let result = dic["results"] as? [String: AnyObject]{
-                            if let results = result["results"] as? [[String: AnyObject]]{
-                                var i : CGFloat = 0
-                                let locObjHeight : CGFloat = 80
-                                self.locationView.scrollView.subviews.forEach({$0.removeFromSuperview()})
-                                for element : [String: AnyObject] in results{
-                                    let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
-                                    
-                                    if let customView = Bundle.main.loadNibNamed("MainCenterElementView", owner: self, options: nil)?.first as? MainCenterElementView {
-                                        customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.locationView.frame.width-10, height: locObjHeight-10)
-                                        customView.setAddr(addressShort: addressShort, address: address)
-                                        self.locationView.scrollView.addSubview(customView)
-                                        //
-                                        //위치 선택
-                                        //
-                                        customView.setAction({ (_) in
-                                            UIView.animate(withDuration: 0.2, animations: {
-                                                self.locationView.alpha = 0
-                                                }, completion: { (_) in
-                                                    self.locationView.isHidden = true
-                                                    self.locationView.alpha = 1
-                                                    self.blackScreen.isHidden = true
-                                                    let user = Storage.copyUser()
-                                                    user.latitude = latitude
-                                                    user.longitude = longitude
-                                                    user.address = "\(address)"
-                                                    user.addressShort = "\(addressShort)"
-                                                    Storage.setRealmUser(user)
-                                            })
-                                        })
-                                    }
-                                    i += 1
-                                }
-                                self.locationView.scrollView.contentSize.height = locObjHeight*i+30
-                            }
-                        }
-                    })
-                }else{
-                    Util.alert(self, message: "검색어는 2글자 이상으로 넣어주세요.")
-                }
-            }
+            self.locationView = customView
+            self.locationView.setLayout(self)
         }
-        
-        
-        
-        
         
         
         //추가정보 뷰 만들기
         if let customView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView {
             self.addView = customView
-            self.addView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
-            self.addView.isHidden = true
-            self.view.addSubview(self.addView)
-            self.addView.setLayout(ctrl: self, callback: { (_) in
-                let vo = Storage.copyUser()
-                vo.userLatitude = self.addView.userLatitude
-                vo.userLongitude = self.addView.userLongitude
-                vo.userAddress = self.addView.userAddress
-                vo.userAddressShort = self.addView.userAddressShort
-                vo.birth = self.addView.birth.date
-                vo.sex = self.addView.isSexString()
-                Storage.setRealmUser(vo)
-                
-                let param = ["token":vo.token, "userId":vo.userId, "sex": vo.sex, "birth": vo.birth, "userLatitude": vo.userLatitude, "userLongitude": vo.userLongitude, "userAddress": vo.userAddress, "userAddressShort": vo.userAddressShort] as [String : Any]
-                URL.request(self, url: URL.apiServer+URL.api_user_info, param: param as [String : AnyObject])
-                
-                //애니메이션 적용
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.addView.alpha = 0
-                    }, completion: {(_) in
-                        self.blackScreen.isHidden = true
-                        self.addView.isHidden = true
-                        self.addView.alpha = 1
-                })
-            })
+            self.addView.setLayout(self)
         }
-        
-        
-        
         
         
         ///////////////////
@@ -275,10 +195,9 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
             
         } catch _ as NSError {}
         
-        
-        
-        
     }
+    
+    
     
     //검색 취소 X표시 버튼 액션
     func searchCancelAction(){
@@ -287,23 +206,6 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         UIView.animate(withDuration: 0.3, animations: {
             self.searchCancelImageView.alpha = 0
         })
-    }
-    
-    
-    //블랙스크린 클릭 액션
-    func blackScreenAction(){
-        self.view.endEditing(true)
-        if self.locationView.isHidden == false{
-            let tmpRect = self.locationView.frame
-            //애니메이션 적용
-            UIView.animate(withDuration: 0.2, animations: {
-                self.locationView.frame.origin.y = -tmpRect.height
-                }, completion: {(_) in
-                    self.blackScreen.isHidden = true
-                    self.locationView.isHidden = true
-                    self.locationView.frame = tmpRect
-            })
-        }
     }
     
     
@@ -333,69 +235,40 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     //코트 검색 액션
     func courtSearchAction() {
         if (searchTextField.text?.characters.count)! >= 2{
+            self.courtSearchView.frame.size.width = self.view.frame.width/3*2
+            self.courtSearchScrollView.frame.size.width = self.courtSearchView.frame.size.width
+            
             self.view.endEditing(true)
-            courtSearchView.subviews.forEach({$0.removeFromSuperview()})
-            courtSearchView.scrollToTop()
+            courtSearchScrollView.subviews.forEach({$0.removeFromSuperview()})
+            courtSearchScrollView.scrollToTop()
             //코트 검색 통신
             let user = Storage.getRealmUser()
             let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "address": searchTextField.text! as AnyObject, "category": user.category as AnyObject, "latitude": user.latitude as AnyObject, "longitude": user.longitude as AnyObject]
             URL.request(self, url: URL.apiServer+URL.api_court_listSearch, param: parameters, callback: { (dic) in
                 if let list = dic["list"] as? [[String: AnyObject]]{
                     self.view.endEditing(true)
-                    self.courtSearchView.subviews.forEach({$0.removeFromSuperview()})
+                    self.courtSearchScrollView.subviews.forEach({$0.removeFromSuperview()})
                     var i : CGFloat = 0
                     let locObjHeight : CGFloat = 90
                     for obj in list{
-                        let titleStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["addressShort"]!))"
-                        let descStr = "\(obj["description"]!)"
                         if let customView = Bundle.main.loadNibNamed("MainCourtSearchElementView", owner: self, options: nil)?.first as? MainCourtSearchElementView {
-                            customView.frame = CGRect(x: 0, y: locObjHeight*i, width: self.courtSearchView.frame.width, height: locObjHeight-1)
-                            customView.setLbl(title: titleStr, desc: descStr)
-                            if self.view.frame.width > self.view.frame.height{
-                                customView.setImage(obj["image"]! as! String, height: locObjHeight-1, isCenter: true)
-                            }else{
-                                customView.setImage(obj["image"]! as! String, height: locObjHeight-1)
-                            }
-                            
-                            _ = customView.layer()
-                            self.courtSearchView.addSubview(customView)
-                            customView.setAction({ (_) in
-                                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                                let uvc = storyBoard.instantiateViewController(withIdentifier: "courtVC")
-                                (uvc as! CourtViewController).courtSeq = obj["seq"] as! Int
-                                self.navigationController?.pushViewController(uvc, animated: true)
-                            })
-                            customView.setSimplemapAction({ (_) in
-                                let sname : String = "내위치".queryValue()
-                                let sx : Double = (self.locationManager.location?.coordinate.latitude)!
-                                let sy : Double = (self.locationManager.location?.coordinate.longitude)!
-                                let ename : String = "\(obj["addressShort"]!)".queryValue()
-                                let ex : Double = obj["latitude"] as! Double
-                                let ey : Double = obj["longitude"] as! Double
-                                let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true"
-                                if let url = Foundation.URL(string: simplemapUrl){
-                                    if UIApplication.shared.canOpenURL(url) {
-                                        if #available(iOS 10.0, *) {
-                                            UIApplication.shared.open(url, options: [:])
-                                        } else {
-                                            UIApplication.shared.openURL(url)
-                                        }
-                                    }
-                                }
-                            })
+                            customView.setLayout(self, height: locObjHeight, idx: i, element: obj)
                         }
                         i += 1
                     }
-                    self.courtSearchView.contentSize.height = locObjHeight*i+i+50
+                    self.courtSearchScrollView.contentSize.height = locObjHeight*i+i+50
                     if self.courtSearchView.isHidden != false{
-                        let tmpRect = self.courtSearchView.frame
-                        self.courtSearchView.frame.origin.x = -tmpRect.width
+                        self.courtSearchView.frame.origin.x = -self.courtSearchView.frame.width
                         self.courtSearchView.isHidden = false
+                        self.courtSearchView.backgroundColor = UIColor.black
+                        self.courtSearchScrollView.backgroundColor = UIColor.red
                         //애니메이션 적용
                         UIView.animate(withDuration: 0.2, animations: {
-                            self.courtSearchView.frame = tmpRect
+                            self.courtSearchView.frame.origin.x = 0
                             }, completion: {(_) in
                         })
+                    }else{
+                        self.courtSearchView.frame.origin.x = 0
                     }
                 }
             })
@@ -404,11 +277,67 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         }
     }
     
+    //왼쪽 제스처
+    @IBAction func leftEdgePanGesture(_ sender: UIScreenEdgePanGestureRecognizer) {
+        self.direction = .right
+        let translation = sender.translation(in: view)
+        let progress = MenuHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .right)
+        MenuHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
+            self.performSegue(withIdentifier: "main_left", sender: nil)
+        }
+    }
+    //오른쪽 제스처
+    @IBAction func rightEdgePanGesture(_ sender: UIScreenEdgePanGestureRecognizer) {
+        self.direction = .left
+        let translation = sender.translation(in: view)
+        let progress = MenuHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .left)
+        MenuHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
+            self.performSegue(withIdentifier: "main_right", sender: nil)
+        }
+    }
     
+    //코트서치 제스처
+    @IBAction func handleGesture(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: self.courtSearchView)
+        let progress = MenuHelper.calculateProgress(translation, viewBounds: self.courtSearchView.bounds, direction: .left)
+        if progress > 0{
+            if self.courtSearchView.frame.origin.x < -self.view.frame.width/4{
+                //애니메이션 적용
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.courtSearchView.frame.origin.x = -self.courtSearchView.frame.width
+                    }, completion: {(_) in
+                        self.courtSearchView.isHidden = true
+                        self.courtSearchView.frame.origin.x = 0
+                })
+            }else{
+                self.courtSearchView.frame.origin.x = -(self.view.frame.width/3*2)*progress
+            }
+        }
+    }
+    
+    
+    //세그
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationViewController = segue.destination as? MainLeftViewController {
+            destinationViewController.transitioningDelegate = self
+            destinationViewController.interactor = interactor
+        }
+        if let destinationViewController = segue.destination as? MainRightViewController {
+            destinationViewController.transitioningDelegate = self
+            destinationViewController.interactor = interactor
+        }
+    }
+    
+    
+    //키보드 검색이 리턴됫을 때
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.searchTextField {
             textField.resignFirstResponder()
             self.courtSearchAction()
+            return false
+        }else if textField == self.locationView.searchTextField{
+            textField.resignFirstResponder()
+            self.locationView.searchAction()
             return false
         }
         return true
@@ -428,13 +357,16 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         }
     }
     
-    //현재 나의 위치
+    
+    
+    //현재 나의 위치 딜리게이트 가져옴
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.isMyLocation = true
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         Storage.latitude = locValue.latitude
         Storage.longitude = locValue.longitude
         
+        //앱 처음 실행할때
         if isFirstLocation == true{
             isFirstLocation = false
             Storage.locationThread(self)
@@ -446,24 +378,60 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     
     
     
-    //화면 생겼을 때 키보드 생김/사라짐 셀렉터
+    //화면 생겼을 때
     override func viewWillAppear(_ animated: Bool) {
+        //추가정보 확인
+        let addInfoDate = Storage.getStorage("addInfo")
+        var addViewIsShow = true
+        if let date = addInfoDate as? Date{
+            var saveDate = date
+            let addDate = Date()
+            saveDate.addTimeInterval(30)
+            if saveDate.timeIntervalSince1970 > addDate.timeIntervalSince1970{
+                addViewIsShow = false
+            }
+        }
+        if self.addView.isHidden == true && addViewIsShow == true{
+            Util.alert(self, title: "알림", message: "더 정확하게 코트를 찾으시려면 추가정보를 입력하셔야 합니다.", confirmTitle: "입력할께요", cancelStr: "오늘 하루 안할께요", confirmHandler: { (_) in
+                
+                self.view.endEditing(true)
+                self.addView.setView()
+                
+                self.blackScreen.isHidden = false
+                self.addView.isHidden = false
+                let tmpRect = self.addView.frame
+                self.addView.frame.origin.y = -tmpRect.height
+                //애니메이션 적용
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.addView.frame = tmpRect
+                    }, completion: nil)
+                }, cancelHandler: { (_) in
+                    Storage.setStorage("addInfo", value: Date() as AnyObject)
+            })
+        }
+        
+        
+        //키보드 생김/사라짐 셀렉터
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     //키보드생길때
     func keyboardWillShow(_ notification: Notification) {
-        self.searchCancelImageView.alpha = 0
-        UIView.animate(withDuration: 1, animations: {
-            self.searchCancelImageView.alpha = 1
-        })
+        if self.locationView.isHidden{
+            self.searchCancelImageView.alpha = 0
+            UIView.animate(withDuration: 1, animations: {
+                self.searchCancelImageView.alpha = 1
+            })
+        }
     }
     //키보드없어질때
     func keyboardWillHide(_ notification: Notification) {
-        if self.searchTextField.text == ""{
-            UIView.animate(withDuration: 0.3, animations: {
-                self.searchCancelImageView.alpha = 0
-            })
+        if self.locationView.isHidden{
+            if self.searchTextField.text == ""{
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.searchCancelImageView.alpha = 0
+                })
+            }
         }
     }
     //인풋창 끝나면 키보드 없애기
@@ -474,42 +442,25 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     
     
     
-    //화면 생겼을때 추가정보 내용 확인
-//    override func viewWillAppear(_ animated: Bool) {
-//        let addInfoDate = Storage.getStorage("addInfo")
-//        var addViewIsShow = true
-//        if let date = addInfoDate as? Date{
-//            var saveDate = date
-//            let addDate = Date()
-//            saveDate.addTimeInterval(30)
-//            if saveDate.timeIntervalSince1970 > addDate.timeIntervalSince1970{
-//                addViewIsShow = false
-//            }
-//        }
-//        if self.addView.isHidden == true && addViewIsShow == true{
-//            Util.alert(self, title: "알림", message: "더 정확하게 코트를 찾으시려면 추가정보를 입력하셔야 합니다.", confirmTitle: "입력할께요", cancelStr: "오늘 하루 안할께요", confirmHandler: { (_) in
-//                
-//                self.view.endEditing(true)
-//                self.addView.setView()
-//                
-//                self.blackScreen.isHidden = false
-//                self.addView.isHidden = false
-//                let tmpRect = self.addView.frame
-//                self.addView.frame.origin.y = -tmpRect.height
-//                //애니메이션 적용
-//                UIView.animate(withDuration: 0.2, animations: {
-//                    self.addView.frame = tmpRect
-//                }, completion: nil)
-//            }, cancelHandler: { (_) in
-//                Storage.setStorage("addInfo", value: Date() as AnyObject)
-//            })
-//        }
-//    }
-    
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+
+
+
+extension ViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentMenuAnimator(direction: self.direction)
+    }
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissMenuAnimator()
+    }
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
+    }
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
     }
 }

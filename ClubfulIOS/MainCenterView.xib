@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -12,42 +12,96 @@
             <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="tNk-3X-nLH">
-                    <frame key="frameInset" height="60"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tNk-3X-nLH">
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="가나" borderStyle="roundedRect" placeholder="코트위치를 검색해주세요." textAlignment="natural" minimumFontSize="17" id="uMY-R4-K54">
-                            <frame key="frameInset" minX="8" minY="50.00%" width="208" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                        </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="np4-gJ-c0Z">
-                            <frame key="frameInset" minX="262" minY="50.00%" width="30" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="ic_myLocation.png"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UgL-Qi-xaS">
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_search_b.png" translatesAutoresizingMaskIntoConstraints="NO" id="rDX-AD-ucd">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="20" id="9i3-jd-4uM"/>
+                                        <constraint firstAttribute="height" constant="20" id="agJ-Ok-sEd"/>
+                                    </constraints>
+                                </imageView>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PnW-tb-17m">
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                </textField>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dnc-vJ-pcw">
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mXE-gm-nKV">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="0WE-2L-1I5"/>
+                                                <constraint firstAttribute="width" constant="20" id="p11-Zr-zqo"/>
+                                            </constraints>
+                                            <state key="normal" image="ic_myLocation_b.png"/>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="mXE-gm-nKV" firstAttribute="centerY" secondItem="Dnc-vJ-pcw" secondAttribute="centerY" id="BAd-RS-WMh"/>
+                                        <constraint firstAttribute="width" constant="50" id="oJ2-Uf-D1w"/>
+                                        <constraint firstAttribute="trailing" secondItem="mXE-gm-nKV" secondAttribute="trailing" constant="5" id="wwy-Fr-W05"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="rDX-AD-ucd" firstAttribute="centerY" secondItem="UgL-Qi-xaS" secondAttribute="centerY" id="0Hz-Cf-S9b"/>
+                                <constraint firstItem="rDX-AD-ucd" firstAttribute="leading" secondItem="UgL-Qi-xaS" secondAttribute="leading" constant="5" id="DJ9-lN-sgO"/>
+                                <constraint firstAttribute="bottom" secondItem="Dnc-vJ-pcw" secondAttribute="bottom" id="TdL-XH-oba"/>
+                                <constraint firstAttribute="trailing" secondItem="Dnc-vJ-pcw" secondAttribute="trailing" id="bIK-AQ-Fes"/>
+                                <constraint firstItem="PnW-tb-17m" firstAttribute="leading" secondItem="rDX-AD-ucd" secondAttribute="trailing" constant="5" id="dXF-oX-Cn3"/>
+                                <constraint firstItem="Dnc-vJ-pcw" firstAttribute="top" secondItem="UgL-Qi-xaS" secondAttribute="top" id="ofW-GY-zcB"/>
+                                <constraint firstAttribute="bottom" secondItem="PnW-tb-17m" secondAttribute="bottom" id="oxG-n2-q5A"/>
+                                <constraint firstItem="PnW-tb-17m" firstAttribute="top" secondItem="UgL-Qi-xaS" secondAttribute="top" id="pm1-AJ-NYR"/>
+                                <constraint firstItem="Dnc-vJ-pcw" firstAttribute="leading" secondItem="PnW-tb-17m" secondAttribute="trailing" id="xhE-gC-eNl"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="np4-gJ-c0Z">
+                            <constraints>
+                                <constraint firstAttribute="width" constant="30" id="WnM-Ry-lBd"/>
+                                <constraint firstAttribute="height" constant="30" id="sfP-Os-dUd"/>
+                            </constraints>
+                            <state key="normal" image="ic_cancel_w.png"/>
                             <connections>
-                                <action selector="myLocationAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="8kd-nN-v7s"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tum-22-A9Q">
-                            <frame key="frameInset" minX="224" minY="50.00%" width="30" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="ic_search.png"/>
-                            <connections>
-                                <action selector="searchAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Djj-e2-NSy"/>
+                                <action selector="cancelAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="4as-bA-Cpd"/>
                             </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.047058824450000002" green="0.34901961679999999" blue="0.17254902420000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="5fb-pN-RnN"/>
+                        <constraint firstItem="np4-gJ-c0Z" firstAttribute="leading" secondItem="UgL-Qi-xaS" secondAttribute="trailing" constant="10" id="DKX-ab-835"/>
+                        <constraint firstItem="UgL-Qi-xaS" firstAttribute="leading" secondItem="tNk-3X-nLH" secondAttribute="leading" constant="10" id="Q9g-EN-rFN"/>
+                        <constraint firstAttribute="bottom" secondItem="UgL-Qi-xaS" secondAttribute="bottom" constant="15" id="iYd-Ys-3II"/>
+                        <constraint firstItem="np4-gJ-c0Z" firstAttribute="centerY" secondItem="tNk-3X-nLH" secondAttribute="centerY" id="juM-oi-rlG"/>
+                        <constraint firstItem="UgL-Qi-xaS" firstAttribute="top" secondItem="tNk-3X-nLH" secondAttribute="top" constant="15" id="m12-bD-zRu"/>
+                        <constraint firstAttribute="trailing" secondItem="np4-gJ-c0Z" secondAttribute="trailing" constant="10" id="qgC-yG-dRc"/>
+                    </constraints>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="KCO-ps-gX9">
-                    <frame key="frameInset" minY="60"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KCO-ps-gX9">
                     <color key="backgroundColor" red="0.85098040100000005" green="0.89019608500000003" blue="0.92156863209999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="tNk-3X-nLH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="03z-e8-xch"/>
+                <constraint firstAttribute="bottom" secondItem="KCO-ps-gX9" secondAttribute="bottom" id="Bop-dq-laM"/>
+                <constraint firstAttribute="trailing" secondItem="KCO-ps-gX9" secondAttribute="trailing" id="OJ8-eE-bxR"/>
+                <constraint firstItem="KCO-ps-gX9" firstAttribute="top" secondItem="tNk-3X-nLH" secondAttribute="bottom" id="R4O-gb-QxQ"/>
+                <constraint firstAttribute="trailing" secondItem="tNk-3X-nLH" secondAttribute="trailing" id="jA1-BL-buG"/>
+                <constraint firstItem="tNk-3X-nLH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lIC-kx-yrS"/>
+                <constraint firstItem="KCO-ps-gX9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lhT-ZN-hJ3"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -61,19 +115,16 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="myLocationView" destination="Dnc-vJ-pcw" id="iQC-md-IWC"/>
                 <outlet property="scrollView" destination="KCO-ps-gX9" id="UAj-Mg-8Ej"/>
-                <outlet property="searchTextField" destination="uMY-R4-K54" id="Pyf-z2-ogE"/>
+                <outlet property="searchTextField" destination="PnW-tb-17m" id="rmr-I9-mMs"/>
             </connections>
             <point key="canvasLocation" x="213" y="8"/>
         </view>
     </objects>
     <resources>
-        <image name="ic_myLocation.png" width="52" height="52"/>
-        <image name="ic_search.png" width="52" height="52"/>
+        <image name="ic_cancel_w.png" width="50" height="50"/>
+        <image name="ic_myLocation_b.png" width="52" height="52"/>
+        <image name="ic_search_b.png" width="52" height="52"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
-    </simulatedMetricsContainer>
 </document>

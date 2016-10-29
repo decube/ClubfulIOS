@@ -27,14 +27,17 @@ class AddView: UIView{
     @IBOutlet var birth: UIDatePicker!
     @IBOutlet var locationBtn: UIButton!
     
-    var confirmCallback : ((Void) -> Void)!
-    func setLayout(ctrl: UIViewController, callback: ((Void) -> Void)!){
+    func setLayout(_ ctrl: UIViewController){
         self.ctrl = ctrl
-        self.confirmCallback = callback
-        maleView.isUserInteractionEnabled = true
-        maleView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.maleAction)))
-        femaleView.isUserInteractionEnabled = true
-        femaleView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.femaleAction)))
+        
+        self.frame = CGRect(x: (ctrl.view.frame.width-300)/2, y: (ctrl.view.frame.height-300)/2, width: 300, height: 300)
+        self.isHidden = true
+        ctrl.view.addSubview(self)
+        
+        self.maleView.isUserInteractionEnabled = true
+        self.maleView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.maleAction)))
+        self.femaleView.isUserInteractionEnabled = true
+        self.femaleView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.femaleAction)))
     }
     
     func setView(){
@@ -78,8 +81,29 @@ class AddView: UIView{
         ctrl.present(uvc, animated: true, completion: nil)
     }
     @IBAction func confirmAction(_ sender: AnyObject) {
-        if confirmCallback != nil{
-            confirmCallback()
-        }
+        let vo = Storage.copyUser()
+        vo.userLatitude = self.userLatitude
+        vo.userLongitude = self.userLongitude
+        vo.userAddress = self.userAddress
+        vo.userAddressShort = self.userAddressShort
+        vo.birth = self.birth.date
+        vo.sex = self.isSexString()
+        Storage.setRealmUser(vo)
+        
+        let param = ["token":vo.token, "userId":vo.userId, "sex": vo.sex, "birth": vo.birth, "userLatitude": vo.userLatitude, "userLongitude": vo.userLongitude, "userAddress": vo.userAddress, "userAddressShort": vo.userAddressShort] as [String : Any]
+        URL.request(ctrl, url: URL.apiServer+URL.api_user_info, param: param as [String : AnyObject])
+        
+        //애니메이션 적용
+        UIView.animate(withDuration: 0.2, animations: {
+            self.alpha = 0
+            }, completion: {(_) in
+                if let vo = self.ctrl as? ViewController{
+                    vo.blackScreen.isHidden = true
+                }else if let vo = self.ctrl as? UserConvertViewController{
+                    vo.blackScreen.isHidden = true
+                }
+                self.isHidden = true
+                self.alpha = 1
+        })
     }
 }

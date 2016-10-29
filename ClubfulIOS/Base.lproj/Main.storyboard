@@ -126,6 +126,25 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LWC-1M-KEh"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzZ-u0-67T">
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fiK-KS-62L">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
+                                    </scrollView>
+                                </subviews>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="2IX-5I-LS7"/>
+                                    <constraint firstAttribute="trailing" secondItem="fiK-KS-62L" secondAttribute="trailing" id="7vC-Sg-p4B"/>
+                                    <constraint firstItem="fiK-KS-62L" firstAttribute="leading" secondItem="xzZ-u0-67T" secondAttribute="leading" id="Bse-s1-i75"/>
+                                    <constraint firstAttribute="bottom" secondItem="fiK-KS-62L" secondAttribute="bottom" id="SAK-Tu-J4s"/>
+                                    <constraint firstItem="fiK-KS-62L" firstAttribute="top" secondItem="xzZ-u0-67T" secondAttribute="top" id="U6k-tt-49o"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="V8H-F9-swJ" appends="YES" id="ZVC-sv-2q9"/>
+                                </connections>
+                            </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Q9j-U2-vAT">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="8Ee-rT-1Tb"/>
@@ -134,33 +153,116 @@
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Q9j-U2-vAT" firstAttribute="centerX" secondItem="LWC-1M-KEh" secondAttribute="centerX" id="38t-W7-VKi"/>
                             <constraint firstItem="x20-8A-6fW" firstAttribute="top" secondItem="jBA-Rd-vgg" secondAttribute="bottom" id="DHc-uO-FXh"/>
+                            <constraint firstItem="SCD-VL-wii" firstAttribute="top" secondItem="xzZ-u0-67T" secondAttribute="bottom" id="EwT-mO-3Vy"/>
                             <constraint firstItem="LWC-1M-KEh" firstAttribute="leading" secondItem="Gsu-vX-fR3" secondAttribute="leading" id="ItH-17-Uvt"/>
                             <constraint firstItem="SCD-VL-wii" firstAttribute="top" secondItem="LWC-1M-KEh" secondAttribute="bottom" id="LEE-M0-5gv"/>
                             <constraint firstItem="Q9j-U2-vAT" firstAttribute="centerY" secondItem="LWC-1M-KEh" secondAttribute="centerY" id="Ucv-PI-bsC"/>
+                            <constraint firstItem="xzZ-u0-67T" firstAttribute="top" secondItem="x20-8A-6fW" secondAttribute="bottom" id="YIl-R1-DYi"/>
                             <constraint firstAttribute="trailing" secondItem="0du-yJ-TcY" secondAttribute="trailing" id="dOf-iC-9gW"/>
                             <constraint firstAttribute="trailing" secondItem="LWC-1M-KEh" secondAttribute="trailing" id="g4a-hY-3SD"/>
                             <constraint firstItem="x20-8A-6fW" firstAttribute="leading" secondItem="Gsu-vX-fR3" secondAttribute="leading" id="i0x-e8-su0"/>
+                            <constraint firstItem="xzZ-u0-67T" firstAttribute="leading" secondItem="Gsu-vX-fR3" secondAttribute="leading" id="jJt-F5-kCr"/>
                             <constraint firstItem="0du-yJ-TcY" firstAttribute="top" secondItem="Gsu-vX-fR3" secondAttribute="top" id="lvm-9A-AIy"/>
                             <constraint firstItem="LWC-1M-KEh" firstAttribute="top" secondItem="x20-8A-6fW" secondAttribute="bottom" id="md0-k8-Yw6"/>
                             <constraint firstItem="0du-yJ-TcY" firstAttribute="leading" secondItem="Gsu-vX-fR3" secondAttribute="leading" id="npd-Ee-Mjh"/>
                             <constraint firstAttribute="trailing" secondItem="x20-8A-6fW" secondAttribute="trailing" id="zyx-i6-7r8"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ZHH-TG-baC" appends="YES" id="ifi-3n-N2C"/>
+                            <outletCollection property="gestureRecognizers" destination="3XO-CT-Z3T" appends="YES" id="9gl-Jt-L70"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="w06-9x-qhg"/>
                     <navigationItem key="navigationItem" id="VKI-5D-ig5"/>
                     <connections>
+                        <outlet property="courtSearchScrollView" destination="fiK-KS-62L" id="Djw-wH-HZO"/>
+                        <outlet property="courtSearchView" destination="xzZ-u0-67T" id="AWn-GQ-RIS"/>
+                        <outlet property="leftEdge" destination="ZHH-TG-baC" id="1Bp-AX-xu6"/>
+                        <outlet property="rightEdge" destination="3XO-CT-Z3T" id="HgZ-Yx-yKp"/>
                         <outlet property="scrollView" destination="LWC-1M-KEh" id="5mi-tE-PFb"/>
                         <outlet property="searchCancelImageView" destination="3fd-ER-qV7" id="JRh-mj-gwj"/>
                         <outlet property="searchTextField" destination="q5i-o1-C1l" id="Klu-I9-M6M"/>
                         <outlet property="spin" destination="Q9j-U2-vAT" id="LbM-yn-Ou8"/>
+                        <segue destination="ABh-3u-iMN" kind="presentation" identifier="main_left" id="kYL-Uf-PGe"/>
+                        <segue destination="v4C-sA-XRZ" kind="presentation" identifier="main_right" id="dRA-4X-0ZJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jiC-4p-MGx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="ZHH-TG-baC">
+                    <connections>
+                        <action selector="leftEdgePanGesture:" destination="9Dz-Gk-xIP" id="UC3-fz-GtX"/>
+                    </connections>
+                </screenEdgePanGestureRecognizer>
+                <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="3XO-CT-Z3T">
+                    <connections>
+                        <action selector="rightEdgePanGesture:" destination="9Dz-Gk-xIP" id="4oA-hc-enV"/>
+                    </connections>
+                </screenEdgePanGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="V8H-F9-swJ">
+                    <connections>
+                        <action selector="handleGesture:" destination="9Dz-Gk-xIP" id="05R-nR-yzD"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-383.19999999999999" y="-966.56671664167925"/>
+        </scene>
+        <!--Main Left View Controller-->
+        <scene sceneID="rox-c8-iCe">
+            <objects>
+                <viewController id="ABh-3u-iMN" customClass="MainLeftViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IsM-8K-GFr"/>
+                        <viewControllerLayoutGuide type="bottom" id="lF6-f0-Bd0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="e9R-15-lUY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="EJv-13-6vC" appends="YES" id="646-Gb-bgm"/>
+                        </connections>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QF9-N6-pFS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="EJv-13-6vC">
+                    <connections>
+                        <action selector="handleGesture:" destination="ABh-3u-iMN" id="rft-c1-2Zh"/>
+                    </connections>
+                </panGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="-1092" y="-1737"/>
+        </scene>
+        <!--Main Right View Controller-->
+        <scene sceneID="5TO-VV-Aq6">
+            <objects>
+                <viewController id="v4C-sA-XRZ" customClass="MainRightViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aZS-qG-ovC"/>
+                        <viewControllerLayoutGuide type="bottom" id="VK8-a0-Aav"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="R1P-er-jAr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="kc5-UP-zT6" appends="YES" id="snC-bS-J1r"/>
+                        </connections>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GyD-0t-3bH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="kc5-UP-zT6">
+                    <connections>
+                        <action selector="handleGesture:" destination="v4C-sA-XRZ" id="dmf-UY-xF3"/>
+                    </connections>
+                </panGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="172" y="-1737"/>
         </scene>
         <!--Item 2-->
         <scene sceneID="tne-QT-ifu">
@@ -2232,7 +2334,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="ZXh-pY-Gbr" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="jUZ-r0-dio"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="xE7-YA-3cE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xE7-YA-3cE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2515,7 +2617,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1I1-uo-Sml">
-                                        <frame key="frameInset" minY="19" width="13.82%" maxX="100" maxY="20"/>
+                                        <frame key="frameInset" minY="19" width="14.00%" maxX="100" maxY="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2560,7 +2662,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7F6-IA-eH4">
-                                        <frame key="frameInset" minX="50.41%" minY="50.09%" width="133" height="50"/>
+                                        <frame key="frameInset" minX="50.21%" minY="50.00%" width="133" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="시작하기">
@@ -2779,7 +2881,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="klv-VR-9GH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="mBK-ue-91c"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="r1A-vJ-pAQ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="r1A-vJ-pAQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

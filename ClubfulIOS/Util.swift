@@ -22,7 +22,7 @@ class Util{
     //디바이스id
     static let deviceId : String = UIDevice.current.identifierForVendor!.uuidString
     //스크린 사이즈
-    //static let screenSize: CGRect = UIScreen.mainScreen().bounds
+    static let screenSize: CGRect = UIScreen.main.bounds
     
     //다국어지원
     static func lang(_ key : String) -> String{
