@@ -133,7 +133,7 @@ class AddView: UIView{
         if let date = addInfoDate as? Date{
             var saveDate = date
             let addDate = Date()
-            saveDate.addTimeInterval(30)
+            saveDate.addTimeInterval(60*60*24)
             if saveDate.timeIntervalSince1970 > addDate.timeIntervalSince1970{
                 addViewIsShow = false
             }

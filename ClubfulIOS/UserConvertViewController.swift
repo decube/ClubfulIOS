@@ -23,40 +23,15 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
     let user = Storage.getRealmUser()
     
     @IBOutlet var backgroundImage: UIImageView!
-    let background_landscape = UIImage(named: "background_landscape.png")
-    let background_portrait = UIImage(named: "background_portrait.png")
+    let background_1 = UIImage(named: "background_1.png")
     
-    var isRotated = true
     
     var blackScreen = UIButton()
     var addView : AddView!
     
-    //회전됬을때
-    func rotated(){
-        if(self.isRotated == false && UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-            self.isRotated = true
-            self.view.endEditing(true)
-            self.scrollViewHeight = self.scrollView.frame.height
-            self.backgroundImage.image = self.background_portrait
-            self.blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-            self.addView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
-        }
-        if(self.isRotated == true && UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-            self.isRotated = false
-            self.view.endEditing(true)
-            self.scrollViewHeight = self.scrollView.frame.height
-            self.backgroundImage.image = self.background_landscape
-            self.blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-            self.addView.frame = CGRect(x: (self.view.frame.width-300)/2, y: (self.view.frame.height-300)/2, width: 300, height: 300)
-        }
-    }
-    
     
     override func viewDidLoad() {
         print("UserConvertViewController viewDidLoad")
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
-        
         
         self.blackScreen.isHidden = true
         self.blackScreen.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.6)
@@ -91,9 +66,6 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
         newRepwdField.maxLength(14)
         nicknameField.maxLength(10)
         
-        scrollViewHeight = scrollView.frame.height
-        
-        
         if user.isLogin == 1{
             idField.text = user.userId
         } else if user.isLogin == 2{
@@ -105,22 +77,9 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
         }
         nicknameField.text = user.nickName
         
-        if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-            self.backgroundImage.image = self.background_portrait
-        }
-        if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-            self.backgroundImage.image = self.background_landscape
-        }
         DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 1)
-            if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-                self.isRotated = true
-                self.scrollViewHeight = self.scrollView.frame.height
-            }
-            if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-                self.isRotated = false
-                self.scrollViewHeight = self.scrollView.contentSize.height
-            }
+            Thread.sleep(forTimeInterval: 0.1)
+            self.scrollViewHeight = self.scrollView.contentSize.height
         }
     }
     

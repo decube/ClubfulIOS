@@ -67,37 +67,12 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     var picBtnList = [UIButton]()
     
     
-    var isRotated = true
-    
-    //회전됬을때
-    func rotated(){
-        if user.isLogin != -1{
-            if(self.isRotated == false && UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-                self.isRotated = true
-                self.view.endEditing(true)
-            }
-            if(self.isRotated == true && UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-                self.isRotated = false
-                self.view.endEditing(true)
-            }
-            DispatchQueue.global().async {
-                Thread.sleep(forTimeInterval: 1)
-                DispatchQueue.main.async {
-                    self.mainScrollViewHeight = self.mainScrollView.contentSize.height
-                }
-            }
-        }
-    }
     
     override func viewDidLoad() {
-        print("CourtCreateViewController viewDidLoad")
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
-        spin.isHidden = true
-        
-        cnameTextField.delegate = self
-        descTextView.delegate = self
-        layoutInit()
+        self.spin.isHidden = true
+        self.cnameTextField.delegate = self
+        self.descTextView.delegate = self
+        self.layoutInit()
     }
     
     

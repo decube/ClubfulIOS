@@ -7,17 +7,6 @@
 //
 
 import UIKit
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
 
 class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDelegate, UIScrollViewDelegate{
     var courtSeq : Int!
@@ -341,7 +330,7 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
             self.spin.stopAnimating()
             Util.alert(self, message: "리플등록은 로그인을 하셔야 가능합니다.")
         }else{
-            if replyInsertField.text?.characters.count < 1{
+            if (replyInsertField.text?.characters.count)! < 1{
                 self.webView.stringByEvaluatingJavaScript(from: "\(self.replyFn)")
                 self.spin.isHidden = true
                 self.spin.stopAnimating()

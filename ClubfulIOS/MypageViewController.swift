@@ -45,18 +45,9 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     
-    //회전됬을때
-    func rotated(){
-        if user.isLogin != -1{
-            setInterestImageLayout()
-            setMyCreateImageLayout()
-        }
-    }
     
     override func viewDidLoad() {
         print("MypageViewController viewDidLoad")
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         
         interestCourt.delegate = self
         createCourt.delegate = self
@@ -390,21 +381,5 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
         if let vc = segue.destination as? CourtViewController{
             vc.courtSeq = self.courtSeq
         }
-    }
-    
-    //개인정보 수정 클릭
-    @IBAction func userConvertAction(_ sender: AnyObject) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let uvc = storyBoard.instantiateViewController(withIdentifier: "userConvertVC")
-        uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        self.present(uvc, animated: true, completion: nil)
-    }
-    
-    //쪽지함 클릭
-    @IBAction func messageAction(_ sender: AnyObject) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let uvc = storyBoard.instantiateViewController(withIdentifier: "messageVC")
-        uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        self.present(uvc, animated: true, completion: nil)
     }
 }

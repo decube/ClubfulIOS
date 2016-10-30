@@ -46,7 +46,7 @@ class MapListElementView : UIView{
             }, completion: { (_) in
                 self.ctrl.mapListView.isHidden = true
                 self.ctrl.mapListView.alpha = 1
-                self.ctrl.locationMove(self.location.0, longitude: self.location.1)
+                self.ctrl.locationMove(latitude: self.location.0, longitude: self.location.1)
         })
     }
 }
