@@ -165,6 +165,8 @@
                         <outlet property="spin" destination="Q9j-U2-vAT" id="LbM-yn-Ou8"/>
                         <segue destination="ABh-3u-iMN" kind="presentation" identifier="main_left" id="kYL-Uf-PGe"/>
                         <segue destination="v4C-sA-XRZ" kind="presentation" identifier="main_right" id="dRA-4X-0ZJ"/>
+                        <segue destination="DwR-JR-H5b" kind="show" identifier="main_courtDetail" id="xpS-lY-KI0"/>
+                        <segue destination="cuQ-w4-Tbe" kind="presentation" identifier="main_map" id="Y89-Py-Oo5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jiC-4p-MGx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -437,6 +439,7 @@
                         <outlet property="mainScrollView" destination="dZU-Ro-a39" id="i3H-GP-8la"/>
                         <outlet property="picScrollView" destination="Tyw-7J-AIo" id="s9w-Ut-1rk"/>
                         <outlet property="spin" destination="vsO-YF-slY" id="Fth-0q-K10"/>
+                        <segue destination="cuQ-w4-Tbe" kind="presentation" identifier="courtCreate_map" id="UYa-Nq-UCH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -618,6 +621,7 @@
                         <outlet property="createSpin" destination="U5e-0x-b8m" id="w8E-7L-S6c"/>
                         <outlet property="interestCourt" destination="ImS-tb-LK1" id="wYK-FF-2By"/>
                         <outlet property="interestSpin" destination="AAO-YK-YDk" id="fVM-Tf-Ndi"/>
+                        <segue destination="DwR-JR-H5b" kind="show" identifier="mypage_courtDetail" id="dGb-3Z-mgF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XBQ-mR-ckD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2169,12 +2173,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="On2-c2-YVi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="934" y="403"/>
+            <point key="canvasLocation" x="1118" y="403"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="U97-ZA-bMw">
             <objects>
-                <viewController storyboardIdentifier="mapVC" id="cuQ-w4-Tbe" customClass="MapViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="cuQ-w4-Tbe" customClass="MapViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZOn-XU-dvj"/>
                         <viewControllerLayoutGuide type="bottom" id="A93-JF-XTD"/>
@@ -2274,6 +2278,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="HKJ-HT-6La" firstAttribute="leading" secondItem="gl8-e7-bdv" secondAttribute="leading" id="13D-ZU-fn1"/>
                             <constraint firstItem="6ey-3n-VSP" firstAttribute="top" secondItem="5Qa-BT-Cga" secondAttribute="bottom" id="K9a-kj-vkn"/>
@@ -2298,7 +2303,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Han-ff-m8E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-383.19999999999999" y="-280.20989505247377"/>
+            <point key="canvasLocation" x="-383" y="-255"/>
         </scene>
         <!--Item-->
         <scene sceneID="kUn-Sg-Uvf">
@@ -2320,7 +2325,7 @@
         <!--Item 5-->
         <scene sceneID="nEj-pX-foV">
             <objects>
-                <viewController storyboardIdentifier="courtVC" id="DwR-JR-H5b" customClass="CourtViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="DwR-JR-H5b" customClass="CourtViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2Yq-3a-mqv"/>
                         <viewControllerLayoutGuide type="bottom" id="8Ky-y7-PKg"/>
@@ -2403,7 +2408,7 @@
                                             <constraint firstAttribute="bottom" secondItem="8XY-Gt-Qgy" secondAttribute="bottom" constant="15" id="ypJ-8E-rZn"/>
                                         </constraints>
                                     </view>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="a08-YT-LMf">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="a08-YT-LMf">
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="Dfo-xW-kB9"/>
@@ -2523,6 +2528,7 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Jsv-c3-apy"/>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Jsv-c3-apy" firstAttribute="centerX" secondItem="SOR-JU-NGA" secondAttribute="centerX" id="2RX-52-3VG"/>
                             <constraint firstItem="ES1-gp-a1p" firstAttribute="leading" secondItem="SOR-JU-NGA" secondAttribute="leading" id="E5x-oE-X5d"/>
@@ -2556,7 +2562,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eCz-uC-Ily" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="969" y="-658"/>
+            <point key="canvasLocation" x="394" y="-967"/>
         </scene>
         <!--Egg View Controller-->
         <scene sceneID="HHG-gt-FCT">
@@ -2588,7 +2594,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1I1-uo-Sml">
-                                        <frame key="frameInset" minY="19" width="13.82%" maxX="100" maxY="20"/>
+                                        <frame key="frameInset" minY="19" width="14.00%" maxX="100" maxY="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2633,7 +2639,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7F6-IA-eH4">
-                                        <frame key="frameInset" minX="50.41%" minY="50.09%" width="133" height="50"/>
+                                        <frame key="frameInset" minX="50.21%" minY="50.00%" width="133" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="시작하기">
@@ -2841,11 +2847,12 @@
                         <outlet property="pwdField" destination="hhs-u8-xNz" id="wrT-JM-5ds"/>
                         <outlet property="scrollView" destination="rTb-6w-jUA" id="DJ6-kt-gvE"/>
                         <outlet property="spin" destination="uo4-R8-PKy" id="pqw-xK-yF0"/>
+                        <segue destination="cuQ-w4-Tbe" kind="presentation" identifier="userConvert_map" id="Zvw-io-lO4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rUi-OG-j6j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="281" y="403"/>
+            <point key="canvasLocation" x="422" y="403"/>
         </scene>
         <!--Item-->
         <scene sceneID="4b0-aA-jq9">
@@ -2887,4 +2894,8 @@
         <image name="ic_simplemap_w.png" width="52" height="52"/>
         <image name="ic_star_n.png" width="50" height="50"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="UYa-Nq-UCH"/>
+        <segue reference="xpS-lY-KI0"/>
+    </inferredMetricsTieBreakers>
 </document>

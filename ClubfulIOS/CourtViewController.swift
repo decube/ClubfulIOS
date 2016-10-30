@@ -23,6 +23,7 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     var courtSeq : Int!
     
     @IBOutlet var scrollView: UIScrollView!
+    var scrollViewHeight : CGFloat = 0
     //스핀
     @IBOutlet var imageSpin: UIActivityIndicatorView!
     @IBOutlet var replySpin: UIActivityIndicatorView!
@@ -60,53 +61,16 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     //웹뷰 리플등록 액션
     var replyFn : String!
     
-    var scrollViewHeight : CGFloat = 0
-    var isRotated = true
-    //회전됬을때
-    func rotated(){
-        if(self.isRotated == false && UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-            self.isRotated = true
-            self.view.endEditing(true)
-            self.idx = 0
-            self.setImages()
-            DispatchQueue.global().async {
-                Thread.sleep(forTimeInterval: 0.5)
-                DispatchQueue.main.async {
-                    self.scrollViewHeight = self.scrollView.frame.height
-                }
-            }
-        }
-        if(self.isRotated == true && UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-            self.isRotated = false
-            self.view.endEditing(true)
-            self.idx = 0
-            self.setImages()
-            DispatchQueue.global().async {
-                Thread.sleep(forTimeInterval: 0.5)
-                DispatchQueue.main.async {
-                    self.scrollViewHeight = self.scrollView.contentSize.height
-                }
-            }
-        }
-    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("CourtViewController viewDidLoad")
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         DispatchQueue.global().async {
             Thread.sleep(forTimeInterval: 0.1)
             DispatchQueue.main.async {
                 self.scrollViewHeight = self.scrollView.contentSize.height
-                if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-                    self.isRotated = true
-                    self.scrollViewHeight = self.scrollView.frame.height
-                }
-                if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-                    self.isRotated = false
-                    self.scrollViewHeight = self.scrollView.contentSize.height
-                }
             }
         }
         
@@ -392,9 +356,6 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
             }
         }
     }
-    
-    
-    
     
     
     //뒤로가기

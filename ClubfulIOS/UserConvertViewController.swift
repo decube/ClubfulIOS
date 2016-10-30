@@ -149,6 +149,12 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? MapViewController{
+            vc.preView = self
+            vc.preBtn = self.addView.locationBtn
+        }
+    }
     
     @IBAction func addAction(_ sender: AnyObject) {
         self.addView.addViewShow()

@@ -211,6 +211,14 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         UIView.animate(withDuration: 0.3, animations: {
             self.searchCancelImageView.alpha = 0
         })
+        if self.courtSearchView.isHidden == false{
+            UIView.animate(withDuration: 0.2, animations: {
+                self.courtSearchView.frame.origin.x = -self.courtSearchView.frame.width
+                }, completion: {(_) in
+                    self.courtSearchView.isHidden = true
+                    self.courtSearchView.frame.origin.x = 0
+            })
+        }
     }
     
     
@@ -258,6 +266,13 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         if let destinationViewController = segue.destination as? MainRightViewController {
             destinationViewController.transitioningDelegate = self
             destinationViewController.interactor = interactor
+        }
+        if let vc = segue.destination as? CourtViewController{
+            vc.courtSeq = self.courtSearchView.courtSeq
+        }
+        if let vc = segue.destination as? MapViewController{
+            vc.preView = self
+            vc.preBtn = self.addView.locationBtn
         }
     }
     

@@ -29,6 +29,7 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     
     var nonUserView : NonUserView!
     
+    var courtSeq: Int!
     
     override func viewWillAppear(_ animated: Bool) {
         print("MypageViewController viewWillAppear")
@@ -139,10 +140,8 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                     }
                     imgBtn.addAction(.touchUpInside){
                         if let seq = obj["seq"] as? Int{
-                            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                            let uvc = storyBoard.instantiateViewController(withIdentifier: "courtVC")
-                            (uvc as! CourtViewController).courtSeq = seq
-                            self.navigationController?.pushViewController(uvc, animated: true)
+                            self.courtSeq = seq
+                            self.performSegue(withIdentifier: "mypage_courtDetail", sender: nil)
                         }
                     }
                     self.interestCourt.addSubview(imgBtn)
@@ -186,11 +185,8 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
                     }
                     imgBtn.addAction(.touchUpInside){
                         if let seq = obj["seq"] as? Int{
-                            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                            let uvc = storyBoard.instantiateViewController(withIdentifier: "courtVC")
-                            (uvc as! CourtViewController).courtSeq = seq
-                            self.navigationController?.pushViewController(uvc, animated: true)
-                            
+                            self.courtSeq = seq
+                            self.performSegue(withIdentifier: "mypage_courtDetail", sender: nil)
                         }
                     }
                     self.createCourt.addSubview(imgBtn)
@@ -389,6 +385,12 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? CourtViewController{
+            vc.courtSeq = self.courtSeq
+        }
+    }
     
     //개인정보 수정 클릭
     @IBAction func userConvertAction(_ sender: AnyObject) {

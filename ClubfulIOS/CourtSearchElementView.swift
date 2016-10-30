@@ -10,6 +10,7 @@ import UIKit
 
 class CourtSearchElementView: UIView{
     var ctrl : ViewController!
+    var courtSearchView: CourtSearchView!
     var element: [String: AnyObject]!
     @IBOutlet var elementView: UIView!
     @IBOutlet var title: UILabel!
@@ -20,6 +21,7 @@ class CourtSearchElementView: UIView{
     
     func setLayout(_ ctrl: ViewController, courtSearchView: CourtSearchView, height: CGFloat, idx: CGFloat, element: [String: AnyObject]){
         self.ctrl = ctrl
+        self.courtSearchView = courtSearchView
         self.element = element
         
         self.frame = CGRect(x: 0, y: height*idx, width: courtSearchView.scrollView.frame.width, height: height-1)
@@ -67,10 +69,8 @@ class CourtSearchElementView: UIView{
     }
     
     func touchAction(){
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let uvc = storyBoard.instantiateViewController(withIdentifier: "courtVC")
-        (uvc as! CourtViewController).courtSeq = element["seq"] as! Int
-        ctrl.navigationController?.pushViewController(uvc, animated: true)
+        self.courtSearchView.courtSeq = element["seq"] as! Int
+        self.ctrl.performSegue(withIdentifier: "main_courtDetail", sender: nil)
     }
     
     

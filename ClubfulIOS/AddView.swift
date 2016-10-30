@@ -58,12 +58,11 @@ class AddView: UIView{
         }
     }
     @IBAction func locationAction(_ sender: AnyObject) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let uvc = storyBoard.instantiateViewController(withIdentifier: "mapVC")
-        uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        (uvc as! MapViewController).preView = self.ctrl
-        (uvc as! MapViewController).preBtn = self.locationBtn
-        ctrl.present(uvc, animated: true, completion: nil)
+        if let vc = self.ctrl as? ViewController{
+            vc.performSegue(withIdentifier: "main_map", sender: nil)
+        }else if let vc = self.ctrl as? UserConvertViewController{
+            vc.performSegue(withIdentifier: "userConvert_map", sender: nil)
+        }
     }
     @IBAction func confirmAction(_ sender: AnyObject) {
         let vo = Storage.copyUser()

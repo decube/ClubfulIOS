@@ -21,7 +21,6 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 
 class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate {
-    
     var preView : UIViewController!
     var preBtn : UIButton!
     
@@ -38,26 +37,10 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
     var mapListView : UIScrollView!
     
     
-    //회전됬을때
-    func rotated(){
-        mapListView.frame = CGRect(x: 0, y: mapView.frame.origin.y, width: self.view.frame.width/3*2, height: mapView.frame.height)
-        if mapListView.isHidden == false{
-            mapListView.isHidden = true
-            self.setSearchLayout()
-        }
-        if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-            mapView.frame = CGRect(x: 0, y: 110, width: self.view.frame.width, height: self.view.frame.height - 110-40)
-        }else if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-            mapView.frame = CGRect(x: 0, y: 130, width: self.view.frame.width, height: self.view.frame.height - 130-40)
-        }
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("JoinMapViewController viewDidLoad")
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         
         self.marker = MKPointAnnotation()
         mapView.addAnnotation(marker)
@@ -68,15 +51,14 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
         self.mapView.isUserInteractionEnabled = true
         self.mapView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.mapViewTouch(_:))))
         self.mapView.delegate = self
-        
-        
-        searchField.delegate = self
-        
+        self.searchField.delegate = self
         
         //코트 검색
         mapListView = UIScrollView(frame: CGRect(x: 0, y: mapView.frame.origin.y, width: self.view.frame.width/3*2, height: mapView.frame.height))
         mapListView.backgroundColor = UIColor(red:0.86, green:0.90, blue:0.93, alpha:1.00)
         mapListView.isHidden = true
+        
+        
         self.view.addSubview(mapListView)
     }
     
@@ -91,8 +73,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
         marker.coordinate = location
     }
     
-    
-    var tempSearchData : [[String: AnyObject]]!
     //검색 클릭
     @IBAction func searchAction(_ sender: AnyObject) {
         if searchField.text?.characters.count < 2{
@@ -110,8 +90,20 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
                     if let results = result["results"] as? [[String: AnyObject]]{
                         //카운트가 1보다 많으면
                         if results.count > 1{
-                            self.tempSearchData = results
-                            self.setSearchLayout()
+                            self.view.endEditing(true)
+                            self.mapListView.subviews.forEach({$0.removeFromSuperview()})
+                            var i : CGFloat = 0
+                            let locObjHeight : CGFloat = 80
+                            
+                            for element : [String: AnyObject] in results{
+                                let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
+                                
+                                if let customView = Bundle.main.loadNibNamed("MapListElementView", owner: self, options: nil)?.first as? MapListElementView {
+                                    customView.setLayout(self, height: locObjHeight, idx: i, location: (latitude, longitude, addressShort, address))
+                                }
+                                i += 1
+                            }
+                            self.mapListView.contentSize = CGSize(width: self.mapListView.frame.width, height: locObjHeight*i)
                         }else{
                             //카운트가 1개 이면
                             for element : [String: AnyObject] in results{
@@ -137,48 +129,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
                 }
             })
         }
-    }
-    
-    func setSearchLayout(){
-        self.view.endEditing(true)
-        mapListView.subviews.forEach({$0.removeFromSuperview()})
-        var i : CGFloat = 0
-        let locObjHeight : CGFloat = 80
-        
-        for element : [String: AnyObject] in self.tempSearchData{
-            let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
-            
-            
-            if let customView = Bundle.main.loadNibNamed("MapListElementView", owner: self, options: nil)?.first as? MapListElementView {
-                customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.mapListView.frame.width-10, height: locObjHeight-10)
-                customView.setAddr(addressShort: addressShort, address: address)
-                self.mapListView.addSubview(customView)
-                
-                if self.mapListView.isHidden != false{
-                    let tmpRect = self.mapListView.frame
-                    self.mapListView.frame.origin.x = -tmpRect.width
-                    self.mapListView.isHidden = false
-                    //애니메이션 적용
-                    UIView.animate(withDuration: 0.2, animations: {
-                        self.mapListView.frame = tmpRect
-                        }, completion: {(_) in
-                    })
-                }
-                
-                customView.setAction({ (_) in
-                    UIView.animate(withDuration: 0.2, animations: {
-                        self.mapListView.alpha = 0
-                    }, completion: { (_) in
-                        self.mapListView.isHidden = true
-                        self.mapListView.alpha = 1
-                        self.locationMove(latitude, longitude: longitude)
-                    }) 
-                })
-                
-            }
-            i += 1
-        }
-        self.mapListView.contentSize = CGSize(width: self.mapListView.frame.width, height: locObjHeight*i)
     }
     
     

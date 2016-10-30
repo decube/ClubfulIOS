@@ -287,12 +287,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         if spin.isHidden == false{
             return
         }
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let uvc = storyBoard.instantiateViewController(withIdentifier: "mapVC")
-        (uvc as! MapViewController).preView = self
-        (uvc as! MapViewController).preBtn = locationBtn
-        uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        self.present(uvc, animated: true, completion: nil)
+        performSegue(withIdentifier: "courtCreate_map", sender: nil)
     }
     
     //종목설정 클릭
@@ -415,6 +410,12 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     }
     
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? MapViewController{
+            vc.preView = self
+            vc.preBtn = self.locationBtn
+        }
+    }
     
     
     //키보드 생김/사라짐 셀렉터

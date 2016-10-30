@@ -11,6 +11,9 @@ import UIKit
 class CourtSearchView : UIView{
     var ctrl : ViewController!
     @IBOutlet var scrollView: UIScrollView!
+    var spin: UIActivityIndicatorView!
+    
+    var courtSeq: Int!
     
     func setLayout(_ ctrl: ViewController){
         self.ctrl = ctrl
@@ -37,10 +40,16 @@ class CourtSearchView : UIView{
                 }
             })
             self.scrollView.scrollToTop()
+            
+            self.spin = UIActivityIndicatorView(frame: CGRect(origin: self.frame.origin, size: CGSize(width: 20, height: 20)))
+            self.spin.startAnimating()
+            self.addSubview(self.spin)
+            
             //코트 검색 통신
             let user = Storage.getRealmUser()
             let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "address": self.ctrl.searchTextField.text! as AnyObject, "category": user.category as AnyObject, "latitude": user.latitude as AnyObject, "longitude": user.longitude as AnyObject]
             URL.request(self.ctrl, url: URL.apiServer+URL.api_court_listSearch, param: parameters, callback: { (dic) in
+                self.spin.removeFromSuperview()
                 if let list = dic["list"] as? [[String: AnyObject]]{
                     self.ctrl.view.endEditing(true)
                     self.scrollView.subviews.forEach({ (v) in
@@ -78,20 +87,29 @@ class CourtSearchView : UIView{
     
     //코트서치 제스처
     @IBAction func handleGesture(_ sender: UIPanGestureRecognizer) {
-        let translation = sender.translation(in: self)
-        let progress = MenuHelper.calculateProgress(translation, viewBounds: self.bounds, direction: .left)
-        if progress > 0{
-            if self.frame.origin.x < -self.ctrl.view.frame.width/4{
-                //애니메이션 적용
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.frame.origin.x = -self.frame.width
-                    }, completion: {(_) in
-                        self.isHidden = true
+        if sender.state == .ended{
+            let translation = sender.translation(in: self)
+            let progress = MenuHelper.calculateProgress(translation, viewBounds: self.bounds, direction: .left)
+            if progress > 0{
+                if self.frame.origin.x < -self.ctrl.view.frame.width/4{
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.frame.origin.x = -self.frame.width
+                        }, completion: {(_) in
+                            self.isHidden = true
+                            self.frame.origin.x = 0
+                    })
+                }else{
+                    UIView.animate(withDuration: 0.2, animations: {
                         self.frame.origin.x = 0
-                })
-            }else{
-                self.frame.origin.x = -(self.ctrl.view.frame.width/3*2)*progress
+                        }, completion: {(_) in
+                            
+                    })
+                }
             }
+        }else{
+            let translation = sender.translation(in: self)
+            let progress = MenuHelper.calculateProgress(translation, viewBounds: self.bounds, direction: .left)
+            self.frame.origin.x = -(self.ctrl.view.frame.width/3*2)*progress
         }
     }
 }
