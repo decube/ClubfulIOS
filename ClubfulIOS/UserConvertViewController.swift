@@ -151,19 +151,7 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func addAction(_ sender: AnyObject) {
-        self.view.endEditing(true)
-        self.addView.setView()
-        
-        self.blackScreen.isHidden = false
-        self.addView.isHidden = false
-        let tmpRect = self.addView.frame
-        self.addView.frame.origin.y = -tmpRect.height
-        //애니메이션 적용
-        UIView.animate(withDuration: 0.2, animations: {
-            self.addView.frame = tmpRect
-        }, completion: {(_) in
-            
-        })
+        self.addView.addViewShow()
     }
     //뒤로가기
     @IBAction func backAction(_ sender: AnyObject) {

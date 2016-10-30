@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainCenterView : UIView{
+class MyLocationView : UIView{
     @IBOutlet var scrollView: UIScrollView!
     var scrollViewHeight: CGFloat!
     @IBOutlet var searchTextField: UITextField!
@@ -20,8 +20,6 @@ class MainCenterView : UIView{
         self.ctrl = ctrl
         
         self.frame = CGRect(x: (ctrl.view.frame.width-300)/2, y: (ctrl.view.frame.height-300)/2, width: 300, height: 300)
-        self.backgroundColor = UIColor.white
-        self.isHidden = true
         self.searchTextField.borderStyle = .none
         self.searchTextField.delegate = ctrl
         ctrl.view.addSubview(self)
@@ -46,28 +44,8 @@ class MainCenterView : UIView{
                         for element : [String: AnyObject] in results{
                             let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
                             
-                            if let customView = Bundle.main.loadNibNamed("MainCenterElementView", owner: self, options: nil)?.first as? MainCenterElementView {
-                                customView.frame = CGRect(x: 5, y: locObjHeight*i+5, width: self.frame.width-10, height: locObjHeight-10)
-                                customView.setAddr(addressShort: addressShort, address: address)
-                                self.scrollView.addSubview(customView)
-                                //
-                                //위치 선택
-                                //
-                                customView.setAction({ (_) in
-                                    UIView.animate(withDuration: 0.2, animations: {
-                                        self.alpha = 0
-                                        }, completion: { (_) in
-                                            self.isHidden = true
-                                            self.alpha = 1
-                                            self.ctrl.blackScreen.isHidden = true
-                                            let user = Storage.copyUser()
-                                            user.latitude = latitude
-                                            user.longitude = longitude
-                                            user.address = "\(address)"
-                                            user.addressShort = "\(addressShort)"
-                                            Storage.setRealmUser(user)
-                                    })
-                                })
+                            if let customView = Bundle.main.loadNibNamed("MyLocationElementView", owner: self, options: nil)?.first as? MyLocationElementView {
+                                customView.setLayout(self.ctrl, locationView: self, height: locObjHeight, idx: i, location: (latitude, longitude, addressShort, address))
                             }
                             i += 1
                         }
@@ -111,5 +89,23 @@ class MainCenterView : UIView{
                 self.isHidden = true
                 self.frame = tmpRect
         })
+    }
+    
+    
+    
+    func centerViewShow(){
+        self.ctrl.view.endEditing(true)
+        self.scrollView.subviews.forEach({$0.removeFromSuperview()})
+        self.scrollView.scrollToTop()
+        self.ctrl.blackScreen.isHidden = false
+        self.isHidden = false
+        self.ctrl.courtSearchView.isHidden = true
+        
+        let tmpRect = self.frame
+        self.frame.origin.y = -tmpRect.height
+        //애니메이션 적용
+        UIView.animate(withDuration: 0.3, animations: {
+            self.self.frame = tmpRect
+        }, completion: nil)
     }
 }

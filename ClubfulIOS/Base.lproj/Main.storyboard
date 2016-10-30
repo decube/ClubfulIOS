@@ -126,25 +126,6 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LWC-1M-KEh"/>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzZ-u0-67T">
-                                <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fiK-KS-62L">
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <gestureRecognizers/>
-                                    </scrollView>
-                                </subviews>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="2IX-5I-LS7"/>
-                                    <constraint firstAttribute="trailing" secondItem="fiK-KS-62L" secondAttribute="trailing" id="7vC-Sg-p4B"/>
-                                    <constraint firstItem="fiK-KS-62L" firstAttribute="leading" secondItem="xzZ-u0-67T" secondAttribute="leading" id="Bse-s1-i75"/>
-                                    <constraint firstAttribute="bottom" secondItem="fiK-KS-62L" secondAttribute="bottom" id="SAK-Tu-J4s"/>
-                                    <constraint firstItem="fiK-KS-62L" firstAttribute="top" secondItem="xzZ-u0-67T" secondAttribute="top" id="U6k-tt-49o"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="V8H-F9-swJ" appends="YES" id="ZVC-sv-2q9"/>
-                                </connections>
-                            </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Q9j-U2-vAT">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="8Ee-rT-1Tb"/>
@@ -157,15 +138,12 @@
                         <constraints>
                             <constraint firstItem="Q9j-U2-vAT" firstAttribute="centerX" secondItem="LWC-1M-KEh" secondAttribute="centerX" id="38t-W7-VKi"/>
                             <constraint firstItem="x20-8A-6fW" firstAttribute="top" secondItem="jBA-Rd-vgg" secondAttribute="bottom" id="DHc-uO-FXh"/>
-                            <constraint firstItem="SCD-VL-wii" firstAttribute="top" secondItem="xzZ-u0-67T" secondAttribute="bottom" id="EwT-mO-3Vy"/>
                             <constraint firstItem="LWC-1M-KEh" firstAttribute="leading" secondItem="Gsu-vX-fR3" secondAttribute="leading" id="ItH-17-Uvt"/>
                             <constraint firstItem="SCD-VL-wii" firstAttribute="top" secondItem="LWC-1M-KEh" secondAttribute="bottom" id="LEE-M0-5gv"/>
                             <constraint firstItem="Q9j-U2-vAT" firstAttribute="centerY" secondItem="LWC-1M-KEh" secondAttribute="centerY" id="Ucv-PI-bsC"/>
-                            <constraint firstItem="xzZ-u0-67T" firstAttribute="top" secondItem="x20-8A-6fW" secondAttribute="bottom" id="YIl-R1-DYi"/>
                             <constraint firstAttribute="trailing" secondItem="0du-yJ-TcY" secondAttribute="trailing" id="dOf-iC-9gW"/>
                             <constraint firstAttribute="trailing" secondItem="LWC-1M-KEh" secondAttribute="trailing" id="g4a-hY-3SD"/>
                             <constraint firstItem="x20-8A-6fW" firstAttribute="leading" secondItem="Gsu-vX-fR3" secondAttribute="leading" id="i0x-e8-su0"/>
-                            <constraint firstItem="xzZ-u0-67T" firstAttribute="leading" secondItem="Gsu-vX-fR3" secondAttribute="leading" id="jJt-F5-kCr"/>
                             <constraint firstItem="0du-yJ-TcY" firstAttribute="top" secondItem="Gsu-vX-fR3" secondAttribute="top" id="lvm-9A-AIy"/>
                             <constraint firstItem="LWC-1M-KEh" firstAttribute="top" secondItem="x20-8A-6fW" secondAttribute="bottom" id="md0-k8-Yw6"/>
                             <constraint firstItem="0du-yJ-TcY" firstAttribute="leading" secondItem="Gsu-vX-fR3" secondAttribute="leading" id="npd-Ee-Mjh"/>
@@ -179,8 +157,6 @@
                     <tabBarItem key="tabBarItem" title="Item 1" id="w06-9x-qhg"/>
                     <navigationItem key="navigationItem" id="VKI-5D-ig5"/>
                     <connections>
-                        <outlet property="courtSearchScrollView" destination="fiK-KS-62L" id="Djw-wH-HZO"/>
-                        <outlet property="courtSearchView" destination="xzZ-u0-67T" id="AWn-GQ-RIS"/>
                         <outlet property="leftEdge" destination="ZHH-TG-baC" id="1Bp-AX-xu6"/>
                         <outlet property="rightEdge" destination="3XO-CT-Z3T" id="HgZ-Yx-yKp"/>
                         <outlet property="scrollView" destination="LWC-1M-KEh" id="5mi-tE-PFb"/>
@@ -202,11 +178,6 @@
                         <action selector="rightEdgePanGesture:" destination="9Dz-Gk-xIP" id="4oA-hc-enV"/>
                     </connections>
                 </screenEdgePanGestureRecognizer>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="V8H-F9-swJ">
-                    <connections>
-                        <action selector="handleGesture:" destination="9Dz-Gk-xIP" id="05R-nR-yzD"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-383.19999999999999" y="-966.56671664167925"/>
         </scene>
@@ -2334,7 +2305,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="ZXh-pY-Gbr" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="jUZ-r0-dio"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xE7-YA-3cE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="xE7-YA-3cE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2617,7 +2588,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1I1-uo-Sml">
-                                        <frame key="frameInset" minY="19" width="14.00%" maxX="100" maxY="20"/>
+                                        <frame key="frameInset" minY="19" width="13.82%" maxX="100" maxY="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2662,7 +2633,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7F6-IA-eH4">
-                                        <frame key="frameInset" minX="50.21%" minY="50.00%" width="133" height="50"/>
+                                        <frame key="frameInset" minX="50.41%" minY="50.09%" width="133" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="시작하기">
@@ -2881,7 +2852,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="klv-VR-9GH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="mBK-ue-91c"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="r1A-vJ-pAQ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="r1A-vJ-pAQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

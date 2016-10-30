@@ -21,6 +21,8 @@
 		6E6323A01DA3BF52001FCD9E /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E63239F1DA3BF52001FCD9E /* AddView.swift */; };
 		6E7514BD1DA117F900A0740F /* background_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E7514BB1DA117F900A0740F /* background_landscape.png */; };
 		6E7514BE1DA117F900A0740F /* background_portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E7514BC1DA117F900A0740F /* background_portrait.png */; };
+		6E77DD111DC5A04400296008 /* CourtSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77DD101DC5A04400296008 /* CourtSearchView.swift */; };
+		6E77DD131DC5A05E00296008 /* CourtSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E77DD121DC5A05E00296008 /* CourtSearchView.xib */; };
 		6E7DA8DA1D9948910098D7DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA8D91D9948910098D7DA /* AppDelegate.swift */; };
 		6E7DA8DC1D9948910098D7DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA8DB1D9948910098D7DA /* ViewController.swift */; };
 		6E7DA8DF1D9948910098D7DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA8DD1D9948910098D7DA /* Main.storyboard */; };
@@ -97,9 +99,9 @@
 		6E7DA9BE1D994B3A0098D7DA /* InquiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9991D994B3A0098D7DA /* InquiryViewController.swift */; };
 		6E7DA9BF1D994B3A0098D7DA /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA99A1D994B3A0098D7DA /* JoinViewController.swift */; };
 		6E7DA9C01D994B3A0098D7DA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA99B1D994B3A0098D7DA /* LoginViewController.swift */; };
-		6E7DA9C11D994B3A0098D7DA /* MainCenterElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA99C1D994B3A0098D7DA /* MainCenterElementView.swift */; };
-		6E7DA9C21D994B3A0098D7DA /* MainCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA99D1D994B3A0098D7DA /* MainCenterView.swift */; };
-		6E7DA9C31D994B3A0098D7DA /* MainCourtSearchElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA99E1D994B3A0098D7DA /* MainCourtSearchElementView.swift */; };
+		6E7DA9C11D994B3A0098D7DA /* MyLocationElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA99C1D994B3A0098D7DA /* MyLocationElementView.swift */; };
+		6E7DA9C21D994B3A0098D7DA /* MyLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA99D1D994B3A0098D7DA /* MyLocationView.swift */; };
+		6E7DA9C31D994B3A0098D7DA /* CourtSearchElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA99E1D994B3A0098D7DA /* CourtSearchElementView.swift */; };
 		6E7DA9C41D994B3A0098D7DA /* MapListElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA99F1D994B3A0098D7DA /* MapListElementView.swift */; };
 		6E7DA9C51D994B3A0098D7DA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9A01D994B3A0098D7DA /* MapViewController.swift */; };
 		6E7DA9C61D994B3A0098D7DA /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9A11D994B3A0098D7DA /* MessageViewController.swift */; };
@@ -122,9 +124,9 @@
 		6E7DA9D81D994B3A0098D7DA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9B31D994B3A0098D7DA /* User.swift */; };
 		6E7DA9D91D994B3A0098D7DA /* UserConvertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9B41D994B3A0098D7DA /* UserConvertViewController.swift */; };
 		6E7DA9DA1D994B3A0098D7DA /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9B51D994B3A0098D7DA /* Util.swift */; };
-		6E7DA9E01D994D4A0098D7DA /* MainCenterElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DB1D994D4A0098D7DA /* MainCenterElementView.xib */; };
-		6E7DA9E11D994D4A0098D7DA /* MainCenterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DC1D994D4A0098D7DA /* MainCenterView.xib */; };
-		6E7DA9E21D994D4A0098D7DA /* MainCourtSearchElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DD1D994D4A0098D7DA /* MainCourtSearchElementView.xib */; };
+		6E7DA9E01D994D4A0098D7DA /* MyLocationElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DB1D994D4A0098D7DA /* MyLocationElementView.xib */; };
+		6E7DA9E11D994D4A0098D7DA /* MyLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DC1D994D4A0098D7DA /* MyLocationView.xib */; };
+		6E7DA9E21D994D4A0098D7DA /* CourtSearchElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DD1D994D4A0098D7DA /* CourtSearchElementView.xib */; };
 		6E7DA9E31D994D4A0098D7DA /* MapListElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DE1D994D4A0098D7DA /* MapListElementView.xib */; };
 		6E7DA9E41D994D4A0098D7DA /* NonUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DF1D994D4A0098D7DA /* NonUserView.xib */; };
 		6E7DA9E61D994EA50098D7DA /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7DA9E51D994EA50098D7DA /* KakaoOpenSDK.framework */; };
@@ -168,6 +170,8 @@
 		6E63239F1DA3BF52001FCD9E /* AddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		6E7514BB1DA117F900A0740F /* background_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background_landscape.png; path = resources/img/background_landscape.png; sourceTree = "<group>"; };
 		6E7514BC1DA117F900A0740F /* background_portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background_portrait.png; path = resources/img/background_portrait.png; sourceTree = "<group>"; };
+		6E77DD101DC5A04400296008 /* CourtSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtSearchView.swift; sourceTree = "<group>"; };
+		6E77DD121DC5A05E00296008 /* CourtSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourtSearchView.xib; sourceTree = "<group>"; };
 		6E7DA8D61D9948910098D7DA /* ClubfulIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubfulIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7DA8D91D9948910098D7DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E7DA8DB1D9948910098D7DA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -251,9 +255,9 @@
 		6E7DA9991D994B3A0098D7DA /* InquiryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiryViewController.swift; sourceTree = "<group>"; };
 		6E7DA99A1D994B3A0098D7DA /* JoinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		6E7DA99B1D994B3A0098D7DA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		6E7DA99C1D994B3A0098D7DA /* MainCenterElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCenterElementView.swift; sourceTree = "<group>"; };
-		6E7DA99D1D994B3A0098D7DA /* MainCenterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCenterView.swift; sourceTree = "<group>"; };
-		6E7DA99E1D994B3A0098D7DA /* MainCourtSearchElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCourtSearchElementView.swift; sourceTree = "<group>"; };
+		6E7DA99C1D994B3A0098D7DA /* MyLocationElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLocationElementView.swift; sourceTree = "<group>"; };
+		6E7DA99D1D994B3A0098D7DA /* MyLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLocationView.swift; sourceTree = "<group>"; };
+		6E7DA99E1D994B3A0098D7DA /* CourtSearchElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtSearchElementView.swift; sourceTree = "<group>"; };
 		6E7DA99F1D994B3A0098D7DA /* MapListElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListElementView.swift; sourceTree = "<group>"; };
 		6E7DA9A01D994B3A0098D7DA /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		6E7DA9A11D994B3A0098D7DA /* MessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
@@ -276,9 +280,9 @@
 		6E7DA9B31D994B3A0098D7DA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6E7DA9B41D994B3A0098D7DA /* UserConvertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserConvertViewController.swift; sourceTree = "<group>"; };
 		6E7DA9B51D994B3A0098D7DA /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
-		6E7DA9DB1D994D4A0098D7DA /* MainCenterElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainCenterElementView.xib; sourceTree = "<group>"; };
-		6E7DA9DC1D994D4A0098D7DA /* MainCenterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainCenterView.xib; sourceTree = "<group>"; };
-		6E7DA9DD1D994D4A0098D7DA /* MainCourtSearchElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainCourtSearchElementView.xib; sourceTree = "<group>"; };
+		6E7DA9DB1D994D4A0098D7DA /* MyLocationElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyLocationElementView.xib; sourceTree = "<group>"; };
+		6E7DA9DC1D994D4A0098D7DA /* MyLocationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyLocationView.xib; sourceTree = "<group>"; };
+		6E7DA9DD1D994D4A0098D7DA /* CourtSearchElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourtSearchElementView.xib; sourceTree = "<group>"; };
 		6E7DA9DE1D994D4A0098D7DA /* MapListElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapListElementView.xib; sourceTree = "<group>"; };
 		6E7DA9DF1D994D4A0098D7DA /* NonUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NonUserView.xib; sourceTree = "<group>"; };
 		6E7DA9E51D994EA50098D7DA /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
@@ -504,9 +508,10 @@
 		6E7DA9861D994A690098D7DA /* xib */ = {
 			isa = PBXGroup;
 			children = (
-				6E7DA9DB1D994D4A0098D7DA /* MainCenterElementView.xib */,
-				6E7DA9DC1D994D4A0098D7DA /* MainCenterView.xib */,
-				6E7DA9DD1D994D4A0098D7DA /* MainCourtSearchElementView.xib */,
+				6E7DA9DC1D994D4A0098D7DA /* MyLocationView.xib */,
+				6E7DA9DB1D994D4A0098D7DA /* MyLocationElementView.xib */,
+				6E77DD121DC5A05E00296008 /* CourtSearchView.xib */,
+				6E7DA9DD1D994D4A0098D7DA /* CourtSearchElementView.xib */,
 				6E7DA9DE1D994D4A0098D7DA /* MapListElementView.xib */,
 				6E7DA9DF1D994D4A0098D7DA /* NonUserView.xib */,
 				6E63239D1DA3BF38001FCD9E /* AddView.xib */,
@@ -620,9 +625,10 @@
 		6E7DA9901D994ABB0098D7DA /* xib */ = {
 			isa = PBXGroup;
 			children = (
-				6E7DA99C1D994B3A0098D7DA /* MainCenterElementView.swift */,
-				6E7DA99D1D994B3A0098D7DA /* MainCenterView.swift */,
-				6E7DA99E1D994B3A0098D7DA /* MainCourtSearchElementView.swift */,
+				6E7DA99D1D994B3A0098D7DA /* MyLocationView.swift */,
+				6E7DA99C1D994B3A0098D7DA /* MyLocationElementView.swift */,
+				6E77DD101DC5A04400296008 /* CourtSearchView.swift */,
+				6E7DA99E1D994B3A0098D7DA /* CourtSearchElementView.swift */,
 				6E7DA99F1D994B3A0098D7DA /* MapListElementView.swift */,
 				6E7DA9A31D994B3A0098D7DA /* NonUserView.swift */,
 				6E63239F1DA3BF52001FCD9E /* AddView.swift */,
@@ -783,7 +789,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E7DA9601D994A410098D7DA /* ball_6.jpg in Resources */,
-				6E7DA9E11D994D4A0098D7DA /* MainCenterView.xib in Resources */,
+				6E7DA9E11D994D4A0098D7DA /* MyLocationView.xib in Resources */,
+				6E77DD131DC5A05E00296008 /* CourtSearchView.xib in Resources */,
 				6E7DA9841D994A410098D7DA /* ic_tab_setting_s.png in Resources */,
 				6E7DA97C1D994A410098D7DA /* ic_star_s.png in Resources */,
 				6E7DA9771D994A410098D7DA /* ic_search.png in Resources */,
@@ -800,7 +807,7 @@
 				6E7DA9781D994A410098D7DA /* ic_setting.png in Resources */,
 				6E7DA9E41D994D4A0098D7DA /* NonUserView.xib in Resources */,
 				6E7DA95D1D994A410098D7DA /* ball_3.jpg in Resources */,
-				6E7DA9E01D994D4A0098D7DA /* MainCenterElementView.xib in Resources */,
+				6E7DA9E01D994D4A0098D7DA /* MyLocationElementView.xib in Resources */,
 				6E7514BD1DA117F900A0740F /* background_landscape.png in Resources */,
 				6E7DA96B1D994A410098D7DA /* ic_left_true.png in Resources */,
 				6E7DA9761D994A410098D7DA /* ic_search_b.png in Resources */,
@@ -810,7 +817,7 @@
 				6E7EB6641DBEE88600A618DA /* GoogleService-Info.plist in Resources */,
 				6E7DA9831D994A410098D7DA /* ic_tab_setting_n.png in Resources */,
 				6E7DA9621D994A410098D7DA /* ball_8.jpg in Resources */,
-				6E7DA9E21D994D4A0098D7DA /* MainCourtSearchElementView.xib in Resources */,
+				6E7DA9E21D994D4A0098D7DA /* CourtSearchElementView.xib in Resources */,
 				6E4CC9421DC4702E005FA92F /* ic_myLocation_b.png in Resources */,
 				6E63239C1DA3BD49001FCD9E /* ic_add.png in Resources */,
 				6E7DA9821D994A410098D7DA /* ic_tab_mypage_s.png in Resources */,
@@ -1005,7 +1012,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E7DA9C31D994B3A0098D7DA /* MainCourtSearchElementView.swift in Sources */,
+				6E7DA9C31D994B3A0098D7DA /* CourtSearchElementView.swift in Sources */,
 				6E4CC94F1DC4815C005FA92F /* MainRightViewController.swift in Sources */,
 				6E7DA9B71D994B3A0098D7DA /* BallInfo.swift in Sources */,
 				6E7DA9B61D994B3A0098D7DA /* AppSettingViewController.swift in Sources */,
@@ -1037,14 +1044,15 @@
 				6E7DA9D81D994B3A0098D7DA /* User.swift in Sources */,
 				6E7DA9B91D994B3A0098D7DA /* CourtViewController.swift in Sources */,
 				6E7DA9C81D994B3A0098D7DA /* NonUserView.swift in Sources */,
+				6E77DD111DC5A04400296008 /* CourtSearchView.swift in Sources */,
 				6E7DA9BF1D994B3A0098D7DA /* JoinViewController.swift in Sources */,
 				6E7DA9C51D994B3A0098D7DA /* MapViewController.swift in Sources */,
 				6E7DA9C61D994B3A0098D7DA /* MessageViewController.swift in Sources */,
 				6E7DA9C71D994B3A0098D7DA /* MypageViewController.swift in Sources */,
-				6E7DA9C11D994B3A0098D7DA /* MainCenterElementView.swift in Sources */,
+				6E7DA9C11D994B3A0098D7DA /* MyLocationElementView.swift in Sources */,
 				6E7DA9C01D994B3A0098D7DA /* LoginViewController.swift in Sources */,
 				6E7DA9B81D994B3A0098D7DA /* CourtCreateViewController.swift in Sources */,
-				6E7DA9C21D994B3A0098D7DA /* MainCenterView.swift in Sources */,
+				6E7DA9C21D994B3A0098D7DA /* MyLocationView.swift in Sources */,
 				6E7DA9CB1D994B3A0098D7DA /* PhotoAlbumCustom.swift in Sources */,
 				6E7DA9CD1D994B3A0098D7DA /* Storage.swift in Sources */,
 				6E7DA9CF1D994B3A0098D7DA /* TabBar.swift in Sources */,
