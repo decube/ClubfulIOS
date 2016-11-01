@@ -7,26 +7,6 @@
 //
 
 import UIKit
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l <= r
-  default:
-    return !(rhs < lhs)
-  }
-}
-
 
 class InfoViewController : UIViewController, UIWebViewDelegate{
     @IBOutlet var currentAppVersionLbl: UILabel!
@@ -41,7 +21,6 @@ class InfoViewController : UIViewController, UIWebViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("InfoViewController viewDidLoad")
         
         //웹뷰 딜리게이트 추가
         self.webView.delegate = self
@@ -66,7 +45,7 @@ class InfoViewController : UIViewController, UIWebViewDelegate{
         let currnetAppVer = Util.nsVersion
         let newAppVerNum = Int((newAppVer?.replacingOccurrences(of: ".", with: ""))!)
         let currnetAppNum = Int(currnetAppVer.replacingOccurrences(of: ".", with: ""))
-        if newAppVerNum <= currnetAppNum{
+        if newAppVerNum! <= currnetAppNum!{
             currentAppVersionLbl.text = currnetAppVer
             newAppVersionLbl.text = currnetAppVer
             appVersionBtn.setTitle("최신버전입니다.", for: UIControlState())
@@ -94,5 +73,16 @@ class InfoViewController : UIViewController, UIWebViewDelegate{
     //뒤로가기
     @IBAction func backAction(_ sender: AnyObject) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    //제스처
+    var interactor:Interactor? = nil
+    @IBAction func handleGesture(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: view)
+        let progress = MenuHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .right)
+        MenuHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }

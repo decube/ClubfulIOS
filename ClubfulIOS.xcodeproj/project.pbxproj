@@ -554,10 +554,10 @@
 		6E7DA98B1D994A9E0098D7DA /* user */ = {
 			isa = PBXGroup;
 			children = (
-				6E7DA99A1D994B3A0098D7DA /* JoinViewController.swift */,
 				6E7DA99B1D994B3A0098D7DA /* LoginViewController.swift */,
-				6E7DA9A11D994B3A0098D7DA /* MessageViewController.swift */,
+				6E7DA99A1D994B3A0098D7DA /* JoinViewController.swift */,
 				6E7DA9A21D994B3A0098D7DA /* MypageViewController.swift */,
+				6E7DA9A11D994B3A0098D7DA /* MessageViewController.swift */,
 				6E7DA9B41D994B3A0098D7DA /* UserConvertViewController.swift */,
 			);
 			name = user;

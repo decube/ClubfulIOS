@@ -12,17 +12,6 @@ import FirebaseAuth
 import FBSDKCoreKit
 import FBSDKLoginKit
 import FBSDKShareKit
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var spin: UIActivityIndicatorView!
@@ -30,14 +19,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var idField: UITextField!
     @IBOutlet var pwField: UITextField!
     @IBOutlet var loginBtn: UIButton!
-    @IBOutlet var joinBtn: UIButton!
     
     @IBOutlet var kakaoLogin: UIView!
     @IBOutlet var facebookLogin: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("LoginViewController viewDidLoad")
         
         spin.isHidden = true
         
@@ -60,9 +47,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if spin.isHidden == false{
             return
         }
-        if idField.text?.characters.count < 4{
+        if (idField.text?.characters.count)! < 4{
             Util.alert(self, message: "아이디를 입력해 주세요.")
-        }else if pwField.text?.characters.count < 6{
+        }else if (pwField.text?.characters.count)! < 6{
             Util.alert(self, message: "비밀번호를 입력해 주세요.")
         }else{
             let user = Storage.getRealmUser()
@@ -105,8 +92,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func loginCallback(_ loginType: Int, dic: [String: AnyObject]){
-        var user = Storage.getRealmUser()
-        user = Storage.copyUser()
+        let user = Storage.getRealmUser()
         user.isLogin = loginType
         user.userId = dic["userId"] as! String
         user.nickName = dic["nickName"] as! String
@@ -161,7 +147,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             if error != nil{
                 self.spin.isHidden = true
                 self.spin.stopAnimating()
-                print(error?.localizedDescription)
             }else if session.isOpen() == true{
                 KOSessionTask.meTask(completionHandler: { (profile , error) -> Void in
                     if profile != nil{
@@ -179,7 +164,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     }
                 })
             }else{
-                print("isNotOpen")
                 self.spin.isHidden = true
                 self.spin.stopAnimating()
             }
@@ -195,18 +179,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let login = FBSDKLoginManager()
         login.logIn(withReadPermissions: ["public_profile"], from: self, handler: { (result, error) in
             if error != nil{
-                print("Facebook login failed. Error \(error)")
                 self.spin.isHidden = true
                 self.spin.stopAnimating()
             } else if (result?.isCancelled)! {
-                print("Facebook login isCancelled. result \(result?.token)")
                 self.spin.isHidden = true
                 self.spin.stopAnimating()
             } else {
                 let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
                 FIRAuth.auth()?.signIn(with: credential) { (user, error) in
                     if error != nil {
-                        print("Login failed. \(error)")
                         self.spin.isHidden = true
                         self.spin.stopAnimating()
                     } else {
@@ -224,21 +205,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
-    
-    
-    
-    //회원가입 클릭
-    @IBAction func joinAction(_ sender: AnyObject) {
-        if spin.isHidden == false{
-            return
-        }
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let uvc = storyBoard.instantiateViewController(withIdentifier: "joinVC")
-        uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        (uvc as! JoinViewController).loginVC = self
-        self.present(uvc, animated: true, completion: nil)
-    }
-    
     //뒤로가기
     @IBAction func backAction(_ sender: AnyObject) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
@@ -253,5 +219,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? JoinViewController{
+            vc.loginVC = self
+        }
     }
 }

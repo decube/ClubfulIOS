@@ -20,28 +20,26 @@ class AppSettingViewController : UIViewController{
     
     @IBOutlet var saveBtn: UIButton!
     
-    var realmUser = Storage.getRealmUser()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("AppSettingViewController viewDidLoad")
         
-        noticeSwitch.isOn = realmUser.noticePushCheck
-        myCourtSwitch.isOn = realmUser.myCourtPushCheck
-        distanceSwitch.isOn = realmUser.distancePushCheck
-        interestSwitch.isOn = realmUser.interestPushCheck
+        let user = Storage.getRealmUser()
+        noticeSwitch.isOn = user.noticePushCheck
+        myCourtSwitch.isOn = user.myCourtPushCheck
+        distanceSwitch.isOn = user.distancePushCheck
+        interestSwitch.isOn = user.interestPushCheck
         
-        startTime.date = realmUser.startPushTime as Date
-        endTime.date = realmUser.endPushTime as Date
+        startTime.date = user.startPushTime as Date
+        endTime.date = user.endPushTime as Date
         
         switchFn()
     }
     
     @IBAction func saveAction(_ sender: AnyObject) {
-        let parameters : [String: AnyObject] = ["token": realmUser.token as AnyObject, "id": realmUser.userId as AnyObject, "startTime": startTime.date.getTime() as AnyObject, "endTime": endTime.date.getTime() as AnyObject, "noticePush": noticeSwitch.isOn as AnyObject, "myCreateCourtPush": myCourtSwitch.isOn as AnyObject, "distancePush": distanceSwitch.isOn as AnyObject, "interestPush": interestSwitch.isOn as AnyObject]
+        let user = Storage.getRealmUser()
+        let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "id": user.userId as AnyObject, "startTime": startTime.date.getTime() as AnyObject, "endTime": endTime.date.getTime() as AnyObject, "noticePush": noticeSwitch.isOn as AnyObject, "myCreateCourtPush": myCourtSwitch.isOn as AnyObject, "distancePush": distanceSwitch.isOn as AnyObject, "interestPush": interestSwitch.isOn as AnyObject]
         
         URL.request(self, url: URL.apiServer+URL.api_user_set, param: parameters, callback: { (dic) in
-            let user = Storage.copyUser()
             user.noticePushCheck = self.noticeSwitch.isOn
             user.myCourtPushCheck = self.myCourtSwitch.isOn
             user.distancePushCheck = self.distanceSwitch.isOn
@@ -82,5 +80,15 @@ class AppSettingViewController : UIViewController{
     //뒤로가기
     @IBAction func backAction(_ sender: AnyObject) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    //제스처
+    var interactor:Interactor? = nil
+    @IBAction func handleGesture(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: view)
+        let progress = MenuHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .right)
+        MenuHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }

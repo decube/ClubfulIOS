@@ -65,7 +65,7 @@ class AddView: UIView{
         }
     }
     @IBAction func confirmAction(_ sender: AnyObject) {
-        let vo = Storage.copyUser()
+        let vo = Storage.getRealmUser()
         vo.userLatitude = self.userLatitude
         vo.userLongitude = self.userLongitude
         vo.userAddress = self.userAddress

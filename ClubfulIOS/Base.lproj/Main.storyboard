@@ -657,7 +657,7 @@
                                             </label>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="dTf-cb-u8f" secondAttribute="trailing" constant="70" id="Eqi-lK-4o0"/>
+                                            <constraint firstAttribute="trailing" secondItem="dTf-cb-u8f" secondAttribute="trailing" id="Eqi-lK-4o0"/>
                                             <constraint firstItem="dTf-cb-u8f" firstAttribute="top" secondItem="3G3-EC-4Lx" secondAttribute="top" id="QfQ-zN-y2z"/>
                                             <constraint firstAttribute="height" constant="80" id="VEb-Ne-UVC"/>
                                             <constraint firstItem="dTf-cb-u8f" firstAttribute="leading" secondItem="3G3-EC-4Lx" secondAttribute="leading" constant="5" id="XGg-Vj-w1k"/>
@@ -691,7 +691,6 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="초대" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lgp-MP-IyZ">
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="dZ0-M3-fvo"/>
-                                                            <constraint firstAttribute="width" constant="90" id="fJ6-Oq-pQk"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -704,6 +703,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="9ag-uL-GiZ" secondAttribute="trailing" constant="22" id="F6m-FD-WLQ"/>
                                                     <constraint firstItem="9ag-uL-GiZ" firstAttribute="top" secondItem="U9i-ZZ-Vgn" secondAttribute="top" constant="35" id="LRA-Jq-lDq"/>
                                                     <constraint firstItem="3Uf-RH-Xl1" firstAttribute="leading" secondItem="U9i-ZZ-Vgn" secondAttribute="leading" constant="5" id="Orr-hg-z18"/>
+                                                    <constraint firstItem="9ag-uL-GiZ" firstAttribute="leading" secondItem="Lgp-MP-IyZ" secondAttribute="trailing" id="ZeG-0E-Hz4"/>
                                                     <constraint firstAttribute="bottom" secondItem="Lgp-MP-IyZ" secondAttribute="bottom" constant="35" id="ZfX-nK-elo"/>
                                                     <constraint firstItem="Lgp-MP-IyZ" firstAttribute="leading" secondItem="3Uf-RH-Xl1" secondAttribute="trailing" constant="10" id="ha0-qc-1Z8"/>
                                                     <constraint firstAttribute="bottom" secondItem="3Uf-RH-Xl1" secondAttribute="bottom" constant="35" id="iz5-c4-tnc"/>
@@ -728,7 +728,6 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="앱설정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iif-nS-hK7">
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="ajx-uE-bUl"/>
-                                                            <constraint firstAttribute="width" constant="90" id="tPg-80-Kw4"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -740,6 +739,7 @@
                                                     <constraint firstItem="Iif-nS-hK7" firstAttribute="leading" secondItem="mnN-uc-G6S" secondAttribute="trailing" constant="10" id="2jB-2z-E3b"/>
                                                     <constraint firstAttribute="bottom" secondItem="mnN-uc-G6S" secondAttribute="bottom" constant="35" id="FFG-IZ-1rQ"/>
                                                     <constraint firstAttribute="trailing" secondItem="DY1-Am-ZgD" secondAttribute="trailing" constant="22" id="GSf-TJ-hPr"/>
+                                                    <constraint firstItem="DY1-Am-ZgD" firstAttribute="leading" secondItem="Iif-nS-hK7" secondAttribute="trailing" id="a5p-ay-ZFc"/>
                                                     <constraint firstAttribute="bottom" secondItem="DY1-Am-ZgD" secondAttribute="bottom" constant="35" id="ixd-CG-HpL"/>
                                                     <constraint firstItem="mnN-uc-G6S" firstAttribute="leading" secondItem="Mlc-cy-KKz" secondAttribute="leading" constant="5" id="kZo-7s-K55"/>
                                                     <constraint firstItem="DY1-Am-ZgD" firstAttribute="top" secondItem="Mlc-cy-KKz" secondAttribute="top" constant="35" id="mH2-hY-iEM"/>
@@ -783,7 +783,6 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="공지" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bR6-Qv-BID">
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="J8R-B7-wkB"/>
-                                                    <constraint firstAttribute="width" constant="300" id="oqc-3V-wfT"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -800,6 +799,7 @@
                                             <constraint firstItem="bnl-P6-IOn" firstAttribute="top" secondItem="Obi-st-myH" secondAttribute="top" constant="15" id="F5f-NE-Ikm"/>
                                             <constraint firstAttribute="trailing" secondItem="bnl-P6-IOn" secondAttribute="trailing" constant="10" id="IHK-dt-0yM"/>
                                             <constraint firstAttribute="bottom" secondItem="bnl-P6-IOn" secondAttribute="bottom" constant="15" id="PwM-5f-WjX"/>
+                                            <constraint firstItem="bnl-P6-IOn" firstAttribute="leading" secondItem="bR6-Qv-BID" secondAttribute="trailing" id="fnb-mf-joW"/>
                                             <constraint firstItem="bR6-Qv-BID" firstAttribute="leading" secondItem="Obi-st-myH" secondAttribute="leading" constant="5" id="osL-lU-QGE"/>
                                             <constraint firstItem="bR6-Qv-BID" firstAttribute="top" secondItem="Obi-st-myH" secondAttribute="top" id="pJa-47-bqp"/>
                                             <constraint firstAttribute="height" constant="60" id="weh-0X-g1S"/>
@@ -819,7 +819,6 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="앱정보" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tcp-gz-fTX">
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="F7z-lC-vOA"/>
-                                                    <constraint firstAttribute="width" constant="300" id="O9y-9A-KRc"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -840,6 +839,7 @@
                                             <constraint firstAttribute="bottom" secondItem="mBR-vT-NNP" secondAttribute="bottom" constant="15" id="crY-ok-zaZ"/>
                                             <constraint firstAttribute="height" constant="60" id="ecv-78-Thy"/>
                                             <constraint firstAttribute="trailing" secondItem="mBR-vT-NNP" secondAttribute="trailing" constant="10" id="gLK-Cx-hlS"/>
+                                            <constraint firstItem="mBR-vT-NNP" firstAttribute="leading" secondItem="Tcp-gz-fTX" secondAttribute="trailing" id="ubT-8a-ube"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -854,7 +854,6 @@
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가이드" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1a-Q2-4Xl">
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="300" id="CyM-Kd-wSU"/>
                                                     <constraint firstAttribute="height" constant="60" id="Q28-Zg-vKV"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -873,6 +872,7 @@
                                             <constraint firstItem="LN5-ja-KLN" firstAttribute="top" secondItem="NCR-aF-jns" secondAttribute="top" constant="15" id="9tX-Fz-BvH"/>
                                             <constraint firstItem="b1a-Q2-4Xl" firstAttribute="top" secondItem="NCR-aF-jns" secondAttribute="top" id="J1V-S4-cIh"/>
                                             <constraint firstItem="b1a-Q2-4Xl" firstAttribute="leading" secondItem="NCR-aF-jns" secondAttribute="leading" constant="5" id="cOV-ZS-ke4"/>
+                                            <constraint firstItem="LN5-ja-KLN" firstAttribute="leading" secondItem="b1a-Q2-4Xl" secondAttribute="trailing" id="pnB-e5-1gg"/>
                                             <constraint firstAttribute="bottom" secondItem="LN5-ja-KLN" secondAttribute="bottom" constant="15" id="svB-UW-gdZ"/>
                                             <constraint firstAttribute="height" constant="60" id="yyR-8I-zNM"/>
                                         </constraints>
@@ -890,7 +890,6 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="문의" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgL-j6-2er">
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="F9d-2T-QSF"/>
-                                                    <constraint firstAttribute="width" constant="300" id="SfK-SZ-FGC"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -906,6 +905,7 @@
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="qgL-j6-2er" secondAttribute="bottom" id="4qN-Xr-7nA"/>
                                             <constraint firstAttribute="trailing" secondItem="ZN0-mS-BYH" secondAttribute="trailing" constant="10" id="Els-Wh-tLf"/>
+                                            <constraint firstItem="ZN0-mS-BYH" firstAttribute="leading" secondItem="qgL-j6-2er" secondAttribute="trailing" id="G3A-Cm-aWE"/>
                                             <constraint firstItem="qgL-j6-2er" firstAttribute="leading" secondItem="StO-t7-Oa9" secondAttribute="leading" constant="5" id="RuH-Cv-o3M"/>
                                             <constraint firstAttribute="bottom" secondItem="ZN0-mS-BYH" secondAttribute="bottom" constant="15" id="X7K-yR-Del"/>
                                             <constraint firstItem="qgL-j6-2er" firstAttribute="top" secondItem="StO-t7-Oa9" secondAttribute="top" id="cM8-NC-Ixq"/>
@@ -982,6 +982,12 @@
                         <outlet property="tab_4" destination="AOf-4u-zfo" id="Qor-x4-ZFi"/>
                         <outlet property="tab_5" destination="NCR-aF-jns" id="wLa-ac-x6j"/>
                         <outlet property="tab_6" destination="StO-t7-Oa9" id="6E1-XC-Nmd"/>
+                        <segue destination="qaw-B7-Ja4" kind="presentation" identifier="set_login" id="HFZ-dV-ncw"/>
+                        <segue destination="Zbo-ae-IvI" kind="presentation" identifier="set_notice" id="y7i-tu-KQl"/>
+                        <segue destination="FZ8-wG-CCA" kind="presentation" identifier="set_info" id="UER-YO-MVF"/>
+                        <segue destination="E3E-cs-a1e" kind="presentation" identifier="set_guide" id="WYl-9H-4Hk"/>
+                        <segue destination="iig-u1-8Q3" kind="presentation" identifier="set_inquiry" id="EIF-Ka-73N"/>
+                        <segue destination="oju-hk-ozI" kind="presentation" identifier="set_appSetting" id="Gq4-Rd-jA0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ob6-dK-1dR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -991,7 +997,7 @@
         <!--Login View Controller-->
         <scene sceneID="oKy-En-5Gj">
             <objects>
-                <viewController storyboardIdentifier="loginVC" id="qaw-B7-Ja4" customClass="LoginViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="qaw-B7-Ja4" customClass="LoginViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JIg-dT-oFG"/>
                         <viewControllerLayoutGuide type="bottom" id="cDl-xk-YBW"/>
@@ -1083,7 +1089,7 @@
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="joinAction:" destination="qaw-B7-Ja4" eventType="touchUpInside" id="NhM-wh-iSF"/>
+                                            <segue destination="J0E-WT-m6X" kind="presentation" id="7K9-we-ZxH"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1178,6 +1184,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="zfu-Uc-aWA" firstAttribute="top" secondItem="DPj-2d-0bX" secondAttribute="bottom" id="0Dq-hL-F1G"/>
                             <constraint firstItem="2qC-Ki-t8O" firstAttribute="leading" secondItem="PUw-9P-owp" secondAttribute="leading" id="0cw-wS-JpF"/>
@@ -1201,7 +1208,6 @@
                     <connections>
                         <outlet property="facebookLogin" destination="beE-hz-d6o" id="by4-bH-WjO"/>
                         <outlet property="idField" destination="55J-QF-wdD" id="g5z-PW-Bi5"/>
-                        <outlet property="joinBtn" destination="V2n-Iz-UE6" id="Ubo-53-xjJ"/>
                         <outlet property="kakaoLogin" destination="ixO-bC-WB1" id="H4L-Of-VVp"/>
                         <outlet property="loginBtn" destination="Gbc-Sv-HY9" id="yJr-Fi-z7x"/>
                         <outlet property="pwField" destination="ezy-32-4J6" id="qZI-SY-ch3"/>
@@ -1215,7 +1221,7 @@
         <!--Inquiry View Controller-->
         <scene sceneID="Wbh-q1-AXL">
             <objects>
-                <viewController storyboardIdentifier="inquiryVC" id="iig-u1-8Q3" customClass="InquiryViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="iig-u1-8Q3" customClass="InquiryViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="B1S-Ww-Dlt"/>
                         <viewControllerLayoutGuide type="bottom" id="QhB-yR-dAa"/>
@@ -1268,6 +1274,7 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="oad-oL-vxv"/>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Ef8-0D-4Rw" firstAttribute="top" secondItem="rKZ-lr-es3" secondAttribute="top" id="3rX-QD-j29"/>
                             <constraint firstItem="oad-oL-vxv" firstAttribute="centerY" secondItem="Ral-9F-FJF" secondAttribute="centerY" id="4NX-gR-FnA"/>
@@ -1282,6 +1289,9 @@
                             <constraint firstItem="dfp-tf-AzW" firstAttribute="top" secondItem="B1S-Ww-Dlt" secondAttribute="bottom" id="oJ4-Rf-NJi"/>
                             <constraint firstItem="oad-oL-vxv" firstAttribute="centerX" secondItem="Ral-9F-FJF" secondAttribute="centerX" id="scp-xU-zwm"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="CwD-zd-ghx" appends="YES" id="yMG-sU-EV6"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="spin" destination="oad-oL-vxv" id="fU3-Cl-dKG"/>
@@ -1289,13 +1299,18 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hwb-U9-j7h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="CwD-zd-ghx">
+                    <connections>
+                        <action selector="handleGesture:" destination="iig-u1-8Q3" id="HHo-hv-P07"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1604" y="1782"/>
+            <point key="canvasLocation" x="-1604" y="1879"/>
         </scene>
         <!--Guide View Controller-->
         <scene sceneID="VZY-ML-dw9">
             <objects>
-                <viewController storyboardIdentifier="guideVC" id="E3E-cs-a1e" customClass="GuideViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="E3E-cs-a1e" customClass="GuideViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GT1-md-mxI"/>
                         <viewControllerLayoutGuide type="bottom" id="cID-5E-euj"/>
@@ -1349,6 +1364,7 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bsx-2A-TtS"/>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="eZc-8C-wjx" firstAttribute="leading" secondItem="Ocm-T1-O4V" secondAttribute="leading" id="0KD-FM-EfJ"/>
                             <constraint firstAttribute="trailing" secondItem="GpQ-Sa-EiE" secondAttribute="trailing" id="6XO-SP-ktR"/>
@@ -1366,6 +1382,9 @@
                             <constraint firstAttribute="trailing" secondItem="hwr-7V-Oza" secondAttribute="trailing" id="wPA-Ei-Tmr"/>
                             <constraint firstItem="hwr-7V-Oza" firstAttribute="top" secondItem="Ocm-T1-O4V" secondAttribute="top" id="wzI-fB-tWY"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ytZ-4y-eum" appends="YES" id="H7r-Dy-vZz"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="spin" destination="bsx-2A-TtS" id="gK9-58-Zcp"/>
@@ -1373,13 +1392,18 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X1z-Vr-ex9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="ytZ-4y-eum">
+                    <connections>
+                        <action selector="handleGesture:" destination="E3E-cs-a1e" id="uwM-Hc-mQn"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-2418" y="1782"/>
+            <point key="canvasLocation" x="-2418" y="1879"/>
         </scene>
         <!--Info View Controller-->
         <scene sceneID="1wt-iv-DMW">
             <objects>
-                <viewController storyboardIdentifier="infoVC" id="FZ8-wG-CCA" customClass="InfoViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="FZ8-wG-CCA" customClass="InfoViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="v1R-Wm-qdm"/>
                         <viewControllerLayoutGuide type="bottom" id="A8e-cY-Ivb"/>
@@ -1480,6 +1504,7 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="tho-9p-oyX"/>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="nxL-pM-OGU" firstAttribute="top" secondItem="TCs-Hc-43b" secondAttribute="bottom" constant="20" id="1Fc-YE-G8z"/>
                             <constraint firstItem="60b-YT-XFZ" firstAttribute="top" secondItem="3RN-f4-9XL" secondAttribute="bottom" constant="28" id="2AQ-Vo-UL9"/>
@@ -1505,6 +1530,9 @@
                             <constraint firstItem="dQO-3c-kLg" firstAttribute="leading" secondItem="pd1-If-HvT" secondAttribute="trailing" constant="70" id="xES-ty-zbb"/>
                             <constraint firstItem="nxL-pM-OGU" firstAttribute="leading" secondItem="FTY-7k-h79" secondAttribute="leadingMargin" constant="4" id="yl4-2D-eDB"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="c4j-74-ZP5" appends="YES" id="rcT-MK-tZD"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="appVersionBtn" destination="3RN-f4-9XL" id="Qwv-gj-P79"/>
@@ -1515,13 +1543,18 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PL8-NH-zxZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="c4j-74-ZP5">
+                    <connections>
+                        <action selector="handleGesture:" destination="FZ8-wG-CCA" id="efo-1x-06s"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-3103" y="1782"/>
+            <point key="canvasLocation" x="-3780" y="1879"/>
         </scene>
         <!--Notice View Controller-->
         <scene sceneID="n9K-aJ-TxD">
             <objects>
-                <viewController storyboardIdentifier="noticeVC" id="Zbo-ae-IvI" customClass="NoticeViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Zbo-ae-IvI" customClass="NoticeViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xu4-Lg-My5"/>
                         <viewControllerLayoutGuide type="bottom" id="jul-6y-ijj"/>
@@ -1634,6 +1667,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="8TY-Jy-e6B" firstAttribute="top" secondItem="dno-pX-JMb" secondAttribute="bottom" id="0Bd-5H-llt"/>
                             <constraint firstItem="HR2-cI-YTz" firstAttribute="leading" secondItem="mqO-PE-jlm" secondAttribute="leading" id="7Lq-05-oKo"/>
@@ -1651,6 +1685,9 @@
                             <constraint firstItem="ywV-wM-d1h" firstAttribute="centerY" secondItem="dno-pX-JMb" secondAttribute="centerY" id="juP-fw-c42"/>
                             <constraint firstItem="HR2-cI-YTz" firstAttribute="top" secondItem="mqO-PE-jlm" secondAttribute="top" id="vgx-jt-JqT"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Toj-nc-Qmk" appends="YES" id="z8o-dQ-6RN"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="backBtn" destination="oGn-CU-rUz" id="MOh-IZ-rnh"/>
@@ -1660,13 +1697,18 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tss-hR-wnu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Toj-nc-Qmk">
+                    <connections>
+                        <action selector="handleGesture:" destination="Zbo-ae-IvI" id="uiZ-kN-XNq"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-3103" y="1126"/>
+            <point key="canvasLocation" x="-3737" y="1126"/>
         </scene>
         <!--App Setting View Controller-->
         <scene sceneID="4FK-p1-ca9">
             <objects>
-                <viewController storyboardIdentifier="appSettingVC" id="oju-hk-ozI" customClass="AppSettingViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="oju-hk-ozI" customClass="AppSettingViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6ui-zD-jfa"/>
                         <viewControllerLayoutGuide type="bottom" id="h72-OY-p2E"/>
@@ -1874,6 +1916,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Bik-db-m2E" firstAttribute="leading" secondItem="zEK-Dn-Dy6" secondAttribute="leading" id="5PE-qn-dfM"/>
                             <constraint firstItem="fTF-xv-CJ3" firstAttribute="top" secondItem="zEK-Dn-Dy6" secondAttribute="top" id="82e-pj-prx"/>
@@ -1889,6 +1932,9 @@
                             <constraint firstItem="Bik-db-m2E" firstAttribute="top" secondItem="DsE-q7-apN" secondAttribute="bottom" id="ypX-JE-zqK"/>
                             <constraint firstItem="h72-OY-p2E" firstAttribute="top" secondItem="4cw-At-5An" secondAttribute="bottom" id="z89-Ne-nRt"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="zoP-Ca-BT1" appends="YES" id="XP2-GB-8X1"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="distanceSwitch" destination="AuB-u5-GRr" id="t9C-WP-ScG"/>
@@ -1902,13 +1948,18 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W1l-53-gBU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="zoP-Ca-BT1">
+                    <connections>
+                        <action selector="handleGesture:" destination="oju-hk-ozI" id="8y9-Nu-Rn5"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-791" y="1782"/>
+            <point key="canvasLocation" x="-791" y="1879"/>
         </scene>
         <!--Join View Controller-->
         <scene sceneID="exE-Dc-548">
             <objects>
-                <viewController storyboardIdentifier="joinVC" id="J0E-WT-m6X" customClass="JoinViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="J0E-WT-m6X" customClass="JoinViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AKm-L1-eyY"/>
                         <viewControllerLayoutGuide type="bottom" id="ofG-Og-RdK"/>
@@ -2035,6 +2086,7 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="vmu-hY-uVI"/>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="M7C-3S-xeg" firstAttribute="leading" secondItem="vJp-77-snf" secondAttribute="leading" id="3MW-KE-zYZ"/>
                             <constraint firstItem="ofG-Og-RdK" firstAttribute="top" secondItem="I0J-gx-2qt" secondAttribute="bottom" id="GW4-L3-kq6"/>
@@ -2055,7 +2107,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="backgroundImage" destination="I0J-gx-2qt" id="B6S-AT-vHn"/>
                         <outlet property="idField" destination="h3A-PD-qua" id="mi7-NL-Wkl"/>
                         <outlet property="nicknameField" destination="Kvy-GL-Kdf" id="cxJ-gd-Mhc"/>
                         <outlet property="pwdField" destination="42c-cS-USi" id="7ta-gx-ov3"/>
@@ -2071,7 +2122,7 @@
         <!--Message View Controller-->
         <scene sceneID="aCx-pF-w5Y">
             <objects>
-                <viewController storyboardIdentifier="messageVC" id="ca5-ra-AUH" customClass="MessageViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ca5-ra-AUH" customClass="MessageViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NNh-vg-AU0"/>
                         <viewControllerLayoutGuide type="bottom" id="SqH-tj-lbG"/>
@@ -2088,6 +2139,15 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KTE-jh-aaJ">
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="쪽지" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhd-bX-RRs">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="220" id="t5Z-uj-ufh"/>
+                                            <constraint firstAttribute="height" constant="60" id="uEi-5m-t4W"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RRk-jd-M1e">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="BRE-kK-tpM"/>
@@ -2098,15 +2158,6 @@
                                             <action selector="backAction:" destination="ca5-ra-AUH" eventType="touchUpInside" id="6Qa-Yt-wgf"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="쪽지" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhd-bX-RRs">
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="220" id="t5Z-uj-ufh"/>
-                                            <constraint firstAttribute="height" constant="60" id="uEi-5m-t4W"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.047058824450000002" green="0.34901961679999999" blue="0.17254902420000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -2114,13 +2165,14 @@
                                     <constraint firstItem="rhd-bX-RRs" firstAttribute="centerX" secondItem="KTE-jh-aaJ" secondAttribute="centerX" id="KOV-gX-7YL"/>
                                     <constraint firstAttribute="height" constant="60" id="SUx-Aa-oci"/>
                                     <constraint firstAttribute="bottom" secondItem="rhd-bX-RRs" secondAttribute="bottom" id="lcF-vs-o61"/>
-                                    <constraint firstItem="RRk-jd-M1e" firstAttribute="leading" secondItem="KTE-jh-aaJ" secondAttribute="leading" constant="6" id="mTc-K7-EBZ"/>
                                     <constraint firstAttribute="bottom" secondItem="RRk-jd-M1e" secondAttribute="bottom" constant="10" id="v9g-MH-aO2"/>
+                                    <constraint firstAttribute="trailing" secondItem="RRk-jd-M1e" secondAttribute="trailing" constant="10" id="vLF-ne-pcG"/>
                                     <constraint firstItem="rhd-bX-RRs" firstAttribute="top" secondItem="KTE-jh-aaJ" secondAttribute="top" id="zG9-TJ-3gS"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="SFM-wl-7iX" firstAttribute="leading" secondItem="E8N-zW-kHg" secondAttribute="leading" id="1gu-Qh-giK"/>
                             <constraint firstAttribute="trailing" secondItem="KTE-jh-aaJ" secondAttribute="trailing" id="ATr-WG-8E7"/>
@@ -2129,9 +2181,17 @@
                             <constraint firstAttribute="trailing" secondItem="SFM-wl-7iX" secondAttribute="trailing" id="dp8-0E-2lx"/>
                             <constraint firstItem="SFM-wl-7iX" firstAttribute="top" secondItem="E8N-zW-kHg" secondAttribute="top" id="iN9-K1-U9s"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="oGZ-bl-3j4" appends="YES" id="8HZ-cK-RB5"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="On2-c2-YVi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="oGZ-bl-3j4">
+                    <connections>
+                        <action selector="handleGesture:" destination="ca5-ra-AUH" id="2yx-eR-mrD"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="700" y="739"/>
         </scene>
@@ -2300,7 +2360,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="ZXh-pY-Gbr" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="jUZ-r0-dio"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xE7-YA-3cE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="xE7-YA-3cE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2557,7 +2617,7 @@
         <!--User Convert View Controller-->
         <scene sceneID="vP5-aT-SvA">
             <objects>
-                <viewController storyboardIdentifier="userConvertVC" id="lNO-56-Dkh" customClass="UserConvertViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="lNO-56-Dkh" customClass="UserConvertViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="990-0I-gKq"/>
                         <viewControllerLayoutGuide type="bottom" id="mRQ-z9-PFy"/>
@@ -2707,6 +2767,7 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="uo4-R8-PKy"/>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="gaC-ul-bg6" secondAttribute="trailing" id="3sU-Zq-bRR"/>
                             <constraint firstItem="bcq-ya-9y3" firstAttribute="leading" secondItem="ybq-56-T6w" secondAttribute="leading" id="A8c-1c-JV1"/>
@@ -2727,7 +2788,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="backgroundImage" destination="ERB-19-cNT" id="eF3-dE-H9f"/>
                         <outlet property="idField" destination="WI6-EC-eFn" id="K8U-f7-hys"/>
                         <outlet property="newPwdField" destination="nFb-gJ-CyG" id="XBD-mn-aKB"/>
                         <outlet property="newRepwdField" destination="UDQ-BM-E6a" id="9Kp-NH-ZAy"/>
@@ -2747,7 +2807,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="klv-VR-9GH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="mBK-ue-91c"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="r1A-vJ-pAQ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="r1A-vJ-pAQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2783,7 +2843,7 @@
         <image name="ic_star_n.png" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Y89-Py-Oo5"/>
         <segue reference="xpS-lY-KI0"/>
+        <segue reference="Zvw-io-lO4"/>
     </inferredMetricsTieBreakers>
 </document>

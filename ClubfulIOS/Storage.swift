@@ -29,6 +29,21 @@ class Storage{
         UserDefaults.standard.synchronize()
     }
     
+    
+    static func realmMigrationCheck(){
+        let config = Realm.Configuration(
+            schemaVersion: 5,
+            migrationBlock: { migration, oldSchemaVersion in
+                if (oldSchemaVersion < 4) {
+                    migration.enumerateObjects(ofType: User.className()) { oldObject, newObject in
+                        
+                    }
+                }
+        })
+        Realm.Configuration.defaultConfiguration = config
+        let _ = try! Realm()
+    }
+    
     //realm user 저장
     static func setRealmUser(_ user : User){
         let realm = try! Realm()
@@ -37,69 +52,22 @@ class Storage{
         }
     }
     //realm user 불러오기
-    static func getRealmUser(_ isFirst : Bool = true) -> User{
+    static func getRealmUserData() -> User{
         let realm = try! Realm()
         if let user : User = realm.objects(User.self).first{
-            if isFirst == true{
-                return isUserInit(user)
-            }else{
-                return user
-            }
+            return user
         }else{
             let user = User()
             try! realm.write{
                 realm.add(user)
             }
-            if isFirst == true{
-                return isUserInit(user)
-            }else{
-                return user
-            }
-        }
-    }
-    
-    //init 유저언어가 바뀌거나 언어가 없을때 초기화
-    static func isUserInit(_ user: User) -> User{
-        if user.language == "" || user.language != Util.language{
-            let userTmp = Storage.copyUser(false)
-            userTmp.userId = ""
-            userTmp.search = ""
-            userTmp.isLogin = -1
-            userTmp.nickName = ""
-            userTmp.sex = ""
-            userTmp.token = ""
-            userTmp.birth = Date()
-            userTmp.userLatitude = 37.5571274
-            userTmp.userLongitude = 126.9239304
-            userTmp.userAddress = "홍대길게길게"
-            userTmp.userAddressShort = "홍대"
-            
-            userTmp.latitude = 37.5571274
-            userTmp.longitude = 126.9239304
-            userTmp.address = "홍대길게길게"
-            userTmp.addressShort = "홍대"
-            userTmp.noticePushCheck = true
-            userTmp.myCourtPushCheck = true
-            userTmp.distancePushCheck = true
-            userTmp.interestPushCheck = true
-            userTmp.startPushTime = Date()
-            userTmp.endPushTime = Date()
-            userTmp.language = Util.language
-            userTmp.categoryVer = -1
-            userTmp.noticeVer = -1
-            userTmp.category = -1
-            userTmp.categoryName = "전체"
-            
-            Storage.setRealmUser(userTmp)
-            return userTmp
-        }else{
             return user
         }
     }
     
     //유저 복사(reaml에 저장하기 전)
-    static func copyUser(_ isFirst : Bool = true) -> User{
-        let realmUser = Storage.getRealmUser(isFirst)
+    static func getRealmUser() -> User{
+        let realmUser = Storage.getRealmUserData()
         let user = User()
         user.search = realmUser.search
         user.id = realmUser.id

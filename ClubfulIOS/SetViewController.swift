@@ -11,6 +11,7 @@ import Firebase
 import FirebaseAuth
 
 class SetViewController : UIViewController{
+    let interactor = Interactor()
     
     @IBOutlet var tab_0: UIView!
     @IBOutlet var tab_1: UIView!
@@ -19,14 +20,12 @@ class SetViewController : UIViewController{
     @IBOutlet var tab_4: UIView!
     @IBOutlet var tab_5: UIView!
     @IBOutlet var tab_6: UIView!
-    @IBOutlet var tab_7: UIView!
     @IBOutlet var signLbl: UILabel!
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("SetViewController viewDidLoad")
         
         signCheck()
         
@@ -36,8 +35,7 @@ class SetViewController : UIViewController{
         self.tab_3.isUserInteractionEnabled = true
         self.tab_4.isUserInteractionEnabled = true
         self.tab_5.isUserInteractionEnabled = true
-        self.tab_6.isUserInteractionEnabled = true
-        self.tab_7.isUserInteractionEnabled = true
+        self.tab_6.isUserInteractionEnabled = true 
         self.tab_0.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.signAction(_:))))
         self.tab_1.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.askAction(_:))))
         self.tab_2.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.settingAction(_:))))
@@ -45,7 +43,6 @@ class SetViewController : UIViewController{
         self.tab_4.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.infoAction(_:))))
         self.tab_5.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.guideAction(_:))))
         self.tab_6.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.inquiryAction(_:))))
-        self.tab_7.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.introAction(_:))))
         
     }
     
@@ -59,13 +56,9 @@ class SetViewController : UIViewController{
     }
 
     func signAction(_ sender: AnyObject) {
-        var user = Storage.getRealmUser()
+        let user = Storage.getRealmUser()
         if user.isLogin == -1{
-            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            let uvc = storyBoard.instantiateViewController(withIdentifier: "loginVC")
-            uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-            (uvc as! LoginViewController).vc = self
-            self.present(uvc, animated: true, completion: nil)
+            self.performSegue(withIdentifier: "set_login", sender: nil)
         }else{
             Util.alert(self, title: "알림", message: "로그아웃 하시겠습니까?", confirmTitle: "확인", cancelStr: "취소", confirmHandler: { (alert) in
                 let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "userId": user.userId as AnyObject]
@@ -87,7 +80,6 @@ class SetViewController : UIViewController{
                     //
                 }
                 
-                user = Storage.copyUser()
                 user.isLogin = -1
                 user.nickName = ""
                 user.sex = ""
@@ -116,44 +108,57 @@ class SetViewController : UIViewController{
         if KOAppCall.canOpenKakaoTalkAppLink() {
             Util.alert(self, message: "카카오톡이 지원하지 않는 기능입니다.")
             //KOAppCall.openKakaoTalkAppLink(dummyLinkObject())
-        } else {
-            print("Cannot open kakaotalk.")
         }
     }
     func settingAction(_ sender: AnyObject) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let uvc = storyBoard.instantiateViewController(withIdentifier: "appSettingVC")
-        uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        self.present(uvc, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "set_appSetting", sender: nil)
     }
     func noticeAction(_ sender: AnyObject) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let uvc = storyBoard.instantiateViewController(withIdentifier: "noticeVC")
-        uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        self.present(uvc, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "set_notice", sender: nil)
     }
     func infoAction(_ sender: AnyObject) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let uvc = storyBoard.instantiateViewController(withIdentifier: "infoVC")
-        uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        self.present(uvc, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "set_info", sender: nil)
     }
     func guideAction(_ sender: AnyObject) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let uvc = storyBoard.instantiateViewController(withIdentifier: "guideVC")
-        uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        self.present(uvc, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "set_guide", sender: nil)
     }
     func inquiryAction(_ sender: AnyObject) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let uvc = storyBoard.instantiateViewController(withIdentifier: "inquiryVC")
-        uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        self.present(uvc, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "set_inquiry", sender: nil)
     }
-    func introAction(_ sender: AnyObject) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let uvc = storyBoard.instantiateViewController(withIdentifier: "eggVC")
-        uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        self.present(uvc, animated: true, completion: nil)
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? LoginViewController{
+            vc.vc = self
+        }else if let vc = segue.destination as? NoticeViewController{
+            vc.transitioningDelegate = self
+            vc.interactor = interactor
+        }else if let vc = segue.destination as? GuideViewController{
+            vc.transitioningDelegate = self
+            vc.interactor = interactor
+        }else if let vc = segue.destination as? InfoViewController{
+            vc.transitioningDelegate = self
+            vc.interactor = interactor
+        }else if let vc = segue.destination as? InquiryViewController{
+            vc.transitioningDelegate = self
+            vc.interactor = interactor
+        }else if let vc = segue.destination as? AppSettingViewController{
+            vc.transitioningDelegate = self
+            vc.interactor = interactor
+        }
+    }
+}
+
+extension SetViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentMenuAnimator(direction: .left)
+    }
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissMenuAnimator()
+    }
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
+    }
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
     }
 }

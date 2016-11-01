@@ -16,7 +16,6 @@ class InquiryViewController : UIViewController, UIWebViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("InquiryViewController viewDidLoad")
         
         //웹뷰 딜리게이트 추가
         self.webView.delegate = self
@@ -33,5 +32,16 @@ class InquiryViewController : UIViewController, UIWebViewDelegate{
     //뒤로가기
     @IBAction func backAction(_ sender: AnyObject) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    //제스처
+    var interactor:Interactor? = nil
+    @IBAction func handleGesture(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: view)
+        let progress = MenuHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .right)
+        MenuHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }

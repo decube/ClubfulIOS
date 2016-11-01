@@ -50,9 +50,6 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     @IBOutlet var descTextView: UITextView!
     
     
-    //user
-    let user = Storage.getRealmUser()
-    
     var nonUserView : NonUserView!
     
     
@@ -153,6 +150,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     
     //로그인했을때 로그아웃했을때 레이아웃 변경
     func layout(){
+        let user = Storage.getRealmUser()
         if user.isLogin != -1{
             self.view.subviews.forEach({ (tempView) in
                 if tempView == nonUserView{
@@ -326,7 +324,8 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                 }
                 spin.isHidden = false
                 spin.startAnimating()
-                let parameters : [String: AnyObject] = ["token": self.user.token as AnyObject, "id": self.user.userId as AnyObject, "latitude": self.courtLatitude as AnyObject, "longitude": self.courtLongitude as AnyObject, "address": self.courtAddress as AnyObject, "addressShort": self.courtAddressShort as AnyObject, "category": self.category as AnyObject, "description": self.descTextView.text! as AnyObject, "picNameArray": picNameArray as AnyObject, "cname": cnameTextField.text! as AnyObject]
+                let user = Storage.getRealmUser()
+                let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "id": user.userId as AnyObject, "latitude": self.courtLatitude as AnyObject, "longitude": self.courtLongitude as AnyObject, "address": self.courtAddress as AnyObject, "addressShort": self.courtAddressShort as AnyObject, "category": self.category as AnyObject, "description": self.descTextView.text! as AnyObject, "picNameArray": picNameArray as AnyObject, "cname": cnameTextField.text! as AnyObject]
                 URL.request(self, url: URL.apiServer+URL.api_court_create, param: parameters, callback: { (dic) in
                     if let seq = dic["seq"] as? Int{
                         //이미지서버로 통신
@@ -363,8 +362,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                                             }
                                         }
                                     }
-                                case .failure(let encodingError):
-                                    print(encodingError)
+                                case .failure(_):
                                     self.spin.isHidden = true
                                     self.spin.stopAnimating()
                                 }
@@ -395,7 +393,6 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     
     //키보드 생김/사라짐 셀렉터
     override func viewWillAppear(_ animated: Bool) {
-        print("CourtCreateViewController viewWillAppear")
         if nonUserView == nil{
             if let customView = Bundle.main.loadNibNamed("NonUserView", owner: self, options: nil)?.first as? NonUserView {
                 nonUserView = customView

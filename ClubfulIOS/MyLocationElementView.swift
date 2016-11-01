@@ -33,7 +33,7 @@ class MyLocationElementView : UIView{
                 self.locationView.isHidden = true
                 self.locationView.alpha = 1
                 self.ctrl.blackScreen.isHidden = true
-                let user = Storage.copyUser()
+                let user = Storage.getRealmUser()
                 user.latitude = self.location.0
                 user.longitude = self.location.1
                 user.addressShort = "\(self.location.2)"

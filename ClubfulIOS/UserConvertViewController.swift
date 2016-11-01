@@ -20,37 +20,18 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var newRepwdField: UITextField!
     @IBOutlet var nicknameField: UITextField!
     
-    let user = Storage.getRealmUser()
     
-    @IBOutlet var backgroundImage: UIImageView!
-    let background_1 = UIImage(named: "background_1.png")
-    
-    
-    var blackScreen = UIButton()
+    var blackScreen : BlackScreen!
     var addView : AddView!
     
     
     override func viewDidLoad() {
-        print("UserConvertViewController viewDidLoad")
         
-        self.blackScreen.isHidden = true
-        self.blackScreen.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.6)
-        self.blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-        self.view.addSubview(self.blackScreen)
+        self.blackScreen = BlackScreen(self)
+        
         if let customView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView {
             self.addView = customView
             self.addView.setLayout(self)
-        }
-        self.blackScreen.addAction(.touchUpInside) { (_) in
-            let tmpRect = self.addView.frame
-            //애니메이션 적용
-            UIView.animate(withDuration: 0.2, animations: {
-                self.addView.frame.origin.y = -tmpRect.height
-            }, completion: {(_) in
-                self.blackScreen.isHidden = true
-                self.addView.isHidden = true
-                self.addView.frame = tmpRect
-            })
         }
         
         spin.isHidden = true
@@ -65,7 +46,7 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
         newPwdField.maxLength(14)
         newRepwdField.maxLength(14)
         nicknameField.maxLength(10)
-        
+        let user = Storage.getRealmUser()
         if user.isLogin == 1{
             idField.text = user.userId
         } else if user.isLogin == 2{
@@ -97,10 +78,11 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
         }else{
             spin.isHidden = false
             spin.startAnimating()
+            let user = Storage.getRealmUser()
             let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "userId": user.userId as AnyObject, "password": self.pwdField.text! as AnyObject, "newPassword": self.newPwdField.text! as AnyObject, "gcmId": user.gcmId as AnyObject, "nickName": self.nicknameField.text! as AnyObject]
             URL.request(self, url: URL.apiServer+URL.api_user_update, param: parameters, callback: { (dic) in
                 var user = Storage.getRealmUser()
-                user = Storage.copyUser()
+                user = Storage.getRealmUser()
                 user.nickName = self.nicknameField.text!
                 Storage.setRealmUser(user)
                 self.presentingViewController?.dismiss(animated: true, completion: nil)

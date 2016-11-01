@@ -34,6 +34,16 @@ class BlackScreen: UIButton {
                             vc.myLocationView.frame = tmpRect
                     })
                 }
+            }else if let vc = ctrl as? UserConvertViewController{
+                let tmpRect = vc.addView.frame
+                //애니메이션 적용
+                UIView.animate(withDuration: 0.2, animations: {
+                    vc.addView.frame.origin.y = -tmpRect.height
+                    }, completion: {(_) in
+                        self.isHidden = true
+                        vc.addView.isHidden = true
+                        vc.addView.frame = tmpRect
+                })
             }
         }
     }

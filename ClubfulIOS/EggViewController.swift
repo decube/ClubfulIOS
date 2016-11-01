@@ -24,7 +24,6 @@ class EggViewController : UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("EggViewController viewDidLoad")
     }
     
     

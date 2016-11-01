@@ -46,7 +46,7 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     
     
     var court : [String: AnyObject]!
-    let user = Storage.getRealmUser()
+    
     //웹뷰 리플등록 액션
     var replyFn : String!
     
@@ -54,7 +54,6 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("CourtViewController viewDidLoad")
         
         DispatchQueue.global().async {
             Thread.sleep(forTimeInterval: 0.1)
@@ -73,7 +72,7 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         
         //웹뷰 딜리게이트 추가
         self.webView.delegate = self
-        
+        let user = Storage.getRealmUser()
         let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "seq": self.courtSeq as AnyObject]
         URL.request(self, url: URL.apiServer+URL.api_court_detail, param: parameters, callback: { (dic) in
             if let courtTmp = dic["result"] as? [String: AnyObject]{
@@ -252,6 +251,7 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         if courtStar == nil{
             type = "goodCancel"
         }
+        let user = Storage.getRealmUser()
         let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "seq": self.courtSeq as AnyObject, "type": type as AnyObject]
         URL.request(self, url: URL.apiServer+URL.api_court_interest, param: parameters, callback: { (dic) in
             self.spin.isHidden = true
@@ -323,7 +323,7 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         }
         spin.isHidden = false
         spin.startAnimating()
-        
+        let user = Storage.getRealmUser()
         if user.isLogin == -1{
             self.webView.stringByEvaluatingJavaScript(from: "\(self.replyFn)")
             self.spin.isHidden = true

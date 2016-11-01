@@ -18,9 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    //앱 오픈시 내위치변수
-    var vcMyLocationMove = false
-    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -65,23 +62,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-    
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        //생명주기 앱살아났을때
-        
-        FBSDKAppEvents.activateApp()
-        KOSession.handleDidBecomeActive()
-        
-        //지금 최신 위치 이동
-        vcMyLocationMove = true
-        
         //앱 통신
         let parameters = URL.vesion_checkParam()
         URL.request((self.window?.rootViewController)!, url: URL.apiServer+URL.api_version_check, param: parameters, callback: { (dic) in
-            var user = Storage.getRealmUser()
-            user = Storage.copyUser()
+            let user = Storage.getRealmUser()
             user.token = dic["token"] as! String
             Util.newVersion = dic["ver"] as! String
             user.categoryVer = dic["categoryVer"] as! Int
@@ -91,6 +75,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             Storage.setRealmUser(user)
         })
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        //생명주기 앱살아났을때
+        
+        FBSDKAppEvents.activateApp()
+        KOSession.handleDidBecomeActive()
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

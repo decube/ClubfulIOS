@@ -9,12 +9,15 @@
 import UIKit
 
 class MypageViewController: UIViewController, UIScrollViewDelegate {
+    let interactor = Interactor()
+    
+    
     @IBOutlet var interestCourt: UIScrollView!
     @IBOutlet var createCourt: UIScrollView!
     @IBOutlet var interestSpin: UIActivityIndicatorView!
     @IBOutlet var createSpin: UIActivityIndicatorView!
     
-    var user = Storage.getRealmUser()
+    
     
     var courtInterestListData = [[String: AnyObject]]()
     var courtCreateListData = [[String: AnyObject]]()
@@ -32,7 +35,6 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     var courtSeq: Int!
     
     override func viewWillAppear(_ animated: Bool) {
-        print("MypageViewController viewWillAppear")
         if nonUserView == nil{
             if let customView = Bundle.main.loadNibNamed("NonUserView", owner: self, options: nil)?.first as? NonUserView {
                 customView.frame = self.view.frame
@@ -47,7 +49,6 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     
     
     override func viewDidLoad() {
-        print("MypageViewController viewDidLoad")
         
         interestCourt.delegate = self
         createCourt.delegate = self
@@ -63,6 +64,7 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     
     
     func layout(){
+        let user = Storage.getRealmUser()
         if user.isLogin != -1{
             self.view.subviews.forEach({ (tempView) in
                 if tempView == nonUserView{
@@ -380,6 +382,26 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? CourtViewController{
             vc.courtSeq = self.courtSeq
+        }else if let vc = segue.destination as? MessageViewController{
+            vc.transitioningDelegate = self
+            vc.interactor = interactor
         }
     }
 }
+
+
+extension MypageViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentMenuAnimator(direction: .right)
+    }
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissMenuAnimator()
+    }
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
+    }
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
+    }
+}
+

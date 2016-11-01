@@ -57,6 +57,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Storage.realmMigrationCheck()
         //self.removeCache()
         
         
@@ -213,10 +214,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     //현재 나의위치 가져오기 실패함
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         self.isMyLocation = false
-        if ProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] != nil{
-            print("It's an iOS Simulator")
-        }else{
-            print("It's a device")
+        if ProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] == nil{
             Util.alert(self, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
         }
     }

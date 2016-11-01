@@ -121,7 +121,7 @@ class URL{
             //버전체크 통신
             let parameters = URL.vesion_checkParam()
             URL.request(ctrl, url: URL.apiServer+URL.api_version_check, param: parameters, callback: { (dic) in
-                let user = Storage.copyUser()
+                let user = Storage.getRealmUser()
                 user.token = dic["token"] as! String
                 Util.newVersion = dic["ver"] as! String
                 user.categoryVer = dic["categoryVer"] as! Int

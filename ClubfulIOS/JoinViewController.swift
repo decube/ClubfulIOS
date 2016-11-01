@@ -19,34 +19,9 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var repwdField: UITextField!
     @IBOutlet var nicknameField: UITextField!
     
-    var user = Storage.getRealmUser()
-    
-    @IBOutlet var backgroundImage: UIImageView!
-    let background_landscape = UIImage(named: "background_landscape.png")
-    let background_portrait = UIImage(named: "background_portrait.png")
-    
-    var isRotated = true
-    //회전됬을때
-    func rotated(){
-        if(self.isRotated == false && UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-            self.isRotated = true
-            self.view.endEditing(true)
-            self.scrollViewHeight = self.scrollView.frame.height
-            self.backgroundImage.image = self.background_portrait
-        }
-        if(self.isRotated == true && UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-            self.isRotated = false
-            self.view.endEditing(true)
-            self.scrollViewHeight = self.scrollView.frame.height
-            self.backgroundImage.image = self.background_landscape
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("JoinViewController viewDidLoad")
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         
         spin.isHidden = true
         idField.delegate = self
@@ -59,22 +34,9 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         repwdField.maxLength(14)
         nicknameField.maxLength(10)
         
-        if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-            self.backgroundImage.image = self.background_portrait
-        }
-        if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-            self.backgroundImage.image = self.background_landscape
-        }
         DispatchQueue.global().async {
             Thread.sleep(forTimeInterval: 1)
-            if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation)){
-                self.isRotated = true
-                self.scrollViewHeight = self.scrollView.frame.height
-            }
-            if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation)){
-                self.isRotated = false
-                self.scrollViewHeight = self.scrollView.contentSize.height
-            }
+            self.scrollViewHeight = self.scrollView.frame.height
         }
     }
     
@@ -113,7 +75,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             
             URL.request(self, url: URL.apiServer+URL.api_user_join, param: parameters, callback: { (dic) in
                 self.loginVC.idField.text = self.idField.text!
-                self.presentingViewController?.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             }, codeErrorCallback: { (dic) in
                 self.spin.isHidden = true
                 self.spin.stopAnimating()
@@ -123,7 +85,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     
     //뒤로가기
     @IBAction func backAction(_ sender: AnyObject) {
-        self.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     //키보드 생김/사라짐 셀렉터
@@ -155,4 +117,6 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    
 }
