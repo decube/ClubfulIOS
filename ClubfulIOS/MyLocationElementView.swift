@@ -33,12 +33,12 @@ class MyLocationElementView : UIView{
                 self.locationView.isHidden = true
                 self.locationView.alpha = 1
                 self.ctrl.blackScreen.isHidden = true
-                let user = Storage.getRealmUser()
-                user.latitude = self.location.0
-                user.longitude = self.location.1
-                user.addressShort = "\(self.location.2)"
-                user.address = "\(self.location.3)"
-                Storage.setRealmUser(user)
+                let deviceUser = Storage.getRealmDeviceUser()
+                deviceUser.latitude = self.location.0
+                deviceUser.longitude = self.location.1
+                deviceUser.addressShort = "\(self.location.2)"
+                deviceUser.address = "\(self.location.3)"
+                Storage.setRealmDeviceUser(deviceUser)
         })
     }
     @IBAction func locationAction_1(_ sender: AnyObject) {

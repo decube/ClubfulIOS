@@ -47,13 +47,13 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
         newRepwdField.maxLength(14)
         nicknameField.maxLength(10)
         let user = Storage.getRealmUser()
-        if user.isLogin == 1{
+        if user.loginType == "n"{
             idField.text = user.userId
-        } else if user.isLogin == 2{
+        } else if user.loginType == "k"{
             idField.text = "카카오톡으로 로그인 된 아이디입니다."
-        } else if user.isLogin == 3{
+        } else if user.loginType == "f"{
             idField.text = "페이스북으로 로그인 된 아이디입니다."
-        } else if user.isLogin == 4{
+        } else if user.loginType == "n"{
             idField.text = "네이버로 로그인 된 아이디입니다."
         }
         nicknameField.text = user.nickName
@@ -79,8 +79,9 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
             spin.isHidden = false
             spin.startAnimating()
             let user = Storage.getRealmUser()
-            let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "userId": user.userId as AnyObject, "password": self.pwdField.text! as AnyObject, "newPassword": self.newPwdField.text! as AnyObject, "gcmId": user.gcmId as AnyObject, "nickName": self.nicknameField.text! as AnyObject]
-            URL.request(self, url: URL.apiServer+URL.api_user_update, param: parameters, callback: { (dic) in
+            let deviceUser = Storage.getRealmDeviceUser()
+            let parameters : [String: AnyObject] = ["userId": user.userId as AnyObject, "password": self.pwdField.text! as AnyObject, "newPassword": self.newPwdField.text! as AnyObject, "gcmId": deviceUser.gcmId as AnyObject, "nickName": self.nicknameField.text! as AnyObject]
+            URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_update, param: parameters, callback: { (dic) in
                 var user = Storage.getRealmUser()
                 user = Storage.getRealmUser()
                 user.nickName = self.nicknameField.text!

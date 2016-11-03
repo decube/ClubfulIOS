@@ -21,7 +21,7 @@ class GuideViewController : UIViewController, UIWebViewDelegate{
         //웹뷰 딜리게이트 추가
         self.webView.delegate = self
         //웹뷰 띄우기
-        self.webView.loadRequest(URLRequest(url : Foundation.URL(string: URL.viewServer+URL.view_guide)!))
+        self.webView.loadRequest(URLRequest(url : Foundation.URL(string: URLReq.viewServer+URLReq.view_guide)!))
     }
     
     //웹뷰 가져옴

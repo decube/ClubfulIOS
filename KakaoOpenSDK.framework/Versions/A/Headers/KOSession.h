@@ -222,7 +222,7 @@ typedef NS_ENUM(NSInteger, KOAgeAuthProperty) {
  @param authParams 로그인 요청시의 인증에 필요한 부가적인 파라미터들을 전달한다.
  @param authTypes 로그인 요청시의 인증 타입(KOAuthType)의 array.
  */
-- (void)openWithCompletionHandler:(KOSessionCompletionHandler)completionHandler authParams:(NSDictionary *)authParams authTypes:(NSArray *)authTypes;
+- (void)openWithCompletionHandler:(KOSessionCompletionHandler)completionHandler authParams:(NSDictionary *)authParams authTypes:(NSArray<NSNumber *> *)authTypes;
 
 /*!
  현재 기기에서만 로그아웃한다.

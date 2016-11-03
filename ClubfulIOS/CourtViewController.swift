@@ -72,9 +72,8 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         
         //웹뷰 딜리게이트 추가
         self.webView.delegate = self
-        let user = Storage.getRealmUser()
-        let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "seq": self.courtSeq as AnyObject]
-        URL.request(self, url: URL.apiServer+URL.api_court_detail, param: parameters, callback: { (dic) in
+        let parameters : [String: AnyObject] = ["seq": self.courtSeq as AnyObject]
+        URLReq.request(self, url: URLReq.apiServer+URLReq.api_court_detail, param: parameters, callback: { (dic) in
             if let courtTmp = dic["result"] as? [String: AnyObject]{
                 self.court = courtTmp
                 self.interestLbl.text = "\(self.court["interest"]!)"
@@ -251,9 +250,8 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         if courtStar == nil{
             type = "goodCancel"
         }
-        let user = Storage.getRealmUser()
-        let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "seq": self.courtSeq as AnyObject, "type": type as AnyObject]
-        URL.request(self, url: URL.apiServer+URL.api_court_interest, param: parameters, callback: { (dic) in
+        let parameters : [String: AnyObject] = ["seq": self.courtSeq as AnyObject, "type": type as AnyObject]
+        URLReq.request(self, url: URLReq.apiServer+URLReq.api_court_interest, param: parameters, callback: { (dic) in
             self.spin.isHidden = true
             self.spin.stopAnimating()
             var starImage = "ic_star_n.png"
@@ -323,8 +321,8 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
         }
         spin.isHidden = false
         spin.startAnimating()
-        let user = Storage.getRealmUser()
-        if user.isLogin == -1{
+        
+        if !Storage.isRealmUser(){
             self.webView.stringByEvaluatingJavaScript(from: "\(self.replyFn)")
             self.spin.isHidden = true
             self.spin.stopAnimating()
@@ -335,9 +333,10 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIWebViewDele
                 self.spin.isHidden = true
                 self.spin.stopAnimating()
             }else{
-                let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "seq": courtSeq as AnyObject, "context": replyInsertField.text! as AnyObject, "id": user.userId as AnyObject]
+                let user = Storage.getRealmUser()
+                let parameters : [String: AnyObject] = ["seq": courtSeq as AnyObject, "context": replyInsertField.text! as AnyObject, "id": user.userId as AnyObject]
                 self.replyInsertField.text = ""
-                URL.request(self, url: URL.apiServer+URL.api_court_replyInsert, param: parameters, callback: { (dic) in
+                URLReq.request(self, url: URLReq.apiServer+URLReq.api_court_replyInsert, param: parameters, callback: { (dic) in
                     self.webView.stringByEvaluatingJavaScript(from: "\(self.replyFn)")
                     self.spin.isHidden = true
                     self.spin.stopAnimating()

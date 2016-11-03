@@ -23,30 +23,31 @@ class AppSettingViewController : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let user = Storage.getRealmUser()
-        noticeSwitch.isOn = user.noticePushCheck
-        myCourtSwitch.isOn = user.myCourtPushCheck
-        distanceSwitch.isOn = user.distancePushCheck
-        interestSwitch.isOn = user.interestPushCheck
+        let deviceUser = Storage.getRealmDeviceUser()
+        noticeSwitch.isOn = deviceUser.noticePushCheck
+        myCourtSwitch.isOn = deviceUser.myCourtPushCheck
+        distanceSwitch.isOn = deviceUser.distancePushCheck
+        interestSwitch.isOn = deviceUser.interestPushCheck
         
-        startTime.date = user.startPushTime as Date
-        endTime.date = user.endPushTime as Date
+        startTime.date = deviceUser.startPushTime as Date
+        endTime.date = deviceUser.endPushTime as Date
         
         switchFn()
     }
     
     @IBAction func saveAction(_ sender: AnyObject) {
         let user = Storage.getRealmUser()
-        let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "id": user.userId as AnyObject, "startTime": startTime.date.getTime() as AnyObject, "endTime": endTime.date.getTime() as AnyObject, "noticePush": noticeSwitch.isOn as AnyObject, "myCreateCourtPush": myCourtSwitch.isOn as AnyObject, "distancePush": distanceSwitch.isOn as AnyObject, "interestPush": interestSwitch.isOn as AnyObject]
+        let deviceUser = Storage.getRealmDeviceUser()
+        let parameters : [String: AnyObject] = ["id": user.userId as AnyObject, "startTime": startTime.date.getTime() as AnyObject, "endTime": endTime.date.getTime() as AnyObject, "noticePush": noticeSwitch.isOn as AnyObject, "myCreateCourtPush": myCourtSwitch.isOn as AnyObject, "distancePush": distanceSwitch.isOn as AnyObject, "interestPush": interestSwitch.isOn as AnyObject]
         
-        URL.request(self, url: URL.apiServer+URL.api_user_set, param: parameters, callback: { (dic) in
-            user.noticePushCheck = self.noticeSwitch.isOn
-            user.myCourtPushCheck = self.myCourtSwitch.isOn
-            user.distancePushCheck = self.distanceSwitch.isOn
-            user.interestPushCheck = self.interestSwitch.isOn
-            user.startPushTime = self.startTime.date
-            user.endPushTime = self.endTime.date
-            Storage.setRealmUser(user)
+        URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_set, param: parameters, callback: { (dic) in
+            deviceUser.noticePushCheck = self.noticeSwitch.isOn
+            deviceUser.myCourtPushCheck = self.myCourtSwitch.isOn
+            deviceUser.distancePushCheck = self.distanceSwitch.isOn
+            deviceUser.interestPushCheck = self.interestSwitch.isOn
+            deviceUser.startPushTime = self.startTime.date
+            deviceUser.endPushTime = self.endTime.date
+            Storage.setRealmDeviceUser(deviceUser)
             
             self.presentingViewController?.dismiss(animated: true, completion: nil)
         })

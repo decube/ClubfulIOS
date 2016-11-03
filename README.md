@@ -86,16 +86,24 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 * 2016-09-17 ApiServerUrl 전체 수정
 * 2016-10-02 swift2.3 -> swift3.0 migration(easter egg no migration)
 * 2016-10-29 gesture 추가
+* 2016-11-02 realm 구성, kakao sdk v1.0.64 버전 업그레이드(친구초대관련)
 
 ## 기능
 * 사용자가 직접 코트 등록하기
 * 코트 검색하기
 
 
+## 미완성분
+* 리플 웹뷰 -> UIScrollView
+* 메인화면
+* 쪽지화면
+* 회원수정, 회원가입 배경이미지 수정
+* PUSH 코트근처/찜한사람 호출하기
+* PUSH 호출이 되었을때 승낙/거부하기
+* PUSH 승낙되면 답장받기
+* 3D Touch
+
 ## 추후 업데이트 예정
-* 코트근처/찜한사람 호출하기
-* 호출이 되었을때 승낙/거부하기
-* 승낙되면 답장받기
 * 운동 동호회 추가
 * 코트장 스케쥴 추가
 * Add SiriKit

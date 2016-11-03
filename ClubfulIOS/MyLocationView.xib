@@ -39,9 +39,9 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstItem="mXE-gm-nKV" firstAttribute="centerY" secondItem="Dnc-vJ-pcw" secondAttribute="centerY" id="BAd-RS-WMh"/>
-                                        <constraint firstAttribute="width" constant="50" id="oJ2-Uf-D1w"/>
-                                        <constraint firstAttribute="trailing" secondItem="mXE-gm-nKV" secondAttribute="trailing" constant="5" id="wwy-Fr-W05"/>
+                                        <constraint firstAttribute="width" constant="35" id="Lhs-F6-Prf"/>
+                                        <constraint firstItem="mXE-gm-nKV" firstAttribute="centerY" secondItem="Dnc-vJ-pcw" secondAttribute="centerY" id="Pbn-Vh-edb"/>
+                                        <constraint firstItem="mXE-gm-nKV" firstAttribute="centerX" secondItem="Dnc-vJ-pcw" secondAttribute="centerX" id="pz8-E5-o7d"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -77,7 +77,7 @@
                     <color key="backgroundColor" red="0.047058824450000002" green="0.34901961679999999" blue="0.17254902420000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="5fb-pN-RnN"/>
-                        <constraint firstItem="np4-gJ-c0Z" firstAttribute="leading" secondItem="UgL-Qi-xaS" secondAttribute="trailing" constant="10" id="DKX-ab-835"/>
+                        <constraint firstItem="np4-gJ-c0Z" firstAttribute="leading" secondItem="UgL-Qi-xaS" secondAttribute="trailing" constant="20" id="DKX-ab-835"/>
                         <constraint firstItem="UgL-Qi-xaS" firstAttribute="leading" secondItem="tNk-3X-nLH" secondAttribute="leading" constant="10" id="Q9g-EN-rFN"/>
                         <constraint firstAttribute="bottom" secondItem="UgL-Qi-xaS" secondAttribute="bottom" constant="15" id="iYd-Ys-3II"/>
                         <constraint firstItem="np4-gJ-c0Z" firstAttribute="centerY" secondItem="tNk-3X-nLH" secondAttribute="centerY" id="juM-oi-rlG"/>

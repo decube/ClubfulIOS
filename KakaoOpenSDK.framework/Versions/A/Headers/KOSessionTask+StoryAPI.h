@@ -219,7 +219,7 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
  @param iosExecParam iOS 앱연결 링크에 추가할 파라미터 설정. optional.
  @param completionHandler 요청 완료시 실행될 핸들러
  */
-+ (instancetype)storyPostPhotoTaskWithImageUrls:(NSArray *)imageUrls
++ (instancetype)storyPostPhotoTaskWithImageUrls:(NSArray<NSString *> *)imageUrls
                                         content:(NSString *)content
                                      permission:(KOStoryPostPermission)permission
                                        sharable:(BOOL)sharable
@@ -237,7 +237,7 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
  @param iosExecParamString iOS 앱연결 링크에 추가할 파라미터 설정. optional.
  @param completionHandler 요청 완료시 실행될 핸들러
  */
-+ (instancetype)storyPostPhotoTaskWithImageUrls:(NSArray *)imageUrls
++ (instancetype)storyPostPhotoTaskWithImageUrls:(NSArray<NSString *> *)imageUrls
                                         content:(NSString *)content
                                      permission:(KOStoryPostPermission)permission
                                        sharable:(BOOL)sharable
@@ -257,7 +257,7 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
  @param iosExecParam iOS 앱연결 링크에 추가할 파라미터 설정. optional.
  @param completionHandler 요청 완료시 실행될 핸들러
  */
-+ (instancetype)storyPostPhotoTaskWithImageUrls:(NSArray *)imageUrls
++ (instancetype)storyPostPhotoTaskWithImageUrls:(NSArray<NSString *> *)imageUrls
                                         content:(NSString *)content
                                      permission:(KOStoryPostPermission)permission
                                        sharable:(BOOL)sharable
@@ -279,7 +279,7 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
  @param iosExecParamString iOS 앱연결 링크에 추가할 파라미터 설정. optional.
  @param completionHandler 요청 완료시 실행될 핸들러
  */
-+ (instancetype)storyPostPhotoTaskWithImageUrls:(NSArray *)imageUrls
++ (instancetype)storyPostPhotoTaskWithImageUrls:(NSArray<NSString *> *)imageUrls
                                         content:(NSString *)content
                                      permission:(KOStoryPostPermission)permission
                                        sharable:(BOOL)sharable
@@ -374,8 +374,8 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
  @param images jpeg을 위한 (UIImage *) 또는 gif를 위한 (NSData *) 형식의 여러장의 이미지 array. 최대 5개까지 허용.
  @param completionHandler 요청 완료시 실행될 핸들러
  */
-+ (instancetype)storyMultiImagesUploadTaskWithImages:(NSArray *)images
-                                   completionHandler:(void (^)(NSArray *imageUrls, NSError *error))completionHandler;
++ (instancetype)storyMultiImagesUploadTaskWithImages:(NSArray<id> *)images
+                                   completionHandler:(void (^)(NSArray<NSString *> *imageUrls, NSError *error))completionHandler;
 
 /*!
  @abstract 해당 사용자가 카카오스토리 사용자인지 아닌지를 판별합니다.

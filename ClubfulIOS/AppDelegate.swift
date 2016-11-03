@@ -63,17 +63,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         //앱 통신
-        let parameters = URL.vesion_checkParam()
-        URL.request((self.window?.rootViewController)!, url: URL.apiServer+URL.api_version_check, param: parameters, callback: { (dic) in
-            let user = Storage.getRealmUser()
-            user.token = dic["token"] as! String
+        let parameters = URLReq.vesion_checkParam()
+        URLReq.request((self.window?.rootViewController)!, url: URLReq.apiServer+URLReq.api_version_check, param: parameters, callback: { (dic) in
+            let deviceUser = Storage.getRealmDeviceUser()
+            deviceUser.token = dic["token"] as! String
             Util.newVersion = dic["ver"] as! String
-            user.categoryVer = dic["categoryVer"] as! Int
-            user.noticeVer = dic["noticeVer"] as! Int
+            deviceUser.categoryVer = dic["categoryVer"] as! Int
+            deviceUser.noticeVer = dic["noticeVer"] as! Int
             if let categoryList = dic["categoryList"] as? [[String: AnyObject]]{
                 Storage.setStorage("categoryList", value: categoryList as AnyObject)
             }
-            Storage.setRealmUser(user)
+            Storage.setRealmDeviceUser(deviceUser)
         })
     }
     

@@ -46,7 +46,7 @@
  @param completionHandler 연령인증 정보를 가져와서 처리하는 핸들러.
  */
 + (instancetype)ageAuthTaskWithCompletionHandler: (KOAgeAuthLimit)ageLimit
-                                    propertyKeys: (NSSet *)propertyKeys
+                                    propertyKeys: (NSSet<NSNumber *> *)propertyKeys
                                completionHandler: (KOSessionTaskCompletionHandler)completionHandler;
 
 

@@ -150,8 +150,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     
     //로그인했을때 로그아웃했을때 레이아웃 변경
     func layout(){
-        let user = Storage.getRealmUser()
-        if user.isLogin != -1{
+        if Storage.isRealmUser(){
             self.view.subviews.forEach({ (tempView) in
                 if tempView == nonUserView{
                     tempView.removeFromSuperview()
@@ -325,8 +324,8 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                 spin.isHidden = false
                 spin.startAnimating()
                 let user = Storage.getRealmUser()
-                let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "id": user.userId as AnyObject, "latitude": self.courtLatitude as AnyObject, "longitude": self.courtLongitude as AnyObject, "address": self.courtAddress as AnyObject, "addressShort": self.courtAddressShort as AnyObject, "category": self.category as AnyObject, "description": self.descTextView.text! as AnyObject, "picNameArray": picNameArray as AnyObject, "cname": cnameTextField.text! as AnyObject]
-                URL.request(self, url: URL.apiServer+URL.api_court_create, param: parameters, callback: { (dic) in
+                let parameters : [String: AnyObject] = ["id": user.userId as AnyObject, "latitude": self.courtLatitude as AnyObject, "longitude": self.courtLongitude as AnyObject, "address": self.courtAddress as AnyObject, "addressShort": self.courtAddressShort as AnyObject, "category": self.category as AnyObject, "description": self.descTextView.text! as AnyObject, "picNameArray": picNameArray as AnyObject, "cname": cnameTextField.text! as AnyObject]
+                URLReq.request(self, url: URLReq.apiServer+URLReq.api_court_create, param: parameters, callback: { (dic) in
                     if let seq = dic["seq"] as? Int{
                         //이미지서버로 통신
                         self.spin.isHidden = false
@@ -343,7 +342,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                                     idx += 1
                                 }
                             },
-                            to: "\(URL.courtUpload)\(seq)",
+                            to: "\(URLReq.courtUpload)\(seq)",
                             encodingCompletion: { encodingResult in
                                 switch encodingResult {
                                 case .success(let upload, _, _):

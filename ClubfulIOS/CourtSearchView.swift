@@ -46,9 +46,9 @@ class CourtSearchView : UIView{
             self.addSubview(self.spin)
             
             //코트 검색 통신
-            let user = Storage.getRealmUser()
-            let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "address": self.ctrl.searchTextField.text! as AnyObject, "category": user.category as AnyObject, "latitude": user.latitude as AnyObject, "longitude": user.longitude as AnyObject]
-            URL.request(self.ctrl, url: URL.apiServer+URL.api_court_listSearch, param: parameters, callback: { (dic) in
+            let deviceUser = Storage.getRealmDeviceUser()
+            let parameters : [String: AnyObject] = ["address": self.ctrl.searchTextField.text! as AnyObject, "category": deviceUser.category as AnyObject, "latitude": deviceUser.latitude as AnyObject, "longitude": deviceUser.longitude as AnyObject]
+            URLReq.request(self.ctrl, url: URLReq.apiServer+URLReq.api_court_listSearch, param: parameters, callback: { (dic) in
                 self.spin.removeFromSuperview()
                 if let list = dic["list"] as? [[String: AnyObject]]{
                     self.ctrl.view.endEditing(true)

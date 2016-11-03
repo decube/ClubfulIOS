@@ -25,14 +25,12 @@ class InfoViewController : UIViewController, UIWebViewDelegate{
         //웹뷰 딜리게이트 추가
         self.webView.delegate = self
         //웹뷰 띄우기
-        self.webView.loadRequest(URLRequest(url : Foundation.URL(string: URL.viewServer+URL.view_info)!))
+        self.webView.loadRequest(URLRequest(url : Foundation.URL(string: URLReq.viewServer+URLReq.view_info)!))
         
         setLayout()
         
-        let user = Storage.getRealmUser()
-        
-        let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "appType": "ios" as AnyObject]
-        URL.request(self, url: URL.apiServer+URL.api_version_app, param: parameters, callback: { (dic) in
+        let parameters : [String: AnyObject] = ["appType": "ios" as AnyObject]
+        URLReq.request(self, url: URLReq.apiServer+URLReq.api_version_app, param: parameters, callback: { (dic) in
             Util.newVersion = dic["appVersion"] as! String
             DispatchQueue.main.async {
                 self.setLayout()

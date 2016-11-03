@@ -32,10 +32,9 @@ class MyLocationView : UIView{
         if (self.searchTextField.text?.characters.count)! >= 2{
             self.ctrl.view.endEditing(true)
             self.scrollView.subviews.forEach({$0.removeFromSuperview()})
-            let user = Storage.getRealmUser()
             //자기위치 검색 통신
-            let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "address": self.searchTextField.text! as AnyObject, "language": Util.language as AnyObject]
-            URL.request(self.ctrl, url: URL.apiServer+URL.api_location_geocode, param: parameters, callback: { (dic) in
+            let parameters : [String: AnyObject] = ["address": self.searchTextField.text! as AnyObject, "language": Util.language as AnyObject]
+            URLReq.request(self.ctrl, url: URLReq.apiServer+URLReq.api_location_geocode, param: parameters, callback: { (dic) in
                 if let result = dic["results"] as? [String: AnyObject]{
                     if let results = result["results"] as? [[String: AnyObject]]{
                         var i : CGFloat = 0

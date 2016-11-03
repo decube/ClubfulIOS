@@ -65,17 +65,17 @@ class AddView: UIView{
         }
     }
     @IBAction func confirmAction(_ sender: AnyObject) {
-        let vo = Storage.getRealmUser()
-        vo.userLatitude = self.userLatitude
-        vo.userLongitude = self.userLongitude
-        vo.userAddress = self.userAddress
-        vo.userAddressShort = self.userAddressShort
-        vo.birth = self.birth.date
-        vo.sex = self.isSexString()
-        Storage.setRealmUser(vo)
+        let user = Storage.getRealmUser()
+        user.userLatitude = self.userLatitude
+        user.userLongitude = self.userLongitude
+        user.userAddress = self.userAddress
+        user.userAddressShort = self.userAddressShort
+        user.birth = self.birth.date
+        user.sex = self.isSexString()
+        Storage.setRealmUser(user)
         
-        let param = ["token":vo.token, "userId":vo.userId, "sex": vo.sex, "birth": vo.birth, "userLatitude": vo.userLatitude, "userLongitude": vo.userLongitude, "userAddress": vo.userAddress, "userAddressShort": vo.userAddressShort] as [String : Any]
-        URL.request(ctrl, url: URL.apiServer+URL.api_user_info, param: param as [String : AnyObject])
+        let param = ["userId":user.userId, "sex": user.sex, "birth": user.birth, "userLatitude": user.userLatitude, "userLongitude": user.userLongitude, "userAddress": user.userAddress, "userAddressShort": user.userAddressShort] as [String : Any]
+        URLReq.request(ctrl, url: URLReq.apiServer+URLReq.api_user_info, param: param as [String : AnyObject])
         
         //애니메이션 적용
         UIView.animate(withDuration: 0.2, animations: {
@@ -127,23 +127,25 @@ class AddView: UIView{
     }
     
     func addViewConfirm(){
-        //추가정보 확인
-        let addInfoDate = Storage.getStorage("addInfo")
-        var addViewIsShow = true
-        if let date = addInfoDate as? Date{
-            var saveDate = date
-            let addDate = Date()
-            saveDate.addTimeInterval(60*60*24)
-            if saveDate.timeIntervalSince1970 > addDate.timeIntervalSince1970{
-                addViewIsShow = false
+        if Storage.isRealmUser(){
+            //추가정보 확인
+            let addInfoDate = Storage.getStorage("addInfo")
+            var addViewIsShow = true
+            if let date = addInfoDate as? Date{
+                var saveDate = date
+                let addDate = Date()
+                saveDate.addTimeInterval(60*60*24)
+                if saveDate.timeIntervalSince1970 > addDate.timeIntervalSince1970{
+                    addViewIsShow = false
+                }
             }
-        }
-        if self.isHidden == true && addViewIsShow == true{
-            Util.alert(ctrl, title: "알림", message: "더 정확하게 코트를 찾으시려면 추가정보를 입력하셔야 합니다.", confirmTitle: "입력할께요", cancelStr: "오늘 하루 안할께요", confirmHandler: { (_) in
-                self.addViewShow()
-            }, cancelHandler: { (_) in
-                Storage.setStorage("addInfo", value: Date() as AnyObject)
-            })
+            if self.isHidden == true && addViewIsShow == true{
+                Util.alert(ctrl, title: "알림", message: "더 정확하게 코트를 찾으시려면 추가정보를 입력하셔야 합니다.", confirmTitle: "입력할께요", cancelStr: "오늘 하루 안할께요", confirmHandler: { (_) in
+                    self.addViewShow()
+                    }, cancelHandler: { (_) in
+                        Storage.setStorage("addInfo", value: Date() as AnyObject)
+                })
+            }
         }
     }
 }

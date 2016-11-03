@@ -59,21 +59,20 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             spin.isHidden = false
             spin.startAnimating()
             
-            let user = Storage.getRealmUser()
+            let deviceUser = Storage.getRealmDeviceUser()
             var parameters : [String: AnyObject] = [:]
-            parameters.updateValue(user.token as AnyObject, forKey: "token")
             parameters.updateValue(self.idField.text! as AnyObject, forKey: "userId")
             parameters.updateValue(self.pwdField.text! as AnyObject, forKey: "password")
-            parameters.updateValue(user.gcmId as AnyObject, forKey: "gcmId")
+            parameters.updateValue(deviceUser.gcmId as AnyObject, forKey: "gcmId")
             parameters.updateValue(self.nicknameField.text! as AnyObject, forKey: "nickName")
-            parameters.updateValue(user.noticePushCheck as AnyObject, forKey: "noticePush")
-            parameters.updateValue(user.myCourtPushCheck as AnyObject, forKey: "myInsertPush")
-            parameters.updateValue(user.distancePushCheck as AnyObject, forKey: "distancePush")
-            parameters.updateValue(user.interestPushCheck as AnyObject, forKey: "interestPush")
-            parameters.updateValue(user.startPushTime.getTime() as AnyObject, forKey: "startTime")
-            parameters.updateValue(user.endPushTime.getTime() as AnyObject, forKey: "endTime")
+            parameters.updateValue(deviceUser.noticePushCheck as AnyObject, forKey: "noticePush")
+            parameters.updateValue(deviceUser.myCourtPushCheck as AnyObject, forKey: "myInsertPush")
+            parameters.updateValue(deviceUser.distancePushCheck as AnyObject, forKey: "distancePush")
+            parameters.updateValue(deviceUser.interestPushCheck as AnyObject, forKey: "interestPush")
+            parameters.updateValue(deviceUser.startPushTime.getTime() as AnyObject, forKey: "startTime")
+            parameters.updateValue(deviceUser.endPushTime.getTime() as AnyObject, forKey: "endTime")
             
-            URL.request(self, url: URL.apiServer+URL.api_user_join, param: parameters, callback: { (dic) in
+            URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_join, param: parameters, callback: { (dic) in
                 self.loginVC.idField.text = self.idField.text!
                 self.dismiss(animated: true, completion: nil)
             }, codeErrorCallback: { (dic) in

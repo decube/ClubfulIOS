@@ -36,8 +36,8 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
         //마커
         self.marker = MKPointAnnotation()
         self.mapView.addAnnotation(marker)
-        let user = Storage.getRealmUser()
-        self.locationMove(latitude: user.latitude, longitude: user.longitude)
+        let deviceUser = Storage.getRealmDeviceUser()
+        self.locationMove(latitude: deviceUser.latitude, longitude: deviceUser.longitude)
         
         
         //맵뷰 터치했을때 이벤트
@@ -77,9 +77,8 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
             self.mapListView.scrollToTop()
             
             //지도 검색 통신
-            let user = Storage.getRealmUser()
-            let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "address": self.searchField.text! as AnyObject, "language": Util.language as AnyObject]
-            URL.request(self, url: URL.apiServer+URL.api_location_geocode, param: parameters, callback: { (dic) in
+            let parameters : [String: AnyObject] = ["address": self.searchField.text! as AnyObject, "language": Util.language as AnyObject]
+            URLReq.request(self, url: URLReq.apiServer+URLReq.api_location_geocode, param: parameters, callback: { (dic) in
                 if let result = dic["results"] as? [String: AnyObject]{
                     if let results = result["results"] as? [[String: AnyObject]]{
                         //카운트가 1보다 많으면
@@ -129,9 +128,8 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
     
     //등록 클릭
     @IBAction func confirmAction(_ sender: AnyObject) {
-        let user = Storage.getRealmUser()
-        let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "latitude": self.mapView.region.center.latitude as AnyObject, "longitude": self.mapView.region.center.longitude as AnyObject, "language": Util.language as AnyObject]
-        URL.request(self, url: URL.apiServer+URL.api_location_geocode, param: parameters, callback: {(dic) in
+        let parameters : [String: AnyObject] = ["latitude": self.mapView.region.center.latitude as AnyObject, "longitude": self.mapView.region.center.longitude as AnyObject, "language": Util.language as AnyObject]
+        URLReq.request(self, url: URLReq.apiServer+URLReq.api_location_geocode, param: parameters, callback: {(dic) in
             if let result = dic["results"] as? [String: AnyObject]{
                 if let results = result["results"] as? [[String: AnyObject]]{
                     if results.count > 0{

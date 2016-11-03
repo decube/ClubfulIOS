@@ -10,7 +10,7 @@ import UIKit
 
 class MypageViewController: UIViewController, UIScrollViewDelegate {
     let interactor = Interactor()
-    
+    @IBOutlet var leftEdge: UIScreenEdgePanGestureRecognizer!
     
     @IBOutlet var interestCourt: UIScrollView!
     @IBOutlet var createCourt: UIScrollView!
@@ -60,19 +60,33 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
         createCourt.showsVerticalScrollIndicator = false
         interestCourt.showsHorizontalScrollIndicator = false
         createCourt.showsHorizontalScrollIndicator = false
+        
+        //엣지 설정
+        self.leftEdge.edges = .left
+    }
+    
+    //왼쪽 제스처
+    @IBAction func leftEdgePanGesture(_ sender: UIScreenEdgePanGestureRecognizer) {
+        if Storage.isRealmUser(){
+            let translation = sender.translation(in: view)
+            let progress = MenuHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .right)
+            MenuHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
+                self.performSegue(withIdentifier: "mypage_note", sender: nil)
+            }
+        }
     }
     
     
     func layout(){
-        let user = Storage.getRealmUser()
-        if user.isLogin != -1{
+        if Storage.isRealmUser(){
             self.view.subviews.forEach({ (tempView) in
                 if tempView == nonUserView{
                     tempView.removeFromSuperview()
                 }
             })
-            let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "userId": user.userId as AnyObject]
-            URL.request(self, url: URL.apiServer+URL.api_user_mypage, param: parameters, callback: { (dic) in
+            let user = Storage.getRealmUser()
+            let parameters : [String: AnyObject] = ["userId": user.userId as AnyObject]
+            URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_mypage, param: parameters, callback: { (dic) in
                 if let interestList = dic["interestList"] as? [[String: AnyObject]]{
                     DispatchQueue.global().async {
                         self.interestData(interestList)

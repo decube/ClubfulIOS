@@ -481,7 +481,7 @@
                                         </constraints>
                                         <state key="normal" image="ic_message.png"/>
                                         <connections>
-                                            <segue destination="ca5-ra-AUH" kind="presentation" id="FZC-vb-CZp"/>
+                                            <segue destination="ca5-ra-AUH" kind="presentation" identifier="mypage_note" id="FZC-vb-CZp"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sgv-p8-qaK">
@@ -598,6 +598,7 @@
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="gQy-VN-q2d" firstAttribute="top" secondItem="yqH-PV-I8j" secondAttribute="bottom" id="3rr-3Q-H2g"/>
                             <constraint firstAttribute="trailing" secondItem="rXa-64-gMt" secondAttribute="trailing" id="Qc6-6a-OJM"/>
@@ -613,6 +614,9 @@
                             <constraint firstAttribute="trailing" secondItem="gQy-VN-q2d" secondAttribute="trailing" id="uFA-0v-Hiw"/>
                             <constraint firstItem="yqH-PV-I8j" firstAttribute="top" secondItem="DHE-Lb-QLa" secondAttribute="bottom" id="wfz-Sd-fSM"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="PdG-Gt-d97" appends="YES" id="9VW-Dg-qhu"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 3" id="KHl-h0-dEb"/>
                     <navigationItem key="navigationItem" id="yMU-P4-ohS"/>
@@ -621,10 +625,16 @@
                         <outlet property="createSpin" destination="U5e-0x-b8m" id="w8E-7L-S6c"/>
                         <outlet property="interestCourt" destination="ImS-tb-LK1" id="wYK-FF-2By"/>
                         <outlet property="interestSpin" destination="AAO-YK-YDk" id="fVM-Tf-Ndi"/>
+                        <outlet property="leftEdge" destination="PdG-Gt-d97" id="CWj-Rz-DQd"/>
                         <segue destination="DwR-JR-H5b" kind="show" identifier="mypage_courtDetail" id="dGb-3Z-mgF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XBQ-mR-ckD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="PdG-Gt-d97">
+                    <connections>
+                        <action selector="leftEdgePanGesture:" destination="ma8-EZ-WbK" id="r4g-uk-o1c"/>
+                    </connections>
+                </screenEdgePanGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-383" y="403"/>
         </scene>
@@ -2153,7 +2163,7 @@
                                             <constraint firstAttribute="height" constant="40" id="BRE-kK-tpM"/>
                                             <constraint firstAttribute="width" constant="35" id="hyq-8B-Xe5"/>
                                         </constraints>
-                                        <state key="normal" image="ic_back.png"/>
+                                        <state key="normal" image="ic_back2.png"/>
                                         <connections>
                                             <action selector="backAction:" destination="ca5-ra-AUH" eventType="touchUpInside" id="6Qa-Yt-wgf"/>
                                         </connections>
@@ -2824,6 +2834,7 @@
         <image name="background_1.png" width="642" height="978"/>
         <image name="ic_add.png" width="32" height="32"/>
         <image name="ic_back.png" width="52" height="52"/>
+        <image name="ic_back2.png" width="52" height="52"/>
         <image name="ic_cancel.png" width="32" height="32"/>
         <image name="ic_edit.png" width="64" height="64"/>
         <image name="ic_enter.png" width="50" height="50"/>

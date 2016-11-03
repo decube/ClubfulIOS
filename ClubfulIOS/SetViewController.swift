@@ -47,8 +47,7 @@ class SetViewController : UIViewController{
     }
     
     func signCheck(){
-        let user = Storage.getRealmUser()
-        if user.isLogin == -1{
+        if !Storage.isRealmUser(){
             signLbl.text = "로그인"
         }else{
             signLbl.text = "로그아웃"
@@ -57,39 +56,14 @@ class SetViewController : UIViewController{
 
     func signAction(_ sender: AnyObject) {
         let user = Storage.getRealmUser()
-        if user.isLogin == -1{
+        if !Storage.isRealmUser(){
             self.performSegue(withIdentifier: "set_login", sender: nil)
         }else{
             Util.alert(self, title: "알림", message: "로그아웃 하시겠습니까?", confirmTitle: "확인", cancelStr: "취소", confirmHandler: { (alert) in
-                let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "userId": user.userId as AnyObject]
-                URL.request(self, url: URL.apiServer+URL.api_user_logout, param: parameters)
+                let parameters : [String: AnyObject] = ["userId": user.userId as AnyObject]
+                URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_logout, param: parameters)
                 
-                
-                if user.isLogin == 1{
-                    //일반로그아웃
-                }else if user.isLogin == 2{
-                    //카톡로그아웃
-                    //KOSessionTask.unlinkTaskWithCompletionHandler({ (success, error) in
-                    //
-                    //})
-                }else if user.isLogin == 3{
-                    //페북로그아웃
-                    //try! FIRAuth.auth()!.signOut()
-                }else if user.isLogin == 4{
-                    //네이버로그아웃
-                    //
-                }
-                
-                user.isLogin = -1
-                user.nickName = ""
-                user.sex = ""
-                user.token = ""
-                user.birth = Date()
-                user.userLatitude = 0.0
-                user.userLongitude = 0.0
-                user.userAddress = ""
-                user.userAddressShort = ""
-                Storage.setRealmUser(user)
+                Storage.removeReamlUserData()
                 self.signCheck()
             })
         }
@@ -102,12 +76,11 @@ class SetViewController : UIViewController{
             let androidAppAction = KakaoTalkLinkAction.createAppAction(KakaoTalkLinkActionOSPlatform.android, devicetype: KakaoTalkLinkActionDeviceType.phone, execparam: [:])
             let iphoneAppAction = KakaoTalkLinkAction.createAppAction(KakaoTalkLinkActionOSPlatform.IOS, devicetype: KakaoTalkLinkActionDeviceType.phone, execparam: [:])
             let ipadAppAction = KakaoTalkLinkAction.createAppAction(KakaoTalkLinkActionOSPlatform.IOS, devicetype: KakaoTalkLinkActionDeviceType.pad, execparam: [:])
-            let appLink = KakaoTalkLinkObject.createAppButton("앱 열기", actions: [androidAppAction, iphoneAppAction, ipadAppAction])
+            let appLink = KakaoTalkLinkObject.createAppButton("앱 열기", actions: [androidAppAction!, iphoneAppAction!, ipadAppAction!])
             return [image!, appLink!]
         }
         if KOAppCall.canOpenKakaoTalkAppLink() {
-            Util.alert(self, message: "카카오톡이 지원하지 않는 기능입니다.")
-            //KOAppCall.openKakaoTalkAppLink(dummyLinkObject())
+            KOAppCall.openKakaoTalkAppLink(dummyLinkObject())
         }
     }
     func settingAction(_ sender: AnyObject) {

@@ -61,14 +61,14 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         //self.removeCache()
         
         
-        let user = Storage.getRealmUser()
         //검색 필드 스타일
         self.searchTextField.borderStyle = .none
         self.searchTextField.delegate = self
-        if user.search == ""{
+        let deviceUser = Storage.getRealmDeviceUser()
+        if deviceUser.search == ""{
             self.searchCancelImageView.alpha = 0
         }else{
-            self.searchTextField.text = user.search
+            self.searchTextField.text = deviceUser.search
             self.searchCancelImageView.alpha = 1
         }
         
@@ -116,7 +116,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         ///////////////////
         //GET Async 동기 통신
         ///////////////////
-        URL.initApiRequest(self)
+        URLReq.initApiRequest(self)
     }
     
     

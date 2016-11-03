@@ -32,9 +32,9 @@ class Storage{
     
     static func realmMigrationCheck(){
         let config = Realm.Configuration(
-            schemaVersion: 5,
+            schemaVersion: 6,
             migrationBlock: { migration, oldSchemaVersion in
-                if (oldSchemaVersion < 4) {
+                if (oldSchemaVersion < 5) {
                     migration.enumerateObjects(ofType: User.className()) { oldObject, newObject in
                         
                     }
@@ -52,61 +52,109 @@ class Storage{
         }
     }
     //realm user 불러오기
-    static func getRealmUserData() -> User{
+    static func getRealmUserData() -> User!{
         let realm = try! Realm()
         if let user : User = realm.objects(User.self).first{
             return user
         }else{
-            let user = User()
-            try! realm.write{
-                realm.add(user)
-            }
-            return user
+            return nil
         }
     }
     
     //유저 복사(reaml에 저장하기 전)
     static func getRealmUser() -> User{
         let realmUser = Storage.getRealmUserData()
-        let user = User()
-        user.search = realmUser.search
-        user.id = realmUser.id
-        user.gcmId = realmUser.gcmId
-        user.userId = realmUser.userId
-        user.isLogin = realmUser.isLogin
-        user.nickName = realmUser.nickName
-        user.sex = realmUser.sex
-        user.token = realmUser.token
-        user.birth = realmUser.birth
-        user.userLatitude = realmUser.userLatitude
-        user.userLongitude = realmUser.userLongitude
-        user.userAddress = realmUser.userAddress
-        user.userAddressShort = realmUser.userAddressShort
-        
-        user.latitude = realmUser.latitude
-        user.longitude = realmUser.longitude
-        user.address = realmUser.address
-        user.addressShort = realmUser.addressShort
-        user.noticePushCheck = realmUser.noticePushCheck
-        user.myCourtPushCheck = realmUser.myCourtPushCheck
-        user.distancePushCheck = realmUser.distancePushCheck
-        user.interestPushCheck = realmUser.interestPushCheck
-        user.startPushTime = realmUser.startPushTime
-        user.endPushTime = realmUser.endPushTime
-        user.language = realmUser.language
-        user.categoryVer = realmUser.categoryVer
-        user.noticeVer = realmUser.noticeVer
-        user.category = realmUser.category
-        user.categoryName = realmUser.categoryName
-        return user
+        if realmUser == nil{
+            return User()
+        }else{
+            let user = User()
+            user.id = (realmUser?.id)!
+            user.userId = (realmUser?.userId)!
+            user.nickName = (realmUser?.nickName)!
+            user.sex = (realmUser?.sex)!
+            user.birth = (realmUser?.birth)!
+            user.userLatitude = (realmUser?.userLatitude)!
+            user.userLongitude = (realmUser?.userLongitude)!
+            user.userAddress = (realmUser?.userAddress)!
+            user.userAddressShort = (realmUser?.userAddressShort)!
+            
+            return user
+        }
     }
+    //realm user 지우기
+    static func removeReamlUserData(){
+        let realm = try! Realm()
+        if let user : User = realm.objects(User.self).first{
+            try! realm.write {
+                realm.delete(user)
+            }
+        }
+    }
+    //realm user Data 검사
+    static func isRealmUser() -> Bool{
+        let realm = try! Realm()
+        if let _ = realm.objects(User.self).first{
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    //realm deviceUser 저장
+    static func setRealmDeviceUser(_ deviceUser : DeviceUser){
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(deviceUser, update: true)
+        }
+    }
+    //realm deviceUserData 불러오기
+    static func getRealmDeviceUserData() -> DeviceUser{
+        let realm = try! Realm()
+        if let deviceUser : DeviceUser = realm.objects(DeviceUser.self).first{
+            return deviceUser
+        }else{
+            let deviceUser = DeviceUser()
+            //deviceUser.language = Util.language
+            try! realm.write{
+                realm.add(deviceUser)
+            }
+            return deviceUser
+        }
+    }
+    //realm deviceUser 불러오기
+    static func getRealmDeviceUser() -> DeviceUser{
+        let realmDevice = Storage.getRealmDeviceUserData()
+        let device = DeviceUser()
+        device.id = realmDevice.id
+        device.gcmId = realmDevice.gcmId
+        device.token = realmDevice.token
+        device.search = realmDevice.search
+        device.latitude = realmDevice.latitude
+        device.longitude = realmDevice.longitude
+        device.address = realmDevice.address
+        device.addressShort = realmDevice.addressShort
+        device.noticePushCheck = realmDevice.noticePushCheck
+        device.myCourtPushCheck = realmDevice.myCourtPushCheck
+        device.distancePushCheck = realmDevice.distancePushCheck
+        device.interestPushCheck = realmDevice.interestPushCheck
+        device.startPushTime = realmDevice.startPushTime
+        device.endPushTime = realmDevice.endPushTime
+        device.language = realmDevice.language
+        device.categoryVer = realmDevice.categoryVer
+        device.noticeVer = realmDevice.noticeVer
+        device.category = realmDevice.category
+        device.categoryName = realmDevice.categoryName
+        return device
+    }
+    
+    
+    
     
     static func locationThread(_ ctrl: UIViewController){
         DispatchQueue.global().async {
             while(true){
-                let user = Storage.getRealmUser()
-                let param: [String: AnyObject] = ["token": user.token as AnyObject, "latitude": Storage.latitude as AnyObject, "longitude": Storage.longitude as AnyObject]
-                URL.request(ctrl, url: URL.apiServer+URL.api_location_user, param: param)
+                let param: [String: AnyObject] = ["latitude": Storage.latitude as AnyObject, "longitude": Storage.longitude as AnyObject]
+                URLReq.request(ctrl, url: URLReq.apiServer+URLReq.api_location_user, param: param)
                 sleep(300)
             }
         }

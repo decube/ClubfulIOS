@@ -33,4 +33,4 @@
 #import "KOSessionTask+AgeAuthAPI.h"
 #import "KOSessionTask+StorageAPI.h"
 
-#define KAKAO_SDK_IOS_VERSION_STRING @"1.0.63"
+#define KAKAO_SDK_IOS_VERSION_STRING @"1.0.64"

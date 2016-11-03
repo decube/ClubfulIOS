@@ -52,13 +52,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }else if (pwField.text?.characters.count)! < 6{
             Util.alert(self, message: "비밀번호를 입력해 주세요.")
         }else{
-            let user = Storage.getRealmUser()
             self.spin.isHidden = false
             self.spin.startAnimating()
-            let parameters : [String: AnyObject] = ["token": user.token as AnyObject, "userId": self.idField.text! as AnyObject, "password": self.pwField.text! as AnyObject, "loginType": 1 as AnyObject]
+            let parameters : [String: AnyObject] = ["userId": self.idField.text! as AnyObject, "password": self.pwField.text! as AnyObject, "loginType": 1 as AnyObject]
             
-            URL.request(self, url: URL.apiServer+URL.api_user_login, param: parameters, callback: { (dic) in
-                self.loginCallback(1, dic: dic)
+            URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_login, param: parameters, callback: { (dic) in
+                self.loginCallback("n", dic: dic)
             }, codeErrorCallback: { (dic) in
                 self.spin.isHidden = true
                 self.spin.stopAnimating()
@@ -67,23 +66,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     //로그인
-    func login(_ userId: String, nickName: String, loginType: Int){
-        let user = Storage.getRealmUser()
+    func login(_ userId: String, nickName: String, loginType: String){
+        let deviceUser = Storage.getRealmDeviceUser()
         var parameters : [String: AnyObject] = [:]
-        parameters.updateValue(user.token as AnyObject, forKey: "token")
         parameters.updateValue(userId as AnyObject, forKey: "userId")
         parameters.updateValue("" as AnyObject, forKey: "password")
         parameters.updateValue(2 as AnyObject as AnyObject, forKey: "loginType")
-        parameters.updateValue(user.gcmId as AnyObject, forKey: "gcmId")
+        parameters.updateValue(deviceUser.gcmId as AnyObject, forKey: "gcmId")
         parameters.updateValue(nickName as AnyObject, forKey: "nickName")
-        parameters.updateValue(user.noticePushCheck as AnyObject, forKey: "noticePush")
-        parameters.updateValue(user.myCourtPushCheck as AnyObject, forKey: "myInsertPush")
-        parameters.updateValue(user.distancePushCheck as AnyObject, forKey: "distancePush")
-        parameters.updateValue(user.interestPushCheck as AnyObject, forKey: "interestPush")
-        parameters.updateValue(user.startPushTime.getTime() as AnyObject, forKey: "startTime")
-        parameters.updateValue(user.endPushTime.getTime() as AnyObject, forKey: "endTime")
+        parameters.updateValue(deviceUser.noticePushCheck as AnyObject, forKey: "noticePush")
+        parameters.updateValue(deviceUser.myCourtPushCheck as AnyObject, forKey: "myInsertPush")
+        parameters.updateValue(deviceUser.distancePushCheck as AnyObject, forKey: "distancePush")
+        parameters.updateValue(deviceUser.interestPushCheck as AnyObject, forKey: "interestPush")
+        parameters.updateValue(deviceUser.startPushTime.getTime() as AnyObject, forKey: "startTime")
+        parameters.updateValue(deviceUser.endPushTime.getTime() as AnyObject, forKey: "endTime")
         
-        URL.request(self, url: URL.apiServer+URL.api_user_login, param: parameters, callback: { (dic) in
+        URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_login, param: parameters, callback: { (dic) in
             self.loginCallback(loginType, dic: dic)
         }, codeErrorCallback: {(dic) in
             self.spin.isHidden = true
@@ -91,9 +89,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
-    func loginCallback(_ loginType: Int, dic: [String: AnyObject]){
+    func loginCallback(_ loginType: String, dic: [String: AnyObject]){
         let user = Storage.getRealmUser()
-        user.isLogin = loginType
+        let deviceUser = Storage.getRealmDeviceUser()
+        user.loginType = loginType
         user.userId = dic["userId"] as! String
         user.nickName = dic["nickName"] as! String
         user.sex = dic["sex"] as! String
@@ -108,19 +107,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         user.birth = dateMakerFormatter.date(from: "\(dic["birth"] as! String)")!
         
         
-        user.noticePushCheck = dic["noticePush"] as! Bool
-        user.myCourtPushCheck = dic["myCreateCourtPush"] as! Bool
-        user.distancePushCheck = dic["distancePush"] as! Bool
-        user.interestPushCheck = dic["interestPush"] as! Bool
+        deviceUser.noticePushCheck = dic["noticePush"] as! Bool
+        deviceUser.myCourtPushCheck = dic["myCreateCourtPush"] as! Bool
+        deviceUser.distancePushCheck = dic["distancePush"] as! Bool
+        deviceUser.interestPushCheck = dic["interestPush"] as! Bool
         
         let dateMakerFormatter2 = DateFormatter()
         dateMakerFormatter2.calendar = Calendar.current
         dateMakerFormatter2.dateFormat = "hh:mm:ss"
         
-        user.startPushTime = dateMakerFormatter2.date(from: "\(dic["startTime"] as! String)")!
-        user.endPushTime = dateMakerFormatter2.date(from: "\(dic["endTime"] as! String)")!
+        deviceUser.startPushTime = dateMakerFormatter2.date(from: "\(dic["startTime"] as! String)")!
+        deviceUser.endPushTime = dateMakerFormatter2.date(from: "\(dic["endTime"] as! String)")!
         
         Storage.setRealmUser(user)
+        Storage.setRealmDeviceUser(deviceUser)
         self.vc.signCheck()
         self.spin.isHidden = true
         self.spin.stopAnimating()
@@ -156,7 +156,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             if let kakaoNickname = kakao.properties["nickname"] as? String{
                                 nickName = kakaoNickname
                             }
-                            self.login(String(describing: kakao.id), nickName: nickName, loginType: 2)
+                            self.login(String(describing: kakao.id), nickName: nickName, loginType: "k")
                         })
                     }else{
                         self.spin.isHidden = true
@@ -198,7 +198,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         if let faceUid = user?.uid{
                             uid = faceUid
                         }
-                        self.login(uid, nickName: nickName, loginType: 3)
+                        self.login(uid, nickName: nickName, loginType: "f")
                     }
                 }
             }
