@@ -63,7 +63,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             var parameters : [String: AnyObject] = [:]
             parameters.updateValue(self.idField.text! as AnyObject, forKey: "userId")
             parameters.updateValue(self.pwdField.text! as AnyObject, forKey: "password")
-            parameters.updateValue(deviceUser.gcmId as AnyObject, forKey: "gcmId")
+            parameters.updateValue(deviceUser.pushID as AnyObject, forKey: "gcmId")
             parameters.updateValue(self.nicknameField.text! as AnyObject, forKey: "nickName")
             parameters.updateValue(deviceUser.noticePushCheck as AnyObject, forKey: "noticePush")
             parameters.updateValue(deviceUser.myCourtPushCheck as AnyObject, forKey: "myInsertPush")

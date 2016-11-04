@@ -14,8 +14,8 @@ class DeviceUser: Object{
     //primaryKey
     dynamic var id = 0
     
-    //gcmId
-    dynamic var gcmId : String = ""
+    //pushID
+    dynamic var pushID : String = ""
     //token
     dynamic var token : String = ""
     //search

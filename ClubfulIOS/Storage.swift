@@ -32,9 +32,9 @@ class Storage{
     
     static func realmMigrationCheck(){
         let config = Realm.Configuration(
-            schemaVersion: 6,
+            schemaVersion: 7,
             migrationBlock: { migration, oldSchemaVersion in
-                if (oldSchemaVersion < 5) {
+                if (oldSchemaVersion < 6) {
                     migration.enumerateObjects(ofType: User.className()) { oldObject, newObject in
                         
                     }
@@ -126,7 +126,7 @@ class Storage{
         let realmDevice = Storage.getRealmDeviceUserData()
         let device = DeviceUser()
         device.id = realmDevice.id
-        device.gcmId = realmDevice.gcmId
+        device.pushID = realmDevice.pushID
         device.token = realmDevice.token
         device.search = realmDevice.search
         device.latitude = realmDevice.latitude

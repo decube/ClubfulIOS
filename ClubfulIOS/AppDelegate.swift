@@ -132,15 +132,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // this callback will not be fired till the user taps on the notification launching the application.
         // TODO: Handle data of notification
         // Print message ID.
-        print("Message ID: \(userInfo["gcm.message_id"]!)")
+        print("didReceiveRemoteNotification Message ID: \(userInfo["gcm.message_id"]!)")
         // Print full message.
-        print("%@", userInfo)
+        print("didReceiveRemoteNotification %@", userInfo)
+        Util.alert((self.window?.rootViewController)!, message: "didReceiveRemoteNotification")
     }
     // [END receive_message]
     // [START refresh_token]
     func tokenRefreshNotification(_ notification: Notification) {
         if let refreshedToken = FIRInstanceID.instanceID().token() {
-            print("InstanceID token: \(refreshedToken)")
+            print("tokenRefreshNotification InstanceID token: \(refreshedToken)")
+            let deviceUser = Storage.getRealmDeviceUser()
+            deviceUser.pushID = refreshedToken
+            Storage.setRealmDeviceUser(deviceUser)
         }
         // Connect to FCM since connection may have failed when attempted before having a token.
         connectToFcm()
@@ -150,9 +154,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func connectToFcm() {
         FIRMessaging.messaging().connect { (error) in
             if error != nil {
-                print("Unable to connect with FCM. \(error)")
+                print("connectToFcm Unable to connect with FCM. \(error)")
             } else {
-                print("Connected to FCM.")
+                print("connectToFcm Connected to FCM.")
             }
         }
     }
@@ -175,9 +179,10 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
         // Print message ID.
-        print("Message ID: \(userInfo["gcm.message_id"]!)")
+        print("userNotificationCenter Message ID: \(userInfo["gcm.message_id"]!)")
         // Print full message.
-        print("%@", userInfo)
+        print("userNotificationCenter %@", userInfo)
+        Util.alert((self.window?.rootViewController)!, message: "userNotificationCenter")
     }
 }
 extension AppDelegate : FIRMessagingDelegate {

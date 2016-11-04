@@ -72,7 +72,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         parameters.updateValue(userId as AnyObject, forKey: "userId")
         parameters.updateValue("" as AnyObject, forKey: "password")
         parameters.updateValue(2 as AnyObject as AnyObject, forKey: "loginType")
-        parameters.updateValue(deviceUser.gcmId as AnyObject, forKey: "gcmId")
+        parameters.updateValue(deviceUser.pushID as AnyObject, forKey: "gcmId")
         parameters.updateValue(nickName as AnyObject, forKey: "nickName")
         parameters.updateValue(deviceUser.noticePushCheck as AnyObject, forKey: "noticePush")
         parameters.updateValue(deviceUser.myCourtPushCheck as AnyObject, forKey: "myInsertPush")

@@ -193,6 +193,7 @@
 		6E4162DE1DC634E50097EBDE /* ic_tab_setting_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_tab_setting_s.png; path = resources/ic_tab_setting_s.png; sourceTree = "<group>"; };
 		6E41630E1DC63DA40097EBDE /* BlackScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackScreen.swift; sourceTree = "<group>"; };
 		6E4168541DCCBD38008C719D /* background_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background_2.png; path = resources/background_2.png; sourceTree = "<group>"; };
+		6E4168561DCCC4EE008C719D /* ClubfulIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClubfulIOS.entitlements; sourceTree = "<group>"; };
 		6E4CC9461DC47F84005FA92F /* DismissMenuAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissMenuAnimator.swift; sourceTree = "<group>"; };
 		6E4CC9471DC47F84005FA92F /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		6E4CC9481DC47F84005FA92F /* PresentMenuAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentMenuAnimator.swift; sourceTree = "<group>"; };
@@ -377,6 +378,7 @@
 		6E7DA8D81D9948910098D7DA /* ClubfulIOS */ = {
 			isa = PBXGroup;
 			children = (
+				6E4168561DCCC4EE008C719D /* ClubfulIOS.entitlements */,
 				6E7DA8D91D9948910098D7DA /* AppDelegate.swift */,
 				6E7DA9851D994A630098D7DA /* swift */,
 				6E7DA92D1D994A270098D7DA /* resources */,
@@ -706,6 +708,9 @@
 								enabled = 1;
 							};
 							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -1168,6 +1173,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ClubfulIOS/ClubfulIOS.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 95YHHS8BGP;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1192,6 +1198,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ClubfulIOS/ClubfulIOS.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 95YHHS8BGP;
 				FRAMEWORK_SEARCH_PATHS = (

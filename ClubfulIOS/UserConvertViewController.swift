@@ -80,7 +80,7 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
             spin.startAnimating()
             let user = Storage.getRealmUser()
             let deviceUser = Storage.getRealmDeviceUser()
-            let parameters : [String: AnyObject] = ["userId": user.userId as AnyObject, "password": self.pwdField.text! as AnyObject, "newPassword": self.newPwdField.text! as AnyObject, "gcmId": deviceUser.gcmId as AnyObject, "nickName": self.nicknameField.text! as AnyObject]
+            let parameters : [String: AnyObject] = ["userId": user.userId as AnyObject, "password": self.pwdField.text! as AnyObject, "newPassword": self.newPwdField.text! as AnyObject, "gcmId": deviceUser.pushID as AnyObject, "nickName": self.nicknameField.text! as AnyObject]
             URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_update, param: parameters, callback: { (dic) in
                 var user = Storage.getRealmUser()
                 user = Storage.getRealmUser()
