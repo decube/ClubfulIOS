@@ -21,6 +21,9 @@ PODS:
     - FirebaseAuth (= 3.0.5)
   - Firebase/Core (3.6.0):
     - Firebase/Analytics
+  - Firebase/Messaging (3.6.0):
+    - Firebase/Analytics
+    - FirebaseMessaging (= 1.2.0)
   - FirebaseAnalytics (3.4.2):
     - FirebaseInstanceID (~> 1.0)
     - GoogleInterchangeUtilities (~> 1.2)
@@ -31,8 +34,17 @@ PODS:
     - GoogleNetworkingUtilities (~> 1.2)
     - GoogleUtilities (~> 1.2)
   - FirebaseInstanceID (1.0.8)
+  - FirebaseMessaging (1.2.0):
+    - FirebaseAnalytics (~> 3.3)
+    - FirebaseInstanceID (~> 1.0)
+    - GoogleInterchangeUtilities (~> 1.2)
+    - GoogleIPhoneUtilities (~> 1.2)
+    - GoogleSymbolUtilities (~> 1.1)
   - GoogleInterchangeUtilities (1.2.1):
     - GoogleSymbolUtilities (~> 1.0)
+  - GoogleIPhoneUtilities (1.2.1):
+    - GoogleSymbolUtilities (~> 1.0)
+    - GoogleUtilities (~> 1.0)
   - GoogleNetworkingUtilities (1.2.1):
     - GoogleSymbolUtilities (~> 1.0)
   - GoogleSymbolUtilities (1.1.1)
@@ -52,6 +64,7 @@ DEPENDENCIES:
   - Firebase
   - Firebase/Auth
   - Firebase/Core
+  - Firebase/Messaging
   - Realm
   - RealmSwift
 
@@ -65,13 +78,15 @@ SPEC CHECKSUMS:
   FirebaseAnalytics: 3f5358d9104adf159cc8d99b7b501e50099a39ad
   FirebaseAuth: 75a062bbf2d3c97d1e6e55bbc110e13a6853e25d
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
+  FirebaseMessaging: 789d23fd796594dfb55dcf36cd325541df887c22
   GoogleInterchangeUtilities: def8415a862effc67d549d5b5b0b9c7a2f97d4de
+  GoogleIPhoneUtilities: 63f25e93a3ddcb66884d182aab3a660d98f1479b
   GoogleNetworkingUtilities: 3e83269048cfb498dc7ec83ab36813360965c74f
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
   Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
   RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
 
-PODFILE CHECKSUM: 9e344419ec57c4b8d99c0298d710e8f7ceac199e
+PODFILE CHECKSUM: 17ec28caf604b8ef95eab5c93ed50bb37ba6d736
 
 COCOAPODS: 1.1.0.rc.2

@@ -97,7 +97,6 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 * 리플 웹뷰 -> UIScrollView
 * 메인화면
 * 쪽지화면
-* 회원수정, 회원가입 배경이미지 수정
 * PUSH 코트근처/찜한사람 호출하기
 * PUSH 호출이 되었을때 승낙/거부하기
 * PUSH 승낙되면 답장받기

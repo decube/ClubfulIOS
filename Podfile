@@ -11,6 +11,7 @@ target 'ClubfulIOS' do
   pod 'Firebase'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Messaging'
   pod 'FBSDKCoreKit'
   pod 'FBSDKShareKit'
   pod 'FBSDKLoginKit'

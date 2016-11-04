@@ -45,20 +45,12 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     @IBOutlet var leftEdge: UIScreenEdgePanGestureRecognizer!
     @IBOutlet var rightEdge: UIScreenEdgePanGestureRecognizer!
     
-    func removeCache(){
-        //cache지우기
-        URLCache.shared.removeAllCachedResponses()
-        URLCache.shared.diskCapacity = 0
-        URLCache.shared.memoryCapacity = 0
-    }
+    
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        Storage.realmMigrationCheck()
-        //self.removeCache()
         
         
         //검색 필드 스타일
