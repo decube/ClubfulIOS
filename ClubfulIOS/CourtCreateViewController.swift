@@ -69,7 +69,12 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         self.spin.isHidden = true
         self.cnameTextField.delegate = self
         self.descTextView.delegate = self
-        self.layoutInit()
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 0.1)
+            DispatchQueue.main.async {
+                self.layoutInit()
+            }
+        }
     }
     
     

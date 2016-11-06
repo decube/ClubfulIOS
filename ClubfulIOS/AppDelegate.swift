@@ -132,10 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // this callback will not be fired till the user taps on the notification launching the application.
         // TODO: Handle data of notification
         // Print message ID.
-        print("didReceiveRemoteNotification Message ID: \(userInfo["gcm.message_id"]!)")
-        // Print full message.
-        print("didReceiveRemoteNotification %@", userInfo)
-        Util.alert((self.window?.rootViewController)!, message: "didReceiveRemoteNotification")
+        receivedPushMessage(push: userInfo)
     }
     // [END receive_message]
     // [START refresh_token]
@@ -170,6 +167,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func receivedPushMessage(push: [AnyHashable: Any]){
+        if let type = push["type"] as? String{
+            if type == "call" || type == "accept"{
+                var date = ""
+                var seq = 0
+                var memgerSeq = 0
+                if let dateReg = push["date"] as? String{
+                    date = dateReg
+                }
+                if let seqReg = push["seq"] as? String{
+                    seq = Int(seqReg)!
+                }
+                if let memberSeqReg = push["memberSeq"] as? String{
+                    memgerSeq = Int(memberSeqReg)!
+                }
+                if type == "call"{
+                    let currentDate = Date().getDate()
+                    if currentDate == date.substring(from: 0, length: 10){
+                        if Date().hour() == date.substring(from: 11, length: 2){
+                            Util.alert((self.window?.rootViewController)!, message: "코트 초대에 응하시겠습니까?", confirmTitle: "수락", cancelStr: "거절", confirmHandler: { (_) in
+                                
+                            })
+                        }else{
+                            Util.alert((self.window?.rootViewController)!, message: "이미 지나간 알림입니다.")
+                        }
+                    }else{
+                        Util.alert((self.window?.rootViewController)!, message: "이미 지나간 알림입니다.")
+                    }
+                }else if type == "accept"{
+                    Util.alert((self.window?.rootViewController)!, message: "회원님의 호출에 누구누구님이 승낙을 하였습니다.")
+                }
+            }
+        }
+    }
 }
 
 // [START ios_10_message_handling]
@@ -178,11 +210,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     // Receive displayed notifications for iOS 10 devices.
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
-        // Print message ID.
-        print("userNotificationCenter Message ID: \(userInfo["gcm.message_id"]!)")
-        // Print full message.
-        print("userNotificationCenter %@", userInfo)
-        Util.alert((self.window?.rootViewController)!, message: "userNotificationCenter")
+        receivedPushMessage(push: userInfo)
     }
 }
 extension AppDelegate : FIRMessagingDelegate {

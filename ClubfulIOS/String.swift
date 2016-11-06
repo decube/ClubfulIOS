@@ -10,7 +10,7 @@ import Foundation
 
 extension String {
     //substring 추가
-    public func substring(_ from:Int = 0, to:Int = -1) -> String {
+    public func substring(from:Int = 0, to:Int = -1) -> String {
         var toTmp = to
         if toTmp < 0 {
             toTmp = self.characters.count + toTmp
@@ -19,7 +19,7 @@ extension String {
         let range = self.characters.index(self.startIndex, offsetBy: from)..<self.characters.index(self.startIndex, offsetBy: toTmp+1)
         return self.substring(with: range)
     }
-    public func substring(_ from:Int = 0, length:Int) -> String {
+    public func substring(from:Int = 0, length:Int) -> String {
         let range = self.characters.index(self.startIndex, offsetBy: from)..<self.characters.index(self.startIndex, offsetBy: from+length)
         return self.substring(with: range)
     }

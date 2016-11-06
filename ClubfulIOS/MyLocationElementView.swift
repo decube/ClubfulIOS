@@ -20,7 +20,7 @@ class MyLocationElementView : UIView{
         self.ctrl = ctrl
         self.locationView = locationView
         self.location = location
-        self.frame = CGRect(x: 5, y: height*idx+5, width: self.frame.width-10, height: height-10)
+        self.frame = CGRect(x: 5, y: height*idx+5, width: locationView.scrollView.frame.width-10, height: height-10)
         self.addressShort.setTitle(location.2, for: UIControlState())
         self.address.setTitle(location.3, for: UIControlState())
         locationView.scrollView.addSubview(self)

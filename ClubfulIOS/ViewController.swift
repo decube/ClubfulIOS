@@ -82,6 +82,14 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
             self.locationManager.startUpdatingLocation()
         }
         
+        
+        //코트검색 뷰 만들기
+        if let customView = Bundle.main.loadNibNamed("CourtSearchView", owner: self, options: nil)?.first as? CourtSearchView {
+            self.courtSearchView = customView
+            self.courtSearchView.setLayout(self)
+        }
+        
+        
         //블랙스크린 만들기
         self.blackScreen = BlackScreen(self)
         
@@ -91,13 +99,6 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
             self.myLocationView = customView
             self.myLocationView.setLayout(self)
         }
-        
-        //코트검색 뷰 만들기
-        if let customView = Bundle.main.loadNibNamed("CourtSearchView", owner: self, options: nil)?.first as? CourtSearchView {
-            self.courtSearchView = customView
-            self.courtSearchView.setLayout(self)
-        }
-        
         
         //추가정보 뷰 만들기
         if let customView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView {

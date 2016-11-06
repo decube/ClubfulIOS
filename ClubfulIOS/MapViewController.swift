@@ -46,14 +46,18 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
         self.cancelView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.cancelAction)))
         self.mapView.delegate = self
         self.searchField.delegate = self
+        self.searchField.borderStyle = .none
         
-        //코트 검색
-        self.mapListView = UIScrollView(frame: CGRect(x: 0, y: mapView.frame.origin.y, width: self.view.frame.width/3*2, height: mapView.frame.height))
-        self.mapListView.backgroundColor = UIColor(red:0.86, green:0.90, blue:0.93, alpha:1.00)
-        self.mapListView.isHidden = true
-        
-        
-        self.view.addSubview(self.mapListView)
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 0.1)
+            DispatchQueue.main.async {
+                //코트 검색
+                self.mapListView = UIScrollView(frame: CGRect(x: 0, y: self.mapView.frame.origin.y, width: self.view.frame.width/3*2, height: self.mapView.frame.height))
+                self.mapListView.backgroundColor = UIColor(red:0.86, green:0.90, blue:0.93, alpha:1.00)
+                self.mapListView.isHidden = true
+                self.view.addSubview(self.mapListView)
+            }
+        }
     }
     
     

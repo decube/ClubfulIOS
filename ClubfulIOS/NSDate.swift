@@ -10,40 +10,40 @@ import Foundation
 
 
 extension Date{
-    func yearInt(_ calendar : Calendar) -> Int{
+    func yearInt(_ calendar : Calendar = Calendar.current) -> Int{
         let components = (calendar as NSCalendar).components(.year, from: self)
         let year = components.year
         return year!
     }
-    func monthInt(_ calendar : Calendar) -> Int{
+    func monthInt(_ calendar : Calendar = Calendar.current) -> Int{
         let components = (calendar as NSCalendar).components(.month, from: self)
         let month = components.month
         return month!
     }
-    func dayInt(_ calendar : Calendar) -> Int{
+    func dayInt(_ calendar : Calendar = Calendar.current) -> Int{
         let components = (calendar as NSCalendar).components(.day, from: self)
         let day = components.day
         return day!
     }
-    func hourInt(_ calendar : Calendar) -> Int{
+    func hourInt(_ calendar : Calendar = Calendar.current) -> Int{
         let components = (calendar as NSCalendar).components(.hour, from: self)
         let hour = components.hour
         return hour!
     }
-    func minuteInt(_ calendar : Calendar) -> Int{
+    func minuteInt(_ calendar : Calendar = Calendar.current) -> Int{
         let components = (calendar as NSCalendar).components(.minute, from: self)
         let minute = components.minute
         return minute!
     }
-    func secondInt(_ calendar : Calendar) -> Int{
+    func secondInt(_ calendar : Calendar = Calendar.current) -> Int{
         let components = (calendar as NSCalendar).components(.second, from: self)
         let second = components.second
         return second!
     }
-    func year(_ calendar : Calendar) -> String{
+    func year(_ calendar : Calendar = Calendar.current) -> String{
         return "\(yearInt(calendar))"
     }
-    func month(_ calendar : Calendar) -> String{
+    func month(_ calendar : Calendar = Calendar.current) -> String{
         let month = monthInt(calendar)
         if month < 10{
             return "0\(month)"
@@ -51,7 +51,7 @@ extension Date{
             return "\(month)"
         }
     }
-    func day(_ calendar : Calendar) -> String{
+    func day(_ calendar : Calendar = Calendar.current) -> String{
         let day = dayInt(calendar)
         if day < 10{
             return "0\(day)"
@@ -59,7 +59,7 @@ extension Date{
             return "\(day)"
         }
     }
-    func hour(_ calendar : Calendar) -> String{
+    func hour(_ calendar : Calendar = Calendar.current) -> String{
         let hour = hourInt(calendar)
         if hour < 10{
             return "0\(hour)"
@@ -67,7 +67,7 @@ extension Date{
             return "\(hour)"
         }
     }
-    func minute(_ calendar : Calendar) -> String{
+    func minute(_ calendar : Calendar = Calendar.current) -> String{
         let minute = minuteInt(calendar)
         if minute < 10{
             return "0\(minute)"
@@ -75,7 +75,7 @@ extension Date{
             return "\(minute)"
         }
     }
-    func second(_ calendar : Calendar) -> String{
+    func second(_ calendar : Calendar = Calendar.current) -> String{
         let second = secondInt(calendar)
         if second < 10{
             return "0\(second)"
