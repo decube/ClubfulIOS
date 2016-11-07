@@ -76,7 +76,7 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 
 
 
-## IOS 주요 내용
+## IOS History
 * 2016-07-06 initial commit
 * 2016-07-24 IOS Alamofire로 통신하기 추가
 * 2016-07-30 Server c9 node 이미지서버 추가
@@ -98,8 +98,20 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 
 
 ## 미완성분
+* ~~Alamofire추가~~
+* ~~IOS 디자인 변경~~
+* ~~Adobe 이미지 편집 추가~~
+* ~~페이스북로그인, 카카오톡 로그인 추가~~
+* ~~gesture 추가~~
+* ~~realm 구성~~
+* ~~push(FCM) 설정~~
+* ~~CourtDetail Reply WebView->infinite UIScrollView~~
+* ~~2016-11-06 App Icon 3D Touch~~
 * 메인화면
 * 쪽지화면
+* storyboard 나누기
+* main화면 왼쪽 gesture 화면
+* main화면 오른쪽 gesture 화면
 
 
 ## 추후 업데이트 예정

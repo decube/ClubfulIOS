@@ -30,7 +30,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7p3-mV-z5u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2417" y="403"/>
+            <point key="canvasLocation" x="-2418" y="-302"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="Gen-12-ulD">
@@ -2368,7 +2368,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="700" y="739"/>
+            <point key="canvasLocation" x="561" y="896"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="U97-ZA-bMw">
@@ -2548,7 +2548,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Han-ff-m8E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1885.5999999999999" y="-280.20989505247377"/>
+            <point key="canvasLocation" x="2642" y="-302"/>
         </scene>
         <!--Item-->
         <scene sceneID="kUn-Sg-Uvf">
@@ -2833,7 +2833,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eCz-uC-Ily" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="933.60000000000002" y="-967.4662668665668"/>
+            <point key="canvasLocation" x="1714" y="-1156"/>
         </scene>
         <!--User Convert View Controller-->
         <scene sceneID="vP5-aT-SvA">
@@ -3038,14 +3038,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rUi-OG-j6j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="700" y="64"/>
+            <point key="canvasLocation" x="1575" y="360"/>
         </scene>
         <!--Item-->
         <scene sceneID="4b0-aA-jq9">
             <objects>
                 <navigationController navigationBarHidden="YES" id="klv-VR-9GH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="mBK-ue-91c"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="r1A-vJ-pAQ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="r1A-vJ-pAQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3083,7 +3083,7 @@
         <image name="ic_star_n.png" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UYa-Nq-UCH"/>
         <segue reference="xpS-lY-KI0"/>
+        <segue reference="Zvw-io-lO4"/>
     </inferredMetricsTieBreakers>
 </document>
