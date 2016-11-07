@@ -20,7 +20,7 @@ class MapListElementView : UIView{
         self.frame = CGRect(x: 5, y: height*idx+5, width: self.ctrl.mapListView.frame.width-10, height: height-10)
         addressShort.setTitle(location.2, for: UIControlState())
         address.setTitle(location.3, for: UIControlState())
-        self.ctrl.mapListView.addSubview(self)
+        self.ctrl.mapListView.scrollView.addSubview(self)
         
         if self.ctrl.mapListView.isHidden != false{
             let tmpRect = self.ctrl.mapListView.frame

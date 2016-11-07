@@ -103,5 +103,48 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>홈</string>
+			<key>UIApplicationShortcutItemSubtitle</key>
+            <string>홈을 보여줍니다.</string>
+            <key>UIApplicationShortcutItemType</key>
+            <string>$(PRODUCT_BUNDLE_IDENTIFIER).Open1</string>
+            <key>UIApplicationShortcutItemIconFile</key>
+            <string>ic_tab_home_s.png</string>
+		</dict>
+        <dict>
+            <key>UIApplicationShortcutItemTitle</key>
+            <string>등록</string>
+            <key>UIApplicationShortcutItemSubtitle</key>
+            <string>코트를 등록합니다.</string>
+            <key>UIApplicationShortcutItemType</key>
+            <string>$(PRODUCT_BUNDLE_IDENTIFIER).Open2</string>
+            <key>UIApplicationShortcutItemIconFile</key>
+            <string>ic_tab_add_s.png</string>
+        </dict>
+        <dict>
+            <key>UIApplicationShortcutItemTitle</key>
+            <string>내정보</string>
+            <key>UIApplicationShortcutItemSubtitle</key>
+            <string>내정보를 봅니다.</string>
+            <key>UIApplicationShortcutItemType</key>
+            <string>$(PRODUCT_BUNDLE_IDENTIFIER).Open3</string>
+            <key>UIApplicationShortcutItemIconFile</key>
+            <string>ic_tab_mypage_s.png</string>
+        </dict>
+        <dict>
+            <key>UIApplicationShortcutItemTitle</key>
+            <string>앱설정</string>
+            <key>UIApplicationShortcutItemSubtitle</key>
+            <string>PUSH등의 설정을 봅니다.</string>
+            <key>UIApplicationShortcutItemType</key>
+            <string>$(PRODUCT_BUNDLE_IDENTIFIER).Open4</string>
+            <key>UIApplicationShortcutItemIconFile</key>
+            <string>ic_tab_setting_s.png</string>
+        </dict>
+	</array>
 </dict>
 </plist>

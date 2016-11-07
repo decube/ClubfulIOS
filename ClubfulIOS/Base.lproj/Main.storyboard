@@ -2555,7 +2555,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="ZXh-pY-Gbr" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="jUZ-r0-dio"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="xE7-YA-3cE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xE7-YA-3cE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3045,7 +3045,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="klv-VR-9GH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="mBK-ue-91c"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="r1A-vJ-pAQ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="r1A-vJ-pAQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

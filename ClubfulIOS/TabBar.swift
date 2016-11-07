@@ -155,6 +155,55 @@ class TabBar: UITabBarController{
     }
     
     
+    func onBtnClick(tag: Int){
+        self.tabLbl01.textColor = UIColor.white
+        self.tabLbl02.textColor = UIColor.white
+        self.tabLbl03.textColor = UIColor.white
+        self.tabLbl04.textColor = UIColor.white
+        
+        self.tabImg01.image = tabImg01_n
+        self.tabImg02.image = tabImg02_n
+        self.tabImg03.image = tabImg03_n
+        self.tabImg04.image = tabImg04_n
+        
+        
+        var senderBtn: UIButton!
+        if tag == 0{
+            senderBtn = self.tabBtn01
+        }else if tag == 1{
+            senderBtn = self.tabBtn02
+        }else if tag == 2{
+            senderBtn = self.tabBtn03
+        }else if tag == 3{
+            senderBtn = self.tabBtn04
+        }
+        
+        senderBtn.subviews.forEach({ (subView) in
+            if let lbl = subView as? UILabel{
+                lbl.textColor = UIColor.black
+            }
+            if let imgView = subView as? UIImageView{
+                if imgView.image == tabImg01_n{
+                    imgView.image = tabImg01_s
+                }else if imgView.image == tabImg02_n{
+                    imgView.image = tabImg02_s
+                }else if imgView.image == tabImg03_n{
+                    imgView.image = tabImg03_s
+                }else if imgView.image == tabImg04_n{
+                    imgView.image = tabImg04_s
+                }
+            }
+        })
+        if self.selectedIndex == tag{
+            if navVC != nil{
+                navVC.popViewController(animated: true)
+                navVC = nil
+            }
+        }else{
+            self.selectedIndex = tag
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

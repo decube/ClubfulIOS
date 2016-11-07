@@ -27,8 +27,8 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
     @IBOutlet var confirmBtn: UIButton!
     //취소뷰
     @IBOutlet var cancelView: UIView!
-    //스크롤뷰
-    var mapListView : UIScrollView!
+    //맵 리스트뷰
+    var mapListView : MapListView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,11 +51,11 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
         DispatchQueue.global().async {
             Thread.sleep(forTimeInterval: 0.1)
             DispatchQueue.main.async {
-                //코트 검색
-                self.mapListView = UIScrollView(frame: CGRect(x: 0, y: self.mapView.frame.origin.y, width: self.view.frame.width/3*2, height: self.mapView.frame.height))
-                self.mapListView.backgroundColor = UIColor(red:0.86, green:0.90, blue:0.93, alpha:1.00)
-                self.mapListView.isHidden = true
-                self.view.addSubview(self.mapListView)
+                //추가정보 뷰 만들기
+                if let customView = Bundle.main.loadNibNamed("MapListView", owner: self, options: nil)?.first as? MapListView {
+                    self.mapListView = customView
+                    self.mapListView.setLayout(self)
+                }
             }
         }
     }
@@ -73,59 +73,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
     
     //검색 클릭
     func searchAction() {
-        if (self.searchField.text?.characters.count)! < 2{
-            Util.alert(self, message: "검색어를 2글자 이상 넣어주세요")
-        }else{
-            self.view.endEditing(true)
-            self.mapListView.subviews.forEach({$0.removeFromSuperview()})
-            self.mapListView.scrollToTop()
-            
-            //지도 검색 통신
-            let parameters : [String: AnyObject] = ["address": self.searchField.text! as AnyObject, "language": Util.language as AnyObject]
-            URLReq.request(self, url: URLReq.apiServer+URLReq.api_location_geocode, param: parameters, callback: { (dic) in
-                if let result = dic["results"] as? [String: AnyObject]{
-                    if let results = result["results"] as? [[String: AnyObject]]{
-                        //카운트가 1보다 많으면
-                        if results.count > 1{
-                            self.view.endEditing(true)
-                            self.mapListView.subviews.forEach({$0.removeFromSuperview()})
-                            var i : CGFloat = 0
-                            let locObjHeight : CGFloat = 80
-                            
-                            for element : [String: AnyObject] in results{
-                                let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
-                                
-                                if let customView = Bundle.main.loadNibNamed("MapListElementView", owner: self, options: nil)?.first as? MapListElementView {
-                                    customView.setLayout(self, height: locObjHeight, idx: i, location: (latitude, longitude, addressShort, address))
-                                }
-                                i += 1
-                            }
-                            self.mapListView.contentSize = CGSize(width: self.mapListView.frame.width, height: locObjHeight*i)
-                        }else{
-                            //카운트가 1개 이면
-                            for element : [String: AnyObject] in results{
-                                var elementLatitude = 0.0
-                                var elementLongitude = 0.0
-                                if let locationGeometry = element["geometry"] as? [String:AnyObject]{
-                                    if let location = locationGeometry["location"] as? [String:Double]{
-                                        elementLatitude = location["lat"]!
-                                        elementLongitude = location["lng"]!
-                                    }
-                                }
-                                self.mapListView.isHidden = true
-                                self.locationMove(latitude: elementLatitude, longitude: elementLongitude)
-                            }
-                        }
-                    }
-                }else{
-                    if let isMsgView = dic["isMsgView"] as? Bool{
-                        if isMsgView == true{
-                            Util.alert(self, message: "\(dic["msg"]!)")
-                        }
-                    }
-                }
-            })
-        }
+        self.mapListView.searchAction()
     }
     
     
@@ -234,7 +182,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
             }, completion: { (_) in
                 self.mapListView.frame = tmpRect
                 self.mapListView.isHidden = true
-                self.mapListView.scrollToTop()
+                self.mapListView.scrollView.scrollToTop()
         })
     }
     

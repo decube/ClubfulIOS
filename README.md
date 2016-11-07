@@ -89,7 +89,7 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 * 2016-10-29 gesture 추가
 * 2016-11-02 realm 구성, kakao sdk v1.0.64 버전 업그레이드(친구초대관련)
 * 2016-11-05 push(FCM) 설정, CourtDetail Reply WebView->infinite UIScrollView
-
+* 2016-11-06 App Icon 3D Touch
 
 
 ## 기능
@@ -100,7 +100,7 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 ## 미완성분
 * 메인화면
 * 쪽지화면
-* 3D Touch
+
 
 ## 추후 업데이트 예정
 * 운동 동호회 추가

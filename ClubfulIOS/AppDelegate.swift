@@ -20,7 +20,7 @@ import FirebaseMessaging
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
+    static var vc: UIViewController!
     
     func removeCache(){
         //cache지우기
@@ -85,8 +85,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
     
+    func returnTabbar(shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void){
+        if self.window?.rootViewController?.presentedViewController != nil{
+            self.window?.rootViewController?.presentedViewController?.dismiss(animated: false, completion: {
+                self.returnTabbar(shortcutItem: shortcutItem, completionHandler: completionHandler)
+            })
+        }else{
+            if self.window?.rootViewController?.presentedViewController == nil{
+                if let tabbar = self.window?.rootViewController as? TabBar{
+                    if shortcutItem.type == "com.decube.Clubful.Open1"{
+                        tabbar.onBtnClick(tag: 0)
+                        tabbar.onBtnClick(tag: 0)
+                    }else if shortcutItem.type == "com.decube.Clubful.Open2"{
+                        tabbar.onBtnClick(tag: 1)
+                    }else if shortcutItem.type == "com.decube.Clubful.Open3"{
+                        tabbar.onBtnClick(tag: 2)
+                        tabbar.onBtnClick(tag: 2)
+                    }else if shortcutItem.type == "com.decube.Clubful.Open4"{
+                        tabbar.onBtnClick(tag: 3)
+                        AppDelegate.vc.performSegue(withIdentifier: "set_appSetting", sender: nil)
+                    }
+                }
+            }
+            completionHandler(true)
+        }
+    }
     
-    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        returnTabbar(shortcutItem: shortcutItem, completionHandler: completionHandler)
+    }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.

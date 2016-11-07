@@ -45,6 +45,9 @@ class SetViewController : UIViewController{
         self.tab_6.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.inquiryAction(_:))))
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        AppDelegate.vc = self
+    }
     
     func signCheck(){
         if !Storage.isRealmUser(){
