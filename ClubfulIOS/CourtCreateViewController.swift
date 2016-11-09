@@ -21,7 +21,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     //크롭버튼 어떤것을 클릭했는지 담아두는 변수
     var cropBtnSpace : UIButton!
     //빈 크롭 버튼 이미지
-    let picAddImage = UIImage(named: "ic_image.png")!
+    let picAddImage = UIImage(named: "ic_imageAdd")!
     //크롭 버튼 리스트
     var picList = [UIButton]()
     //이미지 피커

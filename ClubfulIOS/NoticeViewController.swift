@@ -31,26 +31,26 @@ class NoticeViewController : UIViewController, UIWebViewDelegate{
         spin.stopAnimating()
         spin.isHidden = true
         if self.webView.canGoBack{
-            backBtn.setImage(UIImage(named: "ic_left_true.png"), for: UIControlState())
+            backBtn.setImage(UIImage(named: "wb_left_on"), for: UIControlState())
         }else{
-            backBtn.setImage(UIImage(named: "ic_left_false.png"), for: UIControlState())
+            backBtn.setImage(UIImage(named: "wb_left_off"), for: UIControlState())
         }
         if self.webView.canGoForward{
-            nextBtn.setImage(UIImage(named: "ic_right_true.png"), for: UIControlState())
+            nextBtn.setImage(UIImage(named: "wb_right_on"), for: UIControlState())
         }else{
-            nextBtn.setImage(UIImage(named: "ic_right_false.png"), for: UIControlState())
+            nextBtn.setImage(UIImage(named: "wb_right_off"), for: UIControlState())
         }
     }
     func webViewDidStartLoad(_ webView: UIWebView) {
         if self.webView.canGoBack{
-            backBtn.setImage(UIImage(named: "ic_left_true.png"), for: UIControlState())
+            backBtn.setImage(UIImage(named: "wb_left_on"), for: UIControlState())
         }else{
-            backBtn.setImage(UIImage(named: "ic_left_false.png"), for: UIControlState())
+            backBtn.setImage(UIImage(named: "wb_left_off"), for: UIControlState())
         }
         if self.webView.canGoForward{
-            nextBtn.setImage(UIImage(named: "ic_right_true.png"), for: UIControlState())
+            nextBtn.setImage(UIImage(named: "wb_right_on"), for: UIControlState())
         }else{
-            nextBtn.setImage(UIImage(named: "ic_right_false.png"), for: UIControlState())
+            nextBtn.setImage(UIImage(named: "wb_right_off"), for: UIControlState())
         }
     }
     

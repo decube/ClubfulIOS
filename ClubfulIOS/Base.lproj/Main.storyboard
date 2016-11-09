@@ -60,7 +60,7 @@
                                             <constraint firstAttribute="height" constant="30" id="BgQ-JG-eN5"/>
                                             <constraint firstAttribute="width" constant="30" id="LHx-aU-wZv"/>
                                         </constraints>
-                                        <state key="normal" image="ic_location.png"/>
+                                        <state key="normal" image="ic_location"/>
                                         <connections>
                                             <action selector="locationSearchAction:" destination="9Dz-Gk-xIP" eventType="touchUpInside" id="C6D-Kb-AKw"/>
                                         </connections>
@@ -68,7 +68,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bT5-VX-hCk">
                                         <rect key="frame" x="10" y="15" width="320" height="30"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_search_b.png" translatesAutoresizingMaskIntoConstraints="NO" id="WYL-Hm-KcM">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_search" translatesAutoresizingMaskIntoConstraints="NO" id="WYL-Hm-KcM">
                                                 <rect key="frame" x="5" y="5" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="b5P-8O-QZx"/>
@@ -84,7 +84,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3fd-ER-qV7">
                                                 <rect key="frame" x="290" y="0.0" width="30" height="30"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_cancel.png" translatesAutoresizingMaskIntoConstraints="NO" id="YRF-ml-sOA">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_cancel_b" translatesAutoresizingMaskIntoConstraints="NO" id="YRF-ml-sOA">
                                                         <rect key="frame" x="5" y="5" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="20" id="Ubg-GY-apt"/>
@@ -514,7 +514,7 @@
                                             <constraint firstAttribute="height" constant="30" id="GaP-tc-VGM"/>
                                             <constraint firstAttribute="width" constant="30" id="hKA-rz-ZXA"/>
                                         </constraints>
-                                        <state key="normal" image="ic_message.png"/>
+                                        <state key="normal" image="ic_msg"/>
                                         <connections>
                                             <segue destination="ca5-ra-AUH" kind="presentation" identifier="mypage_note" id="FZC-vb-CZp"/>
                                         </connections>
@@ -525,7 +525,7 @@
                                             <constraint firstAttribute="height" constant="30" id="0hy-PS-Zjq"/>
                                             <constraint firstAttribute="width" constant="30" id="NkC-BV-aPN"/>
                                         </constraints>
-                                        <state key="normal" image="ic_edit.png"/>
+                                        <state key="normal" image="ic_edit"/>
                                         <connections>
                                             <segue destination="lNO-56-Dkh" kind="presentation" id="jR1-nL-kfg"/>
                                         </connections>
@@ -737,14 +737,14 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U9i-ZZ-Vgn">
                                                 <rect key="frame" x="0.0" y="0.0" width="187" height="100"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_kakao_invite.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Uf-RH-Xl1">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sc_kakao_invite" translatesAutoresizingMaskIntoConstraints="NO" id="3Uf-RH-Xl1">
                                                         <rect key="frame" x="5" y="35" width="30" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="30" id="qs3-Lw-Qcg"/>
                                                             <constraint firstAttribute="height" constant="30" id="zaQ-yu-wP9"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="9ag-uL-GiZ">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right" translatesAutoresizingMaskIntoConstraints="NO" id="9ag-uL-GiZ">
                                                         <rect key="frame" x="135" y="35" width="30" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="VUX-Nt-K5l"/>
@@ -778,14 +778,14 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mlc-cy-KKz">
                                                 <rect key="frame" x="188" y="0.0" width="187" height="100"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_setting.png" translatesAutoresizingMaskIntoConstraints="NO" id="mnN-uc-G6S">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_setting" translatesAutoresizingMaskIntoConstraints="NO" id="mnN-uc-G6S">
                                                         <rect key="frame" x="5" y="35" width="30" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="30" id="Zgo-Ob-Cc7"/>
                                                             <constraint firstAttribute="height" constant="30" id="h0c-2J-z52"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="DY1-Am-ZgD">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right" translatesAutoresizingMaskIntoConstraints="NO" id="DY1-Am-ZgD">
                                                         <rect key="frame" x="135" y="35" width="30" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="75l-mX-eAP"/>
@@ -859,7 +859,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="bnl-P6-IOn">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right" translatesAutoresizingMaskIntoConstraints="NO" id="bnl-P6-IOn">
                                                 <rect key="frame" x="335" y="15" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="aQO-bM-B3n"/>
@@ -898,7 +898,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="mBR-vT-NNP">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right" translatesAutoresizingMaskIntoConstraints="NO" id="mBR-vT-NNP">
                                                 <rect key="frame" x="335" y="15" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="30" id="TDP-DG-Dhn"/>
@@ -937,7 +937,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="LN5-ja-KLN">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right" translatesAutoresizingMaskIntoConstraints="NO" id="LN5-ja-KLN">
                                                 <rect key="frame" x="335" y="15" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="gBy-vy-wWA"/>
@@ -975,7 +975,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZN0-mS-BYH">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right" translatesAutoresizingMaskIntoConstraints="NO" id="ZN0-mS-BYH">
                                                 <rect key="frame" x="335" y="15" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="6cL-eR-0XC"/>
@@ -1104,7 +1104,7 @@
                                             <constraint firstAttribute="width" constant="35" id="bhL-Qt-6PG"/>
                                             <constraint firstAttribute="height" constant="40" id="yN4-Ob-xSF"/>
                                         </constraints>
-                                        <state key="normal" image="ic_back.png"/>
+                                        <state key="normal" image="move_left"/>
                                         <connections>
                                             <action selector="backAction:" destination="qaw-B7-Ja4" eventType="touchUpInside" id="cuK-KP-Waf"/>
                                         </connections>
@@ -1220,7 +1220,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_kakao.png" translatesAutoresizingMaskIntoConstraints="NO" id="g6D-8f-7go">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sc_kakao" translatesAutoresizingMaskIntoConstraints="NO" id="g6D-8f-7go">
                                                 <rect key="frame" x="5" y="5" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="6Az-Mc-vsg"/>
@@ -1249,7 +1249,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_fb.png" translatesAutoresizingMaskIntoConstraints="NO" id="vhR-JP-TYZ">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sc_fb" translatesAutoresizingMaskIntoConstraints="NO" id="vhR-JP-TYZ">
                                                 <rect key="frame" x="5" y="5" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="Odg-gL-PzQ"/>
@@ -1345,7 +1345,7 @@
                                             <constraint firstAttribute="width" constant="35" id="gP0-r9-TP6"/>
                                             <constraint firstAttribute="height" constant="40" id="spy-Xa-Krk"/>
                                         </constraints>
-                                        <state key="normal" image="ic_back.png"/>
+                                        <state key="normal" image="move_left"/>
                                         <connections>
                                             <action selector="backAction:" destination="iig-u1-8Q3" eventType="touchUpInside" id="M4I-nf-4Vj"/>
                                         </connections>
@@ -1442,7 +1442,7 @@
                                             <constraint firstAttribute="width" constant="35" id="euf-nc-wgy"/>
                                             <constraint firstAttribute="height" constant="40" id="yN2-Pa-k4Y"/>
                                         </constraints>
-                                        <state key="normal" image="ic_back.png"/>
+                                        <state key="normal" image="move_left"/>
                                         <connections>
                                             <action selector="backAction:" destination="E3E-cs-a1e" eventType="touchUpInside" id="BBT-5a-hG3"/>
                                         </connections>
@@ -1541,7 +1541,7 @@
                                             <constraint firstAttribute="width" constant="35" id="5vW-rX-nOr"/>
                                             <constraint firstAttribute="height" constant="40" id="bcy-K6-1w8"/>
                                         </constraints>
-                                        <state key="normal" image="ic_back.png"/>
+                                        <state key="normal" image="move_left"/>
                                         <connections>
                                             <action selector="backAction:" destination="FZ8-wG-CCA" eventType="touchUpInside" id="aef-wZ-SiU"/>
                                         </connections>
@@ -1704,7 +1704,7 @@
                                             <constraint firstAttribute="height" constant="40" id="A9V-cd-Xaw"/>
                                             <constraint firstAttribute="width" constant="35" id="Gc8-aT-tbp"/>
                                         </constraints>
-                                        <state key="normal" image="ic_back.png"/>
+                                        <state key="normal" image="move_left"/>
                                         <connections>
                                             <action selector="backAction:" destination="Zbo-ae-IvI" eventType="touchUpInside" id="mgn-Sq-SEy"/>
                                         </connections>
@@ -1746,7 +1746,7 @@
                                             <constraint firstAttribute="height" constant="34" id="KAh-MG-Hd9"/>
                                             <constraint firstAttribute="width" constant="34" id="rdf-dn-n1C"/>
                                         </constraints>
-                                        <state key="normal" image="ic_left_false.png"/>
+                                        <state key="normal" image="wb_left_off"/>
                                         <connections>
                                             <action selector="webBackAction:" destination="Zbo-ae-IvI" eventType="touchUpInside" id="AtI-Ox-syh"/>
                                         </connections>
@@ -1757,7 +1757,7 @@
                                             <constraint firstAttribute="width" constant="34" id="3Vc-lc-k1A"/>
                                             <constraint firstAttribute="height" constant="34" id="LFF-IS-QQA"/>
                                         </constraints>
-                                        <state key="normal" image="ic_right_false.png"/>
+                                        <state key="normal" image="wb_right_off"/>
                                         <connections>
                                             <action selector="webNextAction:" destination="Zbo-ae-IvI" eventType="touchUpInside" id="Xjx-6e-hZo"/>
                                         </connections>
@@ -1768,7 +1768,7 @@
                                             <constraint firstAttribute="height" constant="30" id="KD5-ol-6Bu"/>
                                             <constraint firstAttribute="width" constant="30" id="gsk-gK-l2v"/>
                                         </constraints>
-                                        <state key="normal" image="ic_link.png"/>
+                                        <state key="normal" image="wb_link"/>
                                         <connections>
                                             <action selector="webLinkAction:" destination="Zbo-ae-IvI" eventType="touchUpInside" id="gwq-jn-23Z"/>
                                         </connections>
@@ -1779,7 +1779,7 @@
                                             <constraint firstAttribute="width" constant="30" id="ALw-dP-aSn"/>
                                             <constraint firstAttribute="height" constant="30" id="ai5-wr-qqw"/>
                                         </constraints>
-                                        <state key="normal" image="ic_reload.png"/>
+                                        <state key="normal" image="wb_reload"/>
                                         <connections>
                                             <action selector="webReloadAction:" destination="Zbo-ae-IvI" eventType="touchUpInside" id="esA-ec-I1m"/>
                                         </connections>
@@ -1870,7 +1870,7 @@
                                             <constraint firstAttribute="height" constant="40" id="dBW-4A-8Us"/>
                                             <constraint firstAttribute="width" constant="35" id="wa0-gf-KqS"/>
                                         </constraints>
-                                        <state key="normal" image="ic_back.png"/>
+                                        <state key="normal" image="move_left"/>
                                         <connections>
                                             <action selector="backAction:" destination="oju-hk-ozI" eventType="touchUpInside" id="ZwJ-a0-7lD"/>
                                         </connections>
@@ -2140,7 +2140,7 @@
                                             <constraint firstAttribute="height" constant="40" id="gzT-tI-20f"/>
                                             <constraint firstAttribute="width" constant="36" id="t3b-Am-WNw"/>
                                         </constraints>
-                                        <state key="normal" image="ic_back.png"/>
+                                        <state key="normal" image="move_left"/>
                                         <connections>
                                             <action selector="backAction:" destination="J0E-WT-m6X" eventType="touchUpInside" id="rbO-9U-fyS"/>
                                         </connections>
@@ -2166,7 +2166,7 @@
                                     <constraint firstItem="s74-h3-g6W" firstAttribute="leading" secondItem="Ys2-s4-ddU" secondAttribute="leading" constant="6" id="xCP-L4-cBD"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_1.png" translatesAutoresizingMaskIntoConstraints="NO" id="I0J-gx-2qt">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_1" translatesAutoresizingMaskIntoConstraints="NO" id="I0J-gx-2qt">
                                 <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M7C-3S-xeg">
@@ -2328,7 +2328,7 @@
                                             <constraint firstAttribute="height" constant="40" id="BRE-kK-tpM"/>
                                             <constraint firstAttribute="width" constant="35" id="hyq-8B-Xe5"/>
                                         </constraints>
-                                        <state key="normal" image="ic_back2.png"/>
+                                        <state key="normal" image="move_right"/>
                                         <connections>
                                             <action selector="backAction:" destination="ca5-ra-AUH" eventType="touchUpInside" id="6Qa-Yt-wgf"/>
                                         </connections>
@@ -2398,7 +2398,7 @@
                                             <constraint firstAttribute="height" constant="40" id="1di-fJ-77o"/>
                                             <constraint firstAttribute="width" constant="35" id="tb9-1q-3tm"/>
                                         </constraints>
-                                        <state key="normal" image="ic_back.png"/>
+                                        <state key="normal" image="move_left"/>
                                         <connections>
                                             <action selector="backAction:" destination="cuQ-w4-Tbe" eventType="touchUpInside" id="hbs-if-KmZ"/>
                                         </connections>
@@ -2434,7 +2434,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9AK-U1-qhU">
                                         <rect key="frame" x="10" y="10" width="355" height="30"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_search_b.png" translatesAutoresizingMaskIntoConstraints="NO" id="q2j-kY-eiL">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_search" translatesAutoresizingMaskIntoConstraints="NO" id="q2j-kY-eiL">
                                                 <rect key="frame" x="5" y="5" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="5Y3-Ba-qIp"/>
@@ -2450,7 +2450,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fYT-he-LM4">
                                                 <rect key="frame" x="325" y="0.0" width="30" height="30"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_cancel.png" translatesAutoresizingMaskIntoConstraints="NO" id="KMK-qk-hoF">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_cancel_b" translatesAutoresizingMaskIntoConstraints="NO" id="KMK-qk-hoF">
                                                         <rect key="frame" x="5" y="5" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="jTe-ie-Uh8"/>
@@ -2555,7 +2555,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="ZXh-pY-Gbr" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="jUZ-r0-dio"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xE7-YA-3cE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="xE7-YA-3cE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2595,7 +2595,7 @@
                                             <constraint firstAttribute="height" constant="40" id="NNV-a2-M7D"/>
                                             <constraint firstAttribute="width" constant="35" id="dxc-9R-q3u"/>
                                         </constraints>
-                                        <state key="normal" image="ic_back.png"/>
+                                        <state key="normal" image="move_left"/>
                                         <connections>
                                             <action selector="backAction:" destination="DwR-JR-H5b" eventType="touchUpInside" id="yyI-wg-Mqc"/>
                                         </connections>
@@ -2615,7 +2615,7 @@
                                             <constraint firstAttribute="width" constant="30" id="E1I-vR-Sjv"/>
                                             <constraint firstAttribute="height" constant="30" id="hy9-hT-nAJ"/>
                                         </constraints>
-                                        <state key="normal" image="ic_simplemap_w.png">
+                                        <state key="normal" image="ic_simplemap_w">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -2705,7 +2705,7 @@
                                                     <constraint firstAttribute="height" constant="35" id="2Cd-uO-4zi"/>
                                                     <constraint firstAttribute="width" constant="35" id="50D-OC-qZl"/>
                                                 </constraints>
-                                                <state key="normal" image="ic_star_n.png"/>
+                                                <state key="normal" image="ic_star_off"/>
                                                 <connections>
                                                     <action selector="interestAction:" destination="DwR-JR-H5b" eventType="touchUpInside" id="PYm-Pa-csS"/>
                                                 </connections>
@@ -2745,7 +2745,7 @@
                                                     <constraint firstAttribute="height" constant="30" id="WiN-D5-Dhj"/>
                                                     <constraint firstAttribute="width" constant="40" id="u8Z-WT-Sg2"/>
                                                 </constraints>
-                                                <state key="normal" image="ic_enter.png"/>
+                                                <state key="normal" image="ic_enter"/>
                                                 <connections>
                                                     <action selector="replyInsertAction:" destination="DwR-JR-H5b" eventType="touchUpInside" id="wc1-wu-SKi"/>
                                                 </connections>
@@ -2863,7 +2863,7 @@
                                             <constraint firstAttribute="height" constant="40" id="rI0-Pd-s80"/>
                                             <constraint firstAttribute="width" constant="36" id="sla-nY-QjJ"/>
                                         </constraints>
-                                        <state key="normal" image="ic_back.png"/>
+                                        <state key="normal" image="move_left"/>
                                         <connections>
                                             <action selector="backAction:" destination="lNO-56-Dkh" eventType="touchUpInside" id="oPT-po-WTO"/>
                                         </connections>
@@ -2883,7 +2883,7 @@
                                             <constraint firstAttribute="height" constant="30" id="0ae-QS-URb"/>
                                             <constraint firstAttribute="width" constant="30" id="iQ6-fr-XJK"/>
                                         </constraints>
-                                        <state key="normal" image="ic_add.png"/>
+                                        <state key="normal" image="ic_plus"/>
                                         <connections>
                                             <action selector="addAction:" destination="lNO-56-Dkh" eventType="touchUpInside" id="zgw-h7-Z8u"/>
                                         </connections>
@@ -2903,7 +2903,7 @@
                                     <constraint firstItem="IOV-w2-ppM" firstAttribute="top" secondItem="bcq-ya-9y3" secondAttribute="top" constant="10" id="lxg-LQ-ScC"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_2.png" translatesAutoresizingMaskIntoConstraints="NO" id="ERB-19-cNT">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_2" translatesAutoresizingMaskIntoConstraints="NO" id="ERB-19-cNT">
                                 <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rTb-6w-jUA">
@@ -3059,31 +3059,31 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background_1.png" width="550" height="776"/>
-        <image name="background_2.png" width="464" height="554"/>
-        <image name="ic_add.png" width="32" height="32"/>
-        <image name="ic_back.png" width="52" height="52"/>
-        <image name="ic_back2.png" width="52" height="52"/>
-        <image name="ic_cancel.png" width="32" height="32"/>
-        <image name="ic_edit.png" width="64" height="64"/>
-        <image name="ic_enter.png" width="50" height="50"/>
-        <image name="ic_fb.png" width="512" height="512"/>
-        <image name="ic_kakao.png" width="400" height="400"/>
-        <image name="ic_kakao_invite.png" width="128" height="146"/>
-        <image name="ic_left_false.png" width="48" height="48"/>
-        <image name="ic_link.png" width="50" height="50"/>
-        <image name="ic_location.png" width="50" height="50"/>
-        <image name="ic_message.png" width="50" height="50"/>
-        <image name="ic_reload.png" width="50" height="50"/>
-        <image name="ic_right.png" width="50" height="50"/>
-        <image name="ic_right_false.png" width="48" height="48"/>
-        <image name="ic_search_b.png" width="52" height="52"/>
-        <image name="ic_setting.png" width="50" height="50"/>
-        <image name="ic_simplemap_w.png" width="52" height="52"/>
-        <image name="ic_star_n.png" width="50" height="50"/>
+        <image name="bg_1" width="550" height="776"/>
+        <image name="bg_2" width="464" height="554"/>
+        <image name="ic_cancel_b" width="32" height="32"/>
+        <image name="ic_edit" width="64" height="64"/>
+        <image name="ic_enter" width="50" height="50"/>
+        <image name="ic_location" width="50" height="50"/>
+        <image name="ic_msg" width="50" height="50"/>
+        <image name="ic_plus" width="32" height="32"/>
+        <image name="ic_right" width="50" height="50"/>
+        <image name="ic_search" width="52" height="52"/>
+        <image name="ic_setting" width="50" height="50"/>
+        <image name="ic_simplemap_w" width="52" height="52"/>
+        <image name="ic_star_off" width="50" height="50"/>
+        <image name="move_left" width="52" height="52"/>
+        <image name="move_right" width="52" height="52"/>
+        <image name="sc_fb" width="512" height="512"/>
+        <image name="sc_kakao" width="400" height="400"/>
+        <image name="sc_kakao_invite" width="128" height="146"/>
+        <image name="wb_left_off" width="48" height="48"/>
+        <image name="wb_link" width="50" height="50"/>
+        <image name="wb_reload" width="50" height="50"/>
+        <image name="wb_right_off" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="xpS-lY-KI0"/>
-        <segue reference="Zvw-io-lO4"/>
+        <segue reference="Y89-Py-Oo5"/>
     </inferredMetricsTieBreakers>
 </document>

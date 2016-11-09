@@ -109,9 +109,9 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewD
         replyInsertField.delegate = self
         
         let courtStar = Storage.getStorage("courtStar_\(self.courtSeq)")
-        var starImage = "ic_star_s.png"
+        var starImage = "ic_star_on"
         if courtStar == nil{
-            starImage = "ic_star_n.png"
+            starImage = "ic_star_off"
         }
         self.interestBtn.setImage(UIImage(named: starImage), for: UIControlState())
     }
@@ -261,9 +261,9 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewD
         URLReq.request(self, url: URLReq.apiServer+URLReq.api_court_interest, param: parameters, callback: { (dic) in
             self.spin.isHidden = true
             self.spin.stopAnimating()
-            var starImage = "ic_star_n.png"
+            var starImage = "ic_star_off"
             if courtStar == nil{
-                starImage = "ic_star_s.png"
+                starImage = "ic_star_on"
                 Storage.setStorage("courtStar_\(self.courtSeq)", value: true as AnyObject)
             }else{
                 Storage.removeStorage("courtStar_\(self.courtSeq)")

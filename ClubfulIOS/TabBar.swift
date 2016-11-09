@@ -15,15 +15,15 @@ class TabBar: UITabBarController{
     let tabBtn03 = UIButton()
     let tabBtn04 = UIButton()
     
-    let tabImg01_n = UIImage(named: "ic_tab_home_n.png")
-    let tabImg02_n = UIImage(named: "ic_tab_add_n.png")
-    let tabImg03_n = UIImage(named: "ic_tab_mypage_n.png")
-    let tabImg04_n = UIImage(named: "ic_tab_setting_n.png")
+    let tabImg01_n = UIImage(named: "tab_home_off")
+    let tabImg02_n = UIImage(named: "tab_add_off")
+    let tabImg03_n = UIImage(named: "tab_mypage_off")
+    let tabImg04_n = UIImage(named: "tab_setting_off")
     
-    let tabImg01_s = UIImage(named: "ic_tab_home_s.png")
-    let tabImg02_s = UIImage(named: "ic_tab_add_s.png")
-    let tabImg03_s = UIImage(named: "ic_tab_mypage_s.png")
-    let tabImg04_s = UIImage(named: "ic_tab_setting_s.png")
+    let tabImg01_s = UIImage(named: "tab_home_on")
+    let tabImg02_s = UIImage(named: "tab_add_on")
+    let tabImg03_s = UIImage(named: "tab_mypage_on")
+    let tabImg04_s = UIImage(named: "tab_setting_on")
     
     let tabImg01 = UIImageView()
     let tabImg02 = UIImageView()

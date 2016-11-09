@@ -9,8 +9,8 @@
 import UIKit
 
 class AddView: UIView{
-    static let radio_selectedImage = UIImage(named: "ic_radio_selected.jpg")
-    static let radio_unselectedImage = UIImage(named: "ic_radio_unselected.jpg")
+    static let radio_selectedImage = UIImage(named: "ic_select_on")
+    static let radio_unselectedImage = UIImage(named: "ic_select_off")
     
     var ctrl : UIViewController!
     
