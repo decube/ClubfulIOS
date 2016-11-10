@@ -15,6 +15,12 @@
 		6E4CC94D1DC4811D005FA92F /* MainLeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CC94C1DC4811D005FA92F /* MainLeftViewController.swift */; };
 		6E4CC94F1DC4815C005FA92F /* MainRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CC94E1DC4815C005FA92F /* MainRightViewController.swift */; };
 		6E507C911DD3414200F62C17 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E507C901DD3414200F62C17 /* Images.xcassets */; };
+		6E507C931DD34C7300F62C17 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E507C921DD34C7300F62C17 /* Map.storyboard */; };
+		6E507C951DD34DB100F62C17 /* CourtView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E507C941DD34DB100F62C17 /* CourtView.storyboard */; };
+		6E507C971DD34DFF00F62C17 /* ViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E507C961DD34DFF00F62C17 /* ViewController.storyboard */; };
+		6E507C991DD34E9C00F62C17 /* CourtCreate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E507C981DD34E9C00F62C17 /* CourtCreate.storyboard */; };
+		6E507C9B1DD34F3500F62C17 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E507C9A1DD34F3500F62C17 /* User.storyboard */; };
+		6E507C9D1DD34F9800F62C17 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E507C9C1DD34F9800F62C17 /* Setting.storyboard */; };
 		6E63239E1DA3BF38001FCD9E /* AddView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E63239D1DA3BF38001FCD9E /* AddView.xib */; };
 		6E6323A01DA3BF52001FCD9E /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E63239F1DA3BF52001FCD9E /* AddView.swift */; };
 		6E77DD111DC5A04400296008 /* CourtSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77DD101DC5A04400296008 /* CourtSearchView.swift */; };
@@ -120,6 +126,12 @@
 		6E4CC94C1DC4811D005FA92F /* MainLeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainLeftViewController.swift; sourceTree = "<group>"; };
 		6E4CC94E1DC4815C005FA92F /* MainRightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainRightViewController.swift; sourceTree = "<group>"; };
 		6E507C901DD3414200F62C17 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		6E507C921DD34C7300F62C17 /* Map.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
+		6E507C941DD34DB100F62C17 /* CourtView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CourtView.storyboard; sourceTree = "<group>"; };
+		6E507C961DD34DFF00F62C17 /* ViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ViewController.storyboard; sourceTree = "<group>"; };
+		6E507C981DD34E9C00F62C17 /* CourtCreate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CourtCreate.storyboard; sourceTree = "<group>"; };
+		6E507C9A1DD34F3500F62C17 /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
+		6E507C9C1DD34F9800F62C17 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		6E63239D1DA3BF38001FCD9E /* AddView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddView.xib; sourceTree = "<group>"; };
 		6E63239F1DA3BF52001FCD9E /* AddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		6E77DD101DC5A04400296008 /* CourtSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtSearchView.swift; sourceTree = "<group>"; };
@@ -354,6 +366,7 @@
 		6E7DA9871D994A760098D7DA /* main */ = {
 			isa = PBXGroup;
 			children = (
+				6E507C961DD34DFF00F62C17 /* ViewController.storyboard */,
 				6E7DA8DB1D9948910098D7DA /* ViewController.swift */,
 				6E7DA99D1D994B3A0098D7DA /* MyLocationView.swift */,
 				6E7DA9DC1D994D4A0098D7DA /* MyLocationView.xib */,
@@ -363,8 +376,6 @@
 				6E77DD121DC5A05E00296008 /* CourtSearchView.xib */,
 				6E7DA99E1D994B3A0098D7DA /* CourtSearchElementView.swift */,
 				6E7DA9DD1D994D4A0098D7DA /* CourtSearchElementView.xib */,
-				6E63239F1DA3BF52001FCD9E /* AddView.swift */,
-				6E63239D1DA3BF38001FCD9E /* AddView.xib */,
 				6E4CC94C1DC4811D005FA92F /* MainLeftViewController.swift */,
 				6E4CC94E1DC4815C005FA92F /* MainRightViewController.swift */,
 			);
@@ -384,10 +395,10 @@
 		6E7DA9891D994A920098D7DA /* court */ = {
 			isa = PBXGroup;
 			children = (
+				6E507C981DD34E9C00F62C17 /* CourtCreate.storyboard */,
 				6E7DA9931D994B3A0098D7DA /* CourtCreateViewController.swift */,
+				6E507C941DD34DB100F62C17 /* CourtView.storyboard */,
 				6E7DA9941D994B3A0098D7DA /* CourtViewController.swift */,
-				6E7DA9A31D994B3A0098D7DA /* NonUserView.swift */,
-				6E7DA9DF1D994D4A0098D7DA /* NonUserView.xib */,
 			);
 			name = court;
 			sourceTree = "<group>";
@@ -395,7 +406,10 @@
 		6E7DA98A1D994A9A0098D7DA /* setting */ = {
 			isa = PBXGroup;
 			children = (
+				6E507C9C1DD34F9800F62C17 /* Setting.storyboard */,
 				6E8AB6B01D9C08F200B8E488 /* SetViewController.swift */,
+				6E7DA99B1D994B3A0098D7DA /* LoginViewController.swift */,
+				6E7DA99A1D994B3A0098D7DA /* JoinViewController.swift */,
 				6E7DA9A41D994B3A0098D7DA /* NoticeViewController.swift */,
 				6E7DA9971D994B3A0098D7DA /* GuideViewController.swift */,
 				6E7DA9981D994B3A0098D7DA /* InfoViewController.swift */,
@@ -409,8 +423,7 @@
 		6E7DA98B1D994A9E0098D7DA /* user */ = {
 			isa = PBXGroup;
 			children = (
-				6E7DA99B1D994B3A0098D7DA /* LoginViewController.swift */,
-				6E7DA99A1D994B3A0098D7DA /* JoinViewController.swift */,
+				6E507C9A1DD34F3500F62C17 /* User.storyboard */,
 				6E7DA9A21D994B3A0098D7DA /* MypageViewController.swift */,
 				6E7DA9A11D994B3A0098D7DA /* MessageViewController.swift */,
 				6E7DA9B41D994B3A0098D7DA /* UserConvertViewController.swift */,
@@ -421,11 +434,16 @@
 		6E7DA98C1D994AA10098D7DA /* common */ = {
 			isa = PBXGroup;
 			children = (
+				6E507C921DD34C7300F62C17 /* Map.storyboard */,
 				6E7DA9A01D994B3A0098D7DA /* MapViewController.swift */,
 				6EE0B8211DCED827009792A7 /* MapListView.swift */,
 				6EE0B8231DCEDA3D009792A7 /* MapListView.xib */,
 				6E7DA99F1D994B3A0098D7DA /* MapListElementView.swift */,
 				6E7DA9DE1D994D4A0098D7DA /* MapListElementView.xib */,
+				6E7DA9A31D994B3A0098D7DA /* NonUserView.swift */,
+				6E7DA9DF1D994D4A0098D7DA /* NonUserView.xib */,
+				6E63239F1DA3BF52001FCD9E /* AddView.swift */,
+				6E63239D1DA3BF38001FCD9E /* AddView.xib */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -628,8 +646,13 @@
 			files = (
 				6E7DA9E11D994D4A0098D7DA /* MyLocationView.xib in Resources */,
 				6E77DD131DC5A05E00296008 /* CourtSearchView.xib in Resources */,
+				6E507C931DD34C7300F62C17 /* Map.storyboard in Resources */,
+				6E507C951DD34DB100F62C17 /* CourtView.storyboard in Resources */,
+				6E507C991DD34E9C00F62C17 /* CourtCreate.storyboard in Resources */,
 				6E7DA90A1D99490A0098D7DA /* AdobeCreativeSDKCoreResources.bundle in Resources */,
 				6E507C911DD3414200F62C17 /* Images.xcassets in Resources */,
+				6E507C9D1DD34F9800F62C17 /* Setting.storyboard in Resources */,
+				6E507C9B1DD34F3500F62C17 /* User.storyboard in Resources */,
 				6EE0B8241DCEDA3D009792A7 /* MapListView.xib in Resources */,
 				6E7DA8E41D9948910098D7DA /* LaunchScreen.storyboard in Resources */,
 				6E7DA90B1D99490A0098D7DA /* AdobeCreativeSDKImageResources.bundle in Resources */,
@@ -640,6 +663,7 @@
 				6E7DA8DF1D9948910098D7DA /* Main.storyboard in Resources */,
 				6E7DA9E31D994D4A0098D7DA /* MapListElementView.xib in Resources */,
 				6E63239E1DA3BF38001FCD9E /* AddView.xib in Resources */,
+				6E507C971DD34DFF00F62C17 /* ViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
