@@ -109,7 +109,7 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 * ~~2016-11-06 App Icon 3D Touch~~
 * 메인화면
 * 쪽지화면
-* storyboard 나누기
+* ~~storyboard 나누기~~
 * main화면 왼쪽 gesture 화면
 * main화면 오른쪽 gesture 화면
 
