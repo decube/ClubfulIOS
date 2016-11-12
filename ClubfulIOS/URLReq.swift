@@ -79,7 +79,7 @@ class URLReq{
     ///////////////////
     //GET Async 동기 통신
     ///////////////////
-    static func initApiRequest(_ ctrl: UIViewController){
+    static func initApiRequest(_ ctrl: UIViewController, callback: ((Void) -> Void)!){
         var request : NSMutableURLRequest
         let apiUrl = Foundation.URL(string: URLReq.urlCheck)
         request = NSMutableURLRequest(url: apiUrl!)
@@ -134,6 +134,10 @@ class URLReq{
                 }
                 Storage.setRealmDeviceUser(deviceUser)
             })
+            
+            if callback != nil{
+                callback()
+            }
         } catch _ as NSError {}
     }
 }

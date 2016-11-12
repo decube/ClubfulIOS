@@ -19,7 +19,8 @@ class NoticeViewController : UIViewController, UIWebViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
         //웹뷰 딜리게이트 추가
         self.webView.delegate = self
         //웹뷰 띄우기

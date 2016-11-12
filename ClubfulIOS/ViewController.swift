@@ -11,7 +11,7 @@ import UIKit
 import Darwin
 import MapKit
 
-class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate, UIScrollViewDelegate{
     //현재위치 manager
     let locationManager = CLLocationManager()
     
@@ -51,7 +51,9 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
         
         //검색 필드 스타일
         self.searchTextField.borderStyle = .none
@@ -83,6 +85,9 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         }
         
         
+        self.scrollView.delegate = self
+        
+        
         //코트검색 뷰 만들기
         if let customView = Bundle.main.loadNibNamed("CourtSearchView", owner: self, options: nil)?.first as? CourtSearchView {
             self.courtSearchView = customView
@@ -109,7 +114,55 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         ///////////////////
         //GET Async 동기 통신
         ///////////////////
-        URLReq.initApiRequest(self)
+        URLReq.initApiRequest(self){
+            self.spin.isHidden = true
+            self.addScrollView()
+        }
+    }
+    
+    
+    var totalRow : Int!
+    var page = 1
+    var idx: CGFloat = 0
+    //스크롤뷰 슬라이더 딜리게이트
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentOffset = self.scrollView.contentOffset.y
+        let maximumOffset = self.scrollView.contentSize.height - self.scrollView.frame.size.height
+        let deltaOffset = maximumOffset - currentOffset
+        if deltaOffset <= 0 && self.spin.isHidden == true{
+            self.addScrollView()
+        }
+    }
+    
+    func addScrollView(){
+        if self.totalRow != nil && self.totalRow <= Int(self.idx){
+            self.spin.isHidden = true
+            self.spin.stopAnimating()
+            return
+        }
+        if self.spin.isHidden == false{
+            return
+        }
+        
+        self.spin.startAnimating()
+        self.spin.isHidden = false
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 2)
+            DispatchQueue.main.async{
+                ///////////
+                //통신//
+                /////////
+                self.spin.stopAnimating()
+                self.spin.isHidden = true
+                for _ in 0...10{
+                    if let customView = Bundle.main.loadNibNamed("CourtElementView", owner: self, options: nil)?.first as? CourtElementView {
+                        customView.setLayout(self, idx: self.idx, element: [:])
+                        self.idx += 1
+                    }
+                }
+                self.scrollView.contentSize.height = self.idx*160+70
+            }
+        }
     }
     
     
@@ -259,9 +312,17 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
             }
         }
     }
-    //인풋창 끝나면 키보드 없애기
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //뷰 클릭했을때
+    func keyboardHide(_ sender: AnyObject){
         self.view.endEditing(true)
+        if self.courtSearchView.isHidden == false{
+            UIView.animate(withDuration: 0.2, animations: {
+                self.courtSearchView.frame.origin.x = -self.courtSearchView.frame.width
+            }, completion: {(_) in
+                self.courtSearchView.isHidden = true
+                self.courtSearchView.frame.origin.x = 0
+            })
+        }
     }
     
     

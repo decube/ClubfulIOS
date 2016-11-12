@@ -32,7 +32,9 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
         //마커
         self.marker = MKPointAnnotation()
         self.mapView.addAnnotation(marker)
@@ -47,16 +49,10 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
         self.mapView.delegate = self
         self.searchField.delegate = self
         self.searchField.borderStyle = .none
-        
-        DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 0.1)
-            DispatchQueue.main.async {
-                //추가정보 뷰 만들기
-                if let customView = Bundle.main.loadNibNamed("MapListView", owner: self, options: nil)?.first as? MapListView {
-                    self.mapListView = customView
-                    self.mapListView.setLayout(self)
-                }
-            }
+        //추가정보 뷰 만들기
+        if let customView = Bundle.main.loadNibNamed("MapListView", owner: self, options: nil)?.first as? MapListView {
+            self.mapListView = customView
+            self.mapListView.setLayout(self)
         }
     }
     
@@ -185,9 +181,8 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
                 self.mapListView.scrollView.scrollToTop()
         })
     }
-    
-    //인풋창 끝나면 키보드 없애기
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //뷰 클릭했을때
+    func keyboardHide(_ sender: AnyObject){
         self.view.endEditing(true)
     }
 }

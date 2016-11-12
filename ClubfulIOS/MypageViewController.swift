@@ -49,7 +49,9 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     
     
     override func viewDidLoad() {
-        
+        super.viewDidLoad()
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
         interestCourt.delegate = self
         createCourt.delegate = self
         

@@ -51,14 +51,16 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
         
         DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 0.1)
+            Thread.sleep(forTimeInterval: 0.5)
             DispatchQueue.main.async {
-                self.scrollViewHeight = self.scrollView.contentSize.height
+                self.scrollViewHeight = self.scrollView.frame.height
             }
         }
-        
         
         spin.isHidden = true
         imageSlide.delegate = self
@@ -428,10 +430,8 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewD
     func keyboardWillHide(_ notification: Notification) {
         scrollView.contentSize.height = self.scrollViewHeight
     }
-    
-    
-    //인풋창 끝나면 키보드 없애기
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //뷰 클릭했을때
+    func keyboardHide(_ sender: AnyObject){
         self.view.endEditing(true)
     }
     //인풋창 Done가 들어오면 키보드 없애기

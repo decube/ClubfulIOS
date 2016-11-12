@@ -70,6 +70,7 @@ class Storage{
             let user = User()
             user.id = (realmUser?.id)!
             user.userId = (realmUser?.userId)!
+            user.loginType = (realmUser?.loginType)!
             user.nickName = (realmUser?.nickName)!
             user.sex = (realmUser?.sex)!
             user.birth = (realmUser?.birth)!

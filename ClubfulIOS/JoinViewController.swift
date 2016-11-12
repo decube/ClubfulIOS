@@ -22,7 +22,9 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
         spin.isHidden = true
         idField.delegate = self
         pwdField.delegate = self
@@ -35,8 +37,10 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         nicknameField.maxLength(10)
         
         DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 1)
-            self.scrollViewHeight = self.scrollView.frame.height
+            Thread.sleep(forTimeInterval: 0.5)
+            DispatchQueue.main.async {
+                self.scrollViewHeight = self.scrollView.frame.height
+            }
         }
     }
     
@@ -107,8 +111,8 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
     }
-    //인풋창 끝나면 키보드 없애기
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //뷰 클릭했을때
+    func keyboardHide(_ sender: AnyObject){
         self.view.endEditing(true)
     }
     //인풋창 Done가 들어오면 키보드 없애기

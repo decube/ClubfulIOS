@@ -25,7 +25,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
         spin.isHidden = true
         
         idField.delegate = self
@@ -71,7 +73,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         var parameters : [String: AnyObject] = [:]
         parameters.updateValue(userId as AnyObject, forKey: "userId")
         parameters.updateValue("" as AnyObject, forKey: "password")
-        parameters.updateValue(2 as AnyObject as AnyObject, forKey: "loginType")
+        parameters.updateValue("n" as AnyObject, forKey: "loginType")
         parameters.updateValue(deviceUser.pushID as AnyObject, forKey: "gcmId")
         parameters.updateValue(nickName as AnyObject, forKey: "nickName")
         parameters.updateValue(deviceUser.noticePushCheck as AnyObject, forKey: "noticePush")
@@ -209,10 +211,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction func backAction(_ sender: AnyObject) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
-    
-    
-    //인풋창 끝나면 키보드 없애기
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //뷰 클릭했을때
+    func keyboardHide(_ sender: AnyObject){
         self.view.endEditing(true)
     }
     //인풋창 Done가 들어오면 키보드 없애기

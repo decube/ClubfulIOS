@@ -26,7 +26,10 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
     
     
     override func viewDidLoad() {
-        
+        super.viewDidLoad()
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
         self.blackScreen = BlackScreen(self)
         
         if let customView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView {
@@ -35,13 +38,11 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
         }
         
         spin.isHidden = true
-        idField.delegate = self
         pwdField.delegate = self
         newPwdField.delegate = self
         newRepwdField.delegate = self
         nicknameField.delegate = self
         
-        idField.maxLength(14)
         pwdField.maxLength(14)
         newPwdField.maxLength(14)
         newRepwdField.maxLength(14)
@@ -53,14 +54,14 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
             idField.text = "카카오톡으로 로그인 된 아이디입니다."
         } else if user.loginType == "f"{
             idField.text = "페이스북으로 로그인 된 아이디입니다."
-        } else if user.loginType == "n"{
-            idField.text = "네이버로 로그인 된 아이디입니다."
         }
         nicknameField.text = user.nickName
         
         DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 0.1)
-            self.scrollViewHeight = self.scrollView.contentSize.height
+            Thread.sleep(forTimeInterval: 0.5)
+            DispatchQueue.main.async {
+                self.scrollViewHeight = self.scrollView.frame.height
+            }
         }
     }
     
@@ -125,10 +126,8 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
     func keyboardWillHide(_ notification: Notification) {
         scrollView.contentSize.height = self.scrollViewHeight
     }
-    
-    
-    //인풋창 끝나면 키보드 없애기
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //뷰 클릭했을때
+    func keyboardHide(_ sender: AnyObject){
         self.view.endEditing(true)
     }
     //인풋창 Done가 들어오면 키보드 없애기

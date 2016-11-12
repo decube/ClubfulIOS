@@ -66,14 +66,16 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+        
         self.spin.isHidden = true
         self.cnameTextField.delegate = self
         self.descTextView.delegate = self
-        DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 0.1)
-            DispatchQueue.main.async {
-                self.layoutInit()
-            }
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
+        DispatchQueue.main.async {
+            self.layoutInit()
         }
     }
     
@@ -131,6 +133,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                 btnClick()
             }
         }
+        
         
         DispatchQueue.global().async {
             Thread.sleep(forTimeInterval: 0.1)
@@ -222,7 +225,45 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                     kAdobeImageEditorOverlay,        /* Overlay */
                     kAdobeImageEditorVignette        /* Vignette */
                     ])
+                //사용자가 비율 마음대로 지정
+                AdobeImageEditorCustomization.setCropToolCustomEnabled(false)
+                AdobeImageEditorCustomization.setCropToolInvertEnabled(false)
+                AdobeImageEditorCustomization.setCropToolOriginalEnabled(false)
                 
+                
+                
+                
+                
+                /** Sets the availability and order of crop preset options.
+                 
+                 The dictionaries should be of the form:
+                 
+                 @{kAdobeImageEditorCropPresetName: <NSString representing the display name>,
+                 kAdobeImageEditorCropPresetWidth: <NSNumber representing width>,
+                 kAdobeImageEditorCropPresetHeight: <NSNumber representing height>}
+                 
+                 When the corresponding option is selected, the crop box will be constrained
+                 to a kAdobeImageEditorCropPresetWidth:kAdobeImageEditorCropPresetHeight aspect ratio.
+                 
+                 If Original and/or Custom options are enabled, then they will precede the
+                 presets defined here. If no crop tool presets are set, the default options
+                 are Square, 3x2, 5x3, 4x3, 6x4, and 7x5.
+                 
+                 @param cropToolPresets An array of crop option dictionaries.
+                 */
+                
+                
+                
+                
+                let cropCustom : Array<Dictionary<String, Any>>  = [
+                    ["kAdobeImageEditorCropPresetName":"Option1", "kAdobeImageEditorCropPresetWidth":"3", "kAdobeImageEditorCropPresetHeight":"7"],
+                    ["kAdobeImageEditorCropPresetName":"Option2", "kAdobeImageEditorCropPresetWidth":3, "kAdobeImageEditorCropPresetHeight":7],
+                    ["kAdobeImageEditorCropPresetName":"Option3", "kAdobeImageEditorCropPresetWidth":CGFloat(3), "kAdobeImageEditorCropPresetHeight":CGFloat(7)],
+                    ["kAdobeImageEditorCropPresetName":"Option4", "kAdobeImageEditorCropPresetWidth":Double(3), "kAdobeImageEditorCropPresetHeight":Double(7)],
+                    ["kAdobeImageEditorCropPresetName":"Option5", "kAdobeImageEditorCropPresetWidth":CALayer(layer: 3), "kAdobeImageEditorCropPresetHeight":CALayer(layer: 7)]
+                ]
+                
+                AdobeImageEditorCustomization.setCropToolPresets(cropCustom)
                 let adobeViewCtr = AdobeUXImageEditorViewController(image: newImage)
                 adobeViewCtr.delegate = self
                 self.present(adobeViewCtr, animated: false) { () -> Void in
@@ -423,10 +464,8 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     func keyboardWillHide(_ notification: Notification) {
         mainScrollView.contentSize.height = self.mainScrollViewHeight
     }
-    
-    
-    //인풋창 끝나면 키보드 없애기
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //뷰 클릭했을때
+    func keyboardHide(_ sender: AnyObject){
         self.view.endEditing(true)
     }
     //인풋창 Done가 들어오면 키보드 없애기

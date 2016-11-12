@@ -16,7 +16,13 @@ class MapListView : UIView{
     func setLayout(_ ctrl: MapViewController){
         self.ctrl = ctrl
         
-        self.frame = CGRect(x: 0, y: self.ctrl.mapView.frame.origin.y, width: self.ctrl.view.frame.width/3*2, height: self.ctrl.mapView.frame.height)
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 0.5)
+            DispatchQueue.main.async {
+                self.frame = CGRect(x: 0, y: self.ctrl.mapView.frame.origin.y, width: self.ctrl.view.frame.width/3*2, height: self.ctrl.mapView.frame.height)
+            }
+        }
+        
         self.backgroundColor = UIColor(red:0.86, green:0.90, blue:0.93, alpha:1.00)
         self.ctrl.view.addSubview(self)
     }

@@ -14,7 +14,8 @@ class MainLeftViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
     }
     
     @IBAction func handleGesture(_ sender: UIPanGestureRecognizer) {

@@ -22,7 +22,8 @@ class AppSettingViewController : UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
         let deviceUser = Storage.getRealmDeviceUser()
         noticeSwitch.isOn = deviceUser.noticePushCheck
         myCourtSwitch.isOn = deviceUser.myCourtPushCheck

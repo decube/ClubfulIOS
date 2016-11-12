@@ -115,6 +115,7 @@
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qC0-j9-Lvd">
                                 <rect key="frame" x="0.0" y="80" width="375" height="587"/>
+                                <color key="backgroundColor" red="0.88360753621658983" green="0.96569901704788208" blue="0.88508966964672242" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </scrollView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="F6P-PN-z7z">
                                 <rect key="frame" x="178" y="364" width="20" height="20"/>
@@ -243,7 +244,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="szV-do-jn5" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="9PN-Iv-vab"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="33O-go-prA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="33O-go-prA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

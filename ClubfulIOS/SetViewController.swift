@@ -26,8 +26,9 @@ class SetViewController : UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        signCheck()
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+        self.signCheck()
         
         self.tab_0.isUserInteractionEnabled = true
         self.tab_1.isUserInteractionEnabled = true

@@ -18,9 +18,9 @@ class CourtSearchView : UIView{
     func setLayout(_ ctrl: ViewController){
         self.ctrl = ctrl
         
-        DispatchQueue.global().async{
-            Thread.sleep(forTimeInterval: 1)
-            DispatchQueue.main.async{
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 0.5)
+            DispatchQueue.main.async {
                 self.frame = CGRect(x: 0, y: self.ctrl.scrollView.frame.origin.y, width: self.ctrl.view.frame.width/3*2, height: self.ctrl.scrollView.frame.height)
                 _ = self.layer(.right, borderWidth: 1, color: UIColor.black)
             }
