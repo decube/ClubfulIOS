@@ -168,7 +168,7 @@
 		6E7DA9221D99496E0098D7DA /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		6E7DA9241D9949740098D7DA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		6E7DA9261D9949860098D7DA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		6E7DA9281D994A020098D7DA /* ClubfulIOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ClubfulIOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		6E7DA9281D994A020098D7DA /* ClubfulIOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ClubfulIOS-Bridging-Header.h"; path = "ClubfulIOS/ClubfulIOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		6E7DA9911D994B3A0098D7DA /* AppSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingViewController.swift; sourceTree = "<group>"; };
 		6E7DA9921D994B3A0098D7DA /* BallInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallInfo.swift; sourceTree = "<group>"; };
 		6E7DA9931D994B3A0098D7DA /* CourtCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtCreateViewController.swift; sourceTree = "<group>"; };
@@ -288,9 +288,19 @@
 			name = slider;
 			sourceTree = "<group>";
 		};
+		6E60A4121DD8650300DD8F29 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6E7EB6631DBEE88600A618DA /* GoogleService-Info.plist */,
+				6E7DA8E51D9948910098D7DA /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		6E7DA8CD1D9948910098D7DA = {
 			isa = PBXGroup;
 			children = (
+				6E7DA9281D994A020098D7DA /* ClubfulIOS-Bridging-Header.h */,
 				6E7DA8D81D9948910098D7DA /* ClubfulIOS */,
 				6E7DA8ED1D9948910098D7DA /* ClubfulIOSTests */,
 				6E7DA8F81D9948910098D7DA /* ClubfulIOSUITests */,
@@ -317,11 +327,9 @@
 				6E4168561DCCC4EE008C719D /* ClubfulIOS.entitlements */,
 				6E7DA8D91D9948910098D7DA /* AppDelegate.swift */,
 				6E7DA9851D994A630098D7DA /* swift */,
+				6E60A4121DD8650300DD8F29 /* Supporting Files */,
 				6E7DA8DD1D9948910098D7DA /* Main.storyboard */,
 				6E7DA8E21D9948910098D7DA /* LaunchScreen.storyboard */,
-				6E7DA8E51D9948910098D7DA /* Info.plist */,
-				6E7EB6631DBEE88600A618DA /* GoogleService-Info.plist */,
-				6E7DA9281D994A020098D7DA /* ClubfulIOS-Bridging-Header.h */,
 				6E507C901DD3414200F62C17 /* Images.xcassets */,
 			);
 			path = ClubfulIOS;

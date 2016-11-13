@@ -154,13 +154,14 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                 /////////
                 self.spin.stopAnimating()
                 self.spin.isHidden = true
+                let height: CGFloat = 180
                 for _ in 0...10{
                     if let customView = Bundle.main.loadNibNamed("CourtElementView", owner: self, options: nil)?.first as? CourtElementView {
-                        customView.setLayout(self, idx: self.idx, element: [:])
+                        customView.setLayout(self, idx: self.idx, height: height, element: [:])
                         self.idx += 1
                     }
                 }
-                self.scrollView.contentSize.height = self.idx*160+70
+                self.scrollView.contentSize.height = (self.idx*(height+10))+70
             }
         }
     }

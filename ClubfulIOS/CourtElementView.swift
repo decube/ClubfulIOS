@@ -13,11 +13,10 @@ class CourtElementView: UIView{
     var element: [String: AnyObject]!
     
     
-    func setLayout(_ ctrl: ViewController, idx: CGFloat, element: [String: AnyObject]){
+    func setLayout(_ ctrl: ViewController, idx: CGFloat, height: CGFloat, element: [String: AnyObject]){
         self.ctrl = ctrl
         self.element = element
-        
-        self.frame = CGRect(x: 10, y: 160*idx+10, width: ctrl.scrollView.frame.width-20, height: 150)
+        self.frame = CGRect(x: 10, y: ((height+10)*idx)+10, width: ctrl.scrollView.frame.width-20, height: height)
         self.ctrl.scrollView.addSubview(self)
     }
 }
