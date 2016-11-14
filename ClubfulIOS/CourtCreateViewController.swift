@@ -230,40 +230,16 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
                 AdobeImageEditorCustomization.setCropToolInvertEnabled(false)
                 AdobeImageEditorCustomization.setCropToolOriginalEnabled(false)
                 
-                
-                
-                
-                
-                /** Sets the availability and order of crop preset options.
-                 
-                 The dictionaries should be of the form:
-                 
-                 @{kAdobeImageEditorCropPresetName: <NSString representing the display name>,
-                 kAdobeImageEditorCropPresetWidth: <NSNumber representing width>,
-                 kAdobeImageEditorCropPresetHeight: <NSNumber representing height>}
-                 
-                 When the corresponding option is selected, the crop box will be constrained
-                 to a kAdobeImageEditorCropPresetWidth:kAdobeImageEditorCropPresetHeight aspect ratio.
-                 
-                 If Original and/or Custom options are enabled, then they will precede the
-                 presets defined here. If no crop tool presets are set, the default options
-                 are Square, 3x2, 5x3, 4x3, 6x4, and 7x5.
-                 
-                 @param cropToolPresets An array of crop option dictionaries.
-                 */
-                
-                
-                
-                
-                let cropCustom : Array<Dictionary<String, Any>>  = [
-                    ["kAdobeImageEditorCropPresetName":"Option1", "kAdobeImageEditorCropPresetWidth":"3", "kAdobeImageEditorCropPresetHeight":"7"],
-                    ["kAdobeImageEditorCropPresetName":"Option2", "kAdobeImageEditorCropPresetWidth":3, "kAdobeImageEditorCropPresetHeight":7],
-                    ["kAdobeImageEditorCropPresetName":"Option3", "kAdobeImageEditorCropPresetWidth":CGFloat(3), "kAdobeImageEditorCropPresetHeight":CGFloat(7)],
-                    ["kAdobeImageEditorCropPresetName":"Option4", "kAdobeImageEditorCropPresetWidth":Double(3), "kAdobeImageEditorCropPresetHeight":Double(7)],
-                    ["kAdobeImageEditorCropPresetName":"Option5", "kAdobeImageEditorCropPresetWidth":CALayer(layer: 3), "kAdobeImageEditorCropPresetHeight":CALayer(layer: 7)]
+                let _ : Array<Dictionary<String, Any>>  = [
+                    [
+                        "kAdobeImageEditorCropPresetName":"Option1",
+                        "kAdobeImageEditorCropPresetWidth":3,
+                        "kAdobeImageEditorCropPresetHeight":7
+                    ]
                 ]
+                //AdobeImageEditorCustomization.setCropToolPresets(cropCustom)
                 
-                AdobeImageEditorCustomization.setCropToolPresets(cropCustom)
+                
                 let adobeViewCtr = AdobeUXImageEditorViewController(image: newImage)
                 adobeViewCtr.delegate = self
                 self.present(adobeViewCtr, animated: false) { () -> Void in
@@ -277,21 +253,34 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     //AdobeCreativeSDK 이미지 받아옴
     func photoEditor(_ editor: AdobeUXImageEditorViewController, finishedWith image: UIImage?) {
         editor.dismiss(animated: true, completion: {(_) in
-            let rateWidth = (image?.size.width)!/self.imageWidth
-            let rateHeight = (image?.size.height)!/self.imageHeight
+            let imageCrop = self.resizeImage(image: (image?.crop(to: CGSize(width: 500, height: 300)))!, size: CGSize(width: 500, height: 300))
+            
+            let rateWidth = imageCrop.size.width/self.imageWidth
+            let rateHeight = imageCrop.size.height/self.imageHeight
             
             var widthValue : CGFloat! = self.imageWidth
             var heightValue : CGFloat! = self.imageHeight
             
             if rateWidth > rateHeight{
-                heightValue = widthValue * (image?.size.height)! / (image?.size.width)!
+                heightValue = widthValue * imageCrop.size.height / imageCrop.size.width
             }else{
-                widthValue = heightValue * (image?.size.width)! / (image?.size.height)!
+                widthValue = heightValue * imageCrop.size.width / imageCrop.size.height
             }
             self.tempImageBtn.frame = CGRect(x: (self.imageWidth-widthValue)/2, y: (self.imageHeight-heightValue)/2, width: widthValue, height: heightValue)
-            self.tempImageBtn.setImage(image, for: UIControlState())
+            self.tempImageBtn.setImage(imageCrop, for: UIControlState())
         })
     }
+    
+    //사이즈 줄이기
+    func resizeImage(image: UIImage, size: CGSize) -> UIImage{
+        let imageValue = Util.imageResize(image, sizeChange: size)
+        if Util.returnImageData(imageValue, ext: .png).count > (1024*1024){
+            return resizeImage(image: imageValue, size: CGSize(width: size.width-100, height: (size.width-100)/5*3))
+        }else{
+            return imageValue
+        }
+    }
+    
     //AdobeCreativeSDK 캔슬
     func photoEditorCanceled(_ editor: AdobeUXImageEditorViewController) {
         editor.dismiss(animated: true, completion: nil)

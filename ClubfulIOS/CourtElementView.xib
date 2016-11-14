@@ -62,7 +62,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="14" height="25"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star_on" translatesAutoresizingMaskIntoConstraints="NO" id="5I6-AN-WH7">
-                                                    <rect key="frame" x="0.0" y="5.5" width="14" height="14"/>
+                                                    <rect key="frame" x="0.0" y="6" width="14" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="14" id="Rld-GN-fcn"/>
                                                         <constraint firstAttribute="width" constant="14" id="zw8-eZ-zFB"/>
@@ -79,7 +79,7 @@
                                             <rect key="frame" x="14" y="0.0" width="14" height="25"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star_on" translatesAutoresizingMaskIntoConstraints="NO" id="afp-hO-MoR">
-                                                    <rect key="frame" x="0.0" y="5.5" width="14" height="14"/>
+                                                    <rect key="frame" x="0.0" y="6" width="14" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="14" id="0nW-77-eWQ"/>
                                                         <constraint firstAttribute="height" constant="14" id="yfy-2r-SbB"/>
@@ -96,7 +96,7 @@
                                             <rect key="frame" x="28" y="0.0" width="14" height="25"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star_on" translatesAutoresizingMaskIntoConstraints="NO" id="vR3-IJ-1f1">
-                                                    <rect key="frame" x="0.0" y="5.5" width="14" height="14"/>
+                                                    <rect key="frame" x="0.0" y="6" width="14" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="14" id="WqZ-7M-9rv"/>
                                                         <constraint firstAttribute="height" constant="14" id="olA-nA-fq9"/>
@@ -113,7 +113,7 @@
                                             <rect key="frame" x="42" y="0.0" width="14" height="25"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star_on" translatesAutoresizingMaskIntoConstraints="NO" id="OfI-Ne-nfk">
-                                                    <rect key="frame" x="0.0" y="5.5" width="14" height="14"/>
+                                                    <rect key="frame" x="0.0" y="6" width="14" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="14" id="VyC-kx-gva"/>
                                                         <constraint firstAttribute="width" constant="14" id="tTh-aa-8n5"/>
@@ -130,7 +130,7 @@
                                             <rect key="frame" x="56" y="0.0" width="14" height="25"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star_on" translatesAutoresizingMaskIntoConstraints="NO" id="Ckh-bi-Euk">
-                                                    <rect key="frame" x="0.0" y="5.5" width="14" height="14"/>
+                                                    <rect key="frame" x="0.0" y="6" width="14" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="14" id="dnv-6a-ZML"/>
                                                         <constraint firstAttribute="height" constant="14" id="fDh-k6-35S"/>
@@ -220,6 +220,9 @@
                     <real key="value" value="6"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="imageView" destination="HDJ-Ce-ZJM" id="H6I-hX-cEd"/>
+            </connections>
             <point key="canvasLocation" x="34.5" y="54"/>
         </view>
     </objects>
