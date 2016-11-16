@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -188,12 +189,37 @@
                     <view key="view" contentMode="scaleToFill" id="834-bf-LA8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sap-N8-lBf" customClass="MKMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="667"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZF-td-Exw">
+                                <rect key="frame" x="300" y="0.0" width="75" height="667"/>
+                                <connections>
+                                    <action selector="closeMenu:" destination="ZxW-JF-kYs" eventType="touchUpInside" id="Yvj-rx-6wA"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="JZF-td-Exw" firstAttribute="top" secondItem="834-bf-LA8" secondAttribute="top" id="1aR-2F-tuY"/>
+                            <constraint firstAttribute="trailing" secondItem="JZF-td-Exw" secondAttribute="trailing" id="5c1-Vj-bhH"/>
+                            <constraint firstItem="Sap-N8-lBf" firstAttribute="leading" secondItem="834-bf-LA8" secondAttribute="leading" id="Cjd-wB-fpv"/>
+                            <constraint firstItem="Sap-N8-lBf" firstAttribute="top" secondItem="834-bf-LA8" secondAttribute="top" id="JJ7-RH-8eh"/>
+                            <constraint firstItem="JSs-FX-cfx" firstAttribute="top" secondItem="Sap-N8-lBf" secondAttribute="bottom" id="dQV-DI-tIr"/>
+                            <constraint firstItem="Sap-N8-lBf" firstAttribute="width" secondItem="JZF-td-Exw" secondAttribute="height" multiplier="300:667" id="hty-aZ-NHs"/>
+                            <constraint firstItem="JSs-FX-cfx" firstAttribute="top" secondItem="JZF-td-Exw" secondAttribute="bottom" id="rjc-Yq-Ken"/>
+                            <constraint firstItem="JZF-td-Exw" firstAttribute="leading" secondItem="Sap-N8-lBf" secondAttribute="trailing" id="xQ8-Gz-aFt"/>
+                        </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="aUo-KX-M9e" appends="YES" id="lWc-Ea-Zfw"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="Sap-N8-lBf" id="OR6-K1-z5O"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ngd-2n-K4A" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="aUo-KX-M9e">
@@ -202,7 +228,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-722" y="-206"/>
+            <point key="canvasLocation" x="-722.39999999999998" y="-206.44677661169416"/>
         </scene>
         <!--Main Right View Controller-->
         <scene sceneID="5XO-pH-Xfa">
@@ -244,7 +270,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="szV-do-jn5" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="9PN-Iv-vab"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="33O-go-prA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="33O-go-prA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

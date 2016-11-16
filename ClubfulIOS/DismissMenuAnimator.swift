@@ -27,6 +27,11 @@
 import UIKit
 
 class DismissMenuAnimator : NSObject, UIViewControllerAnimatedTransitioning {
+    var snapshotNumber: Int!
+    required init(snapshotNumber: Int) {
+        super.init()
+        self.snapshotNumber = snapshotNumber
+    }
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.3
     }
@@ -39,7 +44,7 @@ class DismissMenuAnimator : NSObject, UIViewControllerAnimatedTransitioning {
                 return
         }
         let containerView = transitionContext.containerView
-        let snapshot = containerView.viewWithTag(MenuHelper.snapshotNumber)
+        let snapshot = containerView.viewWithTag(self.snapshotNumber)
         UIView.animate(
             withDuration: transitionDuration(using: transitionContext),
             animations: {

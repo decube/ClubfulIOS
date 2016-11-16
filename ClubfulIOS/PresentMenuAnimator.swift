@@ -28,9 +28,13 @@ import UIKit
 
 class PresentMenuAnimator : NSObject, UIViewControllerAnimatedTransitioning {
     var direction : Direction!
-    required init(direction: Direction) {
+    var snapshotNumber: Int!
+    var menuWidth: CGFloat!
+    required init(direction: Direction, snapshotNumber: Int, menuWidth: CGFloat) {
         super.init()
         self.direction = direction
+        self.snapshotNumber = snapshotNumber
+        self.menuWidth = menuWidth
     }
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.3
@@ -49,7 +53,7 @@ class PresentMenuAnimator : NSObject, UIViewControllerAnimatedTransitioning {
         // replace main view with snapshot
         
         let snapshot = fromVC.view.snapshotView(afterScreenUpdates: false)
-        snapshot?.tag = MenuHelper.snapshotNumber
+        snapshot?.tag = self.snapshotNumber
         snapshot?.isUserInteractionEnabled = false
         snapshot?.layer.shadowOpacity = 0
         containerView.insertSubview(snapshot!, aboveSubview: toVC.view)
@@ -60,13 +64,13 @@ class PresentMenuAnimator : NSObject, UIViewControllerAnimatedTransitioning {
             animations: {
                 if self.direction != nil{
                     if self.direction == .right{
-                        snapshot?.center.x += UIScreen.main.bounds.width * MenuHelper.menuWidth
+                        snapshot?.center.x += UIScreen.main.bounds.width * self.menuWidth
                     }else if self.direction == .left{
-                        snapshot?.center.x -= UIScreen.main.bounds.width * MenuHelper.menuWidth
+                        snapshot?.center.x -= UIScreen.main.bounds.width * self.menuWidth
                     }else if self.direction == .up{
-                        snapshot?.center.y += UIScreen.main.bounds.height * MenuHelper.menuWidth
+                        snapshot?.center.y += UIScreen.main.bounds.height * self.menuWidth
                     }else if self.direction == .down{
-                        snapshot?.center.y -= UIScreen.main.bounds.height * MenuHelper.menuWidth
+                        snapshot?.center.y -= UIScreen.main.bounds.height * self.menuWidth
                     }
                 }
             },

@@ -32,9 +32,9 @@ class Storage{
     
     static func realmMigrationCheck(){
         let config = Realm.Configuration(
-            schemaVersion: 7,
+            schemaVersion: 8,
             migrationBlock: { migration, oldSchemaVersion in
-                if (oldSchemaVersion < 6) {
+                if (oldSchemaVersion < 7) {
                     migration.enumerateObjects(ofType: User.className()) { oldObject, newObject in
                         
                     }
@@ -145,6 +145,10 @@ class Storage{
         device.noticeVer = realmDevice.noticeVer
         device.category = realmDevice.category
         device.categoryName = realmDevice.categoryName
+        device.deviceLatitude = realmDevice.deviceLatitude
+        device.deviceLongitude = realmDevice.deviceLongitude
+        device.isMyLocation = realmDevice.isMyLocation
+        
         return device
     }
     
@@ -156,7 +160,7 @@ class Storage{
             while(true){
                 let param: [String: AnyObject] = ["latitude": Storage.latitude as AnyObject, "longitude": Storage.longitude as AnyObject]
                 URLReq.request(ctrl, url: URLReq.apiServer+URLReq.api_location_user, param: param)
-                sleep(300)
+                Thread.sleep(forTimeInterval: 1)
             }
         }
     }

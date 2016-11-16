@@ -127,10 +127,10 @@ class SetViewController : UIViewController{
 
 extension SetViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return PresentMenuAnimator(direction: .left)
+        return PresentMenuAnimator(direction: .left, snapshotNumber: MenuHelper.snapshotNumber, menuWidth: MenuHelper.menuWidth)
     }
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return DismissMenuAnimator()
+        return DismissMenuAnimator(snapshotNumber: MenuHelper.snapshotNumber)
     }
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return interactor.hasStarted ? interactor : nil

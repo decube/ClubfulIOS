@@ -52,6 +52,12 @@ class DeviceUser: Object{
     //categoryName
     dynamic var categoryName : String = "전체"
     
+    //항상가지고있는 위도
+    dynamic var deviceLatitude: Double = 0.0
+    //항상가지고있는 경도
+    dynamic var deviceLongitude: Double = 0.0
+    //내위치를 설정했는지 안했는지
+    dynamic var isMyLocation: Bool = false
     
     override static func primaryKey() -> String? {
         return "id"

@@ -63,6 +63,11 @@ class MyLocationView : UIView{
         UIView.animate(withDuration: 0.2, animations: {
             self.alpha = 0
             }, completion: { (_) in
+                let deviceUser = Storage.getRealmDeviceUser()
+                deviceUser.deviceLatitude = Storage.latitude
+                deviceUser.deviceLongitude = Storage.longitude
+                deviceUser.isMyLocation = false
+                Storage.setRealmDeviceUser(deviceUser)
                 self.isHidden = true
                 self.alpha = 1
                 self.ctrl.blackScreen.isHidden = true

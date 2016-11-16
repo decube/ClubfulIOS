@@ -69,7 +69,7 @@ class CourtSearchElementView: UIView{
     }
     
     func touchAction(){
-        self.courtSearchView.courtSeq = element["seq"] as! Int
+        self.ctrl.courtDetailSeq = element["seq"] as! Int
         self.ctrl.performSegue(withIdentifier: "main_courtDetail", sender: nil)
     }
     

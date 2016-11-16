@@ -39,7 +39,13 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
         self.marker = MKPointAnnotation()
         self.mapView.addAnnotation(marker)
         let deviceUser = Storage.getRealmDeviceUser()
-        self.locationMove(latitude: deviceUser.latitude, longitude: deviceUser.longitude)
+        var latitude = deviceUser.latitude
+        var longitude = deviceUser.longitude
+        if deviceUser.isMyLocation == false{
+            latitude = deviceUser.deviceLatitude
+            longitude = deviceUser.deviceLongitude
+        }
+        self.locationMove(latitude: latitude, longitude: longitude)
         
         
         //맵뷰 터치했을때 이벤트

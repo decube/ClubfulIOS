@@ -13,7 +13,6 @@ class CourtSearchView : UIView{
     @IBOutlet var scrollView: UIScrollView!
     var spin: UIActivityIndicatorView!
     
-    var courtSeq: Int!
     
     func setLayout(_ ctrl: ViewController){
         self.ctrl = ctrl
@@ -47,7 +46,14 @@ class CourtSearchView : UIView{
             
             //코트 검색 통신
             let deviceUser = Storage.getRealmDeviceUser()
-            let parameters : [String: AnyObject] = ["address": self.ctrl.searchTextField.text! as AnyObject, "category": deviceUser.category as AnyObject, "latitude": deviceUser.latitude as AnyObject, "longitude": deviceUser.longitude as AnyObject]
+            var latitude = deviceUser.latitude
+            var longitude = deviceUser.longitude
+            if deviceUser.isMyLocation == false{
+                latitude = deviceUser.deviceLatitude
+                longitude = deviceUser.deviceLongitude
+            }
+            
+            let parameters : [String: AnyObject] = ["address": self.ctrl.searchTextField.text! as AnyObject, "category": deviceUser.category as AnyObject, "latitude": latitude as AnyObject, "longitude": longitude as AnyObject]
             URLReq.request(self.ctrl, url: URLReq.apiServer+URLReq.api_court_listSearch, param: parameters, callback: { (dic) in
                 self.spin.removeFromSuperview()
                 if let list = dic["list"] as? [[String: AnyObject]]{

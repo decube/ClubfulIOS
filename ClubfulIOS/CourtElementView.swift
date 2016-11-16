@@ -18,7 +18,7 @@ class CourtElementView: UIView{
         self.element = element
         self.frame = CGRect(x: 10, y: ((height+10)*idx)+10, width: ctrl.scrollView.frame.width-20, height: height)
         self.ctrl.scrollView.addSubview(self)
-        
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.detailAction)))
         do{
             let image = UIImageView()
             self.imageView.addSubview(image)
@@ -58,5 +58,10 @@ class CourtElementView: UIView{
         }catch{
             
         }
+    }
+    
+    func detailAction(){
+        self.ctrl.courtDetailSeq = 1// = element["seq"] as! Int
+        self.ctrl.performSegue(withIdentifier: "main_courtDetail", sender: nil)
     }
 }

@@ -408,10 +408,10 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
 
 extension MypageViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return PresentMenuAnimator(direction: .right)
+        return PresentMenuAnimator(direction: .right, snapshotNumber: MenuHelper.snapshotNumber, menuWidth: MenuHelper.menuWidth)
     }
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return DismissMenuAnimator()
+        return DismissMenuAnimator(snapshotNumber: MenuHelper.snapshotNumber)
     }
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return interactor.hasStarted ? interactor : nil

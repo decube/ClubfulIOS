@@ -38,6 +38,7 @@ class MyLocationElementView : UIView{
                 deviceUser.longitude = self.location.1
                 deviceUser.addressShort = "\(self.location.2)"
                 deviceUser.address = "\(self.location.3)"
+                deviceUser.isMyLocation = true
                 Storage.setRealmDeviceUser(deviceUser)
         })
     }

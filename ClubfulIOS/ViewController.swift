@@ -41,11 +41,13 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     
     //제스처
     var direction: Direction!
+    var snapshotNumber: Int!
+    var menuWidth: CGFloat!
     let interactor = Interactor()
     @IBOutlet var leftEdge: UIScreenEdgePanGestureRecognizer!
     @IBOutlet var rightEdge: UIScreenEdgePanGestureRecognizer!
     
-    
+    var courtDetailSeq: Int!
     
     
     
@@ -147,7 +149,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         self.spin.startAnimating()
         self.spin.isHidden = false
         DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 2)
+            Thread.sleep(forTimeInterval: 1)
             DispatchQueue.main.async{
                 ///////////
                 //통신//
@@ -202,18 +204,22 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     //왼쪽 제스처
     @IBAction func leftEdgePanGesture(_ sender: UIScreenEdgePanGestureRecognizer) {
         self.direction = .right
+        self.snapshotNumber = MainLeftHelper.snapshotNumber
+        self.menuWidth = MainLeftHelper.menuWidth
         let translation = sender.translation(in: view)
-        let progress = MenuHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .right)
-        MenuHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
+        let progress = MainLeftHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .right)
+        MainLeftHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
             self.performSegue(withIdentifier: "main_left", sender: nil)
         }
     }
     //오른쪽 제스처
     @IBAction func rightEdgePanGesture(_ sender: UIScreenEdgePanGestureRecognizer) {
         self.direction = .left
+        self.snapshotNumber = MainRightHelper.snapshotNumber
+        self.menuWidth = MainRightHelper.menuWidth
         let translation = sender.translation(in: view)
-        let progress = MenuHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .left)
-        MenuHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
+        let progress = MainRightHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .left)
+        MainRightHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
             self.performSegue(withIdentifier: "main_right", sender: nil)
         }
     }
@@ -226,13 +232,14 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         if let destinationViewController = segue.destination as? MainLeftViewController {
             destinationViewController.transitioningDelegate = self
             destinationViewController.interactor = interactor
+            destinationViewController.vc = self
         }
         if let destinationViewController = segue.destination as? MainRightViewController {
             destinationViewController.transitioningDelegate = self
             destinationViewController.interactor = interactor
         }
         if let vc = segue.destination as? CourtViewController{
-            vc.courtSeq = self.courtSearchView.courtSeq
+            vc.courtSeq = self.courtDetailSeq
         }
         if let vc = segue.destination as? MapViewController{
             vc.preView = self
@@ -274,7 +281,6 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         Storage.latitude = locValue.latitude
         Storage.longitude = locValue.longitude
-        
         //앱 처음 실행할때
         if isFirstLocation == true{
             isFirstLocation = false
@@ -339,10 +345,10 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
 
 extension ViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return PresentMenuAnimator(direction: self.direction)
+        return PresentMenuAnimator(direction: self.direction, snapshotNumber: self.snapshotNumber, menuWidth: self.menuWidth)
     }
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return DismissMenuAnimator()
+        return DismissMenuAnimator(snapshotNumber: self.snapshotNumber)
     }
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return interactor.hasStarted ? interactor : nil
