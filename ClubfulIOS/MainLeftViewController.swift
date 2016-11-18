@@ -34,7 +34,7 @@ class MainLeftViewController: UIViewController, CLLocationManagerDelegate, MKMap
         self.locationMove(latitude: latitude, longitude: longitude)
         
         
-        
+        self.addMarker(latitude: latitude, longitude: longitude, title: "내위치", subTitle: "설정한 내위치입니다", type: 0)
         self.addMarker(latitude: 35.2587209, longitude: 127.0229413, title: "축구장", subTitle: "가나축구장", type: 1)
         self.addMarker(latitude: 35.9877689, longitude: 128.6321409, title: "농구코트", subTitle: "오목농구장", type: 2)
         self.addMarker(latitude: 36.3320526, longitude: 129.5003811, title: "야구장", subTitle: "신림야구", type: 3)
