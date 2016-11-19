@@ -149,7 +149,7 @@ class MainLeftHelper: Helper {
     
 }
 class MainRightHelper: Helper {
-    static let menuWidth:CGFloat = 1
+    static let menuWidth:CGFloat = 0.8
     static let percentThreshold:CGFloat = 0.4
     static let snapshotNumber = 12342
     

@@ -8,14 +8,19 @@
 
 import UIKit
 
-class MainRightViewController: UIViewController{
+class MainRightViewController: UIViewController, UIWebViewDelegate{
     var interactor:Interactor? = nil
+    @IBOutlet var webView: UIWebView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
+        
+        self.webView.delegate = self
+        self.webView.loadRequest(URLRequest(url : Foundation.URL(string: "https://www.instagram.com/guanho9/")!))
+        
     }
     
     @IBAction func handleGesture(_ sender: UIPanGestureRecognizer) {

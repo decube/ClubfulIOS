@@ -241,12 +241,37 @@
                     <view key="view" contentMode="scaleToFill" id="Kbt-ZC-uab">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CkU-fh-i0P">
+                                <rect key="frame" x="0.0" y="0.0" width="75" height="667"/>
+                                <connections>
+                                    <action selector="closeMenu:" destination="buY-iB-Jec" eventType="touchUpInside" id="jga-gL-1Kz"/>
+                                </connections>
+                            </button>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5GU-XG-YhV">
+                                <rect key="frame" x="75" y="20" width="300" height="647"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="Kan-gP-aJl" firstAttribute="top" secondItem="CkU-fh-i0P" secondAttribute="bottom" id="49b-J6-eMM"/>
+                            <constraint firstItem="CkU-fh-i0P" firstAttribute="top" secondItem="Kbt-ZC-uab" secondAttribute="top" id="8Wi-oH-lD3"/>
+                            <constraint firstItem="5GU-XG-YhV" firstAttribute="leading" secondItem="CkU-fh-i0P" secondAttribute="trailing" id="9Zf-9u-4nA"/>
+                            <constraint firstAttribute="trailing" secondItem="5GU-XG-YhV" secondAttribute="trailing" id="JUJ-C4-zCU"/>
+                            <constraint firstItem="5GU-XG-YhV" firstAttribute="top" secondItem="Xfh-Z3-cJj" secondAttribute="bottom" id="RVa-0C-gMp"/>
+                            <constraint firstItem="CkU-fh-i0P" firstAttribute="width" secondItem="5GU-XG-YhV" secondAttribute="height" multiplier="75:647" id="eN3-uD-3bq"/>
+                            <constraint firstItem="Kan-gP-aJl" firstAttribute="top" secondItem="5GU-XG-YhV" secondAttribute="bottom" id="wEO-Ge-MIH"/>
+                            <constraint firstItem="CkU-fh-i0P" firstAttribute="leading" secondItem="Kbt-ZC-uab" secondAttribute="leading" id="y6I-gw-rCI"/>
+                        </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="pNw-Vz-cOM" appends="YES" id="1S1-W6-Wf1"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="webView" destination="5GU-XG-YhV" id="Miq-Kd-e6d"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gto-a0-JCH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="pNw-Vz-cOM">
@@ -255,7 +280,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-9" y="-206"/>
+            <point key="canvasLocation" x="-10.4" y="-206.44677661169416"/>
         </scene>
         <!--Map-->
         <scene sceneID="Qge-Ot-LhL">
@@ -270,7 +295,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="szV-do-jn5" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="9PN-Iv-vab"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="33O-go-prA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="33O-go-prA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
