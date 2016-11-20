@@ -280,21 +280,42 @@
                                     <constraint firstItem="jhZ-Jk-0V1" firstAttribute="top" secondItem="VD1-K5-y5C" secondAttribute="top" id="uRM-tx-zyc"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HkO-tp-Ub8">
+                                <rect key="frame" x="0.0" y="80" width="375" height="587"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="a0g-qy-YFM">
+                                <rect key="frame" x="177" y="363.5" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="2XC-31-mlh"/>
+                                    <constraint firstAttribute="width" constant="20" id="LRn-2m-PAG"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="AbW-Mf-38o" firstAttribute="leading" secondItem="wKa-J5-Js8" secondAttribute="leading" id="5S9-Ho-bGe"/>
+                            <constraint firstItem="jvX-Vn-hsM" firstAttribute="top" secondItem="HkO-tp-Ub8" secondAttribute="bottom" id="6tG-2F-Tfe"/>
+                            <constraint firstItem="a0g-qy-YFM" firstAttribute="centerY" secondItem="HkO-tp-Ub8" secondAttribute="centerY" id="PYT-Ho-vMG"/>
                             <constraint firstItem="VD1-K5-y5C" firstAttribute="top" secondItem="hLp-mR-xEX" secondAttribute="bottom" id="QMU-4V-Eds"/>
+                            <constraint firstItem="a0g-qy-YFM" firstAttribute="centerX" secondItem="HkO-tp-Ub8" secondAttribute="centerX" id="XC2-m5-DCY"/>
                             <constraint firstAttribute="trailing" secondItem="VD1-K5-y5C" secondAttribute="trailing" id="bGS-sF-rWn"/>
                             <constraint firstItem="AbW-Mf-38o" firstAttribute="top" secondItem="wKa-J5-Js8" secondAttribute="top" id="eEM-1O-PnU"/>
+                            <constraint firstItem="HkO-tp-Ub8" firstAttribute="top" secondItem="VD1-K5-y5C" secondAttribute="bottom" id="egW-5f-w6U"/>
                             <constraint firstAttribute="trailing" secondItem="AbW-Mf-38o" secondAttribute="trailing" id="k0L-tD-kVA"/>
+                            <constraint firstAttribute="trailing" secondItem="HkO-tp-Ub8" secondAttribute="trailing" id="nKV-xm-cFN"/>
+                            <constraint firstItem="HkO-tp-Ub8" firstAttribute="leading" secondItem="wKa-J5-Js8" secondAttribute="leading" id="vks-XQ-tm1"/>
                             <constraint firstItem="VD1-K5-y5C" firstAttribute="leading" secondItem="wKa-J5-Js8" secondAttribute="leading" id="w6X-1E-Yh0"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="d7q-Wm-TGS" appends="YES" id="Pew-u8-vUY"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="msgView" destination="HkO-tp-Ub8" id="G2d-TR-eU7"/>
+                        <outlet property="spin" destination="a0g-qy-YFM" id="o8u-vv-fyu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Q9-Qx-Qq1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="d7q-Wm-TGS">
@@ -303,7 +324,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-676" y="1166"/>
+            <point key="canvasLocation" x="-676" y="1165.3673163418291"/>
         </scene>
         <!--User Convert View Controller-->
         <scene sceneID="Bty-ht-i5q">
@@ -523,7 +544,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="441-Ob-5eB" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="XKk-e2-ze3"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="XmU-ur-AJ2">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XmU-ur-AJ2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

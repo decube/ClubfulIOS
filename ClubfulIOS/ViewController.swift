@@ -149,7 +149,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         self.spin.startAnimating()
         self.spin.isHidden = false
         DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 1)
+            Thread.sleep(forTimeInterval: 0.3)
             DispatchQueue.main.async{
                 ///////////
                 //통신//

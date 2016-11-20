@@ -11,6 +11,12 @@
 		6E10BC071DD711DE00E0DEC7 /* CourtElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E10BC061DD711DE00E0DEC7 /* CourtElementView.swift */; };
 		6E10BC091DD7123F00E0DEC7 /* CourtElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E10BC081DD7123F00E0DEC7 /* CourtElementView.xib */; };
 		6E41630F1DC63DA40097EBDE /* BlackScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E41630E1DC63DA40097EBDE /* BlackScreen.swift */; };
+		6E489BD11DE0279F006D50DD /* GetNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E489BCF1DE0279F006D50DD /* GetNoteView.swift */; };
+		6E489BD21DE0279F006D50DD /* GetNoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E489BD01DE0279F006D50DD /* GetNoteView.xib */; };
+		6E489BD51DE027A8006D50DD /* SendNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E489BD31DE027A8006D50DD /* SendNoteView.swift */; };
+		6E489BD61DE027A8006D50DD /* SendNoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E489BD41DE027A8006D50DD /* SendNoteView.xib */; };
+		6E489BD81DE0486B006D50DD /* MessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E489BD71DE0486B006D50DD /* MessageTextView.swift */; };
+		6E489BDA1DE0489C006D50DD /* MessageTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E489BD91DE0489C006D50DD /* MessageTextView.xib */; };
 		6E4CC9491DC47F84005FA92F /* DismissMenuAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CC9461DC47F84005FA92F /* DismissMenuAnimator.swift */; };
 		6E4CC94A1DC47F84005FA92F /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CC9471DC47F84005FA92F /* Interactor.swift */; };
 		6E4CC94B1DC47F84005FA92F /* PresentMenuAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CC9481DC47F84005FA92F /* PresentMenuAnimator.swift */; };
@@ -124,6 +130,12 @@
 		6E10BC081DD7123F00E0DEC7 /* CourtElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourtElementView.xib; sourceTree = "<group>"; };
 		6E41630E1DC63DA40097EBDE /* BlackScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackScreen.swift; sourceTree = "<group>"; };
 		6E4168561DCCC4EE008C719D /* ClubfulIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClubfulIOS.entitlements; sourceTree = "<group>"; };
+		6E489BCF1DE0279F006D50DD /* GetNoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetNoteView.swift; sourceTree = "<group>"; };
+		6E489BD01DE0279F006D50DD /* GetNoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GetNoteView.xib; sourceTree = "<group>"; };
+		6E489BD31DE027A8006D50DD /* SendNoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendNoteView.swift; sourceTree = "<group>"; };
+		6E489BD41DE027A8006D50DD /* SendNoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendNoteView.xib; sourceTree = "<group>"; };
+		6E489BD71DE0486B006D50DD /* MessageTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTextView.swift; sourceTree = "<group>"; };
+		6E489BD91DE0489C006D50DD /* MessageTextView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTextView.xib; sourceTree = "<group>"; };
 		6E4CC9461DC47F84005FA92F /* DismissMenuAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissMenuAnimator.swift; sourceTree = "<group>"; };
 		6E4CC9471DC47F84005FA92F /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		6E4CC9481DC47F84005FA92F /* PresentMenuAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentMenuAnimator.swift; sourceTree = "<group>"; };
@@ -439,8 +451,14 @@
 			children = (
 				6E507C9A1DD34F3500F62C17 /* User.storyboard */,
 				6E7DA9A21D994B3A0098D7DA /* MypageViewController.swift */,
-				6E7DA9A11D994B3A0098D7DA /* MessageViewController.swift */,
 				6E7DA9B41D994B3A0098D7DA /* UserConvertViewController.swift */,
+				6E7DA9A11D994B3A0098D7DA /* MessageViewController.swift */,
+				6E489BD91DE0489C006D50DD /* MessageTextView.xib */,
+				6E489BD71DE0486B006D50DD /* MessageTextView.swift */,
+				6E489BCF1DE0279F006D50DD /* GetNoteView.swift */,
+				6E489BD01DE0279F006D50DD /* GetNoteView.xib */,
+				6E489BD31DE027A8006D50DD /* SendNoteView.swift */,
+				6E489BD41DE027A8006D50DD /* SendNoteView.xib */,
 			);
 			name = user;
 			sourceTree = "<group>";
@@ -666,7 +684,10 @@
 				6E507C991DD34E9C00F62C17 /* CourtCreate.storyboard in Resources */,
 				6E7DA90A1D99490A0098D7DA /* AdobeCreativeSDKCoreResources.bundle in Resources */,
 				6E507C911DD3414200F62C17 /* Images.xcassets in Resources */,
+				6E489BD61DE027A8006D50DD /* SendNoteView.xib in Resources */,
+				6E489BDA1DE0489C006D50DD /* MessageTextView.xib in Resources */,
 				6E507C9D1DD34F9800F62C17 /* Setting.storyboard in Resources */,
+				6E489BD21DE0279F006D50DD /* GetNoteView.xib in Resources */,
 				6E507C9B1DD34F3500F62C17 /* User.storyboard in Resources */,
 				6EE0B8241DCEDA3D009792A7 /* MapListView.xib in Resources */,
 				6E7DA8E41D9948910098D7DA /* LaunchScreen.storyboard in Resources */,
@@ -865,6 +886,7 @@
 				6E10BC071DD711DE00E0DEC7 /* CourtElementView.swift in Sources */,
 				6E7DA9D11D994B3A0098D7DA /* UIControl.swift in Sources */,
 				6E7DA9BA1D994B3A0098D7DA /* EggViewController.swift in Sources */,
+				6E489BD11DE0279F006D50DD /* GetNoteView.swift in Sources */,
 				6E7DA9D51D994B3A0098D7DA /* UITextField.swift in Sources */,
 				6E7DA8DA1D9948910098D7DA /* AppDelegate.swift in Sources */,
 				6E8AB6B11D9C08F200B8E488 /* SetViewController.swift in Sources */,
@@ -880,6 +902,7 @@
 				6E77DD111DC5A04400296008 /* CourtSearchView.swift in Sources */,
 				6E7DA9BF1D994B3A0098D7DA /* JoinViewController.swift in Sources */,
 				6E7DA9C51D994B3A0098D7DA /* MapViewController.swift in Sources */,
+				6E489BD81DE0486B006D50DD /* MessageTextView.swift in Sources */,
 				6E7DA9C61D994B3A0098D7DA /* MessageViewController.swift in Sources */,
 				6E7DA9C71D994B3A0098D7DA /* MypageViewController.swift in Sources */,
 				6E7DA9C11D994B3A0098D7DA /* MyLocationElementView.swift in Sources */,
@@ -888,6 +911,7 @@
 				6E7DA9C21D994B3A0098D7DA /* MyLocationView.swift in Sources */,
 				6E7DA9CB1D994B3A0098D7DA /* PhotoAlbumCustom.swift in Sources */,
 				6E7DA9CD1D994B3A0098D7DA /* Storage.swift in Sources */,
+				6E489BD51DE027A8006D50DD /* SendNoteView.swift in Sources */,
 				6E7DA9CF1D994B3A0098D7DA /* TabBar.swift in Sources */,
 				6E4CC9491DC47F84005FA92F /* DismissMenuAnimator.swift in Sources */,
 				6E7DA9D91D994B3A0098D7DA /* UserConvertViewController.swift in Sources */,
