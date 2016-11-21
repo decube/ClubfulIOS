@@ -13,43 +13,34 @@ class MessageViewController: UIViewController, UITextFieldDelegate, UIScrollView
     @IBOutlet var msgView: UIView!
     var scrollView: UIScrollView!
     var messageTextView: MessageTextView!
-    var msgViewWidth: CGFloat!
+    
+    var scrollViewHeight: CGFloat = 0
+    var textViewY: CGFloat = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
-        
-        
-        
-        self.scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.msgView.frame.size.width, height: self.msgView.frame.size.height-50))
-        self.msgView.addSubview(scrollView)
-        self.scrollView.delegate = self
-        
-        if let customView = Bundle.main.loadNibNamed("MessageTextView", owner: self, options: nil)?.first as? MessageTextView {
-            self.messageTextView = customView
-            self.messageTextView.setLayout(self)
-        }
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
         
         self.spin.isHidden = false
         self.spin.startAnimating()
         
-        
-        if let customView = Bundle.main.loadNibNamed("GetNoteView", owner: self, options: nil)?.first as? GetNoteView {
-            customView.frame = CGRect(x: 0, y: 0, width: self.scrollView.frame.width/2, height: 100)
-            customView.isHidden = true
-            self.scrollView.addSubview(customView)
-            DispatchQueue.global().async {
-                Thread.sleep(forTimeInterval: 0.1)
-                self.msgViewWidth = customView.messageView.frame.width
-                DispatchQueue.main.async {
-                    customView.removeFromSuperview()
-                }
-            }
-        }
-        
         DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 0.2)
+            Thread.sleep(forTimeInterval: 0.1)
             DispatchQueue.main.async {
+                self.scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.msgView.frame.size.width, height: self.msgView.frame.size.height-50))
+                self.scrollView.delegate = self
+                self.msgView.addSubview(self.scrollView)
+                
+                self.scrollViewHeight = self.scrollView.contentSize.height
+                self.textViewY = self.msgView.frame.height-50
+                
+                if let customView = Bundle.main.loadNibNamed("MessageTextView", owner: self, options: nil)?.first as? MessageTextView {
+                    self.messageTextView = customView
+                    self.messageTextView.setLayout(self)
+                }
+                
                 self.setScrollView(isBottom: true)
             }
         }
@@ -74,7 +65,6 @@ class MessageViewController: UIViewController, UITextFieldDelegate, UIScrollView
     var heightValue: CGFloat = 0
     func setScrollView(isBottom: Bool){
         DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 2)
             DispatchQueue.main.async {
                 var sizeHeight: CGFloat = 0
                 for _ in 0..<20{
@@ -92,9 +82,10 @@ class MessageViewController: UIViewController, UITextFieldDelegate, UIScrollView
                     self.heightValue += heightValue
                 }
                 
-                self.scrollView.contentSize.height = self.heightValue
+                self.scrollView.contentSize.height = ceil(self.heightValue)
+                self.scrollViewHeight = self.scrollView.contentSize.height
                 if isBottom{
-                    self.scrollView.setContentOffset(CGPoint(x: 0, y: self.scrollView.contentSize.height-self.scrollView.frame.height), animated: false)
+                    self.scrollView.setContentOffset(CGPoint(x: 0, y: self.heightValue-self.scrollView.frame.height), animated: false)
                 }else{
                     self.scrollView.setContentOffset(CGPoint(x: 0, y: sizeHeight), animated: false)
                 }
@@ -111,10 +102,26 @@ class MessageViewController: UIViewController, UITextFieldDelegate, UIScrollView
     
     
     func addMessage(type: String, msg: String){
-        
-        
+        DispatchQueue.main.async {
+            if type == "s"{
+                if let customView = Bundle.main.loadNibNamed("SendNoteView", owner: self, options: nil)?.first as? SendNoteView {
+                    self.heightValue += customView.setLayout(self, element: ["message":msg as AnyObject], isNew: true)
+                }
+            }else{
+                if let customView = Bundle.main.loadNibNamed("GetNoteView", owner: self, options: nil)?.first as? GetNoteView {
+                    self.heightValue +=  customView.setLayout(self, element: ["message":msg as AnyObject], isNew: true)
+                }
+            }
+            self.scrollView.contentSize.height = ceil(self.heightValue)+self.keyboardHeight
+            self.scrollViewHeight = ceil(self.heightValue)
+            self.scrollView.setContentOffset(CGPoint(x: 0, y: self.heightValue-self.scrollView.frame.height+self.keyboardHeight), animated: false)
+        }
     }
     
+    func sendAction(){
+        self.addMessage(type: "s", msg: self.messageTextView.textField.text!)
+        self.messageTextView.textField.text = ""
+    }
     
     
     //키보드 검색이 리턴됫을 때
@@ -135,20 +142,41 @@ class MessageViewController: UIViewController, UITextFieldDelegate, UIScrollView
     override func viewWillAppear(_ animated: Bool) {
         //키보드 생김/사라짐 셀렉터
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
+    var keyboardHeight: CGFloat = 0
     //키보드생길때
     func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = ((notification as NSNotification).userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            self.scrollView.frame.size.height = self.msgView.frame.height-keyboardSize.height-50
-            self.messageTextView.frame.origin.y = self.msgView.frame.height-keyboardSize.height-50
-            
+            self.keyboardHeight = keyboardSize.height
+            self.scrollView.contentSize.height = self.scrollViewHeight+keyboardSize.height
+            self.messageTextView.frame.origin.y = self.textViewY-keyboardSize.height
+            self.scrollView.setContentOffset(CGPoint(x: 0, y: self.scrollView.contentOffset.y+keyboardSize.height), animated: false)
         }
+    }
+    //키보드없어질때
+    func keyboardWillHide(_ notification: Notification) {
+        let currentOffset = self.scrollView.contentOffset.y
+        let maximumOffset = self.scrollView.contentSize.height - self.scrollView.frame.size.height
+        let deltaOffset = maximumOffset - currentOffset
+        if deltaOffset <= keyboardHeight{
+            self.scrollView.setContentOffset(CGPoint(x: 0, y: self.scrollView.contentOffset.y), animated: false)
+        }else{
+            self.scrollView.setContentOffset(CGPoint(x: 0, y: self.scrollView.contentOffset.y-self.keyboardHeight), animated: false)
+        }
+        self.scrollView.contentSize.height = self.scrollViewHeight
+        self.messageTextView.frame.origin.y = self.textViewY
+        
+        self.keyboardHeight = 0
     }
     //view 사라지기 전 작동
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
     }
-    
+    //뷰 클릭했을때
+    func keyboardHide(_ sender: AnyObject){
+        self.view.endEditing(true)
+    }
     
     //제스처
     var interactor:Interactor? = nil

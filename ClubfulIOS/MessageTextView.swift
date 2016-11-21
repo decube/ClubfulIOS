@@ -20,17 +20,11 @@ class MessageTextView: UIView{
         self.sendView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.sendAction)))
         self.frame = CGRect(x: 0, y: self.ctrl.msgView.frame.height-50, width: self.ctrl.view.frame.width, height: 50)
         self.ctrl.msgView.addSubview(self)
-        
-        DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 0.1)
-            DispatchQueue.main.async {
-                self.textField.becomeFirstResponder()
-            }
-        }
     }
     
     func sendAction(){
-        self.ctrl.addMessage(type: "s", msg: self.textField.text!)
-        self.textField.text = ""
+        if self.textField.text != ""{
+            self.ctrl.sendAction()
+        }
     }
 }

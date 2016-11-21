@@ -455,10 +455,10 @@
 				6E7DA9A11D994B3A0098D7DA /* MessageViewController.swift */,
 				6E489BD91DE0489C006D50DD /* MessageTextView.xib */,
 				6E489BD71DE0486B006D50DD /* MessageTextView.swift */,
-				6E489BCF1DE0279F006D50DD /* GetNoteView.swift */,
 				6E489BD01DE0279F006D50DD /* GetNoteView.xib */,
-				6E489BD31DE027A8006D50DD /* SendNoteView.swift */,
+				6E489BCF1DE0279F006D50DD /* GetNoteView.swift */,
 				6E489BD41DE027A8006D50DD /* SendNoteView.xib */,
+				6E489BD31DE027A8006D50DD /* SendNoteView.swift */,
 			);
 			name = user;
 			sourceTree = "<group>";
