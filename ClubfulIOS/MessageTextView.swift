@@ -30,6 +30,7 @@ class MessageTextView: UIView{
     }
     
     func sendAction(){
+        self.ctrl.addMessage(type: "s", msg: self.textField.text!)
         self.textField.text = ""
     }
 }

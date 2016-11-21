@@ -544,7 +544,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="441-Ob-5eB" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="XKk-e2-ze3"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XmU-ur-AJ2">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="XmU-ur-AJ2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

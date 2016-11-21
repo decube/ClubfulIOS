@@ -13,6 +13,7 @@ class MessageViewController: UIViewController, UITextFieldDelegate, UIScrollView
     @IBOutlet var msgView: UIView!
     var scrollView: UIScrollView!
     var messageTextView: MessageTextView!
+    var msgViewWidth: CGFloat!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.setNeedsLayout()
@@ -32,6 +33,19 @@ class MessageViewController: UIViewController, UITextFieldDelegate, UIScrollView
         self.spin.isHidden = false
         self.spin.startAnimating()
         
+        
+        if let customView = Bundle.main.loadNibNamed("GetNoteView", owner: self, options: nil)?.first as? GetNoteView {
+            customView.frame = CGRect(x: 0, y: 0, width: self.scrollView.frame.width/2, height: 100)
+            customView.isHidden = true
+            self.scrollView.addSubview(customView)
+            DispatchQueue.global().async {
+                Thread.sleep(forTimeInterval: 0.1)
+                self.msgViewWidth = customView.messageView.frame.width
+                DispatchQueue.main.async {
+                    customView.removeFromSuperview()
+                }
+            }
+        }
         
         DispatchQueue.global().async {
             Thread.sleep(forTimeInterval: 0.2)
@@ -60,7 +74,7 @@ class MessageViewController: UIViewController, UITextFieldDelegate, UIScrollView
     var heightValue: CGFloat = 0
     func setScrollView(isBottom: Bool){
         DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 1)
+            Thread.sleep(forTimeInterval: 2)
             DispatchQueue.main.async {
                 var sizeHeight: CGFloat = 0
                 for _ in 0..<20{
@@ -95,6 +109,11 @@ class MessageViewController: UIViewController, UITextFieldDelegate, UIScrollView
         }
     }
     
+    
+    func addMessage(type: String, msg: String){
+        
+        
+    }
     
     
     

@@ -62,6 +62,9 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="messageView" destination="aCu-yp-6no" id="SGV-tP-psm"/>
+            </connections>
             <point key="canvasLocation" x="425.5" y="84.5"/>
         </view>
     </objects>
