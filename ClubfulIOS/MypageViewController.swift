@@ -9,9 +9,6 @@
 import UIKit
 
 class MypageViewController: UIViewController, UIScrollViewDelegate {
-    let interactor = Interactor()
-    @IBOutlet var leftEdge: UIScreenEdgePanGestureRecognizer!
-    
     @IBOutlet var interestCourt: UIScrollView!
     @IBOutlet var createCourt: UIScrollView!
     @IBOutlet var interestSpin: UIActivityIndicatorView!
@@ -62,20 +59,6 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
         createCourt.showsVerticalScrollIndicator = false
         interestCourt.showsHorizontalScrollIndicator = false
         createCourt.showsHorizontalScrollIndicator = false
-        
-        //엣지 설정
-        self.leftEdge.edges = .left
-    }
-    
-    //왼쪽 제스처
-    @IBAction func leftEdgePanGesture(_ sender: UIScreenEdgePanGestureRecognizer) {
-        if Storage.isRealmUser(){
-            let translation = sender.translation(in: view)
-            let progress = MenuHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .right)
-            MenuHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
-                self.performSegue(withIdentifier: "mypage_note", sender: nil)
-            }
-        }
     }
     
     
@@ -398,26 +381,6 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? CourtViewController{
             vc.courtSeq = self.courtSeq
-        }else if let vc = segue.destination as? MessageViewController{
-            vc.transitioningDelegate = self
-            vc.interactor = interactor
         }
     }
 }
-
-
-extension MypageViewController: UIViewControllerTransitioningDelegate {
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return PresentMenuAnimator(direction: .right, snapshotNumber: MenuHelper.snapshotNumber, menuWidth: MenuHelper.menuWidth)
-    }
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return DismissMenuAnimator(snapshotNumber: MenuHelper.snapshotNumber)
-    }
-    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactor.hasStarted ? interactor : nil
-    }
-    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactor.hasStarted ? interactor : nil
-    }
-}
-
