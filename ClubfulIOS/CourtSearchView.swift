@@ -20,7 +20,7 @@ class CourtSearchView : UIView{
         DispatchQueue.global().async {
             Thread.sleep(forTimeInterval: 0.5)
             DispatchQueue.main.async {
-                self.frame = CGRect(x: 0, y: self.ctrl.scrollView.frame.origin.y, width: self.ctrl.view.frame.width/3*2, height: self.ctrl.scrollView.frame.height)
+                self.frame = CGRect(x: 0, y: 80, width: self.ctrl.view.frame.width/3*2, height: self.ctrl.view.frame.height-140)
                 _ = self.layer(.right, borderWidth: 1, color: UIColor.black)
             }
         }

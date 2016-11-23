@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0821451EC0BAE3D497A2F86A /* Pods_ClubfulIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7676E2D18473C2715C92E3 /* Pods_ClubfulIOS.framework */; };
-		6E10BC071DD711DE00E0DEC7 /* CourtElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E10BC061DD711DE00E0DEC7 /* CourtElementView.swift */; };
-		6E10BC091DD7123F00E0DEC7 /* CourtElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E10BC081DD7123F00E0DEC7 /* CourtElementView.xib */; };
 		6E41630F1DC63DA40097EBDE /* BlackScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E41630E1DC63DA40097EBDE /* BlackScreen.swift */; };
 		6E4CC9491DC47F84005FA92F /* DismissMenuAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CC9461DC47F84005FA92F /* DismissMenuAnimator.swift */; };
 		6E4CC94A1DC47F84005FA92F /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CC9471DC47F84005FA92F /* Interactor.swift */; };
@@ -92,6 +90,7 @@
 		6E7DA9E61D994EA50098D7DA /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7DA9E51D994EA50098D7DA /* KakaoOpenSDK.framework */; };
 		6E7EB6641DBEE88600A618DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E7EB6631DBEE88600A618DA /* GoogleService-Info.plist */; };
 		6E8AB6B11D9C08F200B8E488 /* SetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8AB6B01D9C08F200B8E488 /* SetViewController.swift */; };
+		6E8C2D871DE4877B009D3F5F /* CourtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8C2D861DE4877B009D3F5F /* CourtCell.swift */; };
 		6EE0B8221DCED827009792A7 /* MapListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE0B8211DCED827009792A7 /* MapListView.swift */; };
 		6EE0B8241DCEDA3D009792A7 /* MapListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EE0B8231DCEDA3D009792A7 /* MapListView.xib */; };
 		F212D8118A03412B8CEBE9E8 /* Pods_ClubfulIOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49974A46F672D49681011BDF /* Pods_ClubfulIOSUITests.framework */; };
@@ -119,8 +118,6 @@
 		2DFA4C9A1F0748219FE9E959 /* Pods_ClubfulIOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubfulIOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4964696397EF65213A1B1D17 /* Pods-ClubfulIOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubfulIOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubfulIOSUITests/Pods-ClubfulIOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		49974A46F672D49681011BDF /* Pods_ClubfulIOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubfulIOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E10BC061DD711DE00E0DEC7 /* CourtElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtElementView.swift; sourceTree = "<group>"; };
-		6E10BC081DD7123F00E0DEC7 /* CourtElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourtElementView.xib; sourceTree = "<group>"; };
 		6E41630E1DC63DA40097EBDE /* BlackScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackScreen.swift; sourceTree = "<group>"; };
 		6E4168561DCCC4EE008C719D /* ClubfulIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClubfulIOS.entitlements; sourceTree = "<group>"; };
 		6E4CC9461DC47F84005FA92F /* DismissMenuAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissMenuAnimator.swift; sourceTree = "<group>"; };
@@ -211,6 +208,7 @@
 		6E7DA9E51D994EA50098D7DA /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		6E7EB6631DBEE88600A618DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6E8AB6B01D9C08F200B8E488 /* SetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewController.swift; sourceTree = "<group>"; };
+		6E8C2D861DE4877B009D3F5F /* CourtCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtCell.swift; sourceTree = "<group>"; };
 		6EE0B8211DCED827009792A7 /* MapListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListView.swift; sourceTree = "<group>"; };
 		6EE0B8231DCEDA3D009792A7 /* MapListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapListView.xib; sourceTree = "<group>"; };
 		7255EBCCA4BAB905D120BE0B /* Pods-ClubfulIOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubfulIOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClubfulIOSTests/Pods-ClubfulIOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -378,6 +376,7 @@
 			children = (
 				6E507C961DD34DFF00F62C17 /* ViewController.storyboard */,
 				6E7DA8DB1D9948910098D7DA /* ViewController.swift */,
+				6E8C2D861DE4877B009D3F5F /* CourtCell.swift */,
 				6E7DA9DC1D994D4A0098D7DA /* MyLocationView.xib */,
 				6E7DA99D1D994B3A0098D7DA /* MyLocationView.swift */,
 				6E7DA9DB1D994D4A0098D7DA /* MyLocationElementView.xib */,
@@ -386,8 +385,6 @@
 				6E77DD101DC5A04400296008 /* CourtSearchView.swift */,
 				6E7DA9DD1D994D4A0098D7DA /* CourtSearchElementView.xib */,
 				6E7DA99E1D994B3A0098D7DA /* CourtSearchElementView.swift */,
-				6E10BC081DD7123F00E0DEC7 /* CourtElementView.xib */,
-				6E10BC061DD711DE00E0DEC7 /* CourtElementView.swift */,
 				6E4CC94C1DC4811D005FA92F /* MainLeftViewController.swift */,
 				6E4CC94E1DC4815C005FA92F /* MainRightViewController.swift */,
 			);
@@ -655,7 +652,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E10BC091DD7123F00E0DEC7 /* CourtElementView.xib in Resources */,
 				6E7DA9E11D994D4A0098D7DA /* MyLocationView.xib in Resources */,
 				6E77DD131DC5A05E00296008 /* CourtSearchView.xib in Resources */,
 				6E507C931DD34C7300F62C17 /* Map.storyboard in Resources */,
@@ -859,7 +855,6 @@
 				6E7DA9C41D994B3A0098D7DA /* MapListElementView.swift in Sources */,
 				6E4CC94B1DC47F84005FA92F /* PresentMenuAnimator.swift in Sources */,
 				6E7DA9C91D994B3A0098D7DA /* NoticeViewController.swift in Sources */,
-				6E10BC071DD711DE00E0DEC7 /* CourtElementView.swift in Sources */,
 				6E7DA9D11D994B3A0098D7DA /* UIControl.swift in Sources */,
 				6E7DA9BA1D994B3A0098D7DA /* EggViewController.swift in Sources */,
 				6E7DA9D51D994B3A0098D7DA /* UITextField.swift in Sources */,
@@ -875,6 +870,7 @@
 				6E7DA9B91D994B3A0098D7DA /* CourtViewController.swift in Sources */,
 				6E7DA9C81D994B3A0098D7DA /* NonUserView.swift in Sources */,
 				6E77DD111DC5A04400296008 /* CourtSearchView.swift in Sources */,
+				6E8C2D871DE4877B009D3F5F /* CourtCell.swift in Sources */,
 				6E7DA9BF1D994B3A0098D7DA /* JoinViewController.swift in Sources */,
 				6E7DA9C51D994B3A0098D7DA /* MapViewController.swift in Sources */,
 				6E7DA9C71D994B3A0098D7DA /* MypageViewController.swift in Sources */,
