@@ -22,6 +22,8 @@ class ViewController: UIViewController{
     @IBOutlet var leftEdge: UIScreenEdgePanGestureRecognizer!
     @IBOutlet var rightEdge: UIScreenEdgePanGestureRecognizer!
     
+    var courtArray = Array<Court>()
+    
     //현재위치 manager
     let locationManager = CLLocationManager()
     //위치 관련 앱을 실행했는지 실행 하지 않았는지
@@ -36,6 +38,7 @@ class ViewController: UIViewController{
     var courtSearchView: CourtSearchView!
     //추가정보 뷰
     var addView : AddView!
+    
     
     //제스처
     var direction: Direction!
@@ -104,6 +107,46 @@ class ViewController: UIViewController{
         ///////////////////
         URLReq.initApiRequest(self){
             self.spin.isHidden = true
+            self.addCourt()
+        }
+    }
+    
+    
+    //메인 코트 가져옴
+    func addCourt(){
+        self.spin.isHidden = false
+        self.spin.startAnimating()
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 0.5)
+            DispatchQueue.main.async {
+                for i in 0...20{
+                    let court = Court()
+                    court.seq = 1
+                    court.cname = "코트장\(i)  \(self.courtArray.count)"
+                    court.desc = "코트장입니다.~코트장입니다.~코트장입니다.~코트장입니다.~코트장입니다.~코트장입니다.~코트장입니다.~코트장입니다.~"
+                    let rd = Int(arc4random_uniform(4))
+                    
+                    var urlStr = "http://post.phinf.naver.net/20160527_297/1464314639619UEOpr_JPEG/11.JPG?type=w1200"
+                    if rd == 0{
+                        urlStr = "http://post.phinf.naver.net/20160527_297/1464314639619UEOpr_JPEG/11.JPG?type=w1200"
+                    }else if rd == 1{
+                        urlStr = "http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg"
+                    }else if rd == 2{
+                        urlStr = "http://postfiles5.naver.net/20120123_52/kenny790907_1327322190946s9Mjv_JPEG/IMG_5849.JPG?type=w1"
+                    }else if rd == 3{
+                        urlStr = "http://postfiles15.naver.net/20150209_190/imatrancer_1423415348869O6PNR_PNG/%B3%F3%B1%B8%C0%E5_%B3%F3%B1%B8%C4%DA%C6%AE_%284%29.png?type=w2"
+                    }else if rd == 4{
+                        urlStr = "http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg"
+                    }
+                    court.image = urlStr
+                    
+                    self.courtArray.append(court)
+                }
+                
+                self.tableView.reloadData()
+                self.spin.stopAnimating()
+                self.spin.isHidden = true
+            }
         }
     }
     
@@ -276,30 +319,25 @@ extension ViewController: UITextFieldDelegate{
 
 extension ViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return self.courtArray.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let court = self.courtArray[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "CourtCell", for: indexPath) as! CourtCell
-        
+        cell.setLayout(){_ in
+            if self.courtSearchView.isHidden == true{
+                self.courtDetailSeq = court.seq
+                self.performSegue(withIdentifier: "main_courtDetail", sender: nil)
+            }else{
+                
+            }
+        }
+        cell.courtName.text = court.cname
         let image = UIImageView()
         cell.imgView.addSubview(image)
         
-        let rd = Int(arc4random_uniform(4))
-        var urlStr = "http://post.phinf.naver.net/20160527_297/1464314639619UEOpr_JPEG/11.JPG?type=w1200"
-        if rd == 0{
-            urlStr = "http://post.phinf.naver.net/20160527_297/1464314639619UEOpr_JPEG/11.JPG?type=w1200"
-        }else if rd == 1{
-            urlStr = "http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg"
-        }else if rd == 2{
-            urlStr = "http://postfiles5.naver.net/20120123_52/kenny790907_1327322190946s9Mjv_JPEG/IMG_5849.JPG?type=w1"
-        }else if rd == 3{
-            urlStr = "http://postfiles15.naver.net/20150209_190/imatrancer_1423415348869O6PNR_PNG/%B3%F3%B1%B8%C0%E5_%B3%F3%B1%B8%C4%DA%C6%AE_%284%29.png?type=w2"
-        }else if rd == 4{
-            urlStr = "http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg"
-        }
-        
         DispatchQueue.global().async {
-            let imageURL = NSURL(string: urlStr) as! URL
+            let imageURL = NSURL(string: court.image) as! URL
             guard let courtData = NSData(contentsOf: imageURL) else{ return }
             let courtImage = UIImage(data: courtData as Data)
             let courtImageSize = courtImage?.size
@@ -316,59 +354,19 @@ extension ViewController: UITableViewDataSource{
         }
         return cell
     }
-    
-  
-    
-    //                self.spin.stopAnimating()
-    //                self.spin.isHidden = true
-    
-    
-    //    var totalRow : Int!
-    //    var page = 1
-    //    var idx: CGFloat = 0
-    //    //스크롤뷰 슬라이더 딜리게이트
-    //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    //        let currentOffset = self.scrollView.contentOffset.y
-    //        let maximumOffset = self.scrollView.contentSize.height - self.scrollView.frame.size.height
-    //        let deltaOffset = maximumOffset - currentOffset
-    //        if deltaOffset <= 0 && self.spin.isHidden == true{
-    //            self.addScrollView()
-    //        }
-    //    }
-    //
-    //    func addScrollView(){
-    //        if self.totalRow != nil && self.totalRow <= Int(self.idx){
-    //            self.spin.isHidden = true
-    //            self.spin.stopAnimating()
-    //            return
-    //        }
-    //        if self.spin.isHidden == false{
-    //            return
-    //        }
-    //
-    //        self.spin.startAnimating()
-    //        self.spin.isHidden = false
-    //        DispatchQueue.global().async {
-    //            Thread.sleep(forTimeInterval: 0.3)
-    //            DispatchQueue.main.async{
-    //                ///////////
-    //                //통신//
-    //                /////////
-
-    //                let height: CGFloat = 180
-    //                for _ in 0...10{
-    //                    if let customView = Bundle.main.loadNibNamed("CourtElementView", owner: self, options: nil)?.first as? CourtElementView {
-    //                        customView.setLayout(self, idx: self.idx, height: height, element: [:])
-    //                        self.idx += 1
-    //                    }
-    //                }
-    //                self.scrollView.contentSize.height = (self.idx*(height+10))+70
-    //            }
-    //        }
-    //    }
 }
 extension ViewController: UITableViewDelegate{
-    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        let deltaOffset = maximumOffset - currentOffset
+        if deltaOffset <= 0 && self.spin.isHidden == true{
+            if scrollView == self.tableView{
+                self.addCourt()
+            }
+            
+        }
+    }
 }
 
 

@@ -115,7 +115,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xl7-gN-Zld">
-                                <rect key="frame" x="0.0" y="80" width="375" height="517"/>
+                                <rect key="frame" x="0.0" y="80" width="375" height="527"/>
                                 <color key="backgroundColor" red="0.88360753619999999" green="0.96569901700000005" blue="0.88508966960000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CourtCell" rowHeight="190" id="5qj-7V-Jd5" customClass="CourtCell" customModule="ClubfulIOS" customModuleProvider="target">
@@ -126,7 +126,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hfK-cQ-zIG">
-                                                    <rect key="frame" x="10" y="10" width="355" height="180"/>
+                                                    <rect key="frame" x="10" y="5" width="355" height="180"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C7w-Sv-TTZ">
                                                             <rect key="frame" x="0.0" y="0.0" width="355" height="110"/>
@@ -332,9 +332,9 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="hfK-cQ-zIG" firstAttribute="top" secondItem="9jf-Ih-gVs" secondAttribute="top" constant="10" id="0lC-tK-cBi"/>
+                                                <constraint firstItem="hfK-cQ-zIG" firstAttribute="top" secondItem="9jf-Ih-gVs" secondAttribute="top" constant="5" id="0lC-tK-cBi"/>
                                                 <constraint firstItem="hfK-cQ-zIG" firstAttribute="leading" secondItem="9jf-Ih-gVs" secondAttribute="leading" constant="10" id="3FV-R1-Hfo"/>
-                                                <constraint firstAttribute="bottom" secondItem="hfK-cQ-zIG" secondAttribute="bottom" id="CEI-8a-so7"/>
+                                                <constraint firstAttribute="bottom" secondItem="hfK-cQ-zIG" secondAttribute="bottom" constant="5" id="CEI-8a-so7"/>
                                                 <constraint firstAttribute="trailing" secondItem="hfK-cQ-zIG" secondAttribute="trailing" constant="10" id="fch-8c-t3P"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -354,7 +354,7 @@
                                 </prototypes>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="F6P-PN-z7z">
-                                <rect key="frame" x="178" y="329" width="20" height="20"/>
+                                <rect key="frame" x="178" y="334" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="XZa-1H-XjE"/>
                                     <constraint firstAttribute="height" constant="20" id="s7q-Nr-v7e"/>
@@ -371,7 +371,7 @@
                             <constraint firstItem="F6P-PN-z7z" firstAttribute="centerX" secondItem="Xl7-gN-Zld" secondAttribute="centerX" id="Y5e-TI-Agd"/>
                             <constraint firstItem="Xl7-gN-Zld" firstAttribute="top" secondItem="uXK-ig-oVf" secondAttribute="bottom" id="aNE-q8-Dbs"/>
                             <constraint firstAttribute="trailing" secondItem="uXK-ig-oVf" secondAttribute="trailing" id="f2B-eN-w5D"/>
-                            <constraint firstItem="F5x-fo-HSa" firstAttribute="top" secondItem="Xl7-gN-Zld" secondAttribute="bottom" constant="70" id="h2Z-ZT-XSX"/>
+                            <constraint firstItem="F5x-fo-HSa" firstAttribute="top" secondItem="Xl7-gN-Zld" secondAttribute="bottom" constant="60" id="h2Z-ZT-XSX"/>
                             <constraint firstItem="F6P-PN-z7z" firstAttribute="centerY" secondItem="Xl7-gN-Zld" secondAttribute="centerY" id="hmN-Bj-rIK"/>
                             <constraint firstAttribute="trailing" secondItem="WFx-qX-s6J" secondAttribute="trailing" id="iUu-hg-MEl"/>
                             <constraint firstItem="uXK-ig-oVf" firstAttribute="top" secondItem="1R1-G2-8df" secondAttribute="bottom" id="lTS-OK-E5D"/>

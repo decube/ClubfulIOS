@@ -19,4 +19,17 @@ class CourtCell: UITableViewCell {
     @IBOutlet var star_4: UIImageView!
     @IBOutlet var star_5: UIImageView!
     @IBOutlet var location: UILabel!
+    
+    var callback: ((Void)->Void)!
+    func setLayout(callback: @escaping ((Void)->Void)){
+        self.callback = callback
+        
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.courtAction)))
+    }
+    
+    func courtAction(){
+        if self.callback != nil{
+            self.callback()
+        }
+    }
 }
