@@ -82,9 +82,7 @@ class AddView: UIView{
             self.alpha = 0
             }, completion: {(_) in
                 if let vo = self.ctrl as? ViewController{
-                    vo.blackScreen.isHidden = true
                 }else if let vo = self.ctrl as? UserConvertViewController{
-                    vo.blackScreen.isHidden = true
                 }
                 self.isHidden = true
                 self.alpha = 1
@@ -111,9 +109,7 @@ class AddView: UIView{
         
         
         if let vo = self.ctrl as? ViewController{
-            vo.blackScreen.isHidden = false
         }else if let vo = self.ctrl as? UserConvertViewController{
-            vo.blackScreen.isHidden = false
         }
         self.isHidden = false
         let tmpRect = self.frame

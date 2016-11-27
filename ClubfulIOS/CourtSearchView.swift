@@ -10,13 +10,24 @@ import UIKit
 
 class CourtSearchView : UIView{
     var ctrl : ViewController!
-    @IBOutlet var scrollView: UIScrollView!
-    var spin: UIActivityIndicatorView!
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var spin: UIActivityIndicatorView!
+    
+    var courtArray: Array<Court> = Array<Court>()
+    
+    override func awakeFromNib() {
+        self.tableView.register(UINib(nibName: "CourtSearchCell", bundle: nil), forCellReuseIdentifier: "CourtSearchCell")
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 90
+        self.tableView.separatorStyle = .none
+    }
     
     
     func setLayout(_ ctrl: ViewController){
         self.ctrl = ctrl
-        
+        self.ctrl.view.addSubview(self)
+        self.tableView.delegate = ctrl
+        self.tableView.dataSource = ctrl
         DispatchQueue.global().async {
             Thread.sleep(forTimeInterval: 0.5)
             DispatchQueue.main.async {
@@ -24,27 +35,15 @@ class CourtSearchView : UIView{
                 _ = self.layer(.right, borderWidth: 1, color: UIColor.black)
             }
         }
-        ctrl.view.addSubview(self)
     }
-    
-    
     
     //코트 검색 액션
     func courtSearchAction() {
         if (self.ctrl.searchTextField.text?.characters.count)! >= 2{
-            self.ctrl.view.endEditing(true)
-            self.scrollView.subviews.forEach({ (v) in
-                if let element = v as? CourtSearchElementView{
-                    element.removeFromSuperview()
-                }
-            })
-            self.scrollView.scrollToTop()
-            
-            self.spin = UIActivityIndicatorView(frame: CGRect(origin: self.frame.origin, size: CGSize(width: 20, height: 20)))
+            self.spin.isHidden = false
             self.spin.startAnimating()
-            self.addSubview(self.spin)
+            self.ctrl.view.endEditing(true)
             
-            //코트 검색 통신
             let deviceUser = Storage.getRealmDeviceUser()
             var latitude = deviceUser.latitude
             var longitude = deviceUser.longitude
@@ -53,41 +52,53 @@ class CourtSearchView : UIView{
                 longitude = deviceUser.deviceLongitude
             }
             
-            let parameters : [String: AnyObject] = ["address": self.ctrl.searchTextField.text! as AnyObject, "category": deviceUser.category as AnyObject, "latitude": latitude as AnyObject, "longitude": longitude as AnyObject]
+            var parameters : [String: AnyObject] = [:]
+            parameters.updateValue(self.ctrl.searchTextField.text! as AnyObject, forKey: "address")
+            parameters.updateValue(deviceUser.category as AnyObject, forKey: "category")
+            parameters.updateValue(latitude as AnyObject, forKey: "latitude")
+            parameters.updateValue(longitude as AnyObject, forKey: "longitude")
             URLReq.request(self.ctrl, url: URLReq.apiServer+URLReq.api_court_listSearch, param: parameters, callback: { (dic) in
-                self.spin.removeFromSuperview()
+                self.spin.isHidden = true
+                self.spin.stopAnimating()
                 if let list = dic["list"] as? [[String: AnyObject]]{
-                    self.ctrl.view.endEditing(true)
-                    self.scrollView.subviews.forEach({ (v) in
-                        if let element = v as? CourtSearchElementView{
-                            element.removeFromSuperview()
-                        }
-                    })
-                    var i : CGFloat = 0
-                    let locObjHeight : CGFloat = 90
-                    for obj in list{
-                        if let customView = Bundle.main.loadNibNamed("CourtSearchElementView", owner: self, options: nil)?.first as? CourtSearchElementView {
-                            customView.setLayout(self.ctrl, courtSearchView: self, height: locObjHeight, idx: i, element: obj)
-                        }
-                        i += 1
+                    for data in list{
+                        self.courtArray.append(Court(data))
                     }
-                    self.scrollView.contentSize.height = locObjHeight*i+i+50
-                    if self.isHidden != false{
-                        self.frame.origin.x = -self.frame.width
-                        self.isHidden = false
-                        //애니메이션 적용
-                        UIView.animate(withDuration: 0.2, animations: {
-                            self.frame.origin.x = 0
-                            }, completion: {(_) in
-                        })
-                    }else{
-                        self.frame.origin.x = 0
-                    }
+                    self.tableView.reloadData()
+                    self.show()
                 }
             })
         }else{
             Util.alert(self.ctrl, message: "검색어는 2글자 이상으로 넣어주세요.")
         }
+    }
+    
+    
+    func show(){
+        self.ctrl.view.endEditing(true)
+        if self.isHidden != false{
+            self.frame.origin.x = -self.frame.width
+            self.isHidden = false
+            UIView.animate(withDuration: 0.2, animations: {
+                self.frame.origin.x = 0
+            }, completion: {(_) in
+            })
+        }else{
+            self.frame.origin.x = 0
+        }
+    }
+    func hide(){
+        self.ctrl.view.endEditing(true)
+        self.courtArray = Array<Court>()
+        self.tableView.reloadData()
+        self.isHidden = false
+        let tmpRect = self.frame
+        UIView.animate(withDuration: 0.3, animations: {
+            self.frame.origin.x = -tmpRect.width
+        }, completion: {(_) in
+            self.isHidden = true
+            self.frame = tmpRect
+        })
     }
     
     

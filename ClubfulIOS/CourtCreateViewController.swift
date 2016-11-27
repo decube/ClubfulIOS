@@ -9,171 +9,115 @@
 import UIKit
 import Alamofire
 
-class CourtCreateViewController: UIViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, UITextFieldDelegate, AdobeUXImageEditorViewControllerDelegate{
-    
+class CourtCreateViewController: UIViewController{
     @IBOutlet var spin: UIActivityIndicatorView!
-    //전체 스크롤 뷰
-    @IBOutlet var mainScrollView: UIScrollView!
-    //전체 스크롤뷰 스크롤 height
-    var mainScrollViewHeight: CGFloat = 0
-    //이미지 스크롤 뷰
-    @IBOutlet var picScrollView: UIScrollView!
-    //크롭버튼 어떤것을 클릭했는지 담아두는 변수
-    var cropBtnSpace : UIButton!
-    //빈 크롭 버튼 이미지
-    let picAddImage = UIImage(named: "ic_imageAdd")!
-    //크롭 버튼 리스트
-    var picList = [UIButton]()
-    //이미지 피커
-    let picker = UIImagePickerController()
-    
-    //이미지 사이즈
-    var imageWidth : CGFloat!
-    var imageHeight : CGFloat!
-    
     //위치설정 버튼
     @IBOutlet var locationBtn: UIButton!
     //종목설정 버튼
     @IBOutlet var categoryBtn: UIButton!
-    
-    //위치 변수
-    var courtLatitude : Double!
-    var courtLongitude : Double!
-    var courtAddress : String!
-    var courtAddressShort : String!
-    
-    //카테고리 시컨스
-    var category : Int!
     //코트 별칭
     @IBOutlet var cnameTextField: UITextField!
     //코트 설명 텍스트뷰
     @IBOutlet var descTextView: UITextView!
+    //전체 스크롤 뷰
+    @IBOutlet var mainScrollView: UIScrollView!
+    var mainScrollViewHeight: CGFloat = 0
+    //이미지 스크롤 뷰
+    @IBOutlet var picScrollView: UIScrollView!
     
+    var court : Court!
+    var address : Address!
+    
+    //이미지 피커
+    let picker = UIImagePickerController()
     
     var nonUserView : NonUserView!
-    
-    
-    //temp이미지버튼
-    var tempImageBtn: UIButton!
-    
-    
-    let pic1 = UIButton()
-    let pic2 = UIButton()
-    let pic3 = UIButton()
-    let pic4 = UIButton()
-    var picBtnList = [UIButton]()
-    
-    
+    var pic1: PicView!
+    var pic2: PicView!
+    var pic3: PicView!
+    var pic4: PicView!
+    var picTemp: PicView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
-        
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
         self.spin.isHidden = true
         self.cnameTextField.delegate = self
         self.descTextView.delegate = self
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
+        self.court = Court()
+        self.address = Address()
+        
         DispatchQueue.main.async {
             self.layoutInit()
         }
     }
     
-    
     func layoutInit(){
-        picList = [UIButton]()
-        picScrollView.subviews.forEach({$0.removeFromSuperview()})
-        locationBtn.setTitle("위치 설정", for: UIControlState())
-        courtLatitude = nil
-        courtLongitude = nil
-        courtAddress = nil
-        courtAddressShort = nil
+        self.picScrollView.subviews.forEach({$0.removeFromSuperview()})
+        self.locationBtn.setTitle("위치 설정", for: UIControlState())
         categoryBtn.setTitle("종목 설정", for: UIControlState())
-        category = nil
         cnameTextField.text = ""
         descTextView.text = ""
+        self.court = Court()
+        self.address = Address()
         
-        picBtnList.append(pic1)
-        picBtnList.append(pic2)
-        picBtnList.append(pic3)
-        picBtnList.append(pic4)
-        
-        for picObj in picBtnList{
-            picScrollView.addSubview(picObj)
-            
-            //하나의 버튼 더 만듬
-            let picBtn = UIButton(frame: CGRect(x: 0, y: 0, width: picObj.frame.width, height: picObj.frame.height))
-            picBtn.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.00)
-            picBtn.setImage(self.picAddImage, for: UIControlState())
-            
-            picList.append(picBtn)
-            
-            picObj.addSubview(picBtn)
-            func btnClick(){
-                self.view.endEditing(true)
-                self.tempImageBtn = picBtn
-                let alert = UIAlertController(title: "", message: "사진타입선택", preferredStyle: .actionSheet)
-                alert.addAction(UIAlertAction(title: "카메라", style: .default, handler: { (alert) in
-                    self.imageCallback(UIImagePickerControllerSourceType.camera)
-                }))
-                alert.addAction(UIAlertAction(title: "사진첩", style: .default, handler: { (alert) in
-                    self.imageCallback(UIImagePickerControllerSourceType.photoLibrary)
-                }))
-                alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (alert) in
-                    
-                }))
-                self.present(alert, animated: false, completion: {(_) in
-                })
-            }
-            
-            picObj.addAction(.touchUpInside){
-                btnClick()
-            }
-            picBtn.addAction(.touchUpInside){
-                btnClick()
-            }
+        func picClick(_ pic: PicView){
+            self.picTemp = pic
+            self.view.endEditing(true)
+            let alert = UIAlertController(title: "", message: "사진타입선택", preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "카메라", style: .default, handler: { (alert) in
+                self.imageCallback(UIImagePickerControllerSourceType.camera)
+            }))
+            alert.addAction(UIAlertAction(title: "사진첩", style: .default, handler: { (alert) in
+                self.imageCallback(UIImagePickerControllerSourceType.photoLibrary)
+            }))
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (alert) in
+            }))
+            self.present(alert, animated: false, completion: {(_) in
+            })
         }
         
+        
+        if let customView = Bundle.main.loadNibNamed("PicView", owner: self, options: nil)?.first as? PicView {
+            self.pic1 = customView
+        }
+        if let customView = Bundle.main.loadNibNamed("PicView", owner: self, options: nil)?.first as? PicView {
+            self.pic2 = customView
+        }
+        if let customView = Bundle.main.loadNibNamed("PicView", owner: self, options: nil)?.first as? PicView {
+            self.pic3 = customView
+        }
+        if let customView = Bundle.main.loadNibNamed("PicView", owner: self, options: nil)?.first as? PicView {
+            self.pic4 = customView
+        }
         
         DispatchQueue.global().async {
             Thread.sleep(forTimeInterval: 0.1)
             DispatchQueue.main.async {
                 self.mainScrollViewHeight = self.mainScrollView.contentSize.height
                 
-                self.imageWidth = self.picScrollView.frame.width/2-5
-                self.imageHeight = self.imageWidth * 120 / 192
+                let imageWidth = self.picScrollView.frame.width/2-5
+                let imageHeight = imageWidth * 120 / 192
                 
-                self.picScrollView.contentSize = CGSize(width: self.picScrollView.frame.width, height: (self.imageHeight+10)*2)
+                self.picScrollView.contentSize = CGSize(width: self.picScrollView.frame.width, height: (imageHeight+10)*2)
                 
-                self.pic1.frame = CGRect(x: 0, y: 0, width: self.imageWidth, height: self.imageHeight)
-                self.pic2.frame = CGRect(x: self.imageWidth+10, y: 0, width: self.imageWidth, height: self.imageHeight)
-                self.pic3.frame = CGRect(x: 0, y: self.imageHeight+10, width: self.imageWidth, height: self.imageHeight)
-                self.pic4.frame = CGRect(x: self.imageWidth+10, y: self.imageHeight+10, width: self.imageWidth, height: self.imageHeight)
-                for picObj in self.picList{
-                    picObj.frame = CGRect(x: 0, y: 0, width: self.imageWidth, height: self.imageHeight)
-                }
+                self.pic1.frame = CGRect(x: 0, y: 0, width: imageWidth, height: imageHeight)
+                self.pic2.frame = CGRect(x: imageWidth+10, y: 0, width: imageWidth, height: imageHeight)
+                self.pic3.frame = CGRect(x: 0, y: imageHeight+10, width: imageWidth, height: imageHeight)
+                self.pic4.frame = CGRect(x: imageWidth+10, y: imageHeight+10, width: imageWidth, height:imageHeight)
+                self.pic1.touchCallback = {(_) in picClick(self.pic1)}
+                self.pic2.touchCallback = {(_) in picClick(self.pic2)}
+                self.pic3.touchCallback = {(_) in picClick(self.pic3)}
+                self.pic4.touchCallback = {(_) in picClick(self.pic4)}
+                self.picScrollView.addSubview(self.pic1)
+                self.picScrollView.addSubview(self.pic2)
+                self.picScrollView.addSubview(self.pic3)
+                self.picScrollView.addSubview(self.pic4)
             }
         }
     }
-    
-    //로그인했을때 로그아웃했을때 레이아웃 변경
-    func layout(){
-        if Storage.isRealmUser(){
-            self.view.subviews.forEach({ (tempView) in
-                if tempView == nonUserView{
-                    tempView.removeFromSuperview()
-                }
-            })
-        }else{
-            self.view.subviews.forEach({ (tempView) in
-                if tempView == nonUserView{
-                    tempView.removeFromSuperview()
-                }
-            })
-            self.view.addSubview(nonUserView)
-        }
-    }
-    
     
     
     //이미지 콜백
@@ -182,93 +126,6 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         picker.delegate = self
         picker.sourceType = sourceType
         present(picker, animated: false, completion: nil)
-    }
-    //이미지 끝
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-    //이미지 받아오기
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        var newImage: UIImage
-        if let possibleImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
-            newImage = possibleImage
-        } else if let possibleImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
-            newImage = possibleImage
-        } else {
-            return
-        }
-        
-        
-        
-        dismiss(animated: false, completion: {(_) in
-            //AdobeImageEditor 실행
-            DispatchQueue.main.async {
-                AdobeImageEditorCustomization.setToolOrder([
-                    kAdobeImageEditorEnhance,        /* Enhance */
-                    kAdobeImageEditorEffects,        /* Effects */
-                    kAdobeImageEditorStickers,       /* Stickers */
-                    kAdobeImageEditorOrientation,    /* Orientation */
-                    kAdobeImageEditorCrop,           /* Crop */
-                    kAdobeImageEditorColorAdjust,    /* Color */
-                    kAdobeImageEditorLightingAdjust, /* Lighting */
-                    kAdobeImageEditorSharpness,      /* Sharpness */
-                    kAdobeImageEditorDraw,           /* Draw */
-                    kAdobeImageEditorText,           /* Text */
-                    kAdobeImageEditorRedeye,         /* Redeye */
-                    kAdobeImageEditorWhiten,         /* Whiten */
-                    kAdobeImageEditorBlemish,        /* Blemish */
-                    kAdobeImageEditorBlur,           /* Blur */
-                    kAdobeImageEditorMeme,           /* Meme */
-                    kAdobeImageEditorFrames,         /* Frames */
-                    kAdobeImageEditorFocus,          /* TiltShift */
-                    kAdobeImageEditorSplash,         /* ColorSplash */
-                    kAdobeImageEditorOverlay,        /* Overlay */
-                    kAdobeImageEditorVignette        /* Vignette */
-                    ])
-                //사용자가 비율 마음대로 지정
-                AdobeImageEditorCustomization.setCropToolCustomEnabled(false)
-                AdobeImageEditorCustomization.setCropToolInvertEnabled(false)
-                AdobeImageEditorCustomization.setCropToolOriginalEnabled(false)
-                
-                let _ : Array<Dictionary<String, Any>>  = [
-                    [
-                        "kAdobeImageEditorCropPresetName":"Option1",
-                        "kAdobeImageEditorCropPresetWidth":3,
-                        "kAdobeImageEditorCropPresetHeight":7
-                    ]
-                ]
-                //AdobeImageEditorCustomization.setCropToolPresets(cropCustom)
-                
-                
-                let adobeViewCtr = AdobeUXImageEditorViewController(image: newImage)
-                adobeViewCtr.delegate = self
-                self.present(adobeViewCtr, animated: false) { () -> Void in
-                    
-                }
-            }
-        })
-    }
-    
-    
-    //AdobeCreativeSDK 이미지 받아옴
-    func photoEditor(_ editor: AdobeUXImageEditorViewController, finishedWith image: UIImage?) {
-        editor.dismiss(animated: true, completion: {(_) in
-            let imageCrop = self.resizeImage(image: (image?.crop(to: CGSize(width: 500, height: 300)))!, size: CGSize(width: 500, height: 300))
-            
-            let rateWidth = imageCrop.size.width/self.imageWidth
-            let rateHeight = imageCrop.size.height/self.imageHeight
-            
-            var widthValue : CGFloat! = self.imageWidth
-            var heightValue : CGFloat! = self.imageHeight
-            
-            if rateWidth > rateHeight{
-                heightValue = widthValue * imageCrop.size.height / imageCrop.size.width
-            }else{
-                widthValue = heightValue * imageCrop.size.width / imageCrop.size.height
-            }
-            self.tempImageBtn.frame = CGRect(x: (self.imageWidth-widthValue)/2, y: (self.imageHeight-heightValue)/2, width: widthValue, height: heightValue)
-            self.tempImageBtn.setImage(imageCrop, for: UIControlState())
-        })
     }
     
     //사이즈 줄이기
@@ -281,10 +138,11 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         }
     }
     
-    //AdobeCreativeSDK 캔슬
-    func photoEditorCanceled(_ editor: AdobeUXImageEditorViewController) {
-        editor.dismiss(animated: true, completion: nil)
-    }
+    
+    
+    
+    
+    
     
     
     
@@ -308,7 +166,7 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         for category in categoryList{
             alert.addAction(UIAlertAction(title: "\(category["name"]!)", style: .default, handler: { (alert) in
                 self.categoryBtn.setTitle(alert.title, for: UIControlState())
-                self.category = category["seq"] as! Int
+                self.court.categorySeq = category["seq"] as! Int
             }))
         }
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (alert) in
@@ -324,10 +182,8 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
             return
         }
         var cropImageCnt = 0
-        for btn in self.picList{
-            if btn.currentImage != self.picAddImage{
-                cropImageCnt += 1
-            }
+        if btn.currentImage != self.picAddImage{
+            cropImageCnt += 1
         }
         
         if cropImageCnt >= 2{
@@ -415,17 +271,9 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
             self.view.endEditing(true)
         }
     }
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? MapViewController{
-            vc.preView = self
-            vc.preBtn = self.locationBtn
-        }
-    }
-    
-    
-    //키보드 생김/사라짐 셀렉터
+}
+
+extension CourtCreateViewController{
     override func viewWillAppear(_ animated: Bool) {
         if nonUserView == nil{
             if let customView = Bundle.main.loadNibNamed("NonUserView", owner: self, options: nil)?.first as? NonUserView {
@@ -439,10 +287,43 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
-    //view 사라지기 전 작동
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? MapViewController{
+            vc.preAddress = self.address
+            vc.preBtn = self.locationBtn
+        }
+    }
+    
+    //로그인했을때 로그아웃했을때 레이아웃 변경
+    func layout(){
+        if Storage.isRealmUser(){
+            self.view.subviews.forEach({ (tempView) in
+                if tempView == nonUserView{
+                    tempView.removeFromSuperview()
+                }
+            })
+        }else{
+            self.view.subviews.forEach({ (tempView) in
+                if tempView == nonUserView{
+                    tempView.removeFromSuperview()
+                }
+            })
+            self.view.addSubview(nonUserView)
+        }
+    }
+}
+
+
+extension CourtCreateViewController: UINavigationControllerDelegate{
+}
+
+extension CourtCreateViewController: UITextViewDelegate{
+}
+
+extension CourtCreateViewController: UITextFieldDelegate{
     //키보드생길때
     func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = ((notification as NSNotification).userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
@@ -461,5 +342,89 @@ class CourtCreateViewController: UIViewController , UIImagePickerControllerDeleg
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+
+
+
+extension CourtCreateViewController: UIImagePickerControllerDelegate{
+    //이미지 끝
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    //이미지 받아오기
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        var newImage: UIImage
+        if let possibleImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            newImage = possibleImage
+        } else if let possibleImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            newImage = possibleImage
+        } else {
+            return
+        }
+        
+        
+        
+        dismiss(animated: false, completion: {(_) in
+            //AdobeImageEditor 실행
+            DispatchQueue.main.async {
+                AdobeImageEditorCustomization.setToolOrder([
+                    kAdobeImageEditorEnhance,        /* Enhance */
+                    kAdobeImageEditorEffects,        /* Effects */
+                    kAdobeImageEditorStickers,       /* Stickers */
+                    kAdobeImageEditorOrientation,    /* Orientation */
+                    kAdobeImageEditorCrop,           /* Crop */
+                    kAdobeImageEditorColorAdjust,    /* Color */
+                    kAdobeImageEditorLightingAdjust, /* Lighting */
+                    kAdobeImageEditorSharpness,      /* Sharpness */
+                    kAdobeImageEditorDraw,           /* Draw */
+                    kAdobeImageEditorText,           /* Text */
+                    kAdobeImageEditorRedeye,         /* Redeye */
+                    kAdobeImageEditorWhiten,         /* Whiten */
+                    kAdobeImageEditorBlemish,        /* Blemish */
+                    kAdobeImageEditorBlur,           /* Blur */
+                    kAdobeImageEditorMeme,           /* Meme */
+                    kAdobeImageEditorFrames,         /* Frames */
+                    kAdobeImageEditorFocus,          /* TiltShift */
+                    kAdobeImageEditorSplash,         /* ColorSplash */
+                    kAdobeImageEditorOverlay,        /* Overlay */
+                    kAdobeImageEditorVignette        /* Vignette */
+                    ])
+                //사용자가 비율 마음대로 지정
+                AdobeImageEditorCustomization.setCropToolCustomEnabled(false)
+                AdobeImageEditorCustomization.setCropToolInvertEnabled(false)
+                AdobeImageEditorCustomization.setCropToolOriginalEnabled(false)
+                
+                let _ : Array<Dictionary<String, Any>>  = [
+                    [
+                        "kAdobeImageEditorCropPresetName":"Option1",
+                        "kAdobeImageEditorCropPresetWidth":3,
+                        "kAdobeImageEditorCropPresetHeight":7
+                    ]
+                ]
+                //AdobeImageEditorCustomization.setCropToolPresets(cropCustom)
+                
+                
+                let adobeViewCtr = AdobeUXImageEditorViewController(image: newImage)
+                adobeViewCtr.delegate = self
+                self.present(adobeViewCtr, animated: false) { () -> Void in
+                    
+                }
+            }
+        })
+    }
+}
+extension CourtCreateViewController: AdobeUXImageEditorViewControllerDelegate{
+    //AdobeCreativeSDK 이미지 받아옴
+    func photoEditor(_ editor: AdobeUXImageEditorViewController, finishedWith image: UIImage?) {
+        editor.dismiss(animated: true, completion: {(_) in
+            let imageCrop = self.resizeImage(image: (image?.crop(to: CGSize(width: 500, height: 300)))!, size: CGSize(width: 500, height: 300))
+            self.picTemp.imageView.image = imageCrop
+        })
+    }
+    //AdobeCreativeSDK 캔슬
+    func photoEditorCanceled(_ editor: AdobeUXImageEditorViewController) {
+        editor.dismiss(animated: true, completion: nil)
     }
 }

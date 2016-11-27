@@ -9,46 +9,58 @@
 import UIKit
 
 class MyLocationView : UIView{
-    @IBOutlet var scrollView: UIScrollView!
-    var scrollViewHeight: CGFloat!
-    @IBOutlet var searchTextField: UITextField!
+    var ctrl: ViewController!
+    var locationArray = Array<Address>()
+    
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var search: UITextField!
     @IBOutlet var myLocationView: UIView!
     
-    var ctrl: ViewController!
+    override func awakeFromNib() {
+        self.tableView.register(UINib(nibName: "MyLocationCell", bundle: nil), forCellReuseIdentifier: "MyLocationCell")
+        self.myLocationView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.myLocationAction)))
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 80
+        self.tableView.separatorStyle = .none
+    }
+    
+    @IBAction func cancelAction(_ sender: AnyObject) {
+        hide()
+    }
+    @IBAction func blackScreenAction(_ sender: Any) {
+        hide()
+    }
+    
+    
     
     func setLayout(_ ctrl: ViewController){
         self.ctrl = ctrl
-        
-        self.frame = CGRect(x: (ctrl.view.frame.width-300)/2, y: (ctrl.view.frame.height-300)/2, width: 300, height: 300)
-        self.searchTextField.borderStyle = .none
-        self.searchTextField.delegate = ctrl
-        ctrl.view.addSubview(self)
-        
-        
-        self.myLocationView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.myLocationAction)))
+        self.frame = self.ctrl.view.frame
+        self.search.delegate = ctrl
+        self.ctrl.view.addSubview(self)
+        self.tableView.delegate = ctrl
+        self.tableView.dataSource = ctrl
     }
     
+    
     func searchAction() {
-        if (self.searchTextField.text?.characters.count)! >= 2{
+        if (self.search.text?.characters.count)! >= 2{
             self.ctrl.view.endEditing(true)
-            self.scrollView.subviews.forEach({$0.removeFromSuperview()})
-            //자기위치 검색 통신
-            let parameters : [String: AnyObject] = ["address": self.searchTextField.text! as AnyObject, "language": Util.language as AnyObject]
+            self.locationArray = Array<Address>()
+            self.tableView.reloadData()
+            
+            var parameters : [String: AnyObject] = [:]
+            parameters.updateValue(self.search.text! as AnyObject, forKey: "address")
+            parameters.updateValue(Util.language as AnyObject, forKey: "language")
+            
             URLReq.request(self.ctrl, url: URLReq.apiServer+URLReq.api_location_geocode, param: parameters, callback: { (dic) in
                 if let result = dic["results"] as? [String: AnyObject]{
                     if let results = result["results"] as? [[String: AnyObject]]{
-                        var i : CGFloat = 0
-                        let locObjHeight : CGFloat = 80
-                        self.scrollView.subviews.forEach({$0.removeFromSuperview()})
                         for element : [String: AnyObject] in results{
                             let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
-                            
-                            if let customView = Bundle.main.loadNibNamed("MyLocationElementView", owner: self, options: nil)?.first as? MyLocationElementView {
-                                customView.setLayout(self.ctrl, locationView: self, height: locObjHeight, idx: i, location: (latitude, longitude, addressShort, address))
-                            }
-                            i += 1
+                            self.locationArray.append(Address(latitude: latitude, longitude: longitude, address: address, addressShort: addressShort))
                         }
-                        self.scrollView.contentSize.height = locObjHeight*i+30
+                        self.tableView.reloadData()
                     }
                 }
             })
@@ -58,58 +70,56 @@ class MyLocationView : UIView{
     }
     
     
-    
     func myLocationAction() {
-        UIView.animate(withDuration: 0.2, animations: {
-            self.alpha = 0
-            }, completion: { (_) in
-                let deviceUser = Storage.getRealmDeviceUser()
-                deviceUser.deviceLatitude = Storage.latitude
-                deviceUser.deviceLongitude = Storage.longitude
-                deviceUser.isMyLocation = false
-                Storage.setRealmDeviceUser(deviceUser)
-                self.isHidden = true
-                self.alpha = 1
-                self.ctrl.blackScreen.isHidden = true
-                if self.ctrl.isMyLocation == false{
-                    Util.alert(self.ctrl, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
-                }else{
-                    self.ctrl.locationManager.startUpdatingLocation()
-                }
-        })
+        self.hideAlpha {
+            let deviceUser = Storage.getRealmDeviceUser()
+            deviceUser.deviceLatitude = Storage.latitude
+            deviceUser.deviceLongitude = Storage.longitude
+            deviceUser.isMyLocation = false
+            Storage.setRealmDeviceUser(deviceUser)
+            if self.ctrl.isMyLocation == false{
+                Util.alert(self.ctrl, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
+            }else{
+                self.ctrl.locationManager.startUpdatingLocation()
+            }
+        }
     }
     
     
-    
-    
-    @IBAction func cancelAction(_ sender: AnyObject) {
-        ctrl.view.endEditing(true)
-        let tmpRect = self.frame
-        //애니메이션 적용
-        UIView.animate(withDuration: 0.2, animations: {
-            self.frame.origin.y = -tmpRect.height
-            }, completion: {(_) in
-                self.ctrl.blackScreen.isHidden = true
-                self.isHidden = true
-                self.frame = tmpRect
-        })
-    }
-    
-    
-    
-    func centerViewShow(){
+    func show(){
         self.ctrl.view.endEditing(true)
-        self.scrollView.subviews.forEach({$0.removeFromSuperview()})
-        self.scrollView.scrollToTop()
-        self.ctrl.blackScreen.isHidden = false
+        self.locationArray = Array<Address>()
+        self.tableView.reloadData()
         self.isHidden = false
-        self.ctrl.courtSearchView.isHidden = true
-        
         let tmpRect = self.frame
         self.frame.origin.y = -tmpRect.height
-        //애니메이션 적용
         UIView.animate(withDuration: 0.3, animations: {
-            self.self.frame = tmpRect
+            self.frame = tmpRect
         }, completion: nil)
+    }
+    func hide(){
+        self.ctrl.view.endEditing(true)
+        self.locationArray = Array<Address>()
+        self.tableView.reloadData()
+        self.isHidden = false
+        let tmpRect = self.frame
+        UIView.animate(withDuration: 0.3, animations: {
+            self.frame.origin.y = -tmpRect.height
+        }, completion: {(_) in
+            self.frame = tmpRect
+            self.isHidden = true
+        })
+    }
+    func hideAlpha(callback: @escaping (Void)->Void ){
+        self.ctrl.view.endEditing(true)
+        self.locationArray = Array<Address>()
+        self.tableView.reloadData()
+        UIView.animate(withDuration: 0.2, animations: {
+            self.alpha = 0
+        }, completion: {(_) in
+            self.isHidden = true
+            self.alpha = 1
+            callback()
+        })
     }
 }

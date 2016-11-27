@@ -11,9 +11,8 @@ import MapKit
 
 
 class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate {
-    //이전 컨트롤러
-    var preView : UIViewController!
-    //이전 컨트롤러 버튼
+    var preAddress : Address!
+    //이전 버튼
     var preBtn : UIButton!
     
     //맵뷰
@@ -90,23 +89,10 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
                         let element : [String: AnyObject] = results[0]
                         let (_, _, addressShort, address) = Util.googleMapParse(element)
                         
-                        if let vc = self.preView as? CourtCreateViewController{
-                            vc.courtLatitude = self.mapView.region.center.latitude
-                            vc.courtLongitude = self.mapView.region.center.longitude
-                            vc.courtAddress = "\(address)"
-                            vc.courtAddressShort = "\(addressShort)"
-                        }else if let vc = self.preView as? UserConvertViewController{
-                            vc.addView.userLatitude = self.mapView.region.center.latitude
-                            vc.addView.userLongitude = self.mapView.region.center.longitude
-                            vc.addView.userAddress = "\(address)"
-                            vc.addView.userAddressShort = "\(addressShort)"
-                        }else if let vc = self.preView as? ViewController{
-                            vc.addView.userLatitude = self.mapView.region.center.latitude
-                            vc.addView.userLongitude = self.mapView.region.center.longitude
-                            vc.addView.userAddress = "\(address)"
-                            vc.addView.userAddressShort = "\(addressShort)"
-                        }
-                        
+                        self.preAddress.latitude = self.mapView.region.center.latitude
+                        self.preAddress.longitude = self.mapView.region.center.longitude
+                        self.preAddress.address = address
+                        self.preAddress.addressShort = addressShort
                         self.preBtn.setTitle("\(addressShort)", for: UIControlState())
                         self.presentingViewController?.dismiss(animated: true, completion: nil)
                     }

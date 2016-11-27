@@ -8,7 +8,99 @@
 
 import UIKit
 
-class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewDelegate{
+
+//임시 데이터
+var tempData2 : [[String: AnyObject]] = [
+    [
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],[
+        "seq":1 as AnyObject,
+        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
+        "nickName":"가나다" as AnyObject,
+        "date":"2016-09-21" as AnyObject
+    ],
+]
+
+
+class CourtViewController : UIViewController{
     var courtSeq : Int!
     
     @IBOutlet var scrollView: UIScrollView!
@@ -32,9 +124,9 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewD
     //댓글 입력 필드
     @IBOutlet var replyInsertField: UITextField!
     
-    //리플 스크롤뷰
-    @IBOutlet var replyScrollView: UIScrollView!
-    
+    //리플
+    @IBOutlet var replyTableView: UITableView!
+    var replyArray = [Reply]()
     
     
     //이미지 URL 저장
@@ -45,8 +137,8 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewD
     var imageBottomIndex : [UIView] = []
     
     
-    var court : [String: AnyObject]!
-    
+    var court : Court!
+    var imageScrollIdx = 0
     
     
     override func viewDidLoad() {
@@ -62,54 +154,37 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewD
             }
         }
         
-        spin.isHidden = true
-        imageSlide.delegate = self
-        replyScrollView.delegate = self
+        self.spin.isHidden = true
+        self.imageSpin.isHidden = false
+        self.replySpin.isHidden = true
+        self.spin.stopAnimating()
+        self.imageSpin.startAnimating()
+        self.replySpin.startAnimating()
+        self.imageSlide.delegate = self
+        self.replyInsertField.delegate = self
+        self.replyTableView.delegate = self
+        self.replyTableView.dataSource = self
+        self.replyTableView.rowHeight = UITableViewAutomaticDimension
+        self.replyTableView.estimatedRowHeight = 20
+        self.replyTableView.separatorStyle = .none
         //슬라이드 효과
-        imageSlide.isPagingEnabled = true
-        imageSlide.showsVerticalScrollIndicator = false
-        imageSlide.showsHorizontalScrollIndicator = false
+        self.imageSlide.isPagingEnabled = true
+        self.imageSlide.showsVerticalScrollIndicator = false
+        self.imageSlide.showsHorizontalScrollIndicator = false
         
-        
-        let parameters : [String: AnyObject] = ["seq": self.courtSeq as AnyObject]
+        var parameters : [String: AnyObject] = [:]
+        parameters.updateValue(self.courtSeq as AnyObject, forKey: "seq")
         URLReq.request(self, url: URLReq.apiServer+URLReq.api_court_detail, param: parameters, callback: { (dic) in
-            if let courtTmp = dic["result"] as? [String: AnyObject]{
-                self.court = courtTmp
-                self.interestLbl.text = "\(self.court["interest"]!)"
-                self.descTextView.text = "\(self.court["description"]!)"
-                self.headerLbl.text = "\(self.court["cname"]!) (\(self.court["categoryName"]!))"
-                
-                DispatchQueue.global().async {
-                    if let imageListValue = self.court["imageList"] as? [[String: AnyObject]]{
-                        for image in imageListValue{
-                            let imageURL = image["image"] as! String
-                            if let imageUrl = Foundation.URL(string: imageURL){
-                                if let imageData = try? Data(contentsOf: imageUrl){
-                                    if let imageUI = UIImage(data: imageData){
-                                        let imgView = UIImageView(image: imageUI)
-                                        self.imageURLList.append(imageURL)
-                                        self.imageViewList.append(imgView)
-                                    }
-                                }
-                            }
-                        }
-                        for _ in 0 ..< Int(self.imageViewList.count){
-                            let ovalView = UIView()
-                            self.imageBottomIndex.append(ovalView)
-                        }
-                        
-                        self.setImages()
-                    }
-                }
+            if let data = dic["result"] as? [String: AnyObject]{
+                self.court = Court(data)
+                self.setLayout()
             }
         })
-        self.replySpin.isHidden = true
-        addReply()
-        
-        
-        descTextView.scrollToTop()
-        replyInsertField.delegate = self
-        
+        self.interest()
+        self.addReply()
+    }
+    
+    func interest(){
         let courtStar = Storage.getStorage("courtStar_\(self.courtSeq)")
         var starImage = "ic_star_on"
         if courtStar == nil{
@@ -118,7 +193,31 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewD
         self.interestBtn.setImage(UIImage(named: starImage), for: UIControlState())
     }
     
-    
+    func setLayout(){
+        self.interestLbl.text = "\(self.court.interest!)"
+        self.descTextView.text = self.court.description
+        self.headerLbl.text = "\(self.court.cname!) (\(self.court.categoryName!))"
+        descTextView.scrollToTop()
+        
+        DispatchQueue.global().async {
+            for image in self.court.imageList{
+                if let imageUrl = Foundation.URL(string: image["image"]!){
+                    if let imageData = try? Data(contentsOf: imageUrl){
+                        if let imageUI = UIImage(data: imageData){
+                            let imgView = UIImageView(image: imageUI)
+                            self.imageURLList.append(image["image"]!)
+                            self.imageViewList.append(imgView)
+                        }
+                    }
+                }
+            }
+            for _ in 0 ..< Int(self.imageViewList.count){
+                let ovalView = UIView()
+                self.imageBottomIndex.append(ovalView)
+            }
+            self.setImages()
+        }
+    }
     func setImages(){
         DispatchQueue.main.async {
             self.imageSlide.subviews.forEach({$0.removeFromSuperview()})
@@ -127,18 +226,13 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewD
                     v.removeFromSuperview()
                 }
             })
-            
             var idx : CGFloat = 0
             for imageSource in self.imageViewList{
-                var frame = self.calLayoutRate(fullSize: self.imageSlide.frame.size, imageSize: imageSource.image!.size)
-                frame.origin.x = frame.origin.x+(self.imageSlide.frame.width*idx)
-                imageSource.frame = frame
-                
+                imageSource.frame = CGRect(x: self.imageSlide.frame.width*idx, y: 0, width: self.imageSlide.frame.width, height: self.imageSlide.frame.height)
+                imageSource.contentMode = .scaleAspectFit
                 self.imageSlide.addSubview(imageSource)
                 idx += 1
             }
-            
-            
             
             //더블클릭
             let doubleTap = UITapGestureRecognizer(target: self, action: #selector(self.interestAction(_:)))
@@ -151,7 +245,6 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewD
             self.imageSlide.isUserInteractionEnabled = true
             self.imageSlide.contentSize.width = self.imageSlide.frame.width*idx
             self.imageSlide.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-            
             
             //이미지 하단 네비
             let ovalSize: CGFloat = 10
@@ -175,8 +268,6 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewD
         }
     }
     
-    
-    
     //길게 클릭
     func longPressed(_ sender: UILongPressGestureRecognizer){
         if sender.state == .ended {
@@ -186,63 +277,6 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewD
             Util.imageSaveHandler(self, imageUrl: "\(self.imageURLList[self.imageScrollIdx])", image: self.imageViewList[self.imageScrollIdx].image!)
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    var imageScrollIdx = 0
-    //스크롤뷰 슬라이더 딜리게이트
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == self.imageSlide {
-            let width = Double(scrollView.bounds.size.width)
-            let offset = Double(scrollView.contentOffset.x)
-            let idx = Int(offset/width)
-            if self.imageScrollIdx != idx{
-                self.imageScrollIdx = idx
-                self.imageBottomIndex.forEach({ (__) in
-                    __.backgroundColor = UIColor.black
-                })
-                self.imageBottomIndex[idx].backgroundColor = Util.commonColor
-            }
-        }else if scrollView == self.replyScrollView{
-            let currentOffset = self.replyScrollView.contentOffset.y
-            let maximumOffset = self.replyScrollView.contentSize.height - self.replyScrollView.frame.size.height
-            let deltaOffset = maximumOffset - currentOffset
-            if deltaOffset <= 0 && self.replySpin.isHidden == true{
-                self.addReply()
-            }
-        }
-    }
-    
-    
-    
-    
-    
-    
-    //사이즈 비율 계산
-    func calLayoutRate(fullSize: CGSize, imageSize: CGSize) -> CGRect{
-        var widthValue = fullSize.width
-        var heightValue = fullSize.height
-        let imageWidth = imageSize.width
-        let imageHeight = imageSize.height
-        
-        let rateWidth = imageWidth/widthValue
-        let rateHeight = imageHeight/heightValue
-        
-        if rateWidth > rateHeight{
-            heightValue = widthValue * imageHeight / imageWidth
-        }else{
-            widthValue = heightValue * imageWidth / imageHeight
-        }
-        return CGRect(x: (fullSize.width-widthValue)/2, y: (fullSize.height-heightValue)/2, width: widthValue, height: heightValue)
-    }
-    
-    
-    
-    
     
     
     
@@ -297,110 +331,79 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewD
         }
         self.replySpin.startAnimating()
         self.replySpin.isHidden = false
-        let replyElementSize: CGFloat = 20
         DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 2)
+            Thread.sleep(forTimeInterval: 0.5)
             DispatchQueue.main.async{
                 ///////////
                 //통신//
                 /////////
                 self.replySpin.stopAnimating()
                 self.replySpin.isHidden = true
-                for _ in 0...10{
-                    let replyElementView = UIView(frame: CGRect(x: 0, y: self.replyIdx * replyElementSize, width: self.replyScrollView.frame.size.width, height: replyElementSize))
-                    
-                    let msgLbl = UILabel(frame: CGRect(x: 0, y: 0, width: replyElementView.frame.width/5*3, height: replyElementView.frame.height))
-                    msgLbl.font = UIFont(name: msgLbl.font.fontName, size: 11)
-                    msgLbl.text = "와 여기 좋은데요~~~~"
-                    
-                    let nickLbl = UILabel(frame: CGRect(x: replyElementView.frame.width/5*3, y: 0, width: replyElementView.frame.width/5, height: replyElementView.frame.height))
-                    nickLbl.font = UIFont(name: nickLbl.font.fontName, size: 11)
-                    nickLbl.text = "가나다\(self.replyIdx)"
-                    
-                    let dateLbl = UILabel(frame: CGRect(x: replyElementView.frame.width/5*4, y: 0, width: replyElementView.frame.width/5, height: replyElementView.frame.height))
-                    dateLbl.font = UIFont(name: dateLbl.font.fontName, size: 11)
-                    dateLbl.text = "2016-09-21"
-                    dateLbl.textAlignment = .right
-                    
-                    replyElementView.addSubview(msgLbl)
-                    replyElementView.addSubview(nickLbl)
-                    replyElementView.addSubview(dateLbl)
-                    
-                    self.replyIdx += 1
-                    self.replyScrollView.addSubview(replyElementView)
+                for data in tempData2{
+                    self.replyArray.append(Reply(data))
                 }
-                self.replyScrollView.contentSize.height = self.replyIdx*replyElementSize
+                self.replyTableView.reloadData()
             }
         }
     }
-    
-    
-    
     
     //gcm 클릭
     @IBAction func gcmPushAction(_ sender: AnyObject) {
         print("gcm")
     }
     
-    
-    
-    
-    
     //약도보기 클릭
     @IBAction func courtMapAction(_ sender: AnyObject) {
-        if let latitude = court["latitude"] as? Double{
-            if let longitude = court["longitude"] as? Double{
-                let sname : String = "내위치".queryValue()
-                let sx : Double = Storage.latitude
-                let sy : Double = Storage.longitude
-                let ename : String = "\(court["address"]!)".queryValue()
-                let ex : Double = latitude
-                let ey : Double = longitude
-                let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true"
-                if let url = Foundation.URL(string: simplemapUrl){
-                    if UIApplication.shared.canOpenURL(url) {
-                        if #available(iOS 10.0, *) {
-                            UIApplication.shared.open(url, options: [:])
-                        } else {
-                            UIApplication.shared.openURL(url)
-                        }
-                    }
+        let sname : String = "내위치".queryValue()
+        let sx : Double = Storage.latitude
+        let sy : Double = Storage.longitude
+        let ename : String = court.addressShort.queryValue()
+        let ex : Double = court.latitude
+        let ey : Double = court.longitude
+        let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true"
+        if let url = Foundation.URL(string: simplemapUrl){
+            if UIApplication.shared.canOpenURL(url) {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:])
+                } else {
+                    UIApplication.shared.openURL(url)
                 }
             }
         }
     }
     
     
-    
-    
-    
-    
     //리플 등록 클릭
     @IBAction func replyInsertAction(_ sender: AnyObject) {
-        if spin.isHidden == false{
+        replyInsertAction()
+    }
+    
+    func replyInsertAction(){
+        if replySpin.isHidden == false{
             return
         }
-        spin.isHidden = false
-        spin.startAnimating()
+        replySpin.isHidden = false
+        replySpin.startAnimating()
         
         if !Storage.isRealmUser(){
-            self.spin.isHidden = true
-            self.spin.stopAnimating()
+            self.replySpin.isHidden = true
+            self.replySpin.stopAnimating()
             Util.alert(self, message: "리플등록은 로그인을 하셔야 가능합니다.")
         }else{
             if (replyInsertField.text?.characters.count)! < 1{
-                self.spin.isHidden = true
-                self.spin.stopAnimating()
+                self.replySpin.isHidden = true
+                self.replySpin.stopAnimating()
             }else{
                 let user = Storage.getRealmUser()
                 let parameters : [String: AnyObject] = ["seq": courtSeq as AnyObject, "context": replyInsertField.text! as AnyObject, "id": user.userId as AnyObject]
                 self.replyInsertField.text = ""
                 URLReq.request(self, url: URLReq.apiServer+URLReq.api_court_replyInsert, param: parameters, callback: { (dic) in
-                    self.spin.isHidden = true
-                    self.spin.stopAnimating()
+                    self.replySpin.isHidden = true
+                    self.replySpin.stopAnimating()
                 })
             }
         }
+
     }
     
     
@@ -408,14 +411,22 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewD
     @IBAction func backAction(_ sender: AnyObject) {
         _ = self.navigationController?.popViewController(animated: true)
     }
-    
-    
+}
+
+
+
+
+extension CourtViewController{
     //키보드 생김/사라짐 셀렉터
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         ((UIApplication.shared.delegate as! AppDelegate).window?.rootViewController as! TabBar).navVC = self.navigationController
     }
+}
+
+
+extension CourtViewController : UITextFieldDelegate{
     //view 사라지기 전 작동
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
@@ -434,9 +445,47 @@ class CourtViewController : UIViewController, UITextFieldDelegate, UIScrollViewD
     func keyboardHide(_ sender: AnyObject){
         self.view.endEditing(true)
     }
-    //인풋창 Done가 들어오면 키보드 없애기
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if textField == self.replyInsertField {
+            self.replyInsertAction()
+            return false
+        }
         return true
+    }
+}
+
+extension CourtViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.replyArray.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let reply = self.replyArray[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReplyCell", for: indexPath) as! ReplyCell
+        cell.setReply(reply)
+        return cell
+    }
+}
+
+extension CourtViewController : UITableViewDelegate{
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == self.imageSlide {
+            let width = Double(scrollView.bounds.size.width)
+            let offset = Double(scrollView.contentOffset.x)
+            let idx = Int(offset/width)
+            if self.imageScrollIdx != idx{
+                self.imageScrollIdx = idx
+                self.imageBottomIndex.forEach({ (__) in
+                    __.backgroundColor = UIColor.black
+                })
+                self.imageBottomIndex[idx].backgroundColor = Util.commonColor
+            }
+        }else if scrollView == self.replyTableView{
+            let currentOffset = self.replyTableView.contentOffset.y
+            let maximumOffset = self.replyTableView.contentSize.height - self.replyTableView.frame.size.height
+            let deltaOffset = maximumOffset - currentOffset
+            if deltaOffset <= 0 && self.spin.isHidden == true{
+                self.addReply()
+            }
+        }
     }
 }

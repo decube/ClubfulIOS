@@ -15,24 +15,31 @@
             <rect key="frame" x="0.0" y="0.0" width="125" height="400"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7pY-db-Oc2">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yLm-hh-uSE">
                     <rect key="frame" x="0.0" y="0.0" width="125" height="400"/>
-                </scrollView>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="pfD-eu-NRr">
+                    <rect key="frame" x="52.5" y="190" width="20" height="20"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstItem="7pY-db-Oc2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="GUM-xi-fTi"/>
-                <constraint firstItem="7pY-db-Oc2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Lpq-jC-2fc"/>
-                <constraint firstAttribute="bottom" secondItem="7pY-db-Oc2" secondAttribute="bottom" id="VpB-qN-M34"/>
-                <constraint firstAttribute="trailing" secondItem="7pY-db-Oc2" secondAttribute="trailing" id="Wyl-iy-Qgf"/>
+                <constraint firstItem="yLm-hh-uSE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="895-Ro-fHN"/>
+                <constraint firstAttribute="bottom" secondItem="yLm-hh-uSE" secondAttribute="bottom" id="BId-yr-44G"/>
+                <constraint firstItem="pfD-eu-NRr" firstAttribute="centerY" secondItem="yLm-hh-uSE" secondAttribute="centerY" id="TQO-cX-O6o"/>
+                <constraint firstAttribute="trailing" secondItem="yLm-hh-uSE" secondAttribute="trailing" id="XHS-dk-8tF"/>
+                <constraint firstItem="pfD-eu-NRr" firstAttribute="centerX" secondItem="yLm-hh-uSE" secondAttribute="centerX" id="jG5-pb-7f7"/>
+                <constraint firstItem="yLm-hh-uSE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="kXn-Ru-iUU"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="scrollView" destination="7pY-db-Oc2" id="0Hc-b8-QgR"/>
+                <outlet property="spin" destination="pfD-eu-NRr" id="hFD-Y5-6aV"/>
+                <outlet property="tableView" destination="yLm-hh-uSE" id="45Y-XA-pGj"/>
                 <outletCollection property="gestureRecognizers" destination="6QH-fH-bAc" appends="YES" id="3Ub-QZ-MPR"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="81"/>

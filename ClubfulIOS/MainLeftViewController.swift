@@ -9,12 +9,10 @@
 import UIKit
 import MapKit
 
-class MainLeftViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate{
+class MainLeftViewController: UIViewController{
     var interactor:Interactor? = nil
     var vc: ViewController!
     
-    //현재위치 manager
-    let locationManager = CLLocationManager()
     @IBOutlet var mapView: MKMapView!
     
     override func viewDidLoad() {
@@ -64,6 +62,26 @@ class MainLeftViewController: UIViewController, CLLocationManagerDelegate, MKMap
     }
     
     
+    
+    
+    
+    @IBAction func handleGesture(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: view)
+        let progress = MenuHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .left)
+        MenuHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func closeMenu(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    class CustomPointAnnotation: MKPointAnnotation {
+        var imageName: String!
+    }
+}
+extension MainLeftViewController: MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if !(annotation is CustomPointAnnotation) {
             return nil
@@ -81,23 +99,4 @@ class MainLeftViewController: UIViewController, CLLocationManagerDelegate, MKMap
         anView?.frame.size = CGSize(width: 40, height: 40)
         return anView
     }
-    
-    
-    
-    @IBAction func handleGesture(_ sender: UIPanGestureRecognizer) {
-        let translation = sender.translation(in: view)
-        let progress = MenuHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .left)
-        MenuHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    @IBAction func closeMenu(_ sender: AnyObject) {
-        dismiss(animated: true, completion: nil)
-    }
-}
-
-
-class CustomPointAnnotation: MKPointAnnotation {
-    var imageName: String!
 }
