@@ -33,13 +33,20 @@ class AppSettingViewController : UIViewController{
         startTime.date = deviceUser.startPushTime as Date
         endTime.date = deviceUser.endPushTime as Date
         
-        switchFn()
+        self.switchFn()
     }
     
     @IBAction func saveAction(_ sender: AnyObject) {
         let user = Storage.getRealmUser()
         let deviceUser = Storage.getRealmDeviceUser()
-        let parameters : [String: AnyObject] = ["id": user.userId as AnyObject, "startTime": startTime.date.getTime() as AnyObject, "endTime": endTime.date.getTime() as AnyObject, "noticePush": noticeSwitch.isOn as AnyObject, "myCreateCourtPush": myCourtSwitch.isOn as AnyObject, "distancePush": distanceSwitch.isOn as AnyObject, "interestPush": interestSwitch.isOn as AnyObject]
+        var parameters : [String: AnyObject] = [:]
+        parameters.updateValue(user.userId as AnyObject, forKey: "id")
+        parameters.updateValue(startTime.date.getTime() as AnyObject, forKey: "startTime")
+        parameters.updateValue(endTime.date.getTime() as AnyObject, forKey: "endTime")
+        parameters.updateValue(noticeSwitch.isOn as AnyObject, forKey: "noticePush")
+        parameters.updateValue(myCourtSwitch.isOn as AnyObject, forKey: "myCreateCourtPush")
+        parameters.updateValue(distanceSwitch.isOn as AnyObject, forKey: "distancePush")
+        parameters.updateValue(interestSwitch.isOn as AnyObject, forKey: "interestPush")
         
         URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_set, param: parameters, callback: { (dic) in
             deviceUser.noticePushCheck = self.noticeSwitch.isOn

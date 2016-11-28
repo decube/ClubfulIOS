@@ -8,10 +8,8 @@
 
 import UIKit
 
-class UserConvertViewController: UIViewController, UITextFieldDelegate {
+class UserConvertViewController: UIViewController {
     @IBOutlet var spin: UIActivityIndicatorView!
-    var mypageCtrl : MypageViewController!
-    
     @IBOutlet var scrollView: UIScrollView!
     var scrollViewHeight : CGFloat = 0
     @IBOutlet var idField: UITextField!
@@ -20,17 +18,13 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var newRepwdField: UITextField!
     @IBOutlet var nicknameField: UITextField!
     
-    
-    var blackScreen : BlackScreen!
     var addView : AddView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
-        self.blackScreen = BlackScreen(self)
         
         if let customView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView {
             self.addView = customView
@@ -81,7 +75,12 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
             spin.startAnimating()
             let user = Storage.getRealmUser()
             let deviceUser = Storage.getRealmDeviceUser()
-            let parameters : [String: AnyObject] = ["userId": user.userId as AnyObject, "password": self.pwdField.text! as AnyObject, "newPassword": self.newPwdField.text! as AnyObject, "gcmId": deviceUser.pushID as AnyObject, "nickName": self.nicknameField.text! as AnyObject]
+            var parameters : [String: AnyObject] = [:]
+            parameters.updateValue(user.userId as AnyObject, forKey: "userId")
+            parameters.updateValue(self.pwdField.text! as AnyObject, forKey: "password")
+            parameters.updateValue(self.newPwdField.text! as AnyObject, forKey: "newPassword")
+            parameters.updateValue(deviceUser.pushID as AnyObject, forKey: "gcmId")
+            parameters.updateValue(self.nicknameField.text! as AnyObject, forKey: "nickName")
             URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_update, param: parameters, callback: { (dic) in
                 var user = Storage.getRealmUser()
                 user = Storage.getRealmUser()
@@ -92,13 +91,6 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? MapViewController{
-            vc.preAddress = Address()
-            vc.preBtn = self.addView.locationBtn
-        }
-    }
-    
     @IBAction func addAction(_ sender: AnyObject) {
         self.addView.addViewShow()
     }
@@ -106,7 +98,15 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
     @IBAction func backAction(_ sender: AnyObject) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
-    
+}
+
+extension UserConvertViewController{
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? MapViewController{
+            vc.preAddress = self.addView.address
+            vc.preBtn = self.addView.locationBtn
+        }
+    }
     //키보드 생김/사라짐 셀렉터
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -116,6 +116,8 @@ class UserConvertViewController: UIViewController, UITextFieldDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
     }
+}
+extension UserConvertViewController: UITextFieldDelegate{
     //키보드생길때
     func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = ((notification as NSNotification).userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {

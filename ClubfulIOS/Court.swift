@@ -25,6 +25,19 @@ class Court {
     var interest: Int!
     var image: String!
     var imageList: [[String: String]]!
+    var imageData: UIImage!
+    
+    func setImageData() -> Bool{
+        if let imgURL = Foundation.URL(string: image){
+            if let imgData = try? Data(contentsOf: imgURL){
+                if let imgUI = UIImage(data: imgData){
+                    self.imageData = imgUI
+                    return true
+                }
+            }
+        }
+        return false
+    }
     
     init(_ data: [String: AnyObject]) {
         self.data = data

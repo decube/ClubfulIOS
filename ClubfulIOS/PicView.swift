@@ -9,8 +9,6 @@
 import UIKit
 
 class PicView: UIView {
-    @IBOutlet var imageView: UIImageView!
-    
     override func awakeFromNib() {
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchAction)))
     }

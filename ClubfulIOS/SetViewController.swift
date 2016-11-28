@@ -105,7 +105,9 @@ class SetViewController : UIViewController{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? LoginViewController{
-            vc.vc = self
+            vc.loginCallback = {(_) in
+                self.signCheck()
+            }
         }else if let vc = segue.destination as? NoticeViewController{
             vc.transitioningDelegate = self
             vc.interactor = interactor

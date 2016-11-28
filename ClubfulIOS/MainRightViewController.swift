@@ -8,21 +8,18 @@
 
 import UIKit
 
-class MainRightViewController: UIViewController, UIWebViewDelegate{
+class MainRightViewController: UIViewController{
     var interactor:Interactor? = nil
     @IBOutlet var webView: UIWebView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
         
-        self.webView.delegate = self
         self.webView.loadRequest(URLRequest(url : Foundation.URL(string: "https://www.instagram.com/guanho9/")!))
         
     }
-    
     @IBAction func handleGesture(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: view)
         let progress = MenuHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .right)

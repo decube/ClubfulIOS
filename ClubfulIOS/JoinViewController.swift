@@ -8,10 +8,8 @@
 
 import UIKit
 
-class JoinViewController: UIViewController, UITextFieldDelegate {
+class JoinViewController: UIViewController {
     @IBOutlet var spin: UIActivityIndicatorView!
-    var loginVC : LoginViewController!
-    
     @IBOutlet var scrollView: UIScrollView!
     var scrollViewHeight : CGFloat = 0
     @IBOutlet var idField: UITextField!
@@ -19,6 +17,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var repwdField: UITextField!
     @IBOutlet var nicknameField: UITextField!
     
+    var preIdField : UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +76,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             parameters.updateValue(deviceUser.endPushTime.getTime() as AnyObject, forKey: "endTime")
             
             URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_join, param: parameters, callback: { (dic) in
-                self.loginVC.idField.text = self.idField.text!
+                self.preIdField.text = self.idField.text!
                 self.dismiss(animated: true, completion: nil)
             }, codeErrorCallback: { (dic) in
                 self.spin.isHidden = true
@@ -90,12 +89,19 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     @IBAction func backAction(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    //키보드 생김/사라짐 셀렉터
+}
+
+extension JoinViewController{
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
+    //view 사라지기 전 작동
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+    }
+}
+extension JoinViewController: UITextFieldDelegate{
     //키보드생길때
     func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = ((notification as NSNotification).userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
@@ -106,11 +112,6 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     func keyboardWillHide(_ notification: Notification) {
         scrollView.contentSize.height = self.scrollViewHeight
     }
-    
-    //view 사라지기 전 작동
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self)
-    }
     //뷰 클릭했을때
     func keyboardHide(_ sender: AnyObject){
         self.view.endEditing(true)
@@ -120,6 +121,4 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
-    
 }

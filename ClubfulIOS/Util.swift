@@ -9,7 +9,9 @@
 import Foundation
 import UIKit
 
-
+enum ExtType{
+    case jpeg, png
+}
 class Util{
     static let commonColor = UIColor(red:0.41, green:0.66, blue:0.12, alpha:1.00)
     

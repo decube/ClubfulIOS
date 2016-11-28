@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 
-class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegate {
+class MapViewController: UIViewController {
     var preAddress : Address!
     //이전 버튼
     var preBtn : UIButton!
@@ -34,7 +34,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
-        //마커
         self.marker = MKPointAnnotation()
         self.mapView.addAnnotation(marker)
         let deviceUser = Storage.getRealmDeviceUser()
@@ -45,8 +44,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
             longitude = deviceUser.deviceLongitude
         }
         self.locationMove(latitude: latitude, longitude: longitude)
-        
-        
         //맵뷰 터치했을때 이벤트
         self.mapView.isUserInteractionEnabled = true
         self.mapView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.mapViewTouch)))
@@ -60,28 +57,24 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
             self.mapListView.setLayout(self)
         }
     }
-    
-    
     //지도 위치 수정
     func locationMove(latitude: Double, longitude: Double){
         let span: MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
         let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
         let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
         self.mapView.setRegion(region, animated: true)
-        
         self.marker.coordinate = location
     }
-    
     //검색 클릭
     func searchAction() {
         self.mapListView.searchAction()
     }
-    
-    
-    
     //등록 클릭
     @IBAction func confirmAction(_ sender: AnyObject) {
-        let parameters : [String: AnyObject] = ["latitude": self.mapView.region.center.latitude as AnyObject, "longitude": self.mapView.region.center.longitude as AnyObject, "language": Util.language as AnyObject]
+        var parameters : [String: AnyObject] = [:]
+        parameters.updateValue(self.mapView.region.center.latitude as AnyObject, forKey: "latitude")
+        parameters.updateValue(self.mapView.region.center.longitude as AnyObject, forKey: "longitude")
+        parameters.updateValue(Util.language as AnyObject, forKey: "language")
         URLReq.request(self, url: URLReq.apiServer+URLReq.api_location_geocode, param: parameters, callback: {(dic) in
             if let result = dic["results"] as? [String: AnyObject]{
                 if let results = result["results"] as? [[String: AnyObject]]{
@@ -107,26 +100,29 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
         })
     }
     
-    
-    
-    
-    
-    
-    //키보드 검색이 리턴됫을 때
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == self.searchField {
-            textField.resignFirstResponder()
-            self.searchAction()
-            return false
-        }
-        return true
-    }
-    
     //뒤로가기
     @IBAction func backAction(_ sender: AnyObject) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
+    //취소뷰를 클릭했을 때
+    func cancelAction(){
+        self.searchField.text = ""
+        self.mapListView.hide()
+    }
     
+    //맵뷰 터치
+    func mapViewTouch(){
+        self.mapListView.hide()
+    }
+}
+
+extension MapViewController{
+    //뷰 클릭했을때
+    func keyboardHide(_ sender: AnyObject){
+        self.view.endEditing(true)
+    }
+}
+extension MapViewController: MKMapViewDelegate{
     //맵 렌더링 시작
     func mapViewWillStartRenderingMap(_ mapView: MKMapView) {
         let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(mapView.region.center.latitude, mapView.region.center.longitude)
@@ -147,34 +143,36 @@ class MapViewController: UIViewController, UITextFieldDelegate, MKMapViewDelegat
         let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(mapView.region.center.latitude, mapView.region.center.longitude)
         self.marker.coordinate = location
     }
-    
-    
-    //취소뷰를 클릭했을 때
-    func cancelAction(){
-        self.searchField.text = ""
-        self.scrollHidden()
+}
+extension MapViewController: UITextFieldDelegate{
+    //키보드 검색이 리턴됫을 때
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == self.searchField {
+            textField.resignFirstResponder()
+            self.searchAction()
+            return false
+        }
+        return true
     }
+}
+
+extension MapViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.mapListView.addressArray.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let address = self.mapListView.addressArray[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MapListCell", for: indexPath) as! MapListCell
+        cell.setAddress(address)
+        cell.touchCallback = {(addr: Address) in
+            self.mapListView.hideAlpha(){ (_) in
+                self.locationMove(latitude: addr.latitude, longitude: addr.longitude)
+            }
+        }
+        return cell
+    }
+}
+
+extension MapViewController : UITableViewDelegate{
     
-    //맵뷰 터치
-    func mapViewTouch(){
-        self.scrollHidden()
-    }
-    
-    //스크롤히든
-    func scrollHidden(){
-        self.view.endEditing(true)
-        let tmpRect = self.mapListView.frame
-        //애니메이션 적용
-        UIView.animate(withDuration: 0.2, animations: {
-            self.mapListView.frame.origin.x = -tmpRect.width
-            }, completion: { (_) in
-                self.mapListView.frame = tmpRect
-                self.mapListView.isHidden = true
-                self.mapListView.scrollView.scrollToTop()
-        })
-    }
-    //뷰 클릭했을때
-    func keyboardHide(_ sender: AnyObject){
-        self.view.endEditing(true)
-    }
 }

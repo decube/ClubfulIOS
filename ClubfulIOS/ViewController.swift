@@ -316,13 +316,15 @@ extension ViewController{
             vc.courtSeq = self.courtDetailSeq
         }
         if let vc = segue.destination as? MapViewController{
-            vc.preAddress = Address()
+            vc.preAddress = self.addView.address
             vc.preBtn = self.addView.locationBtn
         }
     }
     //화면 생겼을 때
     override func viewWillAppear(_ animated: Bool) {
-        self.addView.addViewConfirm()
+        if self.addView.isHidden{
+            self.addView.addViewConfirm()
+        }
         //키보드 생김/사라짐 셀렉터
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)

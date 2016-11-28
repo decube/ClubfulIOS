@@ -15,24 +15,25 @@
             <rect key="frame" x="0.0" y="0.0" width="125" height="400"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uJY-Z4-HwV">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fv8-SF-bjJ">
                     <rect key="frame" x="0.0" y="0.0" width="125" height="400"/>
-                </scrollView>
+                    <color key="backgroundColor" red="0.8862745098" green="0.90980392160000001" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </tableView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.8862745098" green="0.90980392160000001" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="uJY-Z4-HwV" secondAttribute="bottom" id="aGn-T0-h9i"/>
-                <constraint firstItem="uJY-Z4-HwV" firstAttribute="top" secondItem="g6X-Tt-mKV" secondAttribute="top" id="ff8-Ie-1Ry"/>
-                <constraint firstItem="uJY-Z4-HwV" firstAttribute="leading" secondItem="g6X-Tt-mKV" secondAttribute="leading" id="lCO-K3-Axs"/>
-                <constraint firstAttribute="trailing" secondItem="uJY-Z4-HwV" secondAttribute="trailing" id="ttf-bg-as9"/>
+                <constraint firstItem="fv8-SF-bjJ" firstAttribute="top" secondItem="g6X-Tt-mKV" secondAttribute="top" id="J5X-oB-tS9"/>
+                <constraint firstAttribute="bottom" secondItem="fv8-SF-bjJ" secondAttribute="bottom" id="QW6-m6-fxO"/>
+                <constraint firstItem="fv8-SF-bjJ" firstAttribute="leading" secondItem="g6X-Tt-mKV" secondAttribute="leading" id="Uv5-DY-IF8"/>
+                <constraint firstAttribute="trailing" secondItem="fv8-SF-bjJ" secondAttribute="trailing" id="n92-BB-GJx"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="scrollView" destination="uJY-Z4-HwV" id="4Ps-iA-7Ar"/>
+                <outlet property="tableView" destination="fv8-SF-bjJ" id="dAh-Au-ejx"/>
                 <outletCollection property="gestureRecognizers" destination="4t3-xA-i8r" appends="YES" id="SYe-TW-Ntt"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="81"/>

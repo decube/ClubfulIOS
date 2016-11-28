@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Storage.realmMigrationCheck()
         //self.removeCache()
         
-        
+        UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
         
         //push
         // [START register_for_notifications]

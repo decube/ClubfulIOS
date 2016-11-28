@@ -8,10 +8,8 @@
 
 import UIKit
 
-class GuideViewController : UIViewController, UIWebViewDelegate{
-    //웹뷰
+class GuideViewController : UIViewController{
     @IBOutlet var webView: UIWebView!
-    //스핀
     @IBOutlet var spin: UIActivityIndicatorView!
     
     
@@ -23,12 +21,6 @@ class GuideViewController : UIViewController, UIWebViewDelegate{
         self.webView.delegate = self
         //웹뷰 띄우기
         self.webView.loadRequest(URLRequest(url : Foundation.URL(string: URLReq.viewServer+URLReq.view_guide)!))
-    }
-    
-    //웹뷰 가져옴
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        spin.stopAnimating()
-        spin.isHidden = true
     }
     
     //뒤로가기
@@ -46,3 +38,12 @@ class GuideViewController : UIViewController, UIWebViewDelegate{
         }
     }
 }
+
+extension GuideViewController : UIWebViewDelegate{
+    //웹뷰 가져옴
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        spin.stopAnimating()
+        spin.isHidden = true
+    }
+}
+

@@ -8,10 +8,8 @@
 
 import UIKit
 
-class InquiryViewController : UIViewController, UIWebViewDelegate{
-    //웹뷰
+class InquiryViewController : UIViewController{
     @IBOutlet var webView: UIWebView!
-    //스핀
     @IBOutlet var spin: UIActivityIndicatorView!
     
     override func viewDidLoad() {
@@ -24,17 +22,10 @@ class InquiryViewController : UIViewController, UIWebViewDelegate{
         self.webView.loadRequest(URLRequest(url : Foundation.URL(string: URLReq.viewServer+URLReq.view_inquiry)!))
     }
     
-    //웹뷰 가져옴
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        spin.stopAnimating()
-        spin.isHidden = true
-    }
-    
     //뒤로가기
     @IBAction func backAction(_ sender: AnyObject) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
-    
     
     //제스처
     var interactor:Interactor? = nil
@@ -44,5 +35,13 @@ class InquiryViewController : UIViewController, UIWebViewDelegate{
         MenuHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
             self.dismiss(animated: true, completion: nil)
         }
+    }
+}
+
+extension InquiryViewController : UIWebViewDelegate{
+    //웹뷰 가져옴
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        spin.stopAnimating()
+        spin.isHidden = true
     }
 }

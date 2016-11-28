@@ -8,29 +8,169 @@
 
 import UIKit
 
-class MypageViewController: UIViewController, UIScrollViewDelegate {
+class MypageViewController: UIViewController {
     @IBOutlet var interestCourt: UIScrollView!
     @IBOutlet var createCourt: UIScrollView!
     @IBOutlet var interestSpin: UIActivityIndicatorView!
     @IBOutlet var createSpin: UIActivityIndicatorView!
-    
-    
-    
-    var courtInterestListData = [[String: AnyObject]]()
-    var courtCreateListData = [[String: AnyObject]]()
-    
-    
-    //이미지 URL 저장
-    var imageURLList1 = [String]()
-    var imageURLList2 = [String]()
-    //이미지 리스트 저장
-    var imageList1 = [UIImage]()
-    var imageList2 = [UIImage]()
-    
+    var interestArray = [Court]()
+    var createArray = [Court]()
     var nonUserView : NonUserView!
-    
     var courtSeq: Int!
+    static var isReload = true
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+        
+        //슬라이드 효과
+        interestCourt.isPagingEnabled = true
+        createCourt.isPagingEnabled = true
+        interestCourt.showsVerticalScrollIndicator = false
+        createCourt.showsVerticalScrollIndicator = false
+        interestCourt.showsHorizontalScrollIndicator = false
+        createCourt.showsHorizontalScrollIndicator = false
+    }
     
+    func reloadData(){
+        let user = Storage.getRealmUser()
+        let parameters : [String: AnyObject] = ["userId": user.userId as AnyObject]
+        URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_mypage, param: parameters, callback: { (dic) in
+            DispatchQueue.global().async {
+                if let list = dic["interestList"] as? [[String: AnyObject]]{
+                    self.setData(list, type: 0)
+                }
+                if let list = dic["myCourtInsert"] as? [[String: AnyObject]]{
+                    self.setData(list, type: 1)
+                }
+            }
+        })
+    }
+    
+    func layout(){
+        if Storage.isRealmUser(){
+            self.view.subviews.forEach({ (tempView) in
+                if tempView == nonUserView{
+                    tempView.removeFromSuperview()
+                }
+            })
+            if MypageViewController.isReload{
+                MypageViewController.isReload = false
+                self.reloadData()
+            }
+        }else{
+            self.view.subviews.forEach({ (tempView) in
+                if tempView == nonUserView{
+                    tempView.removeFromSuperview()
+                }
+            })
+            self.view.addSubview(nonUserView)
+        }
+    }
+    
+    
+    
+    func setData(_ list: [[String: AnyObject]], type: Int){
+        func noneLbl(){
+            let noneLbl = UILabel(frame: CGRect(x: 0, y: 0, width: interestCourt.frame.width, height: interestCourt.frame.height))
+            if type == 0{
+                noneLbl.text = "찜한 코트가 없습니다."
+            }else if type == 1{
+                noneLbl.text = "내가 등록한 코트가 없습니다."
+            }
+            noneLbl.textAlignment = .center
+            noneLbl.font = UIFont(name: (noneLbl.font?.fontName)!, size: 20)
+            DispatchQueue.main.async {
+                if type == 0{
+                    self.interestCourt.addSubview(noneLbl)
+                }else if type == 1{
+                    self.createCourt.addSubview(noneLbl)
+                }
+            }
+        }
+        DispatchQueue.main.async {
+            if type == 0{
+                self.interestCourt.subviews.forEach({$0.removeFromSuperview()})
+                self.interestCourt.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+                self.interestSpin.startAnimating()
+                self.interestSpin.isHidden = false
+            }else if type == 1{
+                self.createCourt.subviews.forEach({$0.removeFromSuperview()})
+                self.createCourt.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+                self.createSpin.startAnimating()
+                self.createSpin.isHidden = false
+            }
+        }
+        
+        if list.count == 0{
+            noneLbl()
+        }else{
+            if type == 0{
+                self.interestArray = []
+            }else if type == 1{
+                self.createArray = []
+            }
+            for data in list{
+                let court = Court(data)
+                if court.setImageData(){
+                    if type == 0{
+                        self.interestArray.append(court)
+                    }else if type == 1{
+                        self.createArray.append(court)
+                    }
+                }
+            }
+            if type == 0 && self.interestArray.count == 0{
+                noneLbl()
+            }else if type == 1 && self.createArray.count == 0{
+                noneLbl()
+            }else{
+                DispatchQueue.main.async{
+                    if type == 0{
+                        self.setImageLayout(self.interestArray, type: type)
+                    }else if type == 1{
+                        self.setImageLayout(self.createArray, type: type)
+                    }
+                }
+            }
+        }
+    }
+    
+    func setImageLayout(_ list: [Court], type: Int){
+        var i : CGFloat = 0
+        for data in list{
+            if let customView = Bundle.main.loadNibNamed("MypageCourtView", owner: self, options: nil)?.first as? MypageCourtView {
+                customView.setCourt(data)
+                customView.touchCallback = {(court: Court) in
+                    self.courtSeq = court.seq
+                    self.performSegue(withIdentifier: "mypage_courtDetail", sender: nil)
+                }
+                customView.pressedCallback = {(court: Court) in
+                    Util.imageSaveHandler(self, imageUrl: court.image, image: court.imageData)
+                }
+                if type == 0{
+                    customView.frame = CGRect(x: i*self.interestCourt.frame.width, y: 0, width: self.interestCourt.frame.width, height: self.interestCourt.frame.height)
+                    self.interestCourt.addSubview(customView)
+                }else if type == 1{
+                    customView.frame = CGRect(x: i*self.createCourt.frame.width, y: 0, width: self.createCourt.frame.width, height: self.createCourt.frame.height)
+                    self.createCourt.addSubview(customView)
+                }
+                i += 1
+            }
+        }
+        if type == 0{
+            self.interestCourt.contentSize.width = self.interestCourt.frame.size.width*i
+            self.interestSpin.stopAnimating()
+            self.interestSpin.isHidden = true
+        }else if type == 1{
+            self.createCourt.contentSize.width = self.createCourt.frame.size.width*i
+            self.createSpin.stopAnimating()
+            self.createSpin.isHidden = true
+        }
+    }
+}
+
+extension MypageViewController{
     override func viewWillAppear(_ animated: Bool) {
         if nonUserView == nil{
             if let customView = Bundle.main.loadNibNamed("NonUserView", owner: self, options: nil)?.first as? NonUserView {
@@ -42,342 +182,6 @@ class MypageViewController: UIViewController, UIScrollViewDelegate {
             layout()
         }
     }
-    
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.setNeedsLayout()
-        self.view.layoutIfNeeded()
-        interestCourt.delegate = self
-        createCourt.delegate = self
-        
-        //슬라이드 효과
-        interestCourt.isPagingEnabled = true
-        createCourt.isPagingEnabled = true
-        interestCourt.showsVerticalScrollIndicator = false
-        createCourt.showsVerticalScrollIndicator = false
-        interestCourt.showsHorizontalScrollIndicator = false
-        createCourt.showsHorizontalScrollIndicator = false
-    }
-    
-    
-    func layout(){
-        if Storage.isRealmUser(){
-            self.view.subviews.forEach({ (tempView) in
-                if tempView == nonUserView{
-                    tempView.removeFromSuperview()
-                }
-            })
-            let user = Storage.getRealmUser()
-            let parameters : [String: AnyObject] = ["userId": user.userId as AnyObject]
-            URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_mypage, param: parameters, callback: { (dic) in
-                if let interestList = dic["interestList"] as? [[String: AnyObject]]{
-                    DispatchQueue.global().async {
-                        self.interestData(interestList)
-                    }
-                }
-                if let myCourtInsertList = dic["myCourtInsert"] as? [[String: AnyObject]]{
-                    DispatchQueue.global().async{
-                        self.myInsertData(myCourtInsertList)
-                    }
-                }
-            })
-        }else{
-            self.view.subviews.forEach({ (tempView) in
-                if tempView == nonUserView{
-                    tempView.removeFromSuperview()
-                }
-            })
-            self.view.addSubview(nonUserView)
-        }
-    }
-    
-    //사이즈 비율 계산
-    func calLayoutRate(fullSize: CGSize, imageSize: CGSize) -> CGRect{
-        var widthValue = fullSize.width
-        var heightValue = fullSize.height
-        let imageWidth = imageSize.width
-        let imageHeight = imageSize.height
-        
-        let rateWidth = imageWidth/widthValue
-        let rateHeight = imageHeight/heightValue
-        
-        if rateWidth > rateHeight{
-            heightValue = widthValue * imageHeight / imageWidth
-        }else{
-            widthValue = heightValue * imageWidth / imageHeight
-        }
-        return CGRect(x: (fullSize.width-widthValue)/2, y: (fullSize.height-heightValue)/2, width: widthValue, height: heightValue)
-    }
-    
-    
-    
-    
-    //실제 레이아웃 만들기
-    
-    //찜한 코트 레이아웃
-    func setInterestImageLayout(){
-        DispatchQueue.main.async {
-            self.interestCourt.subviews.forEach({$0.removeFromSuperview()})
-            self.interestSpin.startAnimating()
-            self.interestSpin.isHidden = false
-            
-            var i : CGFloat = 0
-            for obj in self.courtInterestListData{
-                if let imgUI = obj["image"] as? UIImage{
-                    let imgBtn = UIButton(frame: CGRect(x: self.interestCourt.frame.width * i, y: 0, width: self.interestCourt.frame.width, height: self.interestCourt.frame.height-40))
-                    imgBtn.addAction(.allTouchEvents){
-                        imgBtn.isHighlighted = false
-                    }
-                    imgBtn.addAction(.touchUpInside){
-                        if let seq = obj["seq"] as? Int{
-                            self.courtSeq = seq
-                            self.performSegue(withIdentifier: "mypage_courtDetail", sender: nil)
-                        }
-                    }
-                    self.interestCourt.addSubview(imgBtn)
-                    
-                    let imgView = UIImageView(frame: self.calLayoutRate(fullSize: imgBtn.frame.size, imageSize: imgUI.size))
-                    imgView.image = imgUI
-                    imgBtn.addSubview(imgView)
-                }
-                
-                let infoStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["address"]!))"
-                let objLbl = UILabel(frame: CGRect(x: self.interestCourt.frame.width * i + 10, y: self.interestCourt.frame.height-40, width: self.interestCourt.frame.width-10, height: 40))
-                objLbl.text = "\(infoStr)"
-                objLbl.font = UIFont(name: (objLbl.font?.fontName)!, size: 12)
-                self.interestCourt.addSubview(objLbl)
-                
-                i += 1
-            }
-            //scrollView 총 넓이
-            self.interestCourt.contentSize = CGSize(width: self.interestCourt.frame.size.width*CGFloat(i) ,height: self.interestCourt.frame.size.height)
-            
-            self.interestSpin.stopAnimating()
-            self.interestSpin.isHidden = true
-            self.interestCourt.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-        }
-    }
-    
-    //내가등록한 코트 레이아웃
-    func setMyCreateImageLayout(){
-        DispatchQueue.main.async {
-            self.createCourt.subviews.forEach({$0.removeFromSuperview()})
-            self.createSpin.startAnimating()
-            self.createSpin.isHidden = false
-            
-            var i : CGFloat = 0
-            for obj in self.courtCreateListData{
-                
-                if let imgUI = obj["image"] as? UIImage{
-                    let imgBtn = UIButton(frame: CGRect(x: self.createCourt.frame.width * i, y: 0, width: self.createCourt.frame.width, height: self.createCourt.frame.height-40))
-                    imgBtn.addAction(.allTouchEvents){
-                        imgBtn.isHighlighted = false
-                    }
-                    imgBtn.addAction(.touchUpInside){
-                        if let seq = obj["seq"] as? Int{
-                            self.courtSeq = seq
-                            self.performSegue(withIdentifier: "mypage_courtDetail", sender: nil)
-                        }
-                    }
-                    self.createCourt.addSubview(imgBtn)
-                    
-                    let imgView = UIImageView(frame: self.calLayoutRate(fullSize: imgBtn.frame.size, imageSize: imgUI.size))
-                    imgView.image = imgUI
-                    imgBtn.addSubview(imgView)
-                }
-                
-                let infoStr = "\(obj["cname"]!) (\(obj["categoryName"]!) / \(obj["address"]!))"
-                let objLbl = UILabel(frame: CGRect(x: self.createCourt.frame.width * i + 10, y: self.createCourt.frame.height-40, width: self.createCourt.frame.width-10, height: 40))
-                objLbl.text = "\(infoStr)"
-                objLbl.font = UIFont(name: (objLbl.font?.fontName)!, size: 12)
-                self.createCourt.addSubview(objLbl)
-                
-                i += 1
-            }
-            
-            //scrollView 총 넓이
-            self.createCourt.contentSize = CGSize(width: self.createCourt.frame.size.width*CGFloat(i) ,height: self.createCourt.frame.size.height)
-            
-            self.createSpin.stopAnimating()
-            self.createSpin.isHidden = true
-            self.createCourt.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-        }
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // 데이터 만들기
-    
-    //찜한 코트 리스트 데이터 만들기
-    func interestData(_ list: [[String: AnyObject]]){
-        if list.count == 0{
-            let noneLbl = UILabel(frame: CGRect(x: 0, y: 0, width: interestCourt.frame.width, height: interestCourt.frame.height))
-            noneLbl.text = "찜한 코트가 없습니다."
-            noneLbl.textAlignment = .center
-            noneLbl.font = UIFont(name: (noneLbl.font?.fontName)!, size: 20)
-            DispatchQueue.main.async {
-                self.interestCourt.addSubview(noneLbl)
-            }
-        }else{
-            var i : CGFloat = 0
-            var tmpList = [[String: AnyObject]]()
-            imageURLList1 = []
-            imageList1 = []
-            for obj in list{
-                var tmpObj = [String: AnyObject]()
-                if let img = obj["image"] as? String{
-                    if let imgURL = Foundation.URL(string: img){
-                        if let imgData = try? Data(contentsOf: imgURL){
-                            if let imgUI = UIImage(data: imgData){
-                                imageURLList1.append(img)
-                                imageList1.append(imgUI)
-                                tmpObj["image"] = imgUI
-                                
-                                if let addressText = obj["address"] as? String{
-                                    tmpObj["address"] = addressText as AnyObject?
-                                }
-                                if let addressText = obj["addressShort"] as? String{
-                                    tmpObj["addressShort"] = addressText as AnyObject?
-                                }
-                                if let categoryName = obj["categoryName"] as? String{
-                                    tmpObj["categoryName"] = categoryName as AnyObject?
-                                }
-                                if let cname = obj["cname"] as? String{
-                                    tmpObj["cname"] = cname as AnyObject?
-                                }
-                                if let seq = obj["seq"] as? Int{
-                                    tmpObj["seq"] = seq as AnyObject?
-                                }
-                                tmpList.append(tmpObj)
-                                i += 1
-                                if i == CGFloat(list.count){
-                                    self.courtInterestListData = tmpList
-                                    setInterestImageLayout()
-                                    //길게클릭
-                                    self.interestCourt.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed1(_:))))
-                                    self.interestCourt.isUserInteractionEnabled = true
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    
-    
-    //내가 등록한 코트 리스트 데이터 만들기
-    func myInsertData(_ list: [[String: AnyObject]]){
-        if list.count == 0{
-            let noneLbl = UILabel(frame: CGRect(x: 0, y: 0, width: createCourt.frame.width, height: createCourt.frame.height))
-            noneLbl.text = "찜한 코트가 없습니다."
-            noneLbl.textAlignment = .center
-            noneLbl.font = UIFont(name: (noneLbl.font?.fontName)!, size: 20)
-            DispatchQueue.main.async {
-                self.createCourt.addSubview(noneLbl)
-            }
-        }else{
-            var i : CGFloat = 0
-            var tmpList = [[String: AnyObject]]()
-            imageURLList2 = []
-            imageList2 = []
-            for obj in list{
-                var tmpObj = [String: AnyObject]()
-                if let img = obj["image"] as? String{
-                    if let imgURL = Foundation.URL(string: img){
-                        if let imgData = try? Data(contentsOf: imgURL){
-                            if let imgUI = UIImage(data: imgData){
-                                imageURLList2.append(img)
-                                imageList2.append(imgUI)
-                                tmpObj["image"] = imgUI
-                                
-                                if let addressText = obj["address"] as? String{
-                                    tmpObj["address"] = addressText as AnyObject?
-                                }
-                                if let addressText = obj["addressShort"] as? String{
-                                    tmpObj["addressShort"] = addressText as AnyObject?
-                                }
-                                if let categoryName = obj["categoryName"] as? String{
-                                    tmpObj["categoryName"] = categoryName as AnyObject?
-                                }
-                                if let cname = obj["cname"] as? String{
-                                    tmpObj["cname"] = cname as AnyObject?
-                                }
-                                if let seq = obj["seq"] as? Int{
-                                    tmpObj["seq"] = seq as AnyObject?
-                                }
-                                tmpList.append(tmpObj)
-                                i += 1
-                                if i == CGFloat(list.count){
-                                    self.courtCreateListData = tmpList
-                                    setMyCreateImageLayout()
-                                    //길게클릭
-                                    self.createCourt.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed2(_:))))
-                                    self.createCourt.isUserInteractionEnabled = true
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    
-    
-    func longPressed1(_ sender: UILongPressGestureRecognizer){
-        if sender.state == .ended {
-            //Do Whatever You want on End of Gesture
-        }else if sender.state == .began {
-            //Do Whatever You want on Began of Gesture
-            Util.imageSaveHandler(self, imageUrl: "\(self.imageURLList1[self.idx1])", image: self.imageList1[self.idx1])
-        }
-    }
-    func longPressed2(_ sender: UILongPressGestureRecognizer){
-        if sender.state == .ended {
-            //Do Whatever You want on End of Gesture
-        }else if sender.state == .began {
-            //Do Whatever You want on Began of Gesture
-            Util.imageSaveHandler(self, imageUrl: "\(self.imageURLList2[self.idx2])", image: self.imageList2[self.idx2])
-        }
-    }
-    
-    
-    
-    var idx1 = 0
-    var idx2 = 0
-    //스크롤뷰 슬라이더 딜리게이트
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let width = Double(scrollView.bounds.size.width)
-        let offset = Double(scrollView.contentOffset.x)
-        let idx = Int(offset/width)
-        if scrollView == interestCourt{
-            if self.idx1 != idx{
-                self.idx1 = idx
-                
-            }
-        }else if scrollView == createCourt{
-            if self.idx2 != idx{
-                self.idx2 = idx
-                
-            }
-        }
-        
-    }
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? CourtViewController{
             vc.courtSeq = self.courtSeq

@@ -13,15 +13,16 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import FBSDKShareKit
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController {
     @IBOutlet var spin: UIActivityIndicatorView!
-    var vc : SetViewController!
     @IBOutlet var idField: UITextField!
     @IBOutlet var pwField: UITextField!
     @IBOutlet var loginBtn: UIButton!
     
     @IBOutlet var kakaoLogin: UIView!
     @IBOutlet var facebookLogin: UIView!
+    
+    var loginCallback: ((Void)->Void)!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,9 +124,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         Storage.setRealmUser(user)
         Storage.setRealmDeviceUser(deviceUser)
-        self.vc.signCheck()
         self.spin.isHidden = true
         self.spin.stopAnimating()
+        if self.loginCallback != nil{
+            self.loginCallback()
+        }
+        MypageViewController.isReload = true
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
@@ -211,19 +215,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction func backAction(_ sender: AnyObject) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
+}
+
+extension LoginViewController{
     //뷰 클릭했을때
     func keyboardHide(_ sender: AnyObject){
         self.view.endEditing(true)
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? JoinViewController{
+            vc.preIdField = self.idField
+        }
+    }
+}
+extension LoginViewController: UITextFieldDelegate{
     //인풋창 Done가 들어오면 키보드 없애기
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? JoinViewController{
-            vc.loginVC = self
-        }
     }
 }

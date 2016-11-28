@@ -8,15 +8,13 @@
 
 import UIKit
 
-class InfoViewController : UIViewController, UIWebViewDelegate{
+class InfoViewController : UIViewController{
     @IBOutlet var currentAppVersionLbl: UILabel!
     @IBOutlet var newAppVersionLbl: UILabel!
     @IBOutlet var appVersionBtn: UIButton!
     var isVersionUpdate = false
     
-    //웹뷰
     @IBOutlet var webView: UIWebView!
-    //스핀
     @IBOutlet var spin: UIActivityIndicatorView!
     
     override func viewDidLoad() {
@@ -28,7 +26,7 @@ class InfoViewController : UIViewController, UIWebViewDelegate{
         //웹뷰 띄우기
         self.webView.loadRequest(URLRequest(url : Foundation.URL(string: URLReq.viewServer+URLReq.view_info)!))
         
-        setLayout()
+        self.setLayout()
         
         let parameters : [String: AnyObject] = ["appType": "ios" as AnyObject]
         URLReq.request(self, url: URLReq.apiServer+URLReq.api_version_app, param: parameters, callback: { (dic) in
@@ -63,12 +61,6 @@ class InfoViewController : UIViewController, UIWebViewDelegate{
         }
     }
     
-    //웹뷰 가져옴
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        spin.stopAnimating()
-        spin.isHidden = true
-    }
-    
     //뒤로가기
     @IBAction func backAction(_ sender: AnyObject) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
@@ -83,5 +75,13 @@ class InfoViewController : UIViewController, UIWebViewDelegate{
         MenuHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
             self.dismiss(animated: true, completion: nil)
         }
+    }
+}
+
+extension InfoViewController : UIWebViewDelegate{
+    //웹뷰 가져옴
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        spin.stopAnimating()
+        spin.isHidden = true
     }
 }

@@ -8,10 +8,8 @@
 
 import UIKit
 
-class NoticeViewController : UIViewController, UIWebViewDelegate{
-    //웹뷰
+class NoticeViewController : UIViewController{
     @IBOutlet var webView: UIWebView!
-    //스핀
     @IBOutlet var spin: UIActivityIndicatorView!
     
     @IBOutlet var backBtn: UIButton!
@@ -25,34 +23,6 @@ class NoticeViewController : UIViewController, UIWebViewDelegate{
         self.webView.delegate = self
         //웹뷰 띄우기
         self.webView.loadRequest(URLRequest(url : Foundation.URL(string: URLReq.viewServer+URLReq.view_notice)!))
-    }
-    
-    //웹뷰 가져옴
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        spin.stopAnimating()
-        spin.isHidden = true
-        if self.webView.canGoBack{
-            backBtn.setImage(UIImage(named: "wb_left_on"), for: UIControlState())
-        }else{
-            backBtn.setImage(UIImage(named: "wb_left_off"), for: UIControlState())
-        }
-        if self.webView.canGoForward{
-            nextBtn.setImage(UIImage(named: "wb_right_on"), for: UIControlState())
-        }else{
-            nextBtn.setImage(UIImage(named: "wb_right_off"), for: UIControlState())
-        }
-    }
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        if self.webView.canGoBack{
-            backBtn.setImage(UIImage(named: "wb_left_on"), for: UIControlState())
-        }else{
-            backBtn.setImage(UIImage(named: "wb_left_off"), for: UIControlState())
-        }
-        if self.webView.canGoForward{
-            nextBtn.setImage(UIImage(named: "wb_right_on"), for: UIControlState())
-        }else{
-            nextBtn.setImage(UIImage(named: "wb_right_off"), for: UIControlState())
-        }
     }
     
     @IBAction func webBackAction(_ sender: AnyObject) {
@@ -88,6 +58,37 @@ class NoticeViewController : UIViewController, UIWebViewDelegate{
         let progress = MenuHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .right)
         MenuHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
             self.dismiss(animated: true, completion: nil)
+        }
+    }
+}
+
+
+extension NoticeViewController : UIWebViewDelegate{
+    //웹뷰 가져옴
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        spin.stopAnimating()
+        spin.isHidden = true
+        if self.webView.canGoBack{
+            backBtn.setImage(UIImage(named: "wb_left_on"), for: UIControlState())
+        }else{
+            backBtn.setImage(UIImage(named: "wb_left_off"), for: UIControlState())
+        }
+        if self.webView.canGoForward{
+            nextBtn.setImage(UIImage(named: "wb_right_on"), for: UIControlState())
+        }else{
+            nextBtn.setImage(UIImage(named: "wb_right_off"), for: UIControlState())
+        }
+    }
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        if self.webView.canGoBack{
+            backBtn.setImage(UIImage(named: "wb_left_on"), for: UIControlState())
+        }else{
+            backBtn.setImage(UIImage(named: "wb_left_off"), for: UIControlState())
+        }
+        if self.webView.canGoForward{
+            nextBtn.setImage(UIImage(named: "wb_right_on"), for: UIControlState())
+        }else{
+            nextBtn.setImage(UIImage(named: "wb_right_off"), for: UIControlState())
         }
     }
 }

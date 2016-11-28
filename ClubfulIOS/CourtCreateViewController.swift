@@ -19,11 +19,8 @@ class CourtCreateViewController: UIViewController{
     @IBOutlet var cnameTextField: UITextField!
     //코트 설명 텍스트뷰
     @IBOutlet var descTextView: UITextView!
-    //전체 스크롤 뷰
-    @IBOutlet var mainScrollView: UIScrollView!
-    var mainScrollViewHeight: CGFloat = 0
-    //이미지 스크롤 뷰
-    @IBOutlet var picScrollView: UIScrollView!
+    @IBOutlet var scrollView: UIScrollView!
+    var scrollViewHeight: CGFloat = 0
     
     var court : Court!
     var address : Address!
@@ -31,11 +28,11 @@ class CourtCreateViewController: UIViewController{
     //이미지 피커
     let picker = UIImagePickerController()
     
+    @IBOutlet var pic1: PicView!
+    @IBOutlet var pic2: PicView!
+    @IBOutlet var pic3: PicView!
+    @IBOutlet var pic4: PicView!
     var nonUserView : NonUserView!
-    var pic1: PicView!
-    var pic2: PicView!
-    var pic3: PicView!
-    var pic4: PicView!
     var picTemp: PicView!
     
     override func viewDidLoad() {
@@ -46,20 +43,6 @@ class CourtCreateViewController: UIViewController{
         self.spin.isHidden = true
         self.cnameTextField.delegate = self
         self.descTextView.delegate = self
-        self.court = Court()
-        self.address = Address()
-        
-        DispatchQueue.main.async {
-            self.layoutInit()
-        }
-    }
-    
-    func layoutInit(){
-        self.picScrollView.subviews.forEach({$0.removeFromSuperview()})
-        self.locationBtn.setTitle("위치 설정", for: UIControlState())
-        categoryBtn.setTitle("종목 설정", for: UIControlState())
-        cnameTextField.text = ""
-        descTextView.text = ""
         self.court = Court()
         self.address = Address()
         
@@ -78,44 +61,57 @@ class CourtCreateViewController: UIViewController{
             self.present(alert, animated: false, completion: {(_) in
             })
         }
+        self.pic1.touchCallback = {(_) in picClick(self.pic1)}
+        self.pic2.touchCallback = {(_) in picClick(self.pic2)}
+        self.pic3.touchCallback = {(_) in picClick(self.pic3)}
+        self.pic4.touchCallback = {(_) in picClick(self.pic4)}
         
-        
-        if let customView = Bundle.main.loadNibNamed("PicView", owner: self, options: nil)?.first as? PicView {
-            self.pic1 = customView
+        DispatchQueue.main.async {
+            self.layoutInit()
         }
-        if let customView = Bundle.main.loadNibNamed("PicView", owner: self, options: nil)?.first as? PicView {
-            self.pic2 = customView
+    }
+    
+    func layoutInit(){
+        self.locationBtn.setTitle("위치 설정", for: UIControlState())
+        categoryBtn.setTitle("종목 설정", for: UIControlState())
+        cnameTextField.text = ""
+        descTextView.text = ""
+        self.court = Court()
+        self.address = Address()
+        self.picTemp = nil
+        func imageInit(_ tempView: UIView){
+            tempView.subviews.forEach { (v) in
+                if let imgView = v as? PicImageView{
+                    imgView.image = UIImage()
+                }
+            }
         }
-        if let customView = Bundle.main.loadNibNamed("PicView", owner: self, options: nil)?.first as? PicView {
-            self.pic3 = customView
-        }
-        if let customView = Bundle.main.loadNibNamed("PicView", owner: self, options: nil)?.first as? PicView {
-            self.pic4 = customView
-        }
-        
+        imageInit(self.pic1)
+        imageInit(self.pic2)
+        imageInit(self.pic3)
+        imageInit(self.pic4)
         DispatchQueue.global().async {
             Thread.sleep(forTimeInterval: 0.1)
             DispatchQueue.main.async {
-                self.mainScrollViewHeight = self.mainScrollView.contentSize.height
-                
-                let imageWidth = self.picScrollView.frame.width/2-5
-                let imageHeight = imageWidth * 120 / 192
-                
-                self.picScrollView.contentSize = CGSize(width: self.picScrollView.frame.width, height: (imageHeight+10)*2)
-                
-                self.pic1.frame = CGRect(x: 0, y: 0, width: imageWidth, height: imageHeight)
-                self.pic2.frame = CGRect(x: imageWidth+10, y: 0, width: imageWidth, height: imageHeight)
-                self.pic3.frame = CGRect(x: 0, y: imageHeight+10, width: imageWidth, height: imageHeight)
-                self.pic4.frame = CGRect(x: imageWidth+10, y: imageHeight+10, width: imageWidth, height:imageHeight)
-                self.pic1.touchCallback = {(_) in picClick(self.pic1)}
-                self.pic2.touchCallback = {(_) in picClick(self.pic2)}
-                self.pic3.touchCallback = {(_) in picClick(self.pic3)}
-                self.pic4.touchCallback = {(_) in picClick(self.pic4)}
-                self.picScrollView.addSubview(self.pic1)
-                self.picScrollView.addSubview(self.pic2)
-                self.picScrollView.addSubview(self.pic3)
-                self.picScrollView.addSubview(self.pic4)
+                self.scrollViewHeight = self.scrollView.contentSize.height
             }
+        }
+    }
+    //로그인했을때 로그아웃했을때 레이아웃 변경
+    func layout(){
+        if Storage.isRealmUser(){
+            self.view.subviews.forEach({ (tempView) in
+                if tempView == nonUserView{
+                    tempView.removeFromSuperview()
+                }
+            })
+        }else{
+            self.view.subviews.forEach({ (tempView) in
+                if tempView == nonUserView{
+                    tempView.removeFromSuperview()
+                }
+            })
+            self.view.addSubview(nonUserView)
         }
     }
     
@@ -181,17 +177,32 @@ class CourtCreateViewController: UIViewController{
         if spin.isHidden == false{
             return
         }
-        var cropImageCnt = 0
-        if btn.currentImage != self.picAddImage{
-            cropImageCnt += 1
-        }
         
-        if cropImageCnt >= 2{
-            if courtLatitude == nil || courtLongitude == nil || courtAddress == nil || courtAddressShort == nil || courtAddress == "" || courtAddressShort == ""{
+        var picArray : [UIImage] = [UIImage]()
+        var picNameArray : [String] = []
+        var idx = 1
+        func imageCnt(_ tempView: UIView){
+            tempView.subviews.forEach { (v) in
+                if let imgView = v as? PicImageView{
+                    if imgView.image?.size != CGSize(width: 0, height: 0){
+                        picArray.append(imgView.image!)
+                        picNameArray.append("pic\(idx).jpeg")
+                        idx += 1
+                    }
+                }
+            }
+        }
+        imageCnt(self.pic1)
+        imageCnt(self.pic2)
+        imageCnt(self.pic3)
+        imageCnt(self.pic4)
+        
+        if idx >= 2{
+            if self.address.latitude == nil || self.address.longitude == nil || self.address.address == nil || self.address.addressShort == nil || self.address.address == "" || self.address.addressShort == ""{
                 self.spin.isHidden = true
                 self.spin.stopAnimating()
                 Util.alert(self, message: "위치를 선택해 주세요.")
-            }else if(category == nil){
+            }else if(self.court.categorySeq == nil){
                 self.spin.isHidden = true
                 self.spin.stopAnimating()
                 Util.alert(self, message: "카테고리를 선택해 주세요.")
@@ -200,69 +211,7 @@ class CourtCreateViewController: UIViewController{
                 self.spin.stopAnimating()
                 Util.alert(self, message: "별칭을 입력해 주세요.")
             }else{
-                //이미지 배열
-                var picArray : [UIImage] = [UIImage]()
-                var picNameArray : [String] = []
-                var idx = 1
-                for btn in self.picList{
-                    if btn.currentImage != self.picAddImage{
-                        let img = btn.currentImage
-                        picArray.append(img!)
-                        picNameArray.append("pic\(idx).jpeg")
-                        idx += 1
-                    }
-                }
-                spin.isHidden = false
-                spin.startAnimating()
-                let user = Storage.getRealmUser()
-                let parameters : [String: AnyObject] = ["id": user.userId as AnyObject, "latitude": self.courtLatitude as AnyObject, "longitude": self.courtLongitude as AnyObject, "address": self.courtAddress as AnyObject, "addressShort": self.courtAddressShort as AnyObject, "category": self.category as AnyObject, "description": self.descTextView.text! as AnyObject, "picNameArray": picNameArray as AnyObject, "cname": cnameTextField.text! as AnyObject]
-                URLReq.request(self, url: URLReq.apiServer+URLReq.api_court_create, param: parameters, callback: { (dic) in
-                    if let seq = dic["seq"] as? Int{
-                        //이미지서버로 통신
-                        self.spin.isHidden = false
-                        self.spin.startAnimating()
-                        
-                        //통신
-                        Alamofire.upload(
-                            multipartFormData: { multipartFormData in
-                                var idx = 0
-                                let nameArray = ["pic1", "pic2", "pic3", "pic4"]
-                                for pic in picArray{
-                                    let imageData : Data = Util.returnImageData(pic, ext: ExtType.jpeg)
-                                    multipartFormData.append(imageData, withName: nameArray[idx], fileName: "\(nameArray[idx]).jpeg", mimeType: "image/jpeg")
-                                    idx += 1
-                                }
-                            },
-                            to: "\(URLReq.courtUpload)\(seq)",
-                            encodingCompletion: { encodingResult in
-                                switch encodingResult {
-                                case .success(let upload, _, _):
-                                    upload.responseJSON { response in
-                                        self.spin.isHidden = true
-                                        self.spin.stopAnimating()
-                                        let data : NSData = response.data! as NSData
-                                        let dic = Util.convertStringToDictionary(data as Data)
-                                        if let code = dic["code"] as? Int{
-                                            if code == 0{
-                                                Util.alert(self, message: "등록이 완료되었습니다.", confirmTitle: "확인", confirmHandler: { (_) in
-                                                    self.layoutInit()
-                                                    self.view.endEditing(true)
-                                                    self.presentingViewController?.dismiss(animated: true, completion: nil)
-                                                })
-                                            }
-                                        }
-                                    }
-                                case .failure(_):
-                                    self.spin.isHidden = true
-                                    self.spin.stopAnimating()
-                                }
-                            }
-                        )
-                    }
-                }, codeErrorCallback: { (dic) in
-                    self.spin.isHidden = true
-                    self.spin.stopAnimating()
-                })
+                self.courtInsert(picArray: picArray, picNameArray: picNameArray)
             }
         }else{
             self.spin.isHidden = true
@@ -270,6 +219,71 @@ class CourtCreateViewController: UIViewController{
             Util.alert(self, message: "이미지를 2장 이상 올려야 됩니다.")
             self.view.endEditing(true)
         }
+    }
+    
+    
+    func courtInsert(picArray: [UIImage], picNameArray: [String]){
+        self.spin.isHidden = false
+        self.spin.startAnimating()
+        let user = Storage.getRealmUser()
+        var parameters : [String: AnyObject] = [:]
+        parameters.updateValue(user.userId as AnyObject, forKey: "id")
+        parameters.updateValue(self.address.latitude as AnyObject, forKey: "latitude")
+        parameters.updateValue(self.address.longitude as AnyObject, forKey: "longitude")
+        parameters.updateValue(self.address.address as AnyObject, forKey: "address")
+        parameters.updateValue(self.address.addressShort as AnyObject, forKey: "addressShort")
+        parameters.updateValue(self.court.categorySeq as AnyObject, forKey: "category")
+        parameters.updateValue(self.descTextView.text! as AnyObject, forKey: "description")
+        parameters.updateValue(picNameArray as AnyObject, forKey: "picNameArray")
+        parameters.updateValue(cnameTextField.text! as AnyObject, forKey: "cname")
+        
+        URLReq.request(self, url: URLReq.apiServer+URLReq.api_court_create, param: parameters, callback: { (dic) in
+            if let seq = dic["seq"] as? Int{
+                self.courtImageInsert(seq, picArray: picArray, picNameArray: picNameArray)
+            }
+        }, codeErrorCallback: { (dic) in
+            self.spin.isHidden = true
+            self.spin.stopAnimating()
+        })
+    }
+    
+    func courtImageInsert(_ seq: Int, picArray: [UIImage], picNameArray: [String]){
+        self.spin.isHidden = false
+        self.spin.startAnimating()
+        Alamofire.upload(
+            multipartFormData: { multipartFormData in
+                var idx = 0
+                let nameArray = ["pic1", "pic2", "pic3", "pic4"]
+                for pic in picArray{
+                    let imageData : Data = Util.returnImageData(pic, ext: ExtType.jpeg)
+                    multipartFormData.append(imageData, withName: nameArray[idx], fileName: "\(nameArray[idx]).jpeg", mimeType: "image/jpeg")
+                    idx += 1
+                }
+        },
+            to: "\(URLReq.courtUpload)\(seq)",
+            encodingCompletion: { encodingResult in
+                switch encodingResult {
+                case .success(let upload, _, _):
+                    upload.responseJSON { response in
+                        self.spin.isHidden = true
+                        self.spin.stopAnimating()
+                        let data : NSData = response.data! as NSData
+                        let dic = Util.convertStringToDictionary(data as Data)
+                        if let code = dic["code"] as? Int{
+                            if code == 0{
+                                Util.alert(self, message: "등록이 완료되었습니다.", confirmTitle: "확인", confirmHandler: { (_) in
+                                    self.layoutInit()
+                                    self.view.endEditing(true)
+                                    self.presentingViewController?.dismiss(animated: true, completion: nil)
+                                })
+                            }
+                        }
+                    }
+                case .failure(_):
+                    self.spin.isHidden = true
+                    self.spin.stopAnimating()
+                }
+        })
     }
 }
 
@@ -296,24 +310,6 @@ extension CourtCreateViewController{
             vc.preBtn = self.locationBtn
         }
     }
-    
-    //로그인했을때 로그아웃했을때 레이아웃 변경
-    func layout(){
-        if Storage.isRealmUser(){
-            self.view.subviews.forEach({ (tempView) in
-                if tempView == nonUserView{
-                    tempView.removeFromSuperview()
-                }
-            })
-        }else{
-            self.view.subviews.forEach({ (tempView) in
-                if tempView == nonUserView{
-                    tempView.removeFromSuperview()
-                }
-            })
-            self.view.addSubview(nonUserView)
-        }
-    }
 }
 
 
@@ -327,12 +323,12 @@ extension CourtCreateViewController: UITextFieldDelegate{
     //키보드생길때
     func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = ((notification as NSNotification).userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            mainScrollView.contentSize.height = self.mainScrollViewHeight+keyboardSize.height
+            self.scrollView.contentSize.height = self.scrollViewHeight+keyboardSize.height
         }
     }
     //키보드없어질때
     func keyboardWillHide(_ notification: Notification) {
-        mainScrollView.contentSize.height = self.mainScrollViewHeight
+        self.scrollView.contentSize.height = self.scrollViewHeight
     }
     //뷰 클릭했을때
     func keyboardHide(_ sender: AnyObject){
@@ -420,7 +416,11 @@ extension CourtCreateViewController: AdobeUXImageEditorViewControllerDelegate{
     func photoEditor(_ editor: AdobeUXImageEditorViewController, finishedWith image: UIImage?) {
         editor.dismiss(animated: true, completion: {(_) in
             let imageCrop = self.resizeImage(image: (image?.crop(to: CGSize(width: 500, height: 300)))!, size: CGSize(width: 500, height: 300))
-            self.picTemp.imageView.image = imageCrop
+            self.picTemp.subviews.forEach({ (view) in
+                if let v = view as? PicImageView{
+                    v.image = imageCrop
+                }
+            })
         })
     }
     //AdobeCreativeSDK 캔슬

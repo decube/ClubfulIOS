@@ -17,7 +17,6 @@
 		6E4C62B51DE9A93C0039BE62 /* Reply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4C62B41DE9A93C0039BE62 /* Reply.swift */; };
 		6E4C62B71DE9AA0A0039BE62 /* ReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4C62B61DE9AA0A0039BE62 /* ReplyCell.swift */; };
 		6E4C62B91DE9B0C20039BE62 /* PicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4C62B81DE9B0C20039BE62 /* PicView.swift */; };
-		6E4C62BB1DE9B0D20039BE62 /* PicView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E4C62BA1DE9B0D20039BE62 /* PicView.xib */; };
 		6E4CC9491DC47F84005FA92F /* DismissMenuAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CC9461DC47F84005FA92F /* DismissMenuAnimator.swift */; };
 		6E4CC94A1DC47F84005FA92F /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CC9471DC47F84005FA92F /* Interactor.swift */; };
 		6E4CC94B1DC47F84005FA92F /* PresentMenuAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CC9481DC47F84005FA92F /* PresentMenuAnimator.swift */; };
@@ -57,18 +56,14 @@
 		6E7DA9251D9949740098D7DA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7DA9241D9949740098D7DA /* OpenGLES.framework */; };
 		6E7DA9271D9949860098D7DA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7DA9261D9949860098D7DA /* MapKit.framework */; };
 		6E7DA9B61D994B3A0098D7DA /* AppSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9911D994B3A0098D7DA /* AppSettingViewController.swift */; };
-		6E7DA9B71D994B3A0098D7DA /* BallInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9921D994B3A0098D7DA /* BallInfo.swift */; };
 		6E7DA9B81D994B3A0098D7DA /* CourtCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9931D994B3A0098D7DA /* CourtCreateViewController.swift */; };
 		6E7DA9B91D994B3A0098D7DA /* CourtViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9941D994B3A0098D7DA /* CourtViewController.swift */; };
-		6E7DA9BA1D994B3A0098D7DA /* EggViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9951D994B3A0098D7DA /* EggViewController.swift */; };
-		6E7DA9BB1D994B3A0098D7DA /* ExtType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9961D994B3A0098D7DA /* ExtType.swift */; };
 		6E7DA9BC1D994B3A0098D7DA /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9971D994B3A0098D7DA /* GuideViewController.swift */; };
 		6E7DA9BD1D994B3A0098D7DA /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9981D994B3A0098D7DA /* InfoViewController.swift */; };
 		6E7DA9BE1D994B3A0098D7DA /* InquiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9991D994B3A0098D7DA /* InquiryViewController.swift */; };
 		6E7DA9BF1D994B3A0098D7DA /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA99A1D994B3A0098D7DA /* JoinViewController.swift */; };
 		6E7DA9C01D994B3A0098D7DA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA99B1D994B3A0098D7DA /* LoginViewController.swift */; };
 		6E7DA9C21D994B3A0098D7DA /* MyLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA99D1D994B3A0098D7DA /* MyLocationView.swift */; };
-		6E7DA9C41D994B3A0098D7DA /* MapListElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA99F1D994B3A0098D7DA /* MapListElementView.swift */; };
 		6E7DA9C51D994B3A0098D7DA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9A01D994B3A0098D7DA /* MapViewController.swift */; };
 		6E7DA9C71D994B3A0098D7DA /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9A21D994B3A0098D7DA /* MypageViewController.swift */; };
 		6E7DA9C81D994B3A0098D7DA /* NonUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9A31D994B3A0098D7DA /* NonUserView.swift */; };
@@ -91,12 +86,16 @@
 		6E7DA9DA1D994B3A0098D7DA /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9B51D994B3A0098D7DA /* Util.swift */; };
 		6E7DA9E11D994D4A0098D7DA /* MyLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DC1D994D4A0098D7DA /* MyLocationView.xib */; };
 		6E7DA9E21D994D4A0098D7DA /* CourtSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DD1D994D4A0098D7DA /* CourtSearchCell.xib */; };
-		6E7DA9E31D994D4A0098D7DA /* MapListElementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DE1D994D4A0098D7DA /* MapListElementView.xib */; };
 		6E7DA9E41D994D4A0098D7DA /* NonUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DF1D994D4A0098D7DA /* NonUserView.xib */; };
 		6E7DA9E61D994EA50098D7DA /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7DA9E51D994EA50098D7DA /* KakaoOpenSDK.framework */; };
 		6E7EB6641DBEE88600A618DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E7EB6631DBEE88600A618DA /* GoogleService-Info.plist */; };
 		6E8AB6B11D9C08F200B8E488 /* SetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8AB6B01D9C08F200B8E488 /* SetViewController.swift */; };
 		6E8C2D871DE4877B009D3F5F /* CourtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8C2D861DE4877B009D3F5F /* CourtCell.swift */; };
+		6EAAF0D81DEAE5520066455A /* MapListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EAAF0D71DEAE5520066455A /* MapListCell.xib */; };
+		6EAAF0DA1DEAE5930066455A /* MapListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAAF0D91DEAE5930066455A /* MapListCell.swift */; };
+		6EAAF0DC1DEAF71F0066455A /* MypageCourtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAAF0DB1DEAF71F0066455A /* MypageCourtView.swift */; };
+		6EAAF0DE1DEAF73A0066455A /* MypageCourtView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EAAF0DD1DEAF73A0066455A /* MypageCourtView.xib */; };
+		6EAAF0E01DEB0A550066455A /* PicImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAAF0DF1DEB0A550066455A /* PicImageView.swift */; };
 		6EE0B8221DCED827009792A7 /* MapListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE0B8211DCED827009792A7 /* MapListView.swift */; };
 		6EE0B8241DCEDA3D009792A7 /* MapListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EE0B8231DCEDA3D009792A7 /* MapListView.xib */; };
 		F212D8118A03412B8CEBE9E8 /* Pods_ClubfulIOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49974A46F672D49681011BDF /* Pods_ClubfulIOSUITests.framework */; };
@@ -134,7 +133,6 @@
 		6E4C62B41DE9A93C0039BE62 /* Reply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reply.swift; sourceTree = "<group>"; };
 		6E4C62B61DE9AA0A0039BE62 /* ReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyCell.swift; sourceTree = "<group>"; };
 		6E4C62B81DE9B0C20039BE62 /* PicView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicView.swift; sourceTree = "<group>"; };
-		6E4C62BA1DE9B0D20039BE62 /* PicView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PicView.xib; sourceTree = "<group>"; };
 		6E4CC9461DC47F84005FA92F /* DismissMenuAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissMenuAnimator.swift; sourceTree = "<group>"; };
 		6E4CC9471DC47F84005FA92F /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		6E4CC9481DC47F84005FA92F /* PresentMenuAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentMenuAnimator.swift; sourceTree = "<group>"; };
@@ -181,18 +179,14 @@
 		6E7DA9261D9949860098D7DA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6E7DA9281D994A020098D7DA /* ClubfulIOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ClubfulIOS-Bridging-Header.h"; path = "ClubfulIOS/ClubfulIOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		6E7DA9911D994B3A0098D7DA /* AppSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingViewController.swift; sourceTree = "<group>"; };
-		6E7DA9921D994B3A0098D7DA /* BallInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallInfo.swift; sourceTree = "<group>"; };
 		6E7DA9931D994B3A0098D7DA /* CourtCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtCreateViewController.swift; sourceTree = "<group>"; };
 		6E7DA9941D994B3A0098D7DA /* CourtViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtViewController.swift; sourceTree = "<group>"; };
-		6E7DA9951D994B3A0098D7DA /* EggViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EggViewController.swift; sourceTree = "<group>"; };
-		6E7DA9961D994B3A0098D7DA /* ExtType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtType.swift; sourceTree = "<group>"; };
 		6E7DA9971D994B3A0098D7DA /* GuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		6E7DA9981D994B3A0098D7DA /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		6E7DA9991D994B3A0098D7DA /* InquiryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiryViewController.swift; sourceTree = "<group>"; };
 		6E7DA99A1D994B3A0098D7DA /* JoinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		6E7DA99B1D994B3A0098D7DA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6E7DA99D1D994B3A0098D7DA /* MyLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLocationView.swift; sourceTree = "<group>"; };
-		6E7DA99F1D994B3A0098D7DA /* MapListElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListElementView.swift; sourceTree = "<group>"; };
 		6E7DA9A01D994B3A0098D7DA /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		6E7DA9A21D994B3A0098D7DA /* MypageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
 		6E7DA9A31D994B3A0098D7DA /* NonUserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonUserView.swift; sourceTree = "<group>"; };
@@ -215,12 +209,16 @@
 		6E7DA9B51D994B3A0098D7DA /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		6E7DA9DC1D994D4A0098D7DA /* MyLocationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyLocationView.xib; sourceTree = "<group>"; };
 		6E7DA9DD1D994D4A0098D7DA /* CourtSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourtSearchCell.xib; sourceTree = "<group>"; };
-		6E7DA9DE1D994D4A0098D7DA /* MapListElementView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapListElementView.xib; sourceTree = "<group>"; };
 		6E7DA9DF1D994D4A0098D7DA /* NonUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NonUserView.xib; sourceTree = "<group>"; };
 		6E7DA9E51D994EA50098D7DA /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		6E7EB6631DBEE88600A618DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6E8AB6B01D9C08F200B8E488 /* SetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewController.swift; sourceTree = "<group>"; };
 		6E8C2D861DE4877B009D3F5F /* CourtCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtCell.swift; sourceTree = "<group>"; };
+		6EAAF0D71DEAE5520066455A /* MapListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapListCell.xib; sourceTree = "<group>"; };
+		6EAAF0D91DEAE5930066455A /* MapListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListCell.swift; sourceTree = "<group>"; };
+		6EAAF0DB1DEAF71F0066455A /* MypageCourtView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MypageCourtView.swift; sourceTree = "<group>"; };
+		6EAAF0DD1DEAF73A0066455A /* MypageCourtView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MypageCourtView.xib; sourceTree = "<group>"; };
+		6EAAF0DF1DEB0A550066455A /* PicImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicImageView.swift; sourceTree = "<group>"; };
 		6EE0B8211DCED827009792A7 /* MapListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListView.swift; sourceTree = "<group>"; };
 		6EE0B8231DCEDA3D009792A7 /* MapListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapListView.xib; sourceTree = "<group>"; };
 		7255EBCCA4BAB905D120BE0B /* Pods-ClubfulIOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubfulIOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClubfulIOSTests/Pods-ClubfulIOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -305,6 +303,8 @@
 				6E7DA9DD1D994D4A0098D7DA /* CourtSearchCell.xib */,
 				6E4836061DE9832A000684D2 /* CourtSearchCell.swift */,
 				6E4C62B61DE9AA0A0039BE62 /* ReplyCell.swift */,
+				6EAAF0D71DEAE5520066455A /* MapListCell.xib */,
+				6EAAF0D91DEAE5930066455A /* MapListCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -332,14 +332,12 @@
 				6E77DD101DC5A04400296008 /* CourtSearchView.swift */,
 				6EE0B8231DCEDA3D009792A7 /* MapListView.xib */,
 				6EE0B8211DCED827009792A7 /* MapListView.swift */,
-				6E7DA9DE1D994D4A0098D7DA /* MapListElementView.xib */,
-				6E7DA99F1D994B3A0098D7DA /* MapListElementView.swift */,
 				6E7DA9DF1D994D4A0098D7DA /* NonUserView.xib */,
 				6E7DA9A31D994B3A0098D7DA /* NonUserView.swift */,
 				6E63239D1DA3BF38001FCD9E /* AddView.xib */,
 				6E63239F1DA3BF52001FCD9E /* AddView.swift */,
-				6E4C62B81DE9B0C20039BE62 /* PicView.swift */,
-				6E4C62BA1DE9B0D20039BE62 /* PicView.xib */,
+				6EAAF0DD1DEAF73A0066455A /* MypageCourtView.xib */,
+				6EAAF0DB1DEAF71F0066455A /* MypageCourtView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -347,11 +345,11 @@
 		6E4C62B11DE9A8430039BE62 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				6E4C62B31DE9A8900039BE62 /* common */,
 				6E7DA9871D994A760098D7DA /* main */,
 				6E7DA9891D994A920098D7DA /* court */,
 				6E7DA98B1D994A9E0098D7DA /* user */,
 				6E7DA98A1D994A9A0098D7DA /* setting */,
-				6E4C62B31DE9A8900039BE62 /* common */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -429,10 +427,10 @@
 				6E4C62AF1DE9A7430039BE62 /* Common */,
 				6E4C62B11DE9A8430039BE62 /* Controller */,
 				6E4C62B21DE9A8660039BE62 /* Storyboard */,
-				6E60A4121DD8650300DD8F29 /* Supporting Files */,
 				6E7DA8DD1D9948910098D7DA /* Main.storyboard */,
 				6E7DA8E21D9948910098D7DA /* LaunchScreen.storyboard */,
 				6E507C901DD3414200F62C17 /* Images.xcassets */,
+				6E60A4121DD8650300DD8F29 /* Supporting Files */,
 			);
 			path = ClubfulIOS;
 			sourceTree = "<group>";
@@ -479,6 +477,8 @@
 			children = (
 				6E7DA9931D994B3A0098D7DA /* CourtCreateViewController.swift */,
 				6E7DA9941D994B3A0098D7DA /* CourtViewController.swift */,
+				6E4C62B81DE9B0C20039BE62 /* PicView.swift */,
+				6EAAF0DF1DEB0A550066455A /* PicImageView.swift */,
 			);
 			name = court;
 			sourceTree = "<group>";
@@ -494,7 +494,6 @@
 				6E7DA9981D994B3A0098D7DA /* InfoViewController.swift */,
 				6E7DA9991D994B3A0098D7DA /* InquiryViewController.swift */,
 				6E7DA9911D994B3A0098D7DA /* AppSettingViewController.swift */,
-				6E7DA9951D994B3A0098D7DA /* EggViewController.swift */,
 			);
 			name = setting;
 			sourceTree = "<group>";
@@ -522,8 +521,6 @@
 		6E7DA98E1D994AB30098D7DA /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				6E7DA9921D994B3A0098D7DA /* BallInfo.swift */,
-				6E7DA9961D994B3A0098D7DA /* ExtType.swift */,
 				6E7DA9B51D994B3A0098D7DA /* Util.swift */,
 			);
 			name = Util;
@@ -714,13 +711,13 @@
 				6EE0B8241DCEDA3D009792A7 /* MapListView.xib in Resources */,
 				6E7DA8E41D9948910098D7DA /* LaunchScreen.storyboard in Resources */,
 				6E7DA90B1D99490A0098D7DA /* AdobeCreativeSDKImageResources.bundle in Resources */,
-				6E4C62BB1DE9B0D20039BE62 /* PicView.xib in Resources */,
 				6E7DA9E41D994D4A0098D7DA /* NonUserView.xib in Resources */,
 				6E7EB6641DBEE88600A618DA /* GoogleService-Info.plist in Resources */,
 				6E4836021DE96F82000684D2 /* MyLocationCell.xib in Resources */,
+				6EAAF0D81DEAE5520066455A /* MapListCell.xib in Resources */,
 				6E7DA9E21D994D4A0098D7DA /* CourtSearchCell.xib in Resources */,
 				6E7DA8DF1D9948910098D7DA /* Main.storyboard in Resources */,
-				6E7DA9E31D994D4A0098D7DA /* MapListElementView.xib in Resources */,
+				6EAAF0DE1DEAF73A0066455A /* MypageCourtView.xib in Resources */,
 				6E63239E1DA3BF38001FCD9E /* AddView.xib in Resources */,
 				6E507C971DD34DFF00F62C17 /* ViewController.storyboard in Resources */,
 			);
@@ -887,15 +884,14 @@
 			files = (
 				6E450C121DE5FC2E008B67A9 /* Court.swift in Sources */,
 				6E4CC94F1DC4815C005FA92F /* MainRightViewController.swift in Sources */,
-				6E7DA9B71D994B3A0098D7DA /* BallInfo.swift in Sources */,
 				6E7DA9B61D994B3A0098D7DA /* AppSettingViewController.swift in Sources */,
 				6E7DA9CE1D994B3A0098D7DA /* String.swift in Sources */,
+				6EAAF0DC1DEAF71F0066455A /* MypageCourtView.swift in Sources */,
 				6E7DA9D01D994B3A0098D7DA /* UIColor.swift in Sources */,
 				6E7DA9BC1D994B3A0098D7DA /* GuideViewController.swift in Sources */,
 				6E7DA8DC1D9948910098D7DA /* ViewController.swift in Sources */,
 				6E7DA9DA1D994B3A0098D7DA /* Util.swift in Sources */,
 				6E7DA9BD1D994B3A0098D7DA /* InfoViewController.swift in Sources */,
-				6E7DA9BB1D994B3A0098D7DA /* ExtType.swift in Sources */,
 				6E4835FF1DE96A9B000684D2 /* Address.swift in Sources */,
 				6E7DA9D41D994B3A0098D7DA /* UIScrollView.swift in Sources */,
 				6E4836041DE97056000684D2 /* LocationCell.swift in Sources */,
@@ -907,11 +903,9 @@
 				6E6323A01DA3BF52001FCD9E /* AddView.swift in Sources */,
 				6E7DA9D71D994B3A0098D7DA /* URLReq.swift in Sources */,
 				6E7DA9D31D994B3A0098D7DA /* UIImage.swift in Sources */,
-				6E7DA9C41D994B3A0098D7DA /* MapListElementView.swift in Sources */,
 				6E4CC94B1DC47F84005FA92F /* PresentMenuAnimator.swift in Sources */,
 				6E7DA9C91D994B3A0098D7DA /* NoticeViewController.swift in Sources */,
 				6E7DA9D11D994B3A0098D7DA /* UIControl.swift in Sources */,
-				6E7DA9BA1D994B3A0098D7DA /* EggViewController.swift in Sources */,
 				6E7DA9D51D994B3A0098D7DA /* UITextField.swift in Sources */,
 				6E7DA8DA1D9948910098D7DA /* AppDelegate.swift in Sources */,
 				6E4C62B91DE9B0C20039BE62 /* PicView.swift in Sources */,
@@ -920,6 +914,7 @@
 				6E7BFECF1DCA17A300D93799 /* DeviceUser.swift in Sources */,
 				6E7DA9D21D994B3A0098D7DA /* UIFont.swift in Sources */,
 				6E7DA9CA1D994B3A0098D7DA /* NSDate.swift in Sources */,
+				6EAAF0E01DEB0A550066455A /* PicImageView.swift in Sources */,
 				6E4CC94D1DC4811D005FA92F /* MainLeftViewController.swift in Sources */,
 				6E4C62B71DE9AA0A0039BE62 /* ReplyCell.swift in Sources */,
 				6E7DA9BE1D994B3A0098D7DA /* InquiryViewController.swift in Sources */,
@@ -936,6 +931,7 @@
 				6E7DA9C21D994B3A0098D7DA /* MyLocationView.swift in Sources */,
 				6E7DA9CB1D994B3A0098D7DA /* PhotoAlbumCustom.swift in Sources */,
 				6E7DA9CD1D994B3A0098D7DA /* Storage.swift in Sources */,
+				6EAAF0DA1DEAE5930066455A /* MapListCell.swift in Sources */,
 				6E7DA9CF1D994B3A0098D7DA /* TabBar.swift in Sources */,
 				6E4CC9491DC47F84005FA92F /* DismissMenuAnimator.swift in Sources */,
 				6E7DA9D91D994B3A0098D7DA /* UserConvertViewController.swift in Sources */,

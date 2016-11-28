@@ -14,12 +14,8 @@ class AddView: UIView{
     
     var ctrl : UIViewController!
     
-    var userLatitude : Double!
-    var userLongitude : Double!
-    var userAddress : String!
-    var userAddressShort : String!
+    var address: Address!
     
-    @IBOutlet var confirmBtn: UIButton!
     @IBOutlet var maleView: UIView!
     @IBOutlet var femaleView: UIView!
     @IBOutlet var maleImage: UIImageView!
@@ -27,17 +23,17 @@ class AddView: UIView{
     @IBOutlet var birth: UIDatePicker!
     @IBOutlet var locationBtn: UIButton!
     
-    func setLayout(_ ctrl: UIViewController){
-        self.ctrl = ctrl
-        
-        self.frame = CGRect(x: (ctrl.view.frame.width-300)/2, y: (ctrl.view.frame.height-300)/2, width: 300, height: 300)
-        self.isHidden = true
-        ctrl.view.addSubview(self)
-        
+    override func awakeFromNib() {
+        self.address = Address()
         self.maleView.isUserInteractionEnabled = true
         self.maleView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.maleAction)))
         self.femaleView.isUserInteractionEnabled = true
         self.femaleView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.femaleAction)))
+    }
+    func setLayout(_ ctrl: UIViewController){
+        self.ctrl = ctrl
+        self.frame = ctrl.view.frame
+        ctrl.view.addSubview(self)
     }
     
     func maleAction(){
@@ -48,6 +44,7 @@ class AddView: UIView{
         self.maleImage.image = AddView.radio_unselectedImage
         self.femaleImage.image = AddView.radio_selectedImage
     }
+    
     func isSexString() -> String{
         if self.maleImage.image == AddView.radio_selectedImage{
             return "male"
@@ -57,6 +54,7 @@ class AddView: UIView{
             return ""
         }
     }
+    
     @IBAction func locationAction(_ sender: AnyObject) {
         if let vc = self.ctrl as? ViewController{
             vc.performSegue(withIdentifier: "main_map", sender: nil)
@@ -66,24 +64,27 @@ class AddView: UIView{
     }
     @IBAction func confirmAction(_ sender: AnyObject) {
         let user = Storage.getRealmUser()
-        user.userLatitude = self.userLatitude
-        user.userLongitude = self.userLongitude
-        user.userAddress = self.userAddress
-        user.userAddressShort = self.userAddressShort
+        user.userLatitude = self.address.latitude
+        user.userLongitude = self.address.longitude
+        user.userAddress = self.address.address
+        user.userAddressShort = self.address.addressShort
         user.birth = self.birth.date
         user.sex = self.isSexString()
         Storage.setRealmUser(user)
         
-        let param = ["userId":user.userId, "sex": user.sex, "birth": user.birth, "userLatitude": user.userLatitude, "userLongitude": user.userLongitude, "userAddress": user.userAddress, "userAddressShort": user.userAddressShort] as [String : Any]
-        URLReq.request(ctrl, url: URLReq.apiServer+URLReq.api_user_info, param: param as [String : AnyObject])
+        var parameters : [String: AnyObject] = [:]
+        parameters.updateValue(user.userId as AnyObject, forKey: "userId")
+        parameters.updateValue(user.sex as AnyObject, forKey: "sex")
+        parameters.updateValue(user.birth as AnyObject, forKey: "birth")
+        parameters.updateValue(user.userLatitude as AnyObject, forKey: "userLatitude")
+        parameters.updateValue(user.userLongitude as AnyObject, forKey: "userLongitude")
+        parameters.updateValue(user.userAddress as AnyObject, forKey: "userAddress")
+        parameters.updateValue(user.userAddressShort as AnyObject, forKey: "userAddressShort")
+        URLReq.request(ctrl, url: URLReq.apiServer+URLReq.api_user_info, param: parameters)
         
-        //애니메이션 적용
         UIView.animate(withDuration: 0.2, animations: {
             self.alpha = 0
             }, completion: {(_) in
-                if let vo = self.ctrl as? ViewController{
-                }else if let vo = self.ctrl as? UserConvertViewController{
-                }
                 self.isHidden = true
                 self.alpha = 1
         })
@@ -91,13 +92,11 @@ class AddView: UIView{
     
     func addViewShow(){
         self.ctrl.view.endEditing(true)
-        
-        
         let vo = Storage.getRealmUser()
-        self.userLatitude = vo.userLatitude
-        self.userLongitude = vo.userLongitude
-        self.userAddress = vo.userAddress
-        self.userAddressShort = vo.userAddressShort
+        self.address.latitude = vo.userLatitude
+        self.address.longitude = vo.userLongitude
+        self.address.address = vo.userAddress
+        self.address.addressShort = vo.userAddressShort
         self.locationBtn.setTitle(vo.userAddressShort, for: .normal)
         self.birth.date = vo.birth
         if vo.sex == "male"{
@@ -105,20 +104,11 @@ class AddView: UIView{
         }else if vo.sex == "female"{
             self.femaleAction()
         }
-        
-        
-        
-        if let vo = self.ctrl as? ViewController{
-        }else if let vo = self.ctrl as? UserConvertViewController{
-        }
         self.isHidden = false
         let tmpRect = self.frame
         self.frame.origin.y = -tmpRect.height
-        //애니메이션 적용
         UIView.animate(withDuration: 0.2, animations: {
             self.frame = tmpRect
-        }, completion: {(_) in
-            
         })
     }
     
