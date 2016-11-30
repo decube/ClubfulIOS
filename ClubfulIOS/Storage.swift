@@ -94,8 +94,12 @@ class Storage{
     //realm user Data 검사
     static func isRealmUser() -> Bool{
         let realm = try! Realm()
-        if let _ = realm.objects(User.self).first{
-            return true
+        if let user = realm.objects(User.self).first{
+            if user.userId == "" || user.loginType == ""{
+                return false
+            }else{
+                return true
+            }
         }else{
             return false
         }

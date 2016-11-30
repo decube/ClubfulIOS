@@ -29,6 +29,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         URLCache.shared.memoryCapacity = 0
     }
     
+    func shortcutCreate(){
+        UIApplication.shared.shortcutItems? = []
+        if Storage.isRealmUser(){
+            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "home", localizedTitle: "홈", localizedSubtitle: "홈을 보여줍니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_home_on"), userInfo: nil))
+            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "create", localizedTitle: "등록", localizedSubtitle: "코트를 등록합니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_add_on"), userInfo: nil))
+            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "user", localizedTitle: "내정보", localizedSubtitle: "내정보를 보여줍니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_mypage_on"), userInfo: nil))
+            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "setting", localizedTitle: "앱설정", localizedSubtitle: "PUSH등의 설정을 봅니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_setting_on"), userInfo: nil))
+        }else{
+            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "home", localizedTitle: "홈", localizedSubtitle: "홈을 보여줍니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_home_on"), userInfo: nil))
+            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "login", localizedTitle: "로그인", localizedSubtitle: "로그인 화면으로 이동합니다", icon: UIApplicationShortcutIcon(templateImageName: "ic_login"), userInfo: nil))
+            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "setting", localizedTitle: "앱설정", localizedSubtitle: "PUSH등의 설정을 봅니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_setting_on"), userInfo: nil))
+        }
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -53,6 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         application.registerForRemoteNotifications()
         
+        shortcutCreate()
         
         //firebase
         FIRApp.configure()
@@ -69,7 +84,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, openURL url: NSURL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        
         if KOSession.isKakaoAccountLoginCallback(url.absoluteURL) {
             return KOSession.handleOpen(url.absoluteURL)
         }
@@ -93,17 +107,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }else{
             if self.window?.rootViewController?.presentedViewController == nil{
                 if let tabbar = self.window?.rootViewController as? TabBar{
-                    if shortcutItem.type == "com.decube.Clubful.Open1"{
+                    if shortcutItem.type == "home"{
                         tabbar.onBtnClick(tag: 0)
                         tabbar.onBtnClick(tag: 0)
-                    }else if shortcutItem.type == "com.decube.Clubful.Open2"{
+                    }else if shortcutItem.type == "create"{
                         tabbar.onBtnClick(tag: 1)
-                    }else if shortcutItem.type == "com.decube.Clubful.Open3"{
+                    }else if shortcutItem.type == "user"{
                         tabbar.onBtnClick(tag: 2)
                         tabbar.onBtnClick(tag: 2)
-                    }else if shortcutItem.type == "com.decube.Clubful.Open4"{
+                    }else if shortcutItem.type == "setting"{
                         tabbar.onBtnClick(tag: 3)
                         AppDelegate.vc.performSegue(withIdentifier: "set_appSetting", sender: nil)
+                    }else if shortcutItem.type == "login"{
+                        tabbar.onBtnClick(tag: 3)
+                        AppDelegate.vc.performSegue(withIdentifier: "set_login", sender: nil)
                     }
                 }
             }
@@ -121,6 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //생명주기 앱이 백그라운드가 됬을때
         //push
         FIRMessaging.messaging().disconnect()
+        shortcutCreate()
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -150,6 +168,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         KOSession.handleDidBecomeActive()
         //push
         connectToFcm()
+        
+        shortcutCreate()
     }
     
     
@@ -247,3 +267,15 @@ extension AppDelegate : FIRMessagingDelegate {
     }
 }
 
+
+
+class AppShortcut : UIMutableApplicationShortcutItem {
+    var segue:String
+    
+    init(type:String, title:String, icon:String, segue:String) {
+        self.segue = segue
+        let translatedTitle = NSLocalizedString(title, comment:title)
+        let iconImage = UIApplicationShortcutIcon(templateImageName: icon)
+        super.init(type: type, localizedTitle:translatedTitle, localizedSubtitle:nil, icon:iconImage, userInfo:nil)
+    }
+}

@@ -394,9 +394,7 @@
                         <segue destination="ZxW-JF-kYs" kind="presentation" identifier="main_left" id="T9q-dL-Mo7"/>
                         <segue destination="buY-iB-Jec" kind="presentation" identifier="main_right" id="cJ4-B5-en3"/>
                         <segue destination="711-Pd-2oZ" kind="presentation" identifier="main_map" id="8s9-Ms-32j"/>
-                        <segue destination="q62-yS-rya" kind="show" identifier="main_courtDetail" id="ZTL-9n-ouT">
-                            <nil key="action"/>
-                        </segue>
+                        <segue destination="q62-yS-rya" kind="show" identifier="main_courtDetail" id="ZTL-9n-ouT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0dH-39-Jhz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -530,7 +528,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="szV-do-jn5" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="9PN-Iv-vab"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="33O-go-prA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="33O-go-prA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -545,7 +543,9 @@
         <!--CourtView-->
         <scene sceneID="qsL-1h-rU7">
             <objects>
-                <viewControllerPlaceholder storyboardName="CourtView" id="q62-yS-rya" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="CourtView" id="q62-yS-rya" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Acg-aN-7Yl"/>
+                </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Sf-UR-KCe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="237" y="-1039"/>

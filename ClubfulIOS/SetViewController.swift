@@ -66,7 +66,6 @@ class SetViewController : UIViewController{
             Util.alert(self, title: "알림", message: "로그아웃 하시겠습니까?", confirmTitle: "확인", cancelStr: "취소", confirmHandler: { (alert) in
                 let parameters : [String: AnyObject] = ["userId": user.userId as AnyObject]
                 URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_logout, param: parameters)
-                
                 Storage.removeReamlUserData()
                 self.signCheck()
             })
