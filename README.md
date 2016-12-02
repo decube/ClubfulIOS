@@ -46,9 +46,6 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 
 ##### POD
 
-* ~~ImageSlideshow (이미지슬라이드뷰)(직접만듬)~~
-* ~~ActionKit (이벤트)(직접만듬)~~
-* ~~DLRadioButton (남녀 체크)(직접만듬)~~
 * RealmSwift (저장)
 * Alamofire (통신)
 * Firebase (파이어베이스)
@@ -90,6 +87,7 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 * 2016-11-02 realm 구성, kakao sdk v1.0.64 버전 업그레이드(친구초대관련)
 * 2016-11-05 push(FCM) 설정, CourtDetail Reply WebView->infinite UIScrollView
 * 2016-11-06 App Icon 3D Touch
+* 2016-11-28 Code Refactoring
 
 
 ## 기능
@@ -108,9 +106,8 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 * ~~CourtDetail Reply WebView->infinite UIScrollView~~
 * ~~2016-11-06 App Icon 3D Touch~~
 * ~~메인화면~~
-* 쪽지화면
 * ~~storyboard 나누기~~
-* main화면 왼쪽 gesture 화면
+* ~~main화면 왼쪽 gesture 화면~~
 * main화면 오른쪽 gesture 화면
 * ~~Adobe Image Editor 자르기부분 비율 고정~~
 * ~~Adobe Image Editor 이후 나온 이미지 background단 Crop~~
@@ -120,9 +117,6 @@ AdobeCreativeSDKImage.framework파일을 프로젝트 폴더에 넣고 framework
 * 운동 동호회 추가
 * 코트장 스케쥴 추가
 * Add SiriKit
-
-
-
 
 
 # IOS Image
