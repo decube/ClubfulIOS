@@ -160,7 +160,7 @@ class CourtCreateViewController: UIViewController{
         let alert = UIAlertController(title: "종목을 선택해주세요", message: "종목설정", preferredStyle: .actionSheet)
         let categoryList = Storage.getStorage("categoryList") as! [[String: AnyObject]]
         for category in categoryList{
-            alert.addAction(UIAlertAction(title: "\(category["name"]!)", style: .default, handler: { (alert) in
+            alert.addAction(UIAlertAction(title: "\(category["categoryNM"]!)", style: .default, handler: { (alert) in
                 self.categoryBtn.setTitle(alert.title, for: UIControlState())
                 self.court.categorySeq = category["seq"] as! Int
             }))

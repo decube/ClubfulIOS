@@ -57,9 +57,12 @@ class LoginViewController: UIViewController {
         }else{
             self.spin.isHidden = false
             self.spin.startAnimating()
-            let parameters : [String: AnyObject] = ["userId": self.idField.text! as AnyObject, "password": self.pwField.text! as AnyObject, "loginType": 1 as AnyObject]
+            var parameters : [String: AnyObject] = [:]
+            parameters.updateValue(self.idField.text! as AnyObject, forKey: "userId")
+            parameters.updateValue(self.pwField.text! as AnyObject as AnyObject, forKey: "password")
+            parameters.updateValue("n" as AnyObject as AnyObject, forKey: "loginType")
             
-            URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_login, param: parameters, callback: { (dic) in
+            URLReq.request(self, url: URLReq.apiServer+"certification/login", param: parameters, callback: { (dic) in
                 self.loginCallback("n", dic: dic)
             }, codeErrorCallback: { (dic) in
                 self.spin.isHidden = true
@@ -74,7 +77,7 @@ class LoginViewController: UIViewController {
         var parameters : [String: AnyObject] = [:]
         parameters.updateValue(userId as AnyObject, forKey: "userId")
         parameters.updateValue("" as AnyObject, forKey: "password")
-        parameters.updateValue("n" as AnyObject, forKey: "loginType")
+        parameters.updateValue(loginType as AnyObject, forKey: "loginType")
         parameters.updateValue(deviceUser.pushID as AnyObject, forKey: "gcmId")
         parameters.updateValue(nickName as AnyObject, forKey: "nickName")
         parameters.updateValue(deviceUser.noticePushCheck as AnyObject, forKey: "noticePush")
@@ -84,7 +87,7 @@ class LoginViewController: UIViewController {
         parameters.updateValue(deviceUser.startPushTime.getTime() as AnyObject, forKey: "startTime")
         parameters.updateValue(deviceUser.endPushTime.getTime() as AnyObject, forKey: "endTime")
         
-        URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_login, param: parameters, callback: { (dic) in
+        URLReq.request(self, url: URLReq.apiServer+"certification/login", param: parameters, callback: { (dic) in
             self.loginCallback(loginType, dic: dic)
         }, codeErrorCallback: {(dic) in
             self.spin.isHidden = true

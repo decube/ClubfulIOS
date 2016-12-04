@@ -75,7 +75,7 @@ class JoinViewController: UIViewController {
             parameters.updateValue(deviceUser.startPushTime.getTime() as AnyObject, forKey: "startTime")
             parameters.updateValue(deviceUser.endPushTime.getTime() as AnyObject, forKey: "endTime")
             
-            URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_join, param: parameters, callback: { (dic) in
+            URLReq.request(self, url: URLReq.apiServer+"user/join", param: parameters, callback: { (dic) in
                 self.preIdField.text = self.idField.text!
                 self.dismiss(animated: true, completion: nil)
             }, codeErrorCallback: { (dic) in

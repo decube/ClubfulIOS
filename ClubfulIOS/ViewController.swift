@@ -164,10 +164,6 @@ class ViewController: UIViewController{
     var courtDetailSeq: Int!
     
     
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.setNeedsLayout()
@@ -220,14 +216,46 @@ class ViewController: UIViewController{
             self.addView = customView
             self.addView.setLayout(self)
         }
-        ///////////////////
-        //GET Async 동기 통신
-        ///////////////////
-        URLReq.initApiRequest(self){
+        
+        
+        
+        
+        //버전체크 통신
+        var parameters : [String: AnyObject] = [:]
+        parameters.updateValue("ios" as AnyObject, forKey: "appType")
+        parameters.updateValue(Util.nsVersion as AnyObject, forKey: "appVersion")
+        parameters.updateValue(Date().getFullDate() as AnyObject, forKey: "sendDate")
+        parameters.updateValue(Util.language as AnyObject, forKey: "language")
+        parameters.updateValue(Util.deviceId as AnyObject, forKey: "deviceId")
+        parameters.updateValue(deviceUser.categoryVer as AnyObject, forKey: "categoryVer")
+        parameters.updateValue(deviceUser.noticeVer as AnyObject, forKey: "noticeVer")
+        URLReq.request(self, url: URLReq.apiServer+"version/check", param: parameters, callback: { (dic) in
+            let deviceUser = Storage.getRealmDeviceUser()
+            if let token = dic["token"] as? String{
+                deviceUser.token = token
+            }
+            if let ver = dic["ver"] as? String{
+                Util.newVersion = ver
+            }
+            if let categoryVer = dic["categoryVer"] as? String{
+                deviceUser.categoryVer = Int(categoryVer)!
+            }
+            if let noticeVer = dic["noticeVer"] as? String{
+                deviceUser.noticeVer = Int(noticeVer)!
+            }
+            if let categoryList = dic["categoryList"] as? [[String: AnyObject]]{
+                Storage.setStorage("categoryList", value: categoryList as AnyObject)
+            }
+            Storage.setRealmDeviceUser(deviceUser)
+            
             self.spin.isHidden = true
             self.addCourt()
-        }
+        })
     }
+    
+    
+    
+    
     
     //메인 코트 가져옴
     func addCourt(){
@@ -246,6 +274,10 @@ class ViewController: UIViewController{
             }
         }
     }
+    
+    
+    
+    
     
     //자기위치 설정 뷰 나타내기
     @IBAction func locationSearchAction(_ sender: AnyObject) {

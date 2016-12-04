@@ -162,9 +162,11 @@ class Storage{
     static func locationThread(_ ctrl: UIViewController){
         DispatchQueue.global().async {
             while(true){
-                let param: [String: AnyObject] = ["latitude": Storage.latitude as AnyObject, "longitude": Storage.longitude as AnyObject]
-                URLReq.request(ctrl, url: URLReq.apiServer+URLReq.api_location_user, param: param)
-                Thread.sleep(forTimeInterval: 1)
+                var parameters : [String: AnyObject] = [:]
+                parameters.updateValue(Storage.latitude as AnyObject, forKey: "latitude")
+                parameters.updateValue(Storage.longitude as AnyObject, forKey: "longitude")
+                URLReq.request(ctrl, url: URLReq.apiServer+"location/user", param: parameters)
+                Thread.sleep(forTimeInterval: 60*5)
             }
         }
     }

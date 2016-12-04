@@ -144,13 +144,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         //앱 통신
-        let parameters = URLReq.vesion_checkParam()
-        URLReq.request((self.window?.rootViewController)!, url: URLReq.apiServer+URLReq.api_version_check, param: parameters, callback: { (dic) in
+        let deviceUser = Storage.getRealmDeviceUser()
+        var parameters : [String: AnyObject] = [:]
+        parameters.updateValue("ios" as AnyObject, forKey: "appType")
+        parameters.updateValue(Util.nsVersion as AnyObject, forKey: "appVersion")
+        parameters.updateValue(Date().getFullDate() as AnyObject, forKey: "sendDate")
+        parameters.updateValue(Util.language as AnyObject, forKey: "language")
+        parameters.updateValue(Util.deviceId as AnyObject, forKey: "deviceId")
+        parameters.updateValue(deviceUser.categoryVer as AnyObject, forKey: "categoryVer")
+        parameters.updateValue(deviceUser.noticeVer as AnyObject, forKey: "noticeVer")
+        
+        URLReq.request((self.window?.rootViewController)!, url: URLReq.apiServer+"version/check", param: parameters, callback: { (dic) in
             let deviceUser = Storage.getRealmDeviceUser()
-            deviceUser.token = dic["token"] as! String
-            Util.newVersion = dic["ver"] as! String
-            deviceUser.categoryVer = dic["categoryVer"] as! Int
-            deviceUser.noticeVer = dic["noticeVer"] as! Int
+            if let token = dic["token"] as? String{
+                deviceUser.token = token
+            }
+            if let ver = dic["ver"] as? String{
+                Util.newVersion = ver
+            }
+            if let categoryVer = dic["categoryVer"] as? String{
+                deviceUser.categoryVer = Int(categoryVer)!
+            }
+            if let noticeVer = dic["noticeVer"] as? String{
+                deviceUser.noticeVer = Int(noticeVer)!
+            }
             if let categoryList = dic["categoryList"] as? [[String: AnyObject]]{
                 Storage.setStorage("categoryList", value: categoryList as AnyObject)
             }
