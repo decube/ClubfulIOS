@@ -80,7 +80,7 @@ class AddView: UIView{
         parameters.updateValue(user.userLongitude as AnyObject, forKey: "userLongitude")
         parameters.updateValue(user.userAddress as AnyObject, forKey: "userAddress")
         parameters.updateValue(user.userAddressShort as AnyObject, forKey: "userAddressShort")
-        URLReq.request(ctrl, url: URLReq.apiServer+URLReq.api_user_info, param: parameters)
+        URLReq.request(ctrl, url: URLReq.apiServer+"user/info", param: parameters)
         
         UIView.animate(withDuration: 0.2, animations: {
             self.alpha = 0

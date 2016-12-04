@@ -44,32 +44,30 @@ class MapListView : UIView{
             var parameters : [String: AnyObject] = [:]
             parameters.updateValue(self.ctrl.searchField.text! as AnyObject, forKey: "address")
             parameters.updateValue(Util.language as AnyObject, forKey: "language")
-            URLReq.request(self.ctrl, url: URLReq.apiServer+URLReq.api_location_geocode, param: parameters, callback: { (dic) in
-                if let result = dic["results"] as? [String: AnyObject]{
-                    if let results = result["results"] as? [[String: AnyObject]]{
-                        if results.count > 1{
-                            //카운트가 1보다 많으면
-                            self.ctrl.view.endEditing(true)
-                            for element : [String: AnyObject] in results{
-                                let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
-                                self.addressArray.append(Address(latitude: latitude, longitude: longitude, address: address, addressShort: addressShort))
-                            }
-                            self.tableView.reloadData()
-                            self.show()
-                        }else{
-                            //카운트가 1개 이면
-                            for element : [String: AnyObject] in results{
-                                var elementLatitude = 0.0
-                                var elementLongitude = 0.0
-                                if let locationGeometry = element["geometry"] as? [String:AnyObject]{
-                                    if let location = locationGeometry["location"] as? [String:Double]{
-                                        elementLatitude = location["lat"]!
-                                        elementLongitude = location["lng"]!
-                                    }
+            URLReq.request(self.ctrl, url: URLReq.apiServer+"location/geocode", param: parameters, callback: { (dic) in
+                if let results = dic["results"] as? [[String: AnyObject]]{
+                    if results.count > 1{
+                        //카운트가 1보다 많으면
+                        self.ctrl.view.endEditing(true)
+                        for element : [String: AnyObject] in results{
+                            let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
+                            self.addressArray.append(Address(latitude: latitude, longitude: longitude, address: address, addressShort: addressShort))
+                        }
+                        self.tableView.reloadData()
+                        self.show()
+                    }else{
+                        //카운트가 1개 이면
+                        for element : [String: AnyObject] in results{
+                            var elementLatitude = 0.0
+                            var elementLongitude = 0.0
+                            if let locationGeometry = element["geometry"] as? [String:AnyObject]{
+                                if let location = locationGeometry["location"] as? [String:Double]{
+                                    elementLatitude = location["lat"]!
+                                    elementLongitude = location["lng"]!
                                 }
-                                self.isHidden = true
-                                self.ctrl.locationMove(latitude: elementLatitude, longitude: elementLongitude)
                             }
+                            self.isHidden = true
+                            self.ctrl.locationMove(latitude: elementLatitude, longitude: elementLongitude)
                         }
                     }
                 }else{

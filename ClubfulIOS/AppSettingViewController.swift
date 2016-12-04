@@ -48,7 +48,7 @@ class AppSettingViewController : UIViewController{
         parameters.updateValue(distanceSwitch.isOn as AnyObject, forKey: "distancePush")
         parameters.updateValue(interestSwitch.isOn as AnyObject, forKey: "interestPush")
         
-        URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_set, param: parameters, callback: { (dic) in
+        URLReq.request(self, url: URLReq.apiServer+"user/set", param: parameters, callback: { (dic) in
             deviceUser.noticePushCheck = self.noticeSwitch.isOn
             deviceUser.myCourtPushCheck = self.myCourtSwitch.isOn
             deviceUser.distancePushCheck = self.distanceSwitch.isOn

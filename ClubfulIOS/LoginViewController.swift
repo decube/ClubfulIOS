@@ -99,31 +99,75 @@ class LoginViewController: UIViewController {
         let user = Storage.getRealmUser()
         let deviceUser = Storage.getRealmDeviceUser()
         user.loginType = loginType
-        user.userId = dic["userId"] as! String
-        user.nickName = dic["nickName"] as! String
-        user.sex = dic["sex"] as! String
-        user.userLatitude = dic["userLatitude"] as! Double
-        user.userLongitude = dic["userLongitude"] as! Double
-        user.userAddress = dic["userAddress"] as! String
-        user.userAddressShort = dic["userAddressShort"] as! String
+        if let userId = dic["userId"] as? String{
+            user.userId = userId
+        }
+        if let nickName = dic["nickName"] as? String{
+            user.nickName = nickName
+        }
+        if let sex = dic["sex"] as? String{
+            user.sex = sex
+        }
+        if let userLatitude = dic["userLatitude"] as? String{
+            user.userLatitude = Double(userLatitude)!
+        }
+        if let userLongitude = dic["userLongitude"] as? String{
+            user.userLongitude = Double(userLongitude)!
+        }
+        if let userAddress = dic["userAddress"] as? String{
+            user.userAddress = userAddress
+        }
+        if let userAddressShort = dic["userAddressShort"] as? String{
+            user.userAddressShort = userAddressShort
+        }
+        
         
         let dateMakerFormatter = DateFormatter()
         dateMakerFormatter.calendar = Calendar.current
         dateMakerFormatter.dateFormat = "yyyy-MM-dd"
-        user.birth = dateMakerFormatter.date(from: "\(dic["birth"] as! String)")!
+        if let birth = dic["birth"] as? String{
+            user.birth = dateMakerFormatter.date(from: birth)!
+        }
         
-        
-        deviceUser.noticePushCheck = dic["noticePush"] as! Bool
-        deviceUser.myCourtPushCheck = dic["myCreateCourtPush"] as! Bool
-        deviceUser.distancePushCheck = dic["distancePush"] as! Bool
-        deviceUser.interestPushCheck = dic["interestPush"] as! Bool
+        if let noticePush = dic["noticePush"] as? String{
+            if noticePush == "1"{
+                deviceUser.noticePushCheck = true
+            }else{
+                deviceUser.noticePushCheck = false
+            }
+        }
+        if let myCreateCourtPush = dic["myCreateCourtPush"] as? String{
+            if myCreateCourtPush == "1"{
+                deviceUser.myCourtPushCheck = true
+            }else{
+                deviceUser.myCourtPushCheck = false
+            }
+        }
+        if let distancePush = dic["distancePush"] as? String{
+            if distancePush == "1"{
+                deviceUser.distancePushCheck = true
+            }else{
+                deviceUser.distancePushCheck = false
+            }
+        }
+        if let interestPush = dic["interestPush"] as? String{
+            if interestPush == "1"{
+                deviceUser.interestPushCheck = true
+            }else{
+                deviceUser.interestPushCheck = false
+            }
+        }
         
         let dateMakerFormatter2 = DateFormatter()
         dateMakerFormatter2.calendar = Calendar.current
         dateMakerFormatter2.dateFormat = "hh:mm:ss"
         
-        deviceUser.startPushTime = dateMakerFormatter2.date(from: "\(dic["startTime"] as! String)")!
-        deviceUser.endPushTime = dateMakerFormatter2.date(from: "\(dic["endTime"] as! String)")!
+        if let startTime = dic["startTime"] as? String{
+            deviceUser.startPushTime = dateMakerFormatter2.date(from: startTime)!
+        }
+        if let endTime = dic["endTime"] as? String{
+            deviceUser.endPushTime = dateMakerFormatter2.date(from: endTime)!
+        }
         
         Storage.setRealmUser(user)
         Storage.setRealmDeviceUser(deviceUser)
@@ -165,7 +209,7 @@ class LoginViewController: UIViewController {
                             if let kakaoNickname = kakao.properties["nickname"] as? String{
                                 nickName = kakaoNickname
                             }
-                            self.login(String(describing: kakao.id), nickName: nickName, loginType: "k")
+                            self.login("\(kakao.id!)", nickName: nickName, loginType: "k")
                         })
                     }else{
                         self.spin.isHidden = true

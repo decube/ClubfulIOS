@@ -223,8 +223,8 @@ class CourtCreateViewController: UIViewController{
     
     
     func courtInsert(picArray: [UIImage], picNameArray: [String]){
-        self.spin.isHidden = false
-        self.spin.startAnimating()
+        //self.spin.isHidden = false
+        //self.spin.startAnimating()
         let user = Storage.getRealmUser()
         var parameters : [String: AnyObject] = [:]
         parameters.updateValue(user.userId as AnyObject, forKey: "id")
@@ -237,7 +237,7 @@ class CourtCreateViewController: UIViewController{
         parameters.updateValue(picNameArray as AnyObject, forKey: "picNameArray")
         parameters.updateValue(cnameTextField.text! as AnyObject, forKey: "cname")
         
-        URLReq.request(self, url: URLReq.apiServer+URLReq.api_court_create, param: parameters, callback: { (dic) in
+        URLReq.request(self, url: URLReq.apiServer+"court/create", param: parameters, callback: { (dic) in
             if let seq = dic["seq"] as? Int{
                 self.courtImageInsert(seq, picArray: picArray, picNameArray: picNameArray)
             }

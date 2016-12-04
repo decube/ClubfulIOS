@@ -13,8 +13,15 @@ class URLReq{
     static let urlCheck = "https://decubestaticserver-guanho.c9users.io/clubful_url.json"
     
     static var apiServer = "https://clubful-smkim89.c9users.io/"
+    static var imageServer = "https://decubeimageserver-guanho.c9users.io/"
     static var viewServer = ""
-    static var courtUpload = ""
+    
+    
+    static var courtUpload = URLReq.imageServer+"upload/clubful/image/court/"
+    static var courtDownload = URLReq.imageServer+"download/clubful/image/court/"
+    
+    
+    
     
     static var view_info = ""
     static var view_notice = ""

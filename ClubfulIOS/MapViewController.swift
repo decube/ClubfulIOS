@@ -75,20 +75,18 @@ class MapViewController: UIViewController {
         parameters.updateValue(self.mapView.region.center.latitude as AnyObject, forKey: "latitude")
         parameters.updateValue(self.mapView.region.center.longitude as AnyObject, forKey: "longitude")
         parameters.updateValue(Util.language as AnyObject, forKey: "language")
-        URLReq.request(self, url: URLReq.apiServer+URLReq.api_location_geocode, param: parameters, callback: {(dic) in
-            if let result = dic["results"] as? [String: AnyObject]{
-                if let results = result["results"] as? [[String: AnyObject]]{
-                    if results.count > 0{
-                        let element : [String: AnyObject] = results[0]
-                        let (_, _, addressShort, address) = Util.googleMapParse(element)
-                        
-                        self.preAddress.latitude = self.mapView.region.center.latitude
-                        self.preAddress.longitude = self.mapView.region.center.longitude
-                        self.preAddress.address = address
-                        self.preAddress.addressShort = addressShort
-                        self.preBtn.setTitle("\(addressShort)", for: UIControlState())
-                        self.presentingViewController?.dismiss(animated: true, completion: nil)
-                    }
+        URLReq.request(self, url: URLReq.apiServer+"location/geocode", param: parameters, callback: {(dic) in
+            if let results = dic["results"] as? [[String: AnyObject]]{
+                if results.count > 0{
+                    let element : [String: AnyObject] = results[0]
+                    let (_, _, addressShort, address) = Util.googleMapParse(element)
+                    
+                    self.preAddress.latitude = self.mapView.region.center.latitude
+                    self.preAddress.longitude = self.mapView.region.center.longitude
+                    self.preAddress.address = address
+                    self.preAddress.addressShort = addressShort
+                    self.preBtn.setTitle("\(addressShort)", for: UIControlState())
+                    self.presentingViewController?.dismiss(animated: true, completion: nil)
                 }
             }else{
                 if let isMsgView = dic["isMsgView"] as? Bool{

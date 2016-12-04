@@ -183,36 +183,23 @@ class Util{
         var longitude = 0.0
         var addressShort = ""
         var address = ""
-        if let locationGeometry = element["geometry"] as? [String:AnyObject]{
-            if let location = locationGeometry["location"] as? [String:Double]{
-                latitude = location["lat"]!
-                longitude = location["lng"]!
-            }
+        if let latitudeValue = element["latitude"] as? String{
+            latitude = Double(latitudeValue)!
+        }else if let latitudeValue = element["latitude"] as? Double{
+            latitude = latitudeValue
         }
-        if let locationComponents = element["address_components"] as? [[String:AnyObject]]{
-            for components : [String:AnyObject] in locationComponents{
-                if let types = components["types"] as? [String]{
-                    if types[0] == "sublocality_level_2"{
-                        addressShort = components["long_name"] as! String
-                        break
-                    }
-                }
-            }
-            if (addressShort == ""){
-                for components : [String:AnyObject] in locationComponents{
-                    if let types = components["types"] as? [String]{
-                        if types[0] == "sublocality_level_1"{
-                            addressShort = components["long_name"] as! String
-                            break
-                        }
-                    }
-                }
-            }
-            if (addressShort == ""){
-                addressShort = locationComponents[0]["long_name"] as! String
-            }
-            address = element["formatted_address"] as! String
+        if let longitudeValue = element["longitude"] as? String{
+            longitude = Double(longitudeValue)!
+        }else if let longitudeValue = element["longitude"] as? Double{
+            longitude = longitudeValue
         }
+        if let formattedAddress = element["formattedAddress"] as? String{
+            address = formattedAddress
+        }
+        if let city = element["city"] as? String{
+            addressShort = city
+        }
+        
         
         return (latitude, longitude, addressShort, address)
     }
