@@ -251,7 +251,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let currentDate = Date().getDate()
                     if currentDate == date.substring(from: 0, length: 10){
                         if Date().hour() == date.substring(from: 11, length: 2){
-                            Util.alert((self.window?.rootViewController)!, message: "코트 초대에 응하시겠습니까?", confirmTitle: "수락", cancelStr: "거절", confirmHandler: { (_) in
+                            Util.alert((self.window?.rootViewController)!, message: "코트 초대에 응하시겠습니까?", confirmTitle: "수락", cancelStr: "거절", isCancel: true, confirmHandler: { (_) in
                                 
                             })
                         }else{

@@ -53,19 +53,24 @@ class CourtSearchView : UIView{
             }
             
             var parameters : [String: AnyObject] = [:]
-            parameters.updateValue(self.ctrl.searchTextField.text! as AnyObject, forKey: "address")
+            parameters.updateValue(self.ctrl.searchTextField.text! as AnyObject, forKey: "search")
             parameters.updateValue(deviceUser.category as AnyObject, forKey: "category")
             parameters.updateValue(latitude as AnyObject, forKey: "latitude")
             parameters.updateValue(longitude as AnyObject, forKey: "longitude")
-            URLReq.request(self.ctrl, url: URLReq.apiServer+URLReq.api_court_listSearch, param: parameters, callback: { (dic) in
+            URLReq.request(self.ctrl, url: URLReq.apiServer+"court/getList", param: parameters, callback: { (dic) in
                 self.spin.isHidden = true
                 self.spin.stopAnimating()
                 if let list = dic["list"] as? [[String: AnyObject]]{
-                    for data in list{
-                        self.courtArray.append(Court(data))
+                    if list.count == 0{
+                        Util.alert(self.ctrl, message: "해당 검색어에 코트가 없습니다.")
+                    }else{
+                        self.courtArray = []
+                        for data in list{
+                            self.courtArray.append(Court(data))
+                        }
+                        self.tableView.reloadData()
+                        self.show()
                     }
-                    self.tableView.reloadData()
-                    self.show()
                 }
             })
         }else{

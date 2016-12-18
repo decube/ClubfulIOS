@@ -112,13 +112,13 @@ class MypageViewController: UIViewController {
             }
             for data in list{
                 let court = Court(data)
-                if court.setImageData(){
-                    if type == 0{
-                        self.interestArray.append(court)
-                    }else if type == 1{
-                        self.createArray.append(court)
-                    }
-                }
+//                if court.setImageData(){
+//                    if type == 0{
+//                        self.interestArray.append(court)
+//                    }else if type == 1{
+//                        self.createArray.append(court)
+//                    }
+//                }
             }
             if type == 0 && self.interestArray.count == 0{
                 noneLbl()
@@ -146,7 +146,7 @@ class MypageViewController: UIViewController {
                     self.performSegue(withIdentifier: "mypage_courtDetail", sender: nil)
                 }
                 customView.pressedCallback = {(court: Court) in
-                    Util.imageSaveHandler(self, imageUrl: court.image, image: court.imageData)
+                    //Util.imageSaveHandler(self, imageUrl: court.image, image: court.imageData)
                 }
                 if type == 0{
                     customView.frame = CGRect(x: i*self.interestCourt.frame.width, y: 0, width: self.interestCourt.frame.width, height: self.interestCourt.frame.height)

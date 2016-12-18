@@ -174,7 +174,7 @@ class CourtViewController : UIViewController{
         
         var parameters : [String: AnyObject] = [:]
         parameters.updateValue(self.courtSeq as AnyObject, forKey: "seq")
-        URLReq.request(self, url: URLReq.apiServer+URLReq.api_court_detail, param: parameters, callback: { (dic) in
+        URLReq.request(self, url: URLReq.apiServer+"court/detail", param: parameters, callback: { (dic) in
             if let data = dic["result"] as? [String: AnyObject]{
                 self.court = Court(data)
                 self.setLayout()
@@ -193,6 +193,16 @@ class CourtViewController : UIViewController{
         self.interestBtn.setImage(UIImage(named: starImage), for: UIControlState())
     }
     
+    func appendImage(_ imageData: Data!, _ imageStr: String){
+        if imageData == nil || imageData.count == 0{
+            
+        }else{
+            let imgView = UIImageView(image: UIImage(data: imageData))
+            self.imageURLList.append(imageStr)
+            self.imageViewList.append(imgView)
+        }
+    }
+    
     func setLayout(){
         self.interestLbl.text = "\(self.court.interest!)"
         self.descTextView.text = self.court.description
@@ -200,24 +210,34 @@ class CourtViewController : UIViewController{
         descTextView.scrollToTop()
         
         DispatchQueue.global().async {
-            for image in self.court.imageList{
-                if let imageUrl = Foundation.URL(string: image["image"]!){
-                    if let imageData = try? Data(contentsOf: imageUrl){
-                        if let imageUI = UIImage(data: imageData){
-                            let imgView = UIImageView(image: imageUI)
-                            self.imageURLList.append(image["image"]!)
-                            self.imageViewList.append(imgView)
+            self.court.setImage1Data(){
+                self.appendImage(self.court.imageData1, self.court.image1)
+                self.court.setImage2Data(){
+                    self.appendImage(self.court.imageData2, self.court.image2)
+                    self.court.setImage3Data(){
+                        self.appendImage(self.court.imageData3, self.court.image3)
+                        self.court.setImage4Data(){
+                            self.appendImage(self.court.imageData4, self.court.image4)
+                            self.court.setImage5Data(){
+                                self.appendImage(self.court.imageData5, self.court.image5)
+                                self.court.setImage6Data(){
+                                    self.appendImage(self.court.imageData6, self.court.image6)
+                                    for _ in 0 ..< Int(self.imageViewList.count){
+                                        let ovalView = UIView()
+                                        self.imageBottomIndex.append(ovalView)
+                                    }
+                                    self.setImages()
+                                }
+                            }
                         }
                     }
                 }
             }
-            for _ in 0 ..< Int(self.imageViewList.count){
-                let ovalView = UIView()
-                self.imageBottomIndex.append(ovalView)
-            }
-            self.setImages()
+            
         }
     }
+    
+    
     func setImages(){
         DispatchQueue.main.async {
             self.imageSlide.subviews.forEach({$0.removeFromSuperview()})

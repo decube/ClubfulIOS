@@ -17,33 +17,20 @@ class URLReq{
     static var viewServer = ""
     
     
-    static var courtUpload = URLReq.imageServer+"upload/clubful/image/court/"
-    static var courtDownload = URLReq.imageServer+"download/clubful/image/court/"
+    static var courtUpload = URLReq.imageServer+"upload/clubful/court/"
+    static var courtDownload = URLReq.imageServer+"download/clubful/court/"
     
     
     
+    static var view_info = "/view_info"
+    static var view_notice = "/view_notice"
+    static var view_guide = "/view_guide"
+    static var view_inquiry = "/view_inquiry"
     
-    static var view_info = ""
-    static var view_notice = ""
-    static var view_guide = ""
-    static var view_inquiry = ""
-    
-    static var api_version_check = ""
-    static var api_version_app = ""
-    static var api_court_create = ""
-    static var api_court_detail = ""
-    static var api_court_interest = ""
-    static var api_court_listSearch = ""
-    static var api_court_replyInsert = ""
-    static var api_location_geocode = ""
-    static var api_location_user = ""
-    static var api_user_join = ""
-    static var api_user_login = ""
-    static var api_user_logout = ""
-    static var api_user_mypage = ""
-    static var api_user_set = ""
-    static var api_user_update = ""
-    static var api_user_info = ""
+    static var api_court_interest = "/api_court_interest"
+    static var api_court_replyInsert = "/api_court_replyInsert"////////////
+    static var api_user_mypage = "/api_user_mypage"
+    static var api_user_update = "/api_user_update"
     
     static func request(_ ctrl: UIViewController, url: String, param: [String: AnyObject], callback: (([String:AnyObject])-> Void)! = nil, codeErrorCallback: (([String:AnyObject])-> Void)! = nil){
         let deviceUser = Storage.getRealmDeviceUser()
@@ -72,7 +59,7 @@ class URLReq{
                         }
                     }
                 }
-        }
+            }
     }
     
     static func log(url: String, param: [String: AnyObject], response: DataResponse<Data>, dic: [String: AnyObject]){

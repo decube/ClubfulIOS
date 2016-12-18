@@ -53,9 +53,9 @@ class MyLocationView : UIView{
             parameters.updateValue(self.search.text! as AnyObject, forKey: "address")
             parameters.updateValue(Util.language as AnyObject, forKey: "language")
             
-            URLReq.request(self.ctrl, url: URLReq.apiServer+URLReq.api_location_geocode, param: parameters, callback: { (dic) in
-                if let result = dic["results"] as? [String: AnyObject]{
-                    if let results = result["results"] as? [[String: AnyObject]]{
+            URLReq.request(self.ctrl, url: URLReq.apiServer+"location/geocode", param: parameters, callback: { (dic) in
+                if let results = dic["results"] as? [[String: AnyObject]]{
+                    if results.count > 0{
                         for element : [String: AnyObject] in results{
                             let (latitude, longitude, addressShort, address) = Util.googleMapParse(element)
                             self.locationArray.append(Address(latitude: latitude, longitude: longitude, address: address, addressShort: addressShort))

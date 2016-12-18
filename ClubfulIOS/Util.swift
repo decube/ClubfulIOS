@@ -64,10 +64,9 @@ class Util{
     
     
     
-    static func alert(_ ctrl : UIViewController, title : String = "알림", message : String, confirmTitle : String = "확인", cancelStr :
-        String = "" , confirmHandler : @escaping (UIAlertAction) -> Void = {(_) in}, cancelHandler : @escaping (UIAlertAction) -> Void = {(_) in}){
+    static func alert(_ ctrl : UIViewController, title : String = "알림", message : String, confirmTitle : String = "확인",cancelStr :String = "취소", isCancel: Bool = false, confirmHandler : @escaping (UIAlertAction) -> Void = {(_) in}, cancelHandler : @escaping (UIAlertAction) -> Void = {(_) in}){
         let alert = UIAlertController(title:title,message:message, preferredStyle: UIAlertControllerStyle.alert)
-        if cancelStr != ""{
+        if isCancel{
             alert.addAction(UIAlertAction(title:cancelStr,style: .cancel,handler:cancelHandler))
         }
         alert.addAction(UIAlertAction(title:confirmTitle,style: .default,handler:confirmHandler))

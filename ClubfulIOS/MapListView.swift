@@ -58,16 +58,9 @@ class MapListView : UIView{
                     }else{
                         //카운트가 1개 이면
                         for element : [String: AnyObject] in results{
-                            var elementLatitude = 0.0
-                            var elementLongitude = 0.0
-                            if let locationGeometry = element["geometry"] as? [String:AnyObject]{
-                                if let location = locationGeometry["location"] as? [String:Double]{
-                                    elementLatitude = location["lat"]!
-                                    elementLongitude = location["lng"]!
-                                }
-                            }
+                            let (latitude, longitude, _, _) = Util.googleMapParse(element)
                             self.isHidden = true
-                            self.ctrl.locationMove(latitude: elementLatitude, longitude: elementLongitude)
+                            self.ctrl.locationMove(latitude: latitude, longitude: longitude)
                         }
                     }
                 }else{

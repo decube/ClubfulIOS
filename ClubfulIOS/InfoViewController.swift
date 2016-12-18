@@ -29,7 +29,7 @@ class InfoViewController : UIViewController{
         self.setLayout()
         
         let parameters : [String: AnyObject] = ["appType": "ios" as AnyObject]
-        URLReq.request(self, url: URLReq.apiServer+URLReq.api_version_app, param: parameters, callback: { (dic) in
+        URLReq.request(self, url: URLReq.apiServer+"version/app", param: parameters, callback: { (dic) in
             Util.newVersion = dic["appVersion"] as! String
             DispatchQueue.main.async {
                 self.setLayout()

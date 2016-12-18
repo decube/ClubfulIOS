@@ -47,6 +47,9 @@ class CourtCreateViewController: UIViewController{
         self.address = Address()
         
         func picClick(_ pic: PicView){
+            if spin.isHidden == false{
+                return
+            }
             self.picTemp = pic
             self.view.endEditing(true)
             let alert = UIAlertController(title: "", message: "사진타입선택", preferredStyle: .actionSheet)
@@ -175,8 +178,10 @@ class CourtCreateViewController: UIViewController{
     @IBAction func saveAction(_ sender: AnyObject) {
         self.view.endEditing(true)
         if spin.isHidden == false{
-            return
+            //return
         }
+        self.spin.isHidden = false
+        self.spin.startAnimating()
         
         var picArray : [UIImage] = [UIImage]()
         var picNameArray : [String] = []
@@ -223,8 +228,6 @@ class CourtCreateViewController: UIViewController{
     
     
     func courtInsert(picArray: [UIImage], picNameArray: [String]){
-        //self.spin.isHidden = false
-        //self.spin.startAnimating()
         let user = Storage.getRealmUser()
         var parameters : [String: AnyObject] = [:]
         parameters.updateValue(user.userId as AnyObject, forKey: "id")
@@ -392,19 +395,19 @@ extension CourtCreateViewController: UIImagePickerControllerDelegate{
                 AdobeImageEditorCustomization.setCropToolInvertEnabled(false)
                 AdobeImageEditorCustomization.setCropToolOriginalEnabled(false)
                 
-                let _ : Array<Dictionary<String, Any>>  = [
-                    [
-                        "kAdobeImageEditorCropPresetName":"Option1",
-                        "kAdobeImageEditorCropPresetWidth":3,
-                        "kAdobeImageEditorCropPresetHeight":7
-                    ]
-                ]
-                //AdobeImageEditorCustomization.setCropToolPresets(cropCustom)
+//                let _ : Array<Dictionary<String, Any>>  = [
+//                    [
+//                        "kAdobeImageEditorCropPresetName":"Option1",
+//                        "kAdobeImageEditorCropPresetWidth":3,
+//                        "kAdobeImageEditorCropPresetHeight":7
+//                    ]
+//                ]
+//                AdobeImageEditorCustomization.setCropToolPresets(cropCustom)
                 
                 
-                let adobeViewCtr = AdobeUXImageEditorViewController(image: newImage)
-                adobeViewCtr.delegate = self
-                self.present(adobeViewCtr, animated: false) { () -> Void in
+                let adobeViewCtrl = AdobeUXImageEditorViewController(image: newImage)
+                adobeViewCtrl.delegate = self
+                self.present(adobeViewCtrl, animated: false) { () -> Void in
                     
                 }
             }

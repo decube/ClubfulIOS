@@ -25,7 +25,7 @@ var tempData : [[String: AnyObject]] = [
         "latitude":34.2342 as AnyObject,
         "longitude":123.243232 as AnyObject,
         "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image":"http://post.phinf.naver.net/20160527_297/1464314639619UEOpr_JPEG/11.JPG?type=w1200" as AnyObject
+        "image1":"http://post.phinf.naver.net/20160527_297/1464314639619UEOpr_JPEG/11.JPG?type=w1200" as AnyObject
     ],[
         "seq":1 as AnyObject,
         "categorySeq":1 as AnyObject,
@@ -36,7 +36,7 @@ var tempData : [[String: AnyObject]] = [
         "latitude":34.2342 as AnyObject,
         "longitude":123.243232 as AnyObject,
         "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image":"http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg" as AnyObject
+        "image1":"http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg" as AnyObject
     ],[
         "seq":1 as AnyObject,
         "categorySeq":1 as AnyObject,
@@ -47,7 +47,7 @@ var tempData : [[String: AnyObject]] = [
         "latitude":34.2342 as AnyObject,
         "longitude":123.243232 as AnyObject,
         "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image":"http://postfiles5.naver.net/20120123_52/kenny790907_1327322190946s9Mjv_JPEG/IMG_5849.JPG?type=w1" as AnyObject
+        "image1":"http://postfiles5.naver.net/20120123_52/kenny790907_1327322190946s9Mjv_JPEG/IMG_5849.JPG?type=w1" as AnyObject
     ],[
         "seq":1 as AnyObject,
         "categorySeq":1 as AnyObject,
@@ -58,7 +58,7 @@ var tempData : [[String: AnyObject]] = [
         "latitude":34.2342 as AnyObject,
         "longitude":123.243232 as AnyObject,
         "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image":"http://postfiles15.naver.net/20150209_190/imatrancer_1423415348869O6PNR_PNG/%B3%F3%B1%B8%C0%E5_%B3%F3%B1%B8%C4%DA%C6%AE_%284%29.png?type=w2" as AnyObject
+        "image1":"http://postfiles15.naver.net/20150209_190/imatrancer_1423415348869O6PNR_PNG/%B3%F3%B1%B8%C0%E5_%B3%F3%B1%B8%C4%DA%C6%AE_%284%29.png?type=w2" as AnyObject
     ],[
         "seq":1 as AnyObject,
         "categorySeq":1 as AnyObject,
@@ -69,7 +69,7 @@ var tempData : [[String: AnyObject]] = [
         "latitude":34.2342 as AnyObject,
         "longitude":123.243232 as AnyObject,
         "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image":"http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg" as AnyObject
+        "image1":"http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg" as AnyObject
     ],[
         "seq":1 as AnyObject,
         "categorySeq":1 as AnyObject,
@@ -80,7 +80,7 @@ var tempData : [[String: AnyObject]] = [
         "latitude":34.2342 as AnyObject,
         "longitude":123.243232 as AnyObject,
         "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image":"http://post.phinf.naver.net/20160527_297/1464314639619UEOpr_JPEG/11.JPG?type=w1200" as AnyObject
+        "image1":"http://post.phinf.naver.net/20160527_297/1464314639619UEOpr_JPEG/11.JPG?type=w1200" as AnyObject
     ],[
         "seq":1 as AnyObject,
         "categorySeq":1 as AnyObject,
@@ -91,7 +91,7 @@ var tempData : [[String: AnyObject]] = [
         "latitude":34.2342 as AnyObject,
         "longitude":123.243232 as AnyObject,
         "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image":"http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg" as AnyObject
+        "image1":"http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg" as AnyObject
     ],[
         "seq":1 as AnyObject,
         "categorySeq":1 as AnyObject,
@@ -102,7 +102,7 @@ var tempData : [[String: AnyObject]] = [
         "latitude":34.2342 as AnyObject,
         "longitude":123.243232 as AnyObject,
         "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image":"http://postfiles5.naver.net/20120123_52/kenny790907_1327322190946s9Mjv_JPEG/IMG_5849.JPG?type=w1" as AnyObject
+        "image1":"http://postfiles5.naver.net/20120123_52/kenny790907_1327322190946s9Mjv_JPEG/IMG_5849.JPG?type=w1" as AnyObject
     ],[
         "seq":1 as AnyObject,
         "categorySeq":1 as AnyObject,
@@ -113,7 +113,7 @@ var tempData : [[String: AnyObject]] = [
         "latitude":34.2342 as AnyObject,
         "longitude":123.243232 as AnyObject,
         "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image":"http://postfiles15.naver.net/20150209_190/imatrancer_1423415348869O6PNR_PNG/%B3%F3%B1%B8%C0%E5_%B3%F3%B1%B8%C4%DA%C6%AE_%284%29.png?type=w2" as AnyObject
+        "image1":"http://postfiles15.naver.net/20150209_190/imatrancer_1423415348869O6PNR_PNG/%B3%F3%B1%B8%C0%E5_%B3%F3%B1%B8%C4%DA%C6%AE_%284%29.png?type=w2" as AnyObject
     ],[
         "seq":1 as AnyObject,
         "categorySeq":1 as AnyObject,
@@ -124,7 +124,7 @@ var tempData : [[String: AnyObject]] = [
         "latitude":34.2342 as AnyObject,
         "longitude":123.243232 as AnyObject,
         "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image":"http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg" as AnyObject
+        "image1":"http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg" as AnyObject
     ]
 ]
 

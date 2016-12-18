@@ -126,7 +126,7 @@ class AddView: UIView{
                 }
             }
             if self.isHidden == true && addViewIsShow == true{
-                Util.alert(ctrl, title: "알림", message: "더 정확하게 코트를 찾으시려면 추가정보를 입력하셔야 합니다.", confirmTitle: "입력할께요", cancelStr: "오늘 하루 안할께요", confirmHandler: { (_) in
+                Util.alert(ctrl, title: "알림", message: "더 정확하게 코트를 찾으시려면 추가정보를 입력하셔야 합니다.", confirmTitle: "입력할께요", cancelStr: "오늘 하루 안할께요", isCancel: true, confirmHandler: { (_) in
                     self.addViewShow()
                     }, cancelHandler: { (_) in
                         Storage.setStorage("addInfo", value: Date() as AnyObject)

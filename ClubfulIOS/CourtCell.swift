@@ -28,16 +28,21 @@ class CourtCell: UITableViewCell {
         self.courtName.text = court.cname
         self.courtDesc.text = court.description
         self.location.text = "\(getDistance(latitude: court.latitude, longitude: court.longitude)) K \(court.addressShort!)"
-        DispatchQueue.global().async {
-            if let imageUrl = Foundation.URL(string: court.image){
-                if let imageData = try? Data(contentsOf: imageUrl){
-                    if let image = UIImage(data: imageData){
-                        DispatchQueue.main.async {
-                            self.imgView.image = image
+        if court.imageData1 == nil || court.imageData1.count == 0{
+            DispatchQueue.global().async {
+                if let imageUrl = Foundation.URL(string: court.image1){
+                    if let imageData = try? Data(contentsOf: imageUrl){
+                        court.imageData1 = imageData
+                        if let image = UIImage(data: imageData){
+                            DispatchQueue.main.async {
+                                self.imgView.image = image
+                            }
                         }
                     }
                 }
             }
+        }else{
+            self.imgView.image = UIImage(data: court.imageData1)
         }
     }
     

@@ -23,27 +23,157 @@ class Court {
     var makeDT: String!
     var updateDT: String!
     var interest: Int!
-    var image: String!
-    var imageList: [[String: String]]!
-    var imageData: UIImage!
+    var image1: String!
+    var image2: String!
+    var image3: String!
+    var image4: String!
+    var image5: String!
+    var image6: String!
+    var imageData1: Data!
+    var imageData2: Data!
+    var imageData3: Data!
+    var imageData4: Data!
+    var imageData5: Data!
+    var imageData6: Data!
     
-    func setImageData() -> Bool{
-        if let imgURL = Foundation.URL(string: image){
+    func setImage1Data(_ callback: ((Void) -> Void)!){
+        if let imgURL = Foundation.URL(string: self.image1){
             if let imgData = try? Data(contentsOf: imgURL){
-                if let imgUI = UIImage(data: imgData){
-                    self.imageData = imgUI
-                    return true
+                self.imageData1 = imgData
+                if callback != nil{
+                    callback()
+                }else{
+                    if callback != nil{
+                        callback()
+                    }
+                }
+            }else{
+                if callback != nil{
+                    callback()
                 }
             }
+        }else{
+            if callback != nil{
+                callback()
+            }
         }
-        return false
+    }
+    func setImage2Data(_ callback: ((Void) -> Void)!){
+        if let imgURL = Foundation.URL(string: self.image2){
+            if let imgData = try? Data(contentsOf: imgURL){
+                self.imageData2 = imgData
+                if callback != nil{
+                    callback()
+                }else{
+                    if callback != nil{
+                        callback()
+                    }
+                }
+            }else{
+                if callback != nil{
+                    callback()
+                }
+            }
+        }else{
+            if callback != nil{
+                callback()
+            }
+        }
+    }
+    func setImage3Data(_ callback: ((Void) -> Void)!){
+        if let imgURL = Foundation.URL(string: self.image3){
+            if let imgData = try? Data(contentsOf: imgURL){
+                self.imageData3 = imgData
+                if callback != nil{
+                    callback()
+                }else{
+                    if callback != nil{
+                        callback()
+                    }
+                }
+            }else{
+                if callback != nil{
+                    callback()
+                }
+            }
+        }else{
+            if callback != nil{
+                callback()
+            }
+        }
+    }
+    func setImage4Data(_ callback: ((Void) -> Void)!){
+        if let imgURL = Foundation.URL(string: self.image4){
+            if let imgData = try? Data(contentsOf: imgURL){
+                self.imageData4 = imgData
+                if callback != nil{
+                    callback()
+                }else{
+                    if callback != nil{
+                        callback()
+                    }
+                }
+            }else{
+                if callback != nil{
+                    callback()
+                }
+            }
+        }else{
+            if callback != nil{
+                callback()
+            }
+        }
+    }
+    func setImage5Data(_ callback: ((Void) -> Void)!){
+        if let imgURL = Foundation.URL(string: self.image5){
+            if let imgData = try? Data(contentsOf: imgURL){
+                self.imageData5 = imgData
+                if callback != nil{
+                    callback()
+                }else{
+                    if callback != nil{
+                        callback()
+                    }
+                }
+            }else{
+                if callback != nil{
+                    callback()
+                }
+            }
+        }else{
+            if callback != nil{
+                callback()
+            }
+        }
+    }
+    func setImage6Data(_ callback: ((Void) -> Void)!){
+        if let imgURL = Foundation.URL(string: self.image6){
+            if let imgData = try? Data(contentsOf: imgURL){
+                self.imageData6 = imgData
+                if callback != nil{
+                    callback()
+                }else{
+                    if callback != nil{
+                        callback()
+                    }
+                }
+            }else{
+                if callback != nil{
+                    callback()
+                }
+            }
+        }else{
+            if callback != nil{
+                callback()
+            }
+        }
     }
     
     init(_ data: [String: AnyObject]) {
         self.data = data
         self.seq = getInt(data["seq"])
         self.categorySeq = getInt(data["categorySeq"])
-        self.categoryName = getString(data["categoryName"])
+        self.categoryName = getString(data["categoryNM"])
         self.address = getString(data["address"])
         self.addressShort = getString(data["addressShort"])
         self.cname = getString(data["cname"])
@@ -52,12 +182,13 @@ class Court {
         self.description = getString(data["description"])
         self.makeDT = getString(data["makeDT"])
         self.updateDT = getString(data["updateDT"])
-        self.image = getString(data["image"])
+        self.image1 = getString(data["image1"])
+        self.image2 = getString(data["image2"])
+        self.image3 = getString(data["image3"])
+        self.image4 = getString(data["image4"])
+        self.image5 = getString(data["image5"])
+        self.image6 = getString(data["image6"])
         self.interest = getInt(data["interest"])
-        self.imageList = getArrayString("imageList", inner: ["image"])
-        if self.imageList.count != 0{
-            self.image = self.imageList.first?["image"]
-        }
     }
     init() {
     }

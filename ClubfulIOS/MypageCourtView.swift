@@ -23,7 +23,7 @@ class MypageCourtView: UIView {
     
     func setCourt(_ court: Court){
         self.court = court
-        self.image.image = court.imageData
+        self.image.image = UIImage(data: court.imageData1)
         self.name.text = "\(court.cname!) (\(court.categoryName!) / \(court.address!))"
     }
     
