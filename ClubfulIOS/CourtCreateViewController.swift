@@ -178,7 +178,7 @@ class CourtCreateViewController: UIViewController{
     @IBAction func saveAction(_ sender: AnyObject) {
         self.view.endEditing(true)
         if spin.isHidden == false{
-            //return
+            return
         }
         self.spin.isHidden = false
         self.spin.startAnimating()
@@ -202,7 +202,7 @@ class CourtCreateViewController: UIViewController{
         imageCnt(self.pic3)
         imageCnt(self.pic4)
         
-        if idx >= 2{
+        if idx > 2{
             if self.address.latitude == nil || self.address.longitude == nil || self.address.address == nil || self.address.addressShort == nil || self.address.address == "" || self.address.addressShort == ""{
                 self.spin.isHidden = true
                 self.spin.stopAnimating()

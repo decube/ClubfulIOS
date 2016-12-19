@@ -35,7 +35,7 @@ class MypageViewController: UIViewController {
     func reloadData(){
         let user = Storage.getRealmUser()
         let parameters : [String: AnyObject] = ["userId": user.userId as AnyObject]
-        URLReq.request(self, url: URLReq.apiServer+URLReq.api_user_mypage, param: parameters, callback: { (dic) in
+        URLReq.request(self, url: URLReq.apiServer+"user/mypage", param: parameters, callback: { (dic) in
             DispatchQueue.global().async {
                 if let list = dic["interestList"] as? [[String: AnyObject]]{
                     self.setData(list, type: 0)

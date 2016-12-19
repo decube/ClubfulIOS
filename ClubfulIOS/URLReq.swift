@@ -27,9 +27,7 @@ class URLReq{
     static var view_guide = "/view_guide"
     static var view_inquiry = "/view_inquiry"
     
-    static var api_court_interest = "/api_court_interest"
     static var api_court_replyInsert = "/api_court_replyInsert"////////////
-    static var api_user_mypage = "/api_user_mypage"
     static var api_user_update = "/api_user_update"
     
     static func request(_ ctrl: UIViewController, url: String, param: [String: AnyObject], callback: (([String:AnyObject])-> Void)! = nil, codeErrorCallback: (([String:AnyObject])-> Void)! = nil){

@@ -309,12 +309,15 @@ class CourtViewController : UIViewController{
         spin.startAnimating()
         
         let courtStar = Storage.getStorage("courtStar_\(self.courtSeq)")
-        var type = "good"
+        var type = "Y"
         if courtStar == nil{
-            type = "goodCancel"
+            type = "N"
         }
-        let parameters : [String: AnyObject] = ["seq": self.courtSeq as AnyObject, "type": type as AnyObject]
-        URLReq.request(self, url: URLReq.apiServer+URLReq.api_court_interest, param: parameters, callback: { (dic) in
+        var parameters : [String: AnyObject] = [:]
+        parameters.updateValue(self.courtSeq as AnyObject, forKey: "seq")
+        parameters.updateValue(type as AnyObject, forKey: "type")
+        
+        URLReq.request(self, url: URLReq.apiServer+"court/interest", param: parameters, callback: { (dic) in
             self.spin.isHidden = true
             self.spin.stopAnimating()
             var starImage = "ic_star_off"
@@ -380,7 +383,7 @@ class CourtViewController : UIViewController{
         let ename : String = court.addressShort.queryValue()
         let ex : Double = court.latitude
         let ey : Double = court.longitude
-        let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true"
+        let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true#/publicTransit/list/\(sname),\(sy),\(sx),,,true,/\(ename),\(ey),\(ex),,,false,/0"
         if let url = Foundation.URL(string: simplemapUrl){
             if UIApplication.shared.canOpenURL(url) {
                 if #available(iOS 10.0, *) {

@@ -36,136 +36,81 @@ class Court {
     var imageData5: Data!
     var imageData6: Data!
     
+    func callbackFn(_ callback: ((Void) -> Void)!){
+        if callback != nil{
+            callback()
+        }
+    }
     func setImage1Data(_ callback: ((Void) -> Void)!){
         if let imgURL = Foundation.URL(string: self.image1){
             if let imgData = try? Data(contentsOf: imgURL){
                 self.imageData1 = imgData
-                if callback != nil{
-                    callback()
-                }else{
-                    if callback != nil{
-                        callback()
-                    }
-                }
+                self.callbackFn(callback)
             }else{
-                if callback != nil{
-                    callback()
-                }
+                self.callbackFn(callback)
             }
         }else{
-            if callback != nil{
-                callback()
-            }
+            self.callbackFn(callback)
         }
     }
     func setImage2Data(_ callback: ((Void) -> Void)!){
         if let imgURL = Foundation.URL(string: self.image2){
             if let imgData = try? Data(contentsOf: imgURL){
                 self.imageData2 = imgData
-                if callback != nil{
-                    callback()
-                }else{
-                    if callback != nil{
-                        callback()
-                    }
-                }
+                self.callbackFn(callback)
             }else{
-                if callback != nil{
-                    callback()
-                }
+                self.callbackFn(callback)
             }
         }else{
-            if callback != nil{
-                callback()
-            }
+            self.callbackFn(callback)
         }
     }
     func setImage3Data(_ callback: ((Void) -> Void)!){
         if let imgURL = Foundation.URL(string: self.image3){
             if let imgData = try? Data(contentsOf: imgURL){
                 self.imageData3 = imgData
-                if callback != nil{
-                    callback()
-                }else{
-                    if callback != nil{
-                        callback()
-                    }
-                }
+                self.callbackFn(callback)
             }else{
-                if callback != nil{
-                    callback()
-                }
+                self.callbackFn(callback)
             }
         }else{
-            if callback != nil{
-                callback()
-            }
+            self.callbackFn(callback)
         }
     }
     func setImage4Data(_ callback: ((Void) -> Void)!){
         if let imgURL = Foundation.URL(string: self.image4){
             if let imgData = try? Data(contentsOf: imgURL){
                 self.imageData4 = imgData
-                if callback != nil{
-                    callback()
-                }else{
-                    if callback != nil{
-                        callback()
-                    }
-                }
+                self.callbackFn(callback)
             }else{
-                if callback != nil{
-                    callback()
-                }
+                self.callbackFn(callback)
             }
         }else{
-            if callback != nil{
-                callback()
-            }
+            self.callbackFn(callback)
         }
     }
     func setImage5Data(_ callback: ((Void) -> Void)!){
         if let imgURL = Foundation.URL(string: self.image5){
             if let imgData = try? Data(contentsOf: imgURL){
                 self.imageData5 = imgData
-                if callback != nil{
-                    callback()
-                }else{
-                    if callback != nil{
-                        callback()
-                    }
-                }
+                self.callbackFn(callback)
             }else{
-                if callback != nil{
-                    callback()
-                }
+                self.callbackFn(callback)
             }
         }else{
-            if callback != nil{
-                callback()
-            }
+            self.callbackFn(callback)
         }
     }
     func setImage6Data(_ callback: ((Void) -> Void)!){
         if let imgURL = Foundation.URL(string: self.image6){
             if let imgData = try? Data(contentsOf: imgURL){
                 self.imageData6 = imgData
-                if callback != nil{
-                    callback()
-                }else{
-                    if callback != nil{
-                        callback()
-                    }
-                }
+                self.callbackFn(callback)
             }else{
-                if callback != nil{
-                    callback()
-                }
+                self.callbackFn(callback)
             }
         }else{
-            if callback != nil{
-                callback()
-            }
+            self.callbackFn(callback)
         }
     }
     

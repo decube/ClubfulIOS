@@ -489,10 +489,11 @@ extension ViewController: UITableViewDataSource{
                 let sname : String = "내위치".queryValue()
                 let sx : Double = (self.locationManager.location?.coordinate.latitude)!
                 let sy : Double = (self.locationManager.location?.coordinate.longitude)!
-                let ename : String = court.addressShort.queryValue()
+                let ename : String = court.address.queryValue()
                 let ex : Double = court.latitude
                 let ey : Double = court.longitude
-                let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true"
+                
+                let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true#/publicTransit/list/\(sname),\(sy),\(sx),,,true,/\(ename),\(ey),\(ex),,,false,/0"
                 if let url = Foundation.URL(string: simplemapUrl){
                     if UIApplication.shared.canOpenURL(url) {
                         if #available(iOS 10.0, *) {
