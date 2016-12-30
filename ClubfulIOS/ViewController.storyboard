@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="szV-do-jn5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="szV-do-jn5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -53,46 +54,22 @@
                                                     <constraint firstAttribute="height" constant="20" id="Hyt-zS-gis"/>
                                                 </constraints>
                                             </imageView>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="원하시는 코트의 위치나 종목을 입력하세요." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pop-Pg-S1h">
-                                                <rect key="frame" x="30" y="0.0" width="260" height="30"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="원하시는 코트의 위치나 종목을 입력하세요." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="pop-Pg-S1h">
+                                                <rect key="frame" x="30" y="0.0" width="290" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="search"/>
                                             </textField>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m8A-kF-64q">
-                                                <rect key="frame" x="290" y="0.0" width="30" height="30"/>
-                                                <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_cancel_b" translatesAutoresizingMaskIntoConstraints="NO" id="lwS-rZ-sKX">
-                                                        <rect key="frame" x="5" y="5" width="20" height="20"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="20" id="9G3-ng-dDK"/>
-                                                            <constraint firstAttribute="width" constant="20" id="YBA-X9-GVt"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="30" id="FQq-Zk-xhl"/>
-                                                    <constraint firstItem="lwS-rZ-sKX" firstAttribute="leading" secondItem="m8A-kF-64q" secondAttribute="leading" constant="5" id="b0p-pv-F4l"/>
-                                                    <constraint firstAttribute="trailing" secondItem="lwS-rZ-sKX" secondAttribute="trailing" constant="5" id="fh8-4R-R4a"/>
-                                                    <constraint firstItem="lwS-rZ-sKX" firstAttribute="top" secondItem="m8A-kF-64q" secondAttribute="top" constant="5" id="gRi-Ka-G2t"/>
-                                                    <constraint firstAttribute="bottom" secondItem="lwS-rZ-sKX" secondAttribute="bottom" constant="5" id="roO-Dl-fC5"/>
-                                                    <constraint firstAttribute="height" constant="30" id="ry6-ch-EFH"/>
-                                                </constraints>
-                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="pop-Pg-S1h" firstAttribute="leading" secondItem="Yzb-Qc-wxD" secondAttribute="trailing" constant="5" id="F12-RL-gKQ"/>
                                             <constraint firstItem="pop-Pg-S1h" firstAttribute="top" secondItem="8Aq-WO-mtG" secondAttribute="top" id="F8h-hO-cyX"/>
                                             <constraint firstItem="Yzb-Qc-wxD" firstAttribute="leading" secondItem="8Aq-WO-mtG" secondAttribute="leading" constant="5" id="GID-r7-E4p"/>
-                                            <constraint firstAttribute="bottom" secondItem="m8A-kF-64q" secondAttribute="bottom" id="Ghc-uW-QuD"/>
                                             <constraint firstAttribute="height" constant="30" id="H5u-Dg-ruy"/>
-                                            <constraint firstAttribute="trailing" secondItem="m8A-kF-64q" secondAttribute="trailing" id="Hke-2u-T3I"/>
                                             <constraint firstAttribute="bottom" secondItem="pop-Pg-S1h" secondAttribute="bottom" id="LIQ-gE-UNV"/>
-                                            <constraint firstItem="m8A-kF-64q" firstAttribute="leading" secondItem="pop-Pg-S1h" secondAttribute="trailing" id="VJt-Bv-kaN"/>
-                                            <constraint firstItem="m8A-kF-64q" firstAttribute="top" secondItem="8Aq-WO-mtG" secondAttribute="top" id="fge-XT-t69"/>
                                             <constraint firstAttribute="bottom" secondItem="Yzb-Qc-wxD" secondAttribute="bottom" constant="5" id="gnY-GM-Dw0"/>
+                                            <constraint firstAttribute="trailing" secondItem="pop-Pg-S1h" secondAttribute="trailing" id="sSe-vN-5Gj"/>
                                             <constraint firstItem="Yzb-Qc-wxD" firstAttribute="top" secondItem="8Aq-WO-mtG" secondAttribute="top" constant="5" id="xf1-xf-mhk"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -114,8 +91,8 @@
                                     <constraint firstAttribute="trailing" secondItem="4pc-H4-rdz" secondAttribute="trailing" constant="10" id="kxD-EG-G3L"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xl7-gN-Zld">
-                                <rect key="frame" x="0.0" y="80" width="375" height="527"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xl7-gN-Zld">
+                                <rect key="frame" x="0.0" y="80" width="375" height="538"/>
                                 <color key="backgroundColor" red="0.88360753619999999" green="0.96569901700000005" blue="0.88508966960000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CourtCell" rowHeight="190" id="5qj-7V-Jd5" customClass="CourtCell" customModule="ClubfulIOS" customModuleProvider="target">
@@ -148,7 +125,7 @@
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="코트장 간단 설명입니다. 두줄까지 들어갑니다. 코트장 간단 설명입니다.코트장 간단 설명입니다. 두줄까지 들어갑니다. 코트장 간단 설명입니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uTE-3L-I4z">
                                                                             <rect key="frame" x="10" y="35" width="255" height="25"/>
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                             <color key="textColor" red="0.13043829800000001" green="0.30679500100000001" blue="0.75686532259999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
@@ -349,12 +326,16 @@
                                             <outlet property="star_3" destination="dfQ-fC-PiW" id="h7M-qU-2ev"/>
                                             <outlet property="star_4" destination="mIr-r6-jMw" id="1bB-Nh-aov"/>
                                             <outlet property="star_5" destination="ApA-Ge-Xa1" id="gjg-Ua-ssl"/>
+                                            <segue destination="q62-yS-rya" kind="show" identifier="main_courtDetail" id="dSV-Xv-2NB">
+                                                <segue key="commit" inheritsFrom="parent" id="Vz7-up-MCY"/>
+                                                <segue key="preview" inheritsFrom="commit" id="PRH-dY-U2W"/>
+                                            </segue>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="F6P-PN-z7z">
-                                <rect key="frame" x="178" y="334" width="20" height="20"/>
+                                <rect key="frame" x="178" y="339" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="XZa-1H-XjE"/>
                                     <constraint firstAttribute="height" constant="20" id="s7q-Nr-v7e"/>
@@ -364,6 +345,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="F6P-PN-z7z" firstAttribute="centerY" secondItem="Xl7-gN-Zld" secondAttribute="centerY" id="0bL-84-osE"/>
+                            <constraint firstItem="F5x-fo-HSa" firstAttribute="top" secondItem="Xl7-gN-Zld" secondAttribute="bottom" id="9h7-M0-Qf2"/>
                             <constraint firstItem="uXK-ig-oVf" firstAttribute="leading" secondItem="NAp-6w-qYv" secondAttribute="leading" id="AX0-2v-va7"/>
                             <constraint firstItem="WFx-qX-s6J" firstAttribute="leading" secondItem="NAp-6w-qYv" secondAttribute="leading" id="F0O-6u-0lL"/>
                             <constraint firstItem="WFx-qX-s6J" firstAttribute="top" secondItem="NAp-6w-qYv" secondAttribute="top" id="FbT-8X-kLO"/>
@@ -371,8 +354,6 @@
                             <constraint firstItem="F6P-PN-z7z" firstAttribute="centerX" secondItem="Xl7-gN-Zld" secondAttribute="centerX" id="Y5e-TI-Agd"/>
                             <constraint firstItem="Xl7-gN-Zld" firstAttribute="top" secondItem="uXK-ig-oVf" secondAttribute="bottom" id="aNE-q8-Dbs"/>
                             <constraint firstAttribute="trailing" secondItem="uXK-ig-oVf" secondAttribute="trailing" id="f2B-eN-w5D"/>
-                            <constraint firstItem="F5x-fo-HSa" firstAttribute="top" secondItem="Xl7-gN-Zld" secondAttribute="bottom" constant="60" id="h2Z-ZT-XSX"/>
-                            <constraint firstItem="F6P-PN-z7z" firstAttribute="centerY" secondItem="Xl7-gN-Zld" secondAttribute="centerY" id="hmN-Bj-rIK"/>
                             <constraint firstAttribute="trailing" secondItem="WFx-qX-s6J" secondAttribute="trailing" id="iUu-hg-MEl"/>
                             <constraint firstItem="uXK-ig-oVf" firstAttribute="top" secondItem="1R1-G2-8df" secondAttribute="bottom" id="lTS-OK-E5D"/>
                             <constraint firstAttribute="trailing" secondItem="Xl7-gN-Zld" secondAttribute="trailing" id="ttv-iq-tXL"/>
@@ -387,14 +368,13 @@
                     <connections>
                         <outlet property="leftEdge" destination="Qoy-xw-d8I" id="6e6-CN-zcj"/>
                         <outlet property="rightEdge" destination="2Ie-46-eKp" id="6V2-8z-PGL"/>
-                        <outlet property="searchCancelImageView" destination="m8A-kF-64q" id="pkQ-6W-A9t"/>
                         <outlet property="searchTextField" destination="pop-Pg-S1h" id="dxm-nD-lEo"/>
                         <outlet property="spin" destination="F6P-PN-z7z" id="0ee-st-bbf"/>
                         <outlet property="tableView" destination="Xl7-gN-Zld" id="flt-DZ-05p"/>
                         <segue destination="ZxW-JF-kYs" kind="presentation" identifier="main_left" id="T9q-dL-Mo7"/>
                         <segue destination="buY-iB-Jec" kind="presentation" identifier="main_right" id="cJ4-B5-en3"/>
                         <segue destination="711-Pd-2oZ" kind="presentation" identifier="main_map" id="8s9-Ms-32j"/>
-                        <segue destination="q62-yS-rya" kind="show" identifier="main_courtDetail" id="ZTL-9n-ouT"/>
+                        <segue destination="q62-yS-rya" kind="show" identifier="courtDetail" id="6Lk-8x-crA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0dH-39-Jhz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -409,7 +389,7 @@
                     </connections>
                 </screenEdgePanGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-346.39999999999998" y="-967.4662668665668"/>
+            <point key="canvasLocation" x="-22" y="-968"/>
         </scene>
         <!--Main Left View Controller-->
         <scene sceneID="IgZ-Sp-gsp">
@@ -461,7 +441,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-722.39999999999998" y="-206.44677661169416"/>
+            <point key="canvasLocation" x="-570" y="-119"/>
         </scene>
         <!--Main Right View Controller-->
         <scene sceneID="5XO-pH-Xfa">
@@ -513,7 +493,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-10.4" y="-206.44677661169416"/>
+            <point key="canvasLocation" x="135" y="-119"/>
         </scene>
         <!--Map-->
         <scene sceneID="Qge-Ot-LhL">
@@ -521,14 +501,16 @@
                 <viewControllerPlaceholder storyboardName="Map" id="711-Pd-2oZ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UgB-t2-rLm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="206" y="-919"/>
+            <point key="canvasLocation" x="624" y="-912"/>
         </scene>
-        <!--Item-->
+        <!--홈-->
         <scene sceneID="0Iy-bQ-DWb">
             <objects>
-                <navigationController navigationBarHidden="YES" id="szV-do-jn5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="9PN-Iv-vab"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="33O-go-prA">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="szV-do-jn5" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="홈" image="tab_home_off" selectedImage="tab_home_on" id="9PN-Iv-vab"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="33O-go-prA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -538,7 +520,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0o9-FD-zXW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1431" y="-967"/>
+            <point key="canvasLocation" x="-740" y="-968"/>
         </scene>
         <!--CourtView-->
         <scene sceneID="qsL-1h-rU7">
@@ -548,13 +530,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Sf-UR-KCe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="237" y="-1039"/>
+            <point key="canvasLocation" x="568" y="-986"/>
         </scene>
     </scenes>
     <resources>
-        <image name="ic_cancel_b" width="32" height="32"/>
         <image name="ic_location" width="50" height="50"/>
         <image name="ic_search" width="52" height="52"/>
         <image name="ic_star_on" width="50" height="50"/>
+        <image name="tab_home_off" width="20" height="20"/>
+        <image name="tab_home_on" width="20" height="20"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="dSV-Xv-2NB"/>
+    </inferredMetricsTieBreakers>
 </document>

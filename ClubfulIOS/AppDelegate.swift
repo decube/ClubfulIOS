@@ -32,14 +32,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func shortcutCreate(){
         UIApplication.shared.shortcutItems? = []
         if Storage.isRealmUser(){
-            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "home", localizedTitle: "홈", localizedSubtitle: "홈을 보여줍니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_home_on"), userInfo: nil))
-            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "create", localizedTitle: "등록", localizedSubtitle: "코트를 등록합니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_add_on"), userInfo: nil))
-            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "user", localizedTitle: "내정보", localizedSubtitle: "내정보를 보여줍니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_mypage_on"), userInfo: nil))
-            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "setting", localizedTitle: "앱설정", localizedSubtitle: "PUSH등의 설정을 봅니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_setting_on"), userInfo: nil))
+            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "home", localizedTitle: "홈", localizedSubtitle: "홈을 보여줍니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_home"), userInfo: nil))
+            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "create", localizedTitle: "등록", localizedSubtitle: "코트를 등록합니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_add"), userInfo: nil))
+            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "user", localizedTitle: "내정보", localizedSubtitle: "내정보를 보여줍니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_mypage"), userInfo: nil))
+            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "setting", localizedTitle: "앱설정", localizedSubtitle: "PUSH등의 설정을 봅니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_setting"), userInfo: nil))
         }else{
-            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "home", localizedTitle: "홈", localizedSubtitle: "홈을 보여줍니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_home_on"), userInfo: nil))
+            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "home", localizedTitle: "홈", localizedSubtitle: "홈을 보여줍니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_home"), userInfo: nil))
             UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "login", localizedTitle: "로그인", localizedSubtitle: "로그인 화면으로 이동합니다", icon: UIApplicationShortcutIcon(templateImageName: "ic_login"), userInfo: nil))
-            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "setting", localizedTitle: "앱설정", localizedSubtitle: "PUSH등의 설정을 봅니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_setting_on"), userInfo: nil))
+            UIApplication.shared.shortcutItems?.append(UIMutableApplicationShortcutItem(type: "setting", localizedTitle: "앱설정", localizedSubtitle: "PUSH등의 설정을 봅니다", icon: UIApplicationShortcutIcon(templateImageName: "tab_setting"), userInfo: nil))
         }
     }
     
@@ -50,6 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //self.removeCache()
         
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
+        
+        let attributes: [String: AnyObject] = [NSFontAttributeName:UIFont(name: "BradleyHandITCTT-Bold", size: 11)!]
+        UITabBarItem.appearance().setTitleTextAttributes(attributes, for: .normal)
         
         //push
         // [START register_for_notifications]
@@ -106,22 +109,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         }else{
             if self.window?.rootViewController?.presentedViewController == nil{
-                if let tabbar = self.window?.rootViewController as? TabBar{
-                    if shortcutItem.type == "home"{
-                        tabbar.onBtnClick(tag: 0)
-                        tabbar.onBtnClick(tag: 0)
-                    }else if shortcutItem.type == "create"{
-                        tabbar.onBtnClick(tag: 1)
-                    }else if shortcutItem.type == "user"{
-                        tabbar.onBtnClick(tag: 2)
-                        tabbar.onBtnClick(tag: 2)
-                    }else if shortcutItem.type == "setting"{
-                        tabbar.onBtnClick(tag: 3)
-                        AppDelegate.vc.performSegue(withIdentifier: "set_appSetting", sender: nil)
-                    }else if shortcutItem.type == "login"{
-                        tabbar.onBtnClick(tag: 3)
-                        AppDelegate.vc.performSegue(withIdentifier: "set_login", sender: nil)
-                    }
+                let tabbar = self.window?.rootViewController?.tabBarController?.tabBar
+                if shortcutItem.type == "home"{
+                    tabbar?.tag = 0
+                    tabbar?.tag = 0
+                }else if shortcutItem.type == "create"{
+                    tabbar?.tag = 1
+                }else if shortcutItem.type == "user"{
+                    tabbar?.tag = 2
+                    tabbar?.tag = 2
+                }else if shortcutItem.type == "setting"{
+                    tabbar?.tag = 3
+                    AppDelegate.vc.performSegue(withIdentifier: "set_appSetting", sender: nil)
+                }else if shortcutItem.type == "login"{
+                    tabbar?.tag = 3
+                    AppDelegate.vc.performSegue(withIdentifier: "set_login", sender: nil)
                 }
             }
             completionHandler(true)
@@ -237,7 +239,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if type == "call" || type == "accept"{
                 var date = ""
                 var seq = 0
-                var memgerSeq = 0
+                var memberSeq = 0
                 if let dateReg = push["date"] as? String{
                     date = dateReg
                 }
@@ -245,23 +247,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     seq = Int(seqReg)!
                 }
                 if let memberSeqReg = push["memberSeq"] as? String{
-                    memgerSeq = Int(memberSeqReg)!
+                    memberSeq = Int(memberSeqReg)!
                 }
+                print("date: \(date), seq: \(seq), memberSeq: \(memberSeq)")
                 if type == "call"{
                     let currentDate = Date().getDate()
                     if currentDate == date.substring(from: 0, length: 10){
                         if Date().hour() == date.substring(from: 11, length: 2){
-                            Util.alert((self.window?.rootViewController)!, message: "코트 초대에 응하시겠습니까?", confirmTitle: "수락", cancelStr: "거절", isCancel: true, confirmHandler: { (_) in
+                            _ = Util.alert((self.window?.rootViewController)!, message: "코트 초대에 응하시겠습니까?", confirmTitle: "수락", cancelStr: "거절", isCancel: true, confirmHandler: { (_) in
                                 
                             })
                         }else{
-                            Util.alert((self.window?.rootViewController)!, message: "이미 지나간 알림입니다.")
+                            _ = Util.alert((self.window?.rootViewController)!, message: "이미 지나간 알림입니다.")
                         }
                     }else{
-                        Util.alert((self.window?.rootViewController)!, message: "이미 지나간 알림입니다.")
+                        _ = Util.alert((self.window?.rootViewController)!, message: "이미 지나간 알림입니다.")
                     }
                 }else if type == "accept"{
-                    Util.alert((self.window?.rootViewController)!, message: "회원님의 호출에 누구누구님이 승낙을 하였습니다.")
+                    _ = Util.alert((self.window?.rootViewController)!, message: "회원님의 호출에 누구누구님이 승낙을 하였습니다.")
                 }
             }
         }

@@ -29,6 +29,8 @@
 		6E507C991DD34E9C00F62C17 /* CourtCreate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E507C981DD34E9C00F62C17 /* CourtCreate.storyboard */; };
 		6E507C9B1DD34F3500F62C17 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E507C9A1DD34F3500F62C17 /* User.storyboard */; };
 		6E507C9D1DD34F9800F62C17 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E507C9C1DD34F9800F62C17 /* Setting.storyboard */; };
+		6E5FFEAA1E16B2CB00CA3531 /* MyCourtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FFEA91E16B2CB00CA3531 /* MyCourtCell.swift */; };
+		6E5FFEAC1E16BDC100CA3531 /* CustomSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FFEAB1E16BDC100CA3531 /* CustomSwitch.swift */; };
 		6E63239E1DA3BF38001FCD9E /* AddView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E63239D1DA3BF38001FCD9E /* AddView.xib */; };
 		6E6323A01DA3BF52001FCD9E /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E63239F1DA3BF52001FCD9E /* AddView.swift */; };
 		6E77DD111DC5A04400296008 /* CourtSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77DD101DC5A04400296008 /* CourtSearchView.swift */; };
@@ -68,18 +70,17 @@
 		6E7DA9C71D994B3A0098D7DA /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9A21D994B3A0098D7DA /* MypageViewController.swift */; };
 		6E7DA9C81D994B3A0098D7DA /* NonUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9A31D994B3A0098D7DA /* NonUserView.swift */; };
 		6E7DA9C91D994B3A0098D7DA /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9A41D994B3A0098D7DA /* NoticeViewController.swift */; };
-		6E7DA9CA1D994B3A0098D7DA /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9A51D994B3A0098D7DA /* NSDate.swift */; };
-		6E7DA9CB1D994B3A0098D7DA /* PhotoAlbumCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9A61D994B3A0098D7DA /* PhotoAlbumCustom.swift */; };
+		6E7DA9CA1D994B3A0098D7DA /* CustomNSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9A51D994B3A0098D7DA /* CustomNSDate.swift */; };
+		6E7DA9CB1D994B3A0098D7DA /* CustomPhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9A61D994B3A0098D7DA /* CustomPhotoAlbum.swift */; };
 		6E7DA9CD1D994B3A0098D7DA /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9A81D994B3A0098D7DA /* Storage.swift */; };
-		6E7DA9CE1D994B3A0098D7DA /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9A91D994B3A0098D7DA /* String.swift */; };
-		6E7DA9CF1D994B3A0098D7DA /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9AA1D994B3A0098D7DA /* TabBar.swift */; };
-		6E7DA9D01D994B3A0098D7DA /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9AB1D994B3A0098D7DA /* UIColor.swift */; };
-		6E7DA9D11D994B3A0098D7DA /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9AC1D994B3A0098D7DA /* UIControl.swift */; };
-		6E7DA9D21D994B3A0098D7DA /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9AD1D994B3A0098D7DA /* UIFont.swift */; };
-		6E7DA9D31D994B3A0098D7DA /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9AE1D994B3A0098D7DA /* UIImage.swift */; };
-		6E7DA9D41D994B3A0098D7DA /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9AF1D994B3A0098D7DA /* UIScrollView.swift */; };
-		6E7DA9D51D994B3A0098D7DA /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9B01D994B3A0098D7DA /* UITextField.swift */; };
-		6E7DA9D61D994B3A0098D7DA /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9B11D994B3A0098D7DA /* UIView.swift */; };
+		6E7DA9CE1D994B3A0098D7DA /* CustomString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9A91D994B3A0098D7DA /* CustomString.swift */; };
+		6E7DA9D01D994B3A0098D7DA /* CustomUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9AB1D994B3A0098D7DA /* CustomUIColor.swift */; };
+		6E7DA9D11D994B3A0098D7DA /* CustomUIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9AC1D994B3A0098D7DA /* CustomUIControl.swift */; };
+		6E7DA9D21D994B3A0098D7DA /* CustomUIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9AD1D994B3A0098D7DA /* CustomUIFont.swift */; };
+		6E7DA9D31D994B3A0098D7DA /* CustomUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9AE1D994B3A0098D7DA /* CustomUIImage.swift */; };
+		6E7DA9D41D994B3A0098D7DA /* CustomUIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9AF1D994B3A0098D7DA /* CustomUIScrollView.swift */; };
+		6E7DA9D51D994B3A0098D7DA /* CustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9B01D994B3A0098D7DA /* CustomUITextField.swift */; };
+		6E7DA9D61D994B3A0098D7DA /* CustomUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9B11D994B3A0098D7DA /* CustomUIView.swift */; };
 		6E7DA9D71D994B3A0098D7DA /* URLReq.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9B21D994B3A0098D7DA /* URLReq.swift */; };
 		6E7DA9D81D994B3A0098D7DA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9B31D994B3A0098D7DA /* User.swift */; };
 		6E7DA9D91D994B3A0098D7DA /* UserConvertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DA9B41D994B3A0098D7DA /* UserConvertViewController.swift */; };
@@ -93,8 +94,6 @@
 		6E8C2D871DE4877B009D3F5F /* CourtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8C2D861DE4877B009D3F5F /* CourtCell.swift */; };
 		6EAAF0D81DEAE5520066455A /* MapListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EAAF0D71DEAE5520066455A /* MapListCell.xib */; };
 		6EAAF0DA1DEAE5930066455A /* MapListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAAF0D91DEAE5930066455A /* MapListCell.swift */; };
-		6EAAF0DC1DEAF71F0066455A /* MypageCourtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAAF0DB1DEAF71F0066455A /* MypageCourtView.swift */; };
-		6EAAF0DE1DEAF73A0066455A /* MypageCourtView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EAAF0DD1DEAF73A0066455A /* MypageCourtView.xib */; };
 		6EAAF0E01DEB0A550066455A /* PicImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAAF0DF1DEB0A550066455A /* PicImageView.swift */; };
 		6EE0B8221DCED827009792A7 /* MapListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE0B8211DCED827009792A7 /* MapListView.swift */; };
 		6EE0B8241DCEDA3D009792A7 /* MapListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EE0B8231DCEDA3D009792A7 /* MapListView.xib */; };
@@ -145,6 +144,8 @@
 		6E507C981DD34E9C00F62C17 /* CourtCreate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CourtCreate.storyboard; sourceTree = "<group>"; };
 		6E507C9A1DD34F3500F62C17 /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
 		6E507C9C1DD34F9800F62C17 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
+		6E5FFEA91E16B2CB00CA3531 /* MyCourtCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCourtCell.swift; sourceTree = "<group>"; };
+		6E5FFEAB1E16BDC100CA3531 /* CustomSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSwitch.swift; sourceTree = "<group>"; };
 		6E63239D1DA3BF38001FCD9E /* AddView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddView.xib; sourceTree = "<group>"; };
 		6E63239F1DA3BF52001FCD9E /* AddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		6E77DD101DC5A04400296008 /* CourtSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtSearchView.swift; sourceTree = "<group>"; };
@@ -191,18 +192,17 @@
 		6E7DA9A21D994B3A0098D7DA /* MypageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
 		6E7DA9A31D994B3A0098D7DA /* NonUserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonUserView.swift; sourceTree = "<group>"; };
 		6E7DA9A41D994B3A0098D7DA /* NoticeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
-		6E7DA9A51D994B3A0098D7DA /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
-		6E7DA9A61D994B3A0098D7DA /* PhotoAlbumCustom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumCustom.swift; sourceTree = "<group>"; };
+		6E7DA9A51D994B3A0098D7DA /* CustomNSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNSDate.swift; sourceTree = "<group>"; };
+		6E7DA9A61D994B3A0098D7DA /* CustomPhotoAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPhotoAlbum.swift; sourceTree = "<group>"; };
 		6E7DA9A81D994B3A0098D7DA /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		6E7DA9A91D994B3A0098D7DA /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		6E7DA9AA1D994B3A0098D7DA /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
-		6E7DA9AB1D994B3A0098D7DA /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
-		6E7DA9AC1D994B3A0098D7DA /* UIControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
-		6E7DA9AD1D994B3A0098D7DA /* UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
-		6E7DA9AE1D994B3A0098D7DA /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
-		6E7DA9AF1D994B3A0098D7DA /* UIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
-		6E7DA9B01D994B3A0098D7DA /* UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
-		6E7DA9B11D994B3A0098D7DA /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		6E7DA9A91D994B3A0098D7DA /* CustomString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomString.swift; sourceTree = "<group>"; };
+		6E7DA9AB1D994B3A0098D7DA /* CustomUIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUIColor.swift; sourceTree = "<group>"; };
+		6E7DA9AC1D994B3A0098D7DA /* CustomUIControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUIControl.swift; sourceTree = "<group>"; };
+		6E7DA9AD1D994B3A0098D7DA /* CustomUIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUIFont.swift; sourceTree = "<group>"; };
+		6E7DA9AE1D994B3A0098D7DA /* CustomUIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUIImage.swift; sourceTree = "<group>"; };
+		6E7DA9AF1D994B3A0098D7DA /* CustomUIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUIScrollView.swift; sourceTree = "<group>"; };
+		6E7DA9B01D994B3A0098D7DA /* CustomUITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUITextField.swift; sourceTree = "<group>"; };
+		6E7DA9B11D994B3A0098D7DA /* CustomUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUIView.swift; sourceTree = "<group>"; };
 		6E7DA9B21D994B3A0098D7DA /* URLReq.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLReq.swift; sourceTree = "<group>"; };
 		6E7DA9B31D994B3A0098D7DA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6E7DA9B41D994B3A0098D7DA /* UserConvertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserConvertViewController.swift; sourceTree = "<group>"; };
@@ -216,8 +216,6 @@
 		6E8C2D861DE4877B009D3F5F /* CourtCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtCell.swift; sourceTree = "<group>"; };
 		6EAAF0D71DEAE5520066455A /* MapListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapListCell.xib; sourceTree = "<group>"; };
 		6EAAF0D91DEAE5930066455A /* MapListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListCell.swift; sourceTree = "<group>"; };
-		6EAAF0DB1DEAF71F0066455A /* MypageCourtView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MypageCourtView.swift; sourceTree = "<group>"; };
-		6EAAF0DD1DEAF73A0066455A /* MypageCourtView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MypageCourtView.xib; sourceTree = "<group>"; };
 		6EAAF0DF1DEB0A550066455A /* PicImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicImageView.swift; sourceTree = "<group>"; };
 		6EE0B8211DCED827009792A7 /* MapListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListView.swift; sourceTree = "<group>"; };
 		6EE0B8231DCEDA3D009792A7 /* MapListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapListView.xib; sourceTree = "<group>"; };
@@ -305,6 +303,7 @@
 				6E4C62B61DE9AA0A0039BE62 /* ReplyCell.swift */,
 				6EAAF0D71DEAE5520066455A /* MapListCell.xib */,
 				6EAAF0D91DEAE5930066455A /* MapListCell.swift */,
+				6E5FFEA91E16B2CB00CA3531 /* MyCourtCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -318,7 +317,6 @@
 				6E7DA98F1D994AB70098D7DA /* Custom */,
 				6E7DA98E1D994AB30098D7DA /* Util */,
 				6E7DA98D1D994AB00098D7DA /* Save */,
-				6E7DA9AA1D994B3A0098D7DA /* TabBar.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -330,14 +328,14 @@
 				6E7DA99D1D994B3A0098D7DA /* MyLocationView.swift */,
 				6E77DD121DC5A05E00296008 /* CourtSearchView.xib */,
 				6E77DD101DC5A04400296008 /* CourtSearchView.swift */,
+				6E63239D1DA3BF38001FCD9E /* AddView.xib */,
+				6E63239F1DA3BF52001FCD9E /* AddView.swift */,
 				6EE0B8231DCEDA3D009792A7 /* MapListView.xib */,
 				6EE0B8211DCED827009792A7 /* MapListView.swift */,
 				6E7DA9DF1D994D4A0098D7DA /* NonUserView.xib */,
 				6E7DA9A31D994B3A0098D7DA /* NonUserView.swift */,
-				6E63239D1DA3BF38001FCD9E /* AddView.xib */,
-				6E63239F1DA3BF52001FCD9E /* AddView.swift */,
-				6EAAF0DD1DEAF73A0066455A /* MypageCourtView.xib */,
-				6EAAF0DB1DEAF71F0066455A /* MypageCourtView.swift */,
+				6E4C62B81DE9B0C20039BE62 /* PicView.swift */,
+				6EAAF0DF1DEB0A550066455A /* PicImageView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -477,8 +475,6 @@
 			children = (
 				6E7DA9931D994B3A0098D7DA /* CourtCreateViewController.swift */,
 				6E7DA9941D994B3A0098D7DA /* CourtViewController.swift */,
-				6E4C62B81DE9B0C20039BE62 /* PicView.swift */,
-				6EAAF0DF1DEB0A550066455A /* PicImageView.swift */,
 			);
 			name = court;
 			sourceTree = "<group>";
@@ -529,17 +525,18 @@
 		6E7DA98F1D994AB70098D7DA /* Custom */ = {
 			isa = PBXGroup;
 			children = (
-				6E7DA9A51D994B3A0098D7DA /* NSDate.swift */,
-				6E7DA9A61D994B3A0098D7DA /* PhotoAlbumCustom.swift */,
-				6E7DA9A91D994B3A0098D7DA /* String.swift */,
-				6E7DA9AB1D994B3A0098D7DA /* UIColor.swift */,
-				6E7DA9AC1D994B3A0098D7DA /* UIControl.swift */,
-				6E7DA9AD1D994B3A0098D7DA /* UIFont.swift */,
-				6E7DA9AE1D994B3A0098D7DA /* UIImage.swift */,
-				6E7DA9AF1D994B3A0098D7DA /* UIScrollView.swift */,
-				6E7DA9B01D994B3A0098D7DA /* UITextField.swift */,
-				6E7DA9B11D994B3A0098D7DA /* UIView.swift */,
+				6E7DA9A51D994B3A0098D7DA /* CustomNSDate.swift */,
+				6E7DA9A61D994B3A0098D7DA /* CustomPhotoAlbum.swift */,
+				6E7DA9A91D994B3A0098D7DA /* CustomString.swift */,
+				6E7DA9AB1D994B3A0098D7DA /* CustomUIColor.swift */,
+				6E7DA9AC1D994B3A0098D7DA /* CustomUIControl.swift */,
+				6E7DA9AD1D994B3A0098D7DA /* CustomUIFont.swift */,
+				6E7DA9AE1D994B3A0098D7DA /* CustomUIImage.swift */,
+				6E7DA9AF1D994B3A0098D7DA /* CustomUIScrollView.swift */,
+				6E7DA9B01D994B3A0098D7DA /* CustomUITextField.swift */,
+				6E7DA9B11D994B3A0098D7DA /* CustomUIView.swift */,
 				6E41630E1DC63DA40097EBDE /* BlackScreen.swift */,
+				6E5FFEAB1E16BDC100CA3531 /* CustomSwitch.swift */,
 			);
 			name = Custom;
 			sourceTree = "<group>";
@@ -717,7 +714,6 @@
 				6EAAF0D81DEAE5520066455A /* MapListCell.xib in Resources */,
 				6E7DA9E21D994D4A0098D7DA /* CourtSearchCell.xib in Resources */,
 				6E7DA8DF1D9948910098D7DA /* Main.storyboard in Resources */,
-				6EAAF0DE1DEAF73A0066455A /* MypageCourtView.xib in Resources */,
 				6E63239E1DA3BF38001FCD9E /* AddView.xib in Resources */,
 				6E507C971DD34DFF00F62C17 /* ViewController.storyboard in Resources */,
 			);
@@ -885,35 +881,36 @@
 				6E450C121DE5FC2E008B67A9 /* Court.swift in Sources */,
 				6E4CC94F1DC4815C005FA92F /* MainRightViewController.swift in Sources */,
 				6E7DA9B61D994B3A0098D7DA /* AppSettingViewController.swift in Sources */,
-				6E7DA9CE1D994B3A0098D7DA /* String.swift in Sources */,
-				6EAAF0DC1DEAF71F0066455A /* MypageCourtView.swift in Sources */,
-				6E7DA9D01D994B3A0098D7DA /* UIColor.swift in Sources */,
+				6E7DA9CE1D994B3A0098D7DA /* CustomString.swift in Sources */,
+				6E7DA9D01D994B3A0098D7DA /* CustomUIColor.swift in Sources */,
 				6E7DA9BC1D994B3A0098D7DA /* GuideViewController.swift in Sources */,
+				6E5FFEAC1E16BDC100CA3531 /* CustomSwitch.swift in Sources */,
 				6E7DA8DC1D9948910098D7DA /* ViewController.swift in Sources */,
 				6E7DA9DA1D994B3A0098D7DA /* Util.swift in Sources */,
 				6E7DA9BD1D994B3A0098D7DA /* InfoViewController.swift in Sources */,
 				6E4835FF1DE96A9B000684D2 /* Address.swift in Sources */,
-				6E7DA9D41D994B3A0098D7DA /* UIScrollView.swift in Sources */,
+				6E7DA9D41D994B3A0098D7DA /* CustomUIScrollView.swift in Sources */,
 				6E4836041DE97056000684D2 /* LocationCell.swift in Sources */,
 				6E4836071DE9832A000684D2 /* CourtSearchCell.swift in Sources */,
 				6EE0B8221DCED827009792A7 /* MapListView.swift in Sources */,
-				6E7DA9D61D994B3A0098D7DA /* UIView.swift in Sources */,
+				6E7DA9D61D994B3A0098D7DA /* CustomUIView.swift in Sources */,
 				6E4CC94A1DC47F84005FA92F /* Interactor.swift in Sources */,
 				6E4C62B51DE9A93C0039BE62 /* Reply.swift in Sources */,
 				6E6323A01DA3BF52001FCD9E /* AddView.swift in Sources */,
 				6E7DA9D71D994B3A0098D7DA /* URLReq.swift in Sources */,
-				6E7DA9D31D994B3A0098D7DA /* UIImage.swift in Sources */,
+				6E7DA9D31D994B3A0098D7DA /* CustomUIImage.swift in Sources */,
 				6E4CC94B1DC47F84005FA92F /* PresentMenuAnimator.swift in Sources */,
 				6E7DA9C91D994B3A0098D7DA /* NoticeViewController.swift in Sources */,
-				6E7DA9D11D994B3A0098D7DA /* UIControl.swift in Sources */,
-				6E7DA9D51D994B3A0098D7DA /* UITextField.swift in Sources */,
+				6E7DA9D11D994B3A0098D7DA /* CustomUIControl.swift in Sources */,
+				6E7DA9D51D994B3A0098D7DA /* CustomUITextField.swift in Sources */,
 				6E7DA8DA1D9948910098D7DA /* AppDelegate.swift in Sources */,
 				6E4C62B91DE9B0C20039BE62 /* PicView.swift in Sources */,
 				6E8AB6B11D9C08F200B8E488 /* SetViewController.swift in Sources */,
 				6E41630F1DC63DA40097EBDE /* BlackScreen.swift in Sources */,
 				6E7BFECF1DCA17A300D93799 /* DeviceUser.swift in Sources */,
-				6E7DA9D21D994B3A0098D7DA /* UIFont.swift in Sources */,
-				6E7DA9CA1D994B3A0098D7DA /* NSDate.swift in Sources */,
+				6E7DA9D21D994B3A0098D7DA /* CustomUIFont.swift in Sources */,
+				6E5FFEAA1E16B2CB00CA3531 /* MyCourtCell.swift in Sources */,
+				6E7DA9CA1D994B3A0098D7DA /* CustomNSDate.swift in Sources */,
 				6EAAF0E01DEB0A550066455A /* PicImageView.swift in Sources */,
 				6E4CC94D1DC4811D005FA92F /* MainLeftViewController.swift in Sources */,
 				6E4C62B71DE9AA0A0039BE62 /* ReplyCell.swift in Sources */,
@@ -929,10 +926,9 @@
 				6E7DA9C01D994B3A0098D7DA /* LoginViewController.swift in Sources */,
 				6E7DA9B81D994B3A0098D7DA /* CourtCreateViewController.swift in Sources */,
 				6E7DA9C21D994B3A0098D7DA /* MyLocationView.swift in Sources */,
-				6E7DA9CB1D994B3A0098D7DA /* PhotoAlbumCustom.swift in Sources */,
+				6E7DA9CB1D994B3A0098D7DA /* CustomPhotoAlbum.swift in Sources */,
 				6E7DA9CD1D994B3A0098D7DA /* Storage.swift in Sources */,
 				6EAAF0DA1DEAE5930066455A /* MapListCell.swift in Sources */,
-				6E7DA9CF1D994B3A0098D7DA /* TabBar.swift in Sources */,
 				6E4CC9491DC47F84005FA92F /* DismissMenuAnimator.swift in Sources */,
 				6E7DA9D91D994B3A0098D7DA /* UserConvertViewController.swift in Sources */,
 			);

@@ -32,9 +32,9 @@ class Storage{
     
     static func realmMigrationCheck(){
         let config = Realm.Configuration(
-            schemaVersion: 8,
+            schemaVersion: 9,
             migrationBlock: { migration, oldSchemaVersion in
-                if (oldSchemaVersion < 7) {
+                if (oldSchemaVersion < 8) {
                     migration.enumerateObjects(ofType: User.className()) { oldObject, newObject in
                         
                     }

@@ -11,9 +11,7 @@ import MapKit
 
 
 class MapViewController: UIViewController {
-    var preAddress : Address!
-    //이전 버튼
-    var preBtn : UIButton!
+    var returnCallback: ((Address) -> Void)!
     
     //맵뷰
     @IBOutlet var mapView: MKMapView!
@@ -24,10 +22,11 @@ class MapViewController: UIViewController {
     @IBOutlet var searchField: UITextField!
     //확인버튼
     @IBOutlet var confirmBtn: UIButton!
-    //취소뷰
-    @IBOutlet var cancelView: UIView!
     //맵 리스트뷰
     var mapListView : MapListView!
+    
+    var addressArray = Array<Address>()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,14 +46,24 @@ class MapViewController: UIViewController {
         //맵뷰 터치했을때 이벤트
         self.mapView.isUserInteractionEnabled = true
         self.mapView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.mapViewTouch)))
-        self.cancelView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.cancelAction)))
         self.mapView.delegate = self
         self.searchField.delegate = self
         self.searchField.borderStyle = .none
-        //추가정보 뷰 만들기
+        
         if let customView = Bundle.main.loadNibNamed("MapListView", owner: self, options: nil)?.first as? MapListView {
             self.mapListView = customView
-            self.mapListView.setLayout(self)
+            self.mapListView.tableView.dataSource = self
+            self.mapListView.tableView.delegate = self
+            self.mapListView.keyboardHideCallback = {(_) in
+                self.view.endEditing(true)
+            }
+            DispatchQueue.global().async {
+                Thread.sleep(forTimeInterval: 0.5)
+                DispatchQueue.main.async {
+                    self.mapListView.frame = CGRect(x: 0, y: self.mapView.frame.origin.y, width: self.view.frame.width/3*2, height: self.mapView.frame.height)
+                }
+            }
+            self.view.addSubview(self.mapListView)
         }
     }
     //지도 위치 수정
@@ -65,10 +74,7 @@ class MapViewController: UIViewController {
         self.mapView.setRegion(region, animated: true)
         self.marker.coordinate = location
     }
-    //검색 클릭
-    func searchAction() {
-        self.mapListView.searchAction()
-    }
+
     //등록 클릭
     @IBAction func confirmAction(_ sender: AnyObject) {
         var parameters : [String: AnyObject] = [:]
@@ -79,19 +85,16 @@ class MapViewController: UIViewController {
             if let results = dic["results"] as? [[String: AnyObject]]{
                 if results.count > 0{
                     let element : [String: AnyObject] = results[0]
-                    let (_, _, addressShort, address) = Util.googleMapParse(element)
                     
-                    self.preAddress.latitude = self.mapView.region.center.latitude
-                    self.preAddress.longitude = self.mapView.region.center.longitude
-                    self.preAddress.address = address
-                    self.preAddress.addressShort = addressShort
-                    self.preBtn.setTitle("\(addressShort)", for: UIControlState())
+                    if self.returnCallback != nil{
+                        self.returnCallback(Util.googleMapParse(element))
+                    }
                     self.presentingViewController?.dismiss(animated: true, completion: nil)
                 }
             }else{
                 if let isMsgView = dic["isMsgView"] as? Bool{
                     if isMsgView == true{
-                        Util.alert(self, message: "\(dic["msg"]!)")
+                        _ = Util.alert(self, message: "\(dic["msg"]!)")
                     }
                 }
             }
@@ -102,15 +105,51 @@ class MapViewController: UIViewController {
     @IBAction func backAction(_ sender: AnyObject) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
-    //취소뷰를 클릭했을 때
-    func cancelAction(){
-        self.searchField.text = ""
-        self.mapListView.hide()
-    }
-    
     //맵뷰 터치
     func mapViewTouch(){
         self.mapListView.hide()
+    }
+    
+    
+    
+    
+    func searchAction(){
+        if (self.searchField.text?.characters.count)! < 2{
+            _ = Util.alert(self, message: "검색어를 2글자 이상 넣어주세요")
+        }else{
+            self.view.endEditing(true)
+            self.addressArray = Array<Address>()
+            self.mapListView.tableView.reloadData()
+            var parameters : [String: AnyObject] = [:]
+            parameters.updateValue(self.searchField.text! as AnyObject, forKey: "address")
+            parameters.updateValue(Util.language as AnyObject, forKey: "language")
+            URLReq.request(self, url: URLReq.apiServer+"location/geocode", param: parameters, callback: { (dic) in
+                if let results = dic["results"] as? [[String: AnyObject]]{
+                    if results.count > 1{
+                        //카운트가 1보다 많으면
+                        self.view.endEditing(true)
+                        for element : [String: AnyObject] in results{
+                            self.addressArray.append(Util.googleMapParse(element))
+                        }
+                        self.mapListView.tableView.reloadData()
+                        self.mapListView.show()
+                    }else{
+                        //카운트가 1개 이면
+                        for element : [String: AnyObject] in results{
+                            let address = Util.googleMapParse(element)
+                            self.mapListView.isHidden = true
+                            self.locationMove(latitude: address.latitude, longitude: address.longitude)
+                        }
+                    }
+                }else{
+                    if let isMsgView = dic["isMsgView"] as? Bool{
+                        if isMsgView == true{
+                            _ = Util.alert(self, message: "\(dic["msg"]!)")
+                        }
+                    }
+                }
+            })
+        }
     }
 }
 
@@ -156,10 +195,10 @@ extension MapViewController: UITextFieldDelegate{
 
 extension MapViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.mapListView.addressArray.count
+        return self.addressArray.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let address = self.mapListView.addressArray[indexPath.row]
+        let address = self.addressArray[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "MapListCell", for: indexPath) as! MapListCell
         cell.setAddress(address)
         cell.touchCallback = {(addr: Address) in

@@ -12,8 +12,6 @@ class AddView: UIView{
     static let radio_selectedImage = UIImage(named: "ic_select_on")
     static let radio_unselectedImage = UIImage(named: "ic_select_off")
     
-    var ctrl : UIViewController!
-    
     var address: Address!
     
     @IBOutlet var maleView: UIView!
@@ -23,17 +21,16 @@ class AddView: UIView{
     @IBOutlet var birth: UIDatePicker!
     @IBOutlet var locationBtn: UIButton!
     
+    var keyboardHideCallback: ((Void) -> Void)!
+    var alertCallback: ((UIAlertController) -> Void)!
+    var mapMoveCallback: ((Void) -> Void)!
+    
     override func awakeFromNib() {
         self.address = Address()
         self.maleView.isUserInteractionEnabled = true
         self.maleView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.maleAction)))
         self.femaleView.isUserInteractionEnabled = true
         self.femaleView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.femaleAction)))
-    }
-    func setLayout(_ ctrl: UIViewController){
-        self.ctrl = ctrl
-        self.frame = ctrl.view.frame
-        ctrl.view.addSubview(self)
     }
     
     func maleAction(){
@@ -56,10 +53,8 @@ class AddView: UIView{
     }
     
     @IBAction func locationAction(_ sender: AnyObject) {
-        if let vc = self.ctrl as? ViewController{
-            vc.performSegue(withIdentifier: "main_map", sender: nil)
-        }else if let vc = self.ctrl as? UserConvertViewController{
-            vc.performSegue(withIdentifier: "userConvert_map", sender: nil)
+        if self.mapMoveCallback != nil{
+            self.mapMoveCallback()
         }
     }
     @IBAction func confirmAction(_ sender: AnyObject) {
@@ -80,7 +75,7 @@ class AddView: UIView{
         parameters.updateValue(user.userLongitude as AnyObject, forKey: "userLongitude")
         parameters.updateValue(user.userAddress as AnyObject, forKey: "userAddress")
         parameters.updateValue(user.userAddressShort as AnyObject, forKey: "userAddressShort")
-        URLReq.request(ctrl, url: URLReq.apiServer+"user/info", param: parameters)
+        URLReq.request(url: URLReq.apiServer+"user/info", param: parameters)
         
         UIView.animate(withDuration: 0.2, animations: {
             self.alpha = 0
@@ -91,7 +86,9 @@ class AddView: UIView{
     }
     
     func addViewShow(){
-        self.ctrl.view.endEditing(true)
+        if self.keyboardHideCallback != nil{
+            self.keyboardHideCallback()
+        }
         let vo = Storage.getRealmUser()
         self.address.latitude = vo.userLatitude
         self.address.longitude = vo.userLongitude
@@ -126,11 +123,14 @@ class AddView: UIView{
                 }
             }
             if self.isHidden == true && addViewIsShow == true{
-                Util.alert(ctrl, title: "알림", message: "더 정확하게 코트를 찾으시려면 추가정보를 입력하셔야 합니다.", confirmTitle: "입력할께요", cancelStr: "오늘 하루 안할께요", isCancel: true, confirmHandler: { (_) in
+                let alert = Util.alert(title: "알림", message: "더 정확하게 코트를 찾으시려면 추가정보를 입력하셔야 합니다.", confirmTitle: "입력할께요", cancelStr: "오늘 하루 안할께요", isCancel: true, confirmHandler: { (_) in
                     self.addViewShow()
                     }, cancelHandler: { (_) in
                         Storage.setStorage("addInfo", value: Date() as AnyObject)
                 })
+                if self.alertCallback != nil{
+                    self.alertCallback(alert)
+                }
             }
         }
     }

@@ -63,7 +63,7 @@ class SetViewController : UIViewController{
         if !Storage.isRealmUser(){
             self.performSegue(withIdentifier: "set_login", sender: nil)
         }else{
-            Util.alert(self, title: "알림", message: "로그아웃 하시겠습니까?", isCancel: true, confirmHandler: { (alert) in
+            _ = Util.alert(self, title: "알림", message: "로그아웃 하시겠습니까?", isCancel: true, confirmHandler: { (alert) in
                 let parameters : [String: AnyObject] = ["userId": user.userId as AnyObject]
                 URLReq.request(self, url: URLReq.apiServer+"certification/logout", param: parameters)
                 Storage.removeReamlUserData()

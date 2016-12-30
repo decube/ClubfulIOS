@@ -26,6 +26,8 @@ class Util{
     //스크린 사이즈
     static let screenSize: CGRect = UIScreen.main.bounds
     
+    static let noImage = UIImage(named: "noImage")
+    
     //다국어지원
     static func lang(_ key : String) -> String{
         return NSLocalizedString(key, comment: key)
@@ -64,13 +66,16 @@ class Util{
     
     
     
-    static func alert(_ ctrl : UIViewController, title : String = "알림", message : String, confirmTitle : String = "확인",cancelStr :String = "취소", isCancel: Bool = false, confirmHandler : @escaping (UIAlertAction) -> Void = {(_) in}, cancelHandler : @escaping (UIAlertAction) -> Void = {(_) in}){
+    static func alert(_ ctrl : UIViewController! = nil, title : String = "알림", message : String, confirmTitle : String = "확인",cancelStr :String = "취소", isCancel: Bool = false, confirmHandler : @escaping (UIAlertAction) -> Void = {(_) in}, cancelHandler : @escaping (UIAlertAction) -> Void = {(_) in}) -> UIAlertController{
         let alert = UIAlertController(title:title,message:message, preferredStyle: UIAlertControllerStyle.alert)
         if isCancel{
             alert.addAction(UIAlertAction(title:cancelStr,style: .cancel,handler:cancelHandler))
         }
         alert.addAction(UIAlertAction(title:confirmTitle,style: .default,handler:confirmHandler))
-        ctrl.present(alert, animated: false, completion: {(_) in })
+        if ctrl != nil{
+            ctrl.present(alert, animated: false, completion: {(_) in })
+        }
+        return alert
     }
     
     
@@ -140,14 +145,14 @@ class Util{
         let alert = UIAlertController(title:"알림",message:"저장하실 방법을 선택하세요.", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title:"URL 복사",style: .default,handler:{(_) in
             UIPasteboard.general.string = imageUrl
-            Util.alert(ctrl, message: "복사되었습니다.")
+            _ = Util.alert(ctrl, message: "복사되었습니다.")
         }))
         alert.addAction(UIAlertAction(title:"갤러리 저장",style: .default,handler:{(_) in
             PhotoAlbumUtil.saveImageInAlbum(image, albumName: "clubful", completion: { (result) in
                 switch result {
                 case .success:
                     DispatchQueue.main.async(execute: {
-                        Util.alert(ctrl, message: "저장되었습니다.")
+                        _ = Util.alert(ctrl, message: "저장되었습니다.")
                     })
                     break
                 case .error:
@@ -177,7 +182,7 @@ class Util{
     }
     
     
-    static func googleMapParse(_ element : [String: AnyObject]) -> (Double, Double, String, String){
+    static func googleMapParse(_ element : [String: AnyObject]) -> Address{
         var latitude = 0.0
         var longitude = 0.0
         var addressShort = ""
@@ -199,8 +204,7 @@ class Util{
             addressShort = city
         }
         
-        
-        return (latitude, longitude, addressShort, address)
+        return Address(latitude: latitude, longitude: longitude, address: address, addressShort: addressShort)
     }
     
     

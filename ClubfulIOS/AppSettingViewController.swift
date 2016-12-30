@@ -25,10 +25,10 @@ class AppSettingViewController : UIViewController{
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
         let deviceUser = Storage.getRealmDeviceUser()
-        noticeSwitch.isOn = deviceUser.noticePushCheck
-        myCourtSwitch.isOn = deviceUser.myCourtPushCheck
-        distanceSwitch.isOn = deviceUser.distancePushCheck
-        interestSwitch.isOn = deviceUser.interestPushCheck
+        noticeSwitch.setYN(deviceUser.noticePushCheck)
+        myCourtSwitch.setYN(deviceUser.myCourtPushCheck)
+        distanceSwitch.setYN(deviceUser.distancePushCheck)
+        interestSwitch.setYN(deviceUser.interestPushCheck)
         
         startTime.date = deviceUser.startPushTime as Date
         endTime.date = deviceUser.endPushTime as Date
@@ -43,16 +43,16 @@ class AppSettingViewController : UIViewController{
         parameters.updateValue(user.userId as AnyObject, forKey: "id")
         parameters.updateValue(startTime.date.getTime() as AnyObject, forKey: "startTime")
         parameters.updateValue(endTime.date.getTime() as AnyObject, forKey: "endTime")
-        parameters.updateValue(noticeSwitch.isOn as AnyObject, forKey: "noticePush")
-        parameters.updateValue(myCourtSwitch.isOn as AnyObject, forKey: "myCreateCourtPush")
-        parameters.updateValue(distanceSwitch.isOn as AnyObject, forKey: "distancePush")
-        parameters.updateValue(interestSwitch.isOn as AnyObject, forKey: "interestPush")
+        parameters.updateValue(noticeSwitch.getYN() as AnyObject, forKey: "noticePush")
+        parameters.updateValue(myCourtSwitch.getYN() as AnyObject, forKey: "myCreateCourtPush")
+        parameters.updateValue(distanceSwitch.getYN() as AnyObject, forKey: "distancePush")
+        parameters.updateValue(interestSwitch.getYN() as AnyObject, forKey: "interestPush")
         
         URLReq.request(self, url: URLReq.apiServer+"user/set", param: parameters, callback: { (dic) in
-            deviceUser.noticePushCheck = self.noticeSwitch.isOn
-            deviceUser.myCourtPushCheck = self.myCourtSwitch.isOn
-            deviceUser.distancePushCheck = self.distanceSwitch.isOn
-            deviceUser.interestPushCheck = self.interestSwitch.isOn
+            deviceUser.noticePushCheck = self.noticeSwitch.getYN()
+            deviceUser.myCourtPushCheck = self.myCourtSwitch.getYN()
+            deviceUser.distancePushCheck = self.distanceSwitch.getYN()
+            deviceUser.interestPushCheck = self.interestSwitch.getYN()
             deviceUser.startPushTime = self.startTime.date
             deviceUser.endPushTime = self.endTime.date
             Storage.setRealmDeviceUser(deviceUser)

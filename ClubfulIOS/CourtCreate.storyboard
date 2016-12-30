@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="A8O-Lu-31N">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7Yn-Ox-GoY">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -13,7 +13,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
+        <!--Court Create View Controller-->
         <scene sceneID="EJ6-Sp-wk5">
             <objects>
                 <viewController id="A8O-Lu-31N" customClass="CourtCreateViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -37,7 +37,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4RZ-fZ-KmF">
-                                <rect key="frame" x="0.0" y="80" width="375" height="587"/>
+                                <rect key="frame" x="0.0" y="80" width="375" height="538"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gLl-NQ-RhS">
                                         <rect key="frame" x="8" y="258" width="174" height="31"/>
@@ -345,7 +345,7 @@
                             <constraint firstItem="rr2-78-Gt1" firstAttribute="centerX" secondItem="hm8-g4-Mrz" secondAttribute="centerX" id="ueg-cV-Dxj"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="BmT-M3-xzL"/>
+                    <navigationItem key="navigationItem" id="eRs-Im-Heb"/>
                     <connections>
                         <outlet property="categoryBtn" destination="1r7-vh-7uh" id="bOT-t2-7dl"/>
                         <outlet property="cnameTextField" destination="EKQ-vH-Mwg" id="aC8-af-haO"/>
@@ -362,7 +362,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UsP-Qs-0wg" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1090.4000000000001" y="-301.79910044977515"/>
+            <point key="canvasLocation" x="-151.19999999999999" y="-301.79910044977515"/>
         </scene>
         <!--Map-->
         <scene sceneID="O2Z-iG-Q9d">
@@ -370,10 +370,33 @@
                 <viewControllerPlaceholder storyboardName="Map" id="L1g-oN-keW" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FEm-5N-YbR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-558" y="-302"/>
+            <point key="canvasLocation" x="380.80000000000001" y="-302.24887556221893"/>
+        </scene>
+        <!--생성-->
+        <scene sceneID="PpV-si-XWf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="7Yn-Ox-GoY" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="생성" image="tab_add_off" selectedImage="tab_add_on" id="BmT-M3-xzL"/>
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="j9I-Wk-468">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="A8O-Lu-31N" kind="relationship" relationship="rootViewController" id="fh0-aw-0mf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kQG-np-FMX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-863" y="-302"/>
         </scene>
     </scenes>
     <resources>
         <image name="ic_imageAdd" width="64" height="64"/>
+        <image name="tab_add_off" width="20" height="20"/>
+        <image name="tab_add_on" width="20" height="20"/>
     </resources>
 </document>

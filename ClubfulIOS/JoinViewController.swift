@@ -17,7 +17,7 @@ class JoinViewController: UIViewController {
     @IBOutlet var repwdField: UITextField!
     @IBOutlet var nicknameField: UITextField!
     
-    var preIdField : UITextField!
+    var signCallback: ((String) -> Void)!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,13 +50,13 @@ class JoinViewController: UIViewController {
             return
         }
         if idField.text!.characters.count < 6{
-            Util.alert(self, message: "아이디를 제대로 입력해주세요.")
+            _ = Util.alert(self, message: "아이디를 제대로 입력해주세요.")
         }else if pwdField.text!.characters.count < 6{
-            Util.alert(self, message: "비밀번호를 제대로 입력해주세요.")
+            _ = Util.alert(self, message: "비밀번호를 제대로 입력해주세요.")
         }else if pwdField.text! != repwdField.text!{
-            Util.alert(self, message: "비밀번호가 틀립니다.")
+            _ = Util.alert(self, message: "비밀번호가 틀립니다.")
         }else if nicknameField.text!.characters.count < 2{
-            Util.alert(self, message: "닉네임을 2자 이상 입력해 주세요.")
+            _ = Util.alert(self, message: "닉네임을 2자 이상 입력해 주세요.")
         }else{
             
             spin.isHidden = false
@@ -76,7 +76,9 @@ class JoinViewController: UIViewController {
             parameters.updateValue(deviceUser.endPushTime.getTime() as AnyObject, forKey: "endTime")
             
             URLReq.request(self, url: URLReq.apiServer+"user/join", param: parameters, callback: { (dic) in
-                self.preIdField.text = self.idField.text!
+                if self.signCallback != nil{
+                    self.signCallback(self.idField.text!)
+                }
                 self.dismiss(animated: true, completion: nil)
             }, codeErrorCallback: { (dic) in
                 self.spin.isHidden = true

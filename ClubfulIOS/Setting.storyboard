@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xKr-TZ-G3g">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Tln-LS-08Y">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 4-->
+        <!--Set View Controller-->
         <scene sceneID="fQc-Xl-Spm">
             <objects>
                 <viewController id="xKr-TZ-G3g" customClass="SetViewController" customModule="ClubfulIOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -30,7 +30,7 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Upx-lP-QiD">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zxd-iy-9BV">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
@@ -381,7 +381,7 @@
                             <constraint firstItem="r4L-Zg-FQo" firstAttribute="leading" secondItem="b5B-Il-z6d" secondAttribute="leading" id="yzH-rd-xF2"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 4" id="sca-Vf-PQO"/>
+                    <navigationItem key="navigationItem" id="rXT-yj-Vkt"/>
                     <connections>
                         <outlet property="signLbl" destination="bU6-QI-y6h" id="ZhV-AN-oLW"/>
                         <outlet property="tab_0" destination="zxd-iy-9BV" id="NzY-QA-u0l"/>
@@ -401,7 +401,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EmP-I7-2YM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2558" y="791"/>
+            <point key="canvasLocation" x="-1620" y="790.25487256371821"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="X9R-U0-Pfi">
@@ -678,7 +678,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mgO-9l-BXO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1778.4000000000001" y="521.28935532233891"/>
+            <point key="canvasLocation" x="-839.20000000000005" y="521.28935532233891"/>
         </scene>
         <!--Inquiry View Controller-->
         <scene sceneID="1a3-4L-O2w">
@@ -1509,7 +1509,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1060" y="1179.7601199400301"/>
+            <point key="canvasLocation" x="-120.8" y="1179.7601199400301"/>
         </scene>
         <!--Join View Controller-->
         <scene sceneID="LOW-Pj-kAB">
@@ -1687,7 +1687,28 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gzH-bh-mfD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1060" y="521"/>
+            <point key="canvasLocation" x="-120.8" y="520.38980509745136"/>
+        </scene>
+        <!--설정-->
+        <scene sceneID="pj2-cP-eWC">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Tln-LS-08Y" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="설정" image="tab_setting_off" selectedImage="tab_setting_on" id="sca-Vf-PQO"/>
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Kyp-qQ-5xq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="xKr-TZ-G3g" kind="relationship" relationship="rootViewController" id="MFG-nU-4CI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xnP-ff-NSu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2559.1999999999998" y="790.25487256371821"/>
         </scene>
     </scenes>
     <resources>
@@ -1698,6 +1719,8 @@
         <image name="sc_fb" width="512" height="512"/>
         <image name="sc_kakao" width="400" height="400"/>
         <image name="sc_kakao_invite" width="128" height="146"/>
+        <image name="tab_setting_off" width="20" height="20"/>
+        <image name="tab_setting_on" width="20" height="20"/>
         <image name="wb_left_off" width="48" height="48"/>
         <image name="wb_link" width="50" height="50"/>
         <image name="wb_reload" width="50" height="50"/>

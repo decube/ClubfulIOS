@@ -9,39 +9,41 @@
 import UIKit
 
 class MypageViewController: UIViewController {
-    @IBOutlet var interestCourt: UIScrollView!
-    @IBOutlet var createCourt: UIScrollView!
-    @IBOutlet var interestSpin: UIActivityIndicatorView!
-    @IBOutlet var createSpin: UIActivityIndicatorView!
-    var interestArray = [Court]()
+    @IBOutlet var collectionView: UICollectionView!
     var createArray = [Court]()
     var nonUserView : NonUserView!
-    var courtSeq: Int!
     static var isReload = true
+    var noneLbl: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
         
-        //슬라이드 효과
-        interestCourt.isPagingEnabled = true
-        createCourt.isPagingEnabled = true
-        interestCourt.showsVerticalScrollIndicator = false
-        createCourt.showsVerticalScrollIndicator = false
-        interestCourt.showsHorizontalScrollIndicator = false
-        createCourt.showsHorizontalScrollIndicator = false
+        self.noneLbl = UILabel(frame: CGRect(x: 0, y: 120, width: self.collectionView.frame.width, height: self.collectionView.frame.height))
+        self.noneLbl.text = "내가 등록한 코트가 없습니다."
+        self.noneLbl.textAlignment = .center
+        self.noneLbl.font = UIFont(name: (noneLbl.font?.fontName)!, size: 20)
+        self.noneLbl.isHidden = true
+        self.view.addSubview(noneLbl)
     }
     
     func reloadData(){
         let user = Storage.getRealmUser()
         let parameters : [String: AnyObject] = ["userId": user.userId as AnyObject]
         URLReq.request(self, url: URLReq.apiServer+"user/mypage", param: parameters, callback: { (dic) in
-            DispatchQueue.global().async {
-                if let list = dic["interestList"] as? [[String: AnyObject]]{
-                    self.setData(list, type: 0)
-                }
+            DispatchQueue.main.async {
                 if let list = dic["myCourtInsert"] as? [[String: AnyObject]]{
-                    self.setData(list, type: 1)
+                    if list.count == 0{
+                        self.noneLbl.isHidden = false
+                    }else{
+                        self.createArray = []
+                        for data in list{
+                            let court = Court(data)
+                            self.createArray.append(court)
+                        }
+                        self.collectionView.reloadData()
+                    }
                 }
             }
         })
@@ -67,107 +69,6 @@ class MypageViewController: UIViewController {
             self.view.addSubview(nonUserView)
         }
     }
-    
-    
-    
-    func setData(_ list: [[String: AnyObject]], type: Int){
-        func noneLbl(){
-            let noneLbl = UILabel(frame: CGRect(x: 0, y: 0, width: interestCourt.frame.width, height: interestCourt.frame.height))
-            if type == 0{
-                noneLbl.text = "찜한 코트가 없습니다."
-            }else if type == 1{
-                noneLbl.text = "내가 등록한 코트가 없습니다."
-            }
-            noneLbl.textAlignment = .center
-            noneLbl.font = UIFont(name: (noneLbl.font?.fontName)!, size: 20)
-            DispatchQueue.main.async {
-                if type == 0{
-                    self.interestCourt.addSubview(noneLbl)
-                }else if type == 1{
-                    self.createCourt.addSubview(noneLbl)
-                }
-            }
-        }
-        DispatchQueue.main.async {
-            if type == 0{
-                self.interestCourt.subviews.forEach({$0.removeFromSuperview()})
-                self.interestCourt.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
-                self.interestSpin.startAnimating()
-                self.interestSpin.isHidden = false
-            }else if type == 1{
-                self.createCourt.subviews.forEach({$0.removeFromSuperview()})
-                self.createCourt.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
-                self.createSpin.startAnimating()
-                self.createSpin.isHidden = false
-            }
-        }
-        
-        if list.count == 0{
-            noneLbl()
-        }else{
-            if type == 0{
-                self.interestArray = []
-            }else if type == 1{
-                self.createArray = []
-            }
-            for data in list{
-                let court = Court(data)
-//                if court.setImageData(){
-//                    if type == 0{
-//                        self.interestArray.append(court)
-//                    }else if type == 1{
-//                        self.createArray.append(court)
-//                    }
-//                }
-            }
-            if type == 0 && self.interestArray.count == 0{
-                noneLbl()
-            }else if type == 1 && self.createArray.count == 0{
-                noneLbl()
-            }else{
-                DispatchQueue.main.async{
-                    if type == 0{
-                        self.setImageLayout(self.interestArray, type: type)
-                    }else if type == 1{
-                        self.setImageLayout(self.createArray, type: type)
-                    }
-                }
-            }
-        }
-    }
-    
-    func setImageLayout(_ list: [Court], type: Int){
-        var i : CGFloat = 0
-        for data in list{
-            if let customView = Bundle.main.loadNibNamed("MypageCourtView", owner: self, options: nil)?.first as? MypageCourtView {
-                customView.setCourt(data)
-                customView.touchCallback = {(court: Court) in
-                    self.courtSeq = court.seq
-                    self.performSegue(withIdentifier: "mypage_courtDetail", sender: nil)
-                }
-                customView.pressedCallback = {(court: Court) in
-                    //Util.imageSaveHandler(self, imageUrl: court.image, image: court.imageData)
-                }
-                if type == 0{
-                    customView.frame = CGRect(x: i*self.interestCourt.frame.width, y: 0, width: self.interestCourt.frame.width, height: self.interestCourt.frame.height)
-                    self.interestCourt.addSubview(customView)
-                }else if type == 1{
-                    customView.frame = CGRect(x: i*self.createCourt.frame.width, y: 0, width: self.createCourt.frame.width, height: self.createCourt.frame.height)
-                    self.createCourt.addSubview(customView)
-                }
-                i += 1
-            }
-        }
-        if type == 0{
-            self.interestCourt.contentSize.width = self.interestCourt.frame.size.width*i
-            self.interestSpin.stopAnimating()
-            self.interestSpin.isHidden = true
-        }else if type == 1{
-            self.createCourt.contentSize.width = self.createCourt.frame.size.width*i
-            self.createSpin.stopAnimating()
-            self.createSpin.isHidden = true
-        }
-    }
 }
 
 extension MypageViewController{
@@ -183,8 +84,46 @@ extension MypageViewController{
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? CourtViewController{
-            vc.courtSeq = self.courtSeq
+        if segue.identifier == "mypage_courtDetail"{
+            let path = self.collectionView.indexPath(for: sender as! MyCourtCell)
+            let courtSeq = self.createArray[(path?.row)!].seq
+            let detailVC = segue.destination as? CourtViewController
+            detailVC?.courtSeq = courtSeq
         }
+    }
+}
+extension MypageViewController: UICollectionViewDelegate{
+    
+}
+
+extension MypageViewController: UICollectionViewDataSource{
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.createArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSize(width: self.collectionView.frame.width/3-9, height: self.collectionView.frame.height/5)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCourtCell", for: indexPath) as! MyCourtCell
+        let court = self.createArray[indexPath.row]
+        cell.spin.startAnimating()
+        cell.spin.isHidden = false
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                if court.setImageData(){
+                    cell.img.image = UIImage(data: court.imageData1)
+                    cell.spin.stopAnimating()
+                    cell.spin.isHidden = true
+                }
+            }
+        }
+        cell.txt.text = "\(court.cname!)"
+        return cell
     }
 }

@@ -37,12 +37,24 @@ class CourtSearchCell: UITableViewCell{
                             DispatchQueue.main.async {
                                 self.imgView.image = image
                             }
+                        }else{
+                            self.setNoImage()
                         }
+                    }else{
+                        self.setNoImage()
                     }
+                }else{
+                    self.setNoImage()
                 }
             }
         }else{
             self.imgView.image = UIImage(data: court.imageData1)
+        }
+    }
+    
+    func setNoImage(){
+        DispatchQueue.main.async {
+            self.imgView.image = Util.noImage
         }
     }
     

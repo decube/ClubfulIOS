@@ -134,12 +134,13 @@ class ViewController: UIViewController{
     @IBOutlet var spin: UIActivityIndicatorView!
     //검색 텍스트 필드
     @IBOutlet var searchTextField: UITextField!
-    //검색 텍스트필드 x 이미지뷰
-    @IBOutlet var searchCancelImageView: UIView!
     @IBOutlet var leftEdge: UIScreenEdgePanGestureRecognizer!
     @IBOutlet var rightEdge: UIScreenEdgePanGestureRecognizer!
     
     var mainCourtArray = Array<Court>()
+    
+    //왼쪽 코트
+    var courtArray: Array<Court> = Array<Court>()
     
     //현재위치 manager
     let locationManager = CLLocationManager()
@@ -147,7 +148,6 @@ class ViewController: UIViewController{
     var isFirstLocation = true
     //위치가져왔는지 못가져왔는지
     var isMyLocation = false
-    
     
     //위치찾기뷰
     var myLocationView : MyLocationView!
@@ -170,10 +170,6 @@ class ViewController: UIViewController{
         self.view.layoutIfNeeded()
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
         
-        //검색 취소 액션 추가
-        self.searchCancelImageView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.searchCancelAction)))
-        
-        //검색 필드 스타일
         self.searchTextField.delegate = self
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -185,11 +181,8 @@ class ViewController: UIViewController{
         self.rightEdge.edges = .right
         
         let deviceUser = Storage.getRealmDeviceUser()
-        if deviceUser.search == ""{
-            self.searchCancelImageView.alpha = 0
-        }else{
+        if deviceUser.search != ""{
             self.searchTextField.text = deviceUser.search
-            self.searchCancelImageView.alpha = 1
         }
         
         //현재 나의 위치설정
@@ -204,17 +197,57 @@ class ViewController: UIViewController{
         //코트검색 뷰 만들기
         if let customView = Bundle.main.loadNibNamed("CourtSearchView", owner: self, options: nil)?.first as? CourtSearchView {
             self.courtSearchView = customView
-            self.courtSearchView.setLayout(self)
+            self.courtSearchView.tableView.delegate = self
+            self.courtSearchView.tableView.dataSource = self
+            self.courtSearchView.keyboardHideCallback = {(_) in
+                self.view.endEditing(true)
+            }
+            self.view.addSubview(self.courtSearchView)
+            DispatchQueue.global().async {
+                Thread.sleep(forTimeInterval: 0.5)
+                DispatchQueue.main.async {
+                    self.courtSearchView.frame = CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.view.frame.height-80-(self.tabBarController?.tabBar.frame.height)!)
+                    _ = self.courtSearchView.layer(.right, borderWidth: 1, color: UIColor.black)
+                }
+            }
         }
         //자기 위치 설정 뷰 만들기
         if let customView = Bundle.main.loadNibNamed("MyLocationView", owner: self, options: nil)?.first as? MyLocationView {
             self.myLocationView = customView
-            self.myLocationView.setLayout(self)
+            self.myLocationView.frame = self.view.frame
+            self.myLocationView.search.delegate = self
+            self.myLocationView.tableView.delegate = self
+            self.myLocationView.tableView.dataSource = self
+            self.myLocationView.keyboardHideCallback = {(_) in
+                self.view.endEditing(true)
+            }
+            self.myLocationView.alertCallback = {(alert) in
+                self.present(alert, animated: false, completion: {(_) in })
+            }
+            self.myLocationView.myLocationCallback = {(_) in
+                if self.isMyLocation == false{
+                    _ = Util.alert(self, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
+                }else{
+                    self.locationManager.startUpdatingLocation()
+                }
+            }
+            self.view.addSubview(self.myLocationView)
+            
         }
         //추가정보 뷰 만들기
         if let customView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView {
             self.addView = customView
-            self.addView.setLayout(self)
+            self.addView.frame = self.view.frame
+            self.addView.keyboardHideCallback = {(_) in
+                self.view.endEditing(true)
+            }
+            self.addView.alertCallback = {(alert) in
+                self.present(alert, animated: false, completion: {(_) in })
+            }
+            self.addView.mapMoveCallback = {(_) in
+                self.performSegue(withIdentifier: "main_map", sender: nil)
+            }
+            self.view.addSubview(self.addView)
         }
         
         
@@ -276,6 +309,46 @@ class ViewController: UIViewController{
     }
     
     
+    //코트 검색
+    func courtSearchAction(){
+        if (self.searchTextField.text?.characters.count)! >= 2{
+            self.courtSearchView.spin.isHidden = false
+            self.courtSearchView.spin.startAnimating()
+            self.view.endEditing(true)
+            
+            let deviceUser = Storage.getRealmDeviceUser()
+            var latitude = deviceUser.latitude
+            var longitude = deviceUser.longitude
+            if deviceUser.isMyLocation == false{
+                latitude = deviceUser.deviceLatitude
+                longitude = deviceUser.deviceLongitude
+            }
+            self.courtArray = Array<Court>()
+            var parameters : [String: AnyObject] = [:]
+            parameters.updateValue(self.searchTextField.text! as AnyObject, forKey: "search")
+            parameters.updateValue(deviceUser.category as AnyObject, forKey: "category")
+            parameters.updateValue(latitude as AnyObject, forKey: "latitude")
+            parameters.updateValue(longitude as AnyObject, forKey: "longitude")
+            URLReq.request(url: URLReq.apiServer+"court/getList", param: parameters, callback: { (dic) in
+                self.courtSearchView.spin.isHidden = true
+                self.courtSearchView.spin.stopAnimating()
+                if let list = dic["list"] as? [[String: AnyObject]]{
+                    if list.count == 0{
+                        _ = Util.alert(self, message: "해당 검색어에 코트가 없습니다.")
+                    }else{
+                        for data in list{
+                            self.courtArray.append(Court(data))
+                        }
+                        self.courtSearchView.tableView.reloadData()
+                        self.courtSearchView.show()
+                    }
+                }
+            })
+        }else{
+            _ = Util.alert(self, message: "검색어는 2글자 이상으로 넣어주세요.")
+        }
+    }
+    
     
     
     
@@ -307,24 +380,6 @@ class ViewController: UIViewController{
     }
     
     
-    //검색 취소 X표시 버튼 액션
-    func searchCancelAction(){
-        self.searchTextField.text = ""
-        self.view.endEditing(true)
-        UIView.animate(withDuration: 0.3, animations: {
-            self.searchCancelImageView.alpha = 0
-        })
-        if self.courtSearchView.isHidden == false{
-            UIView.animate(withDuration: 0.2, animations: {
-                self.courtSearchView.frame.origin.x = -self.courtSearchView.frame.width
-                }, completion: {(_) in
-                    self.courtSearchView.isHidden = true
-                    self.courtSearchView.frame.origin.x = 0
-            })
-        }
-    }
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -338,18 +393,21 @@ extension ViewController{
         if let destinationViewController = segue.destination as? MainLeftViewController {
             destinationViewController.transitioningDelegate = self
             destinationViewController.interactor = interactor
-            destinationViewController.vc = self
-        }
-        if let destinationViewController = segue.destination as? MainRightViewController {
+        }else if let destinationViewController = segue.destination as? MainRightViewController {
             destinationViewController.transitioningDelegate = self
             destinationViewController.interactor = interactor
-        }
-        if let vc = segue.destination as? CourtViewController{
+        }else if segue.identifier == "main_courtDetail"{
+            let path = self.tableView.indexPath(for: sender as! CourtCell)
+            let courtSeq = self.mainCourtArray[(path?.row)!].seq
+            let detailVC = segue.destination as? CourtViewController
+            detailVC?.courtSeq = courtSeq
+        }else if let vc = segue.destination as? CourtViewController{
             vc.courtSeq = self.courtDetailSeq
-        }
-        if let vc = segue.destination as? MapViewController{
-            vc.preAddress = self.addView.address
-            vc.preBtn = self.addView.locationBtn
+        }else if let vc = segue.destination as? MapViewController{
+            vc.returnCallback = {(address: Address) in
+                self.addView.address = address
+                self.addView.locationBtn.setTitle("\(address.addressShort!)", for: UIControlState())
+            }
         }
     }
     //화면 생겼을 때
@@ -397,7 +455,7 @@ extension ViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         self.isMyLocation = false
         if ProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] == nil{
-            Util.alert(self, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
+            _ = Util.alert(self, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
         }
     }
     //현재 나의 위치 딜리게이트 가져옴
@@ -419,7 +477,10 @@ extension ViewController: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.searchTextField {
             textField.resignFirstResponder()
-            self.courtSearchView.courtSearchAction()
+            let deviceUser = Storage.getRealmDeviceUser()
+            deviceUser.search = self.searchTextField.text!
+            Storage.setRealmDeviceUser(deviceUser)
+            self.courtSearchAction()
             return false
         }else if textField == self.myLocationView.search{
             textField.resignFirstResponder()
@@ -430,22 +491,11 @@ extension ViewController: UITextFieldDelegate{
     }
     //키보드생길때
     func keyboardWillShow(_ notification: Notification) {
-        if self.myLocationView.isHidden{
-            self.searchCancelImageView.alpha = 0
-            UIView.animate(withDuration: 1, animations: {
-                self.searchCancelImageView.alpha = 1
-            })
-        }
+        
     }
     //키보드없어질때
     func keyboardWillHide(_ notification: Notification) {
-        if self.myLocationView.isHidden{
-            if self.searchTextField.text == ""{
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.searchCancelImageView.alpha = 0
-                })
-            }
-        }
+        
     }
 }
 
@@ -454,12 +504,12 @@ extension ViewController: UITableViewDataSource{
         if tableView == self.myLocationView.tableView{
             return self.myLocationView.locationArray.count
         }else if tableView == self.courtSearchView.tableView{
-            return self.courtSearchView.courtArray.count
+            return self.courtArray.count
         }else{
             return self.mainCourtArray.count
         }
-        
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == self.myLocationView.tableView{
             let address = self.myLocationView.locationArray[indexPath.row]
@@ -478,12 +528,12 @@ extension ViewController: UITableViewDataSource{
             }
             return cell
         }else if tableView == self.courtSearchView.tableView{
-            let court = self.courtSearchView.courtArray[indexPath.row]
+            let court = self.courtArray[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: "CourtSearchCell", for: indexPath) as! CourtSearchCell
             cell.setCourt(court)
             cell.touchCallback = {(court: Court) in
                 self.courtDetailSeq = court.seq
-                self.performSegue(withIdentifier: "main_courtDetail", sender: nil)
+                self.performSegue(withIdentifier: "courtDetail", sender: nil)
             }
             cell.mapViewCallback = {(court: Court) in
                 let sname : String = "내위치".queryValue()
@@ -514,7 +564,7 @@ extension ViewController: UITableViewDataSource{
                     self.courtSearchView.hide()
                 }else{
                     self.courtDetailSeq = court.seq
-                    self.performSegue(withIdentifier: "main_courtDetail", sender: nil)
+                    self.performSegue(withIdentifier: "courtDetail", sender: nil)
                 }
             }
             return cell

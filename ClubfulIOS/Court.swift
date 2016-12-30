@@ -41,16 +41,28 @@ class Court {
             callback()
         }
     }
+    func setImageData() -> Bool{
+        if self.imageData1 == nil{
+            if let imgURL = Foundation.URL(string: self.image1){
+                if let imgData = try? Data(contentsOf: imgURL){
+                    self.imageData1 = imgData
+                    return true
+                }else{
+                    return false
+                }
+            }else{
+                return false
+            }
+        }else{
+            return true
+        }
+    }
     func setImage1Data(_ callback: ((Void) -> Void)!){
         if let imgURL = Foundation.URL(string: self.image1){
             if let imgData = try? Data(contentsOf: imgURL){
                 self.imageData1 = imgData
                 self.callbackFn(callback)
-            }else{
-                self.callbackFn(callback)
             }
-        }else{
-            self.callbackFn(callback)
         }
     }
     func setImage2Data(_ callback: ((Void) -> Void)!){
@@ -58,11 +70,7 @@ class Court {
             if let imgData = try? Data(contentsOf: imgURL){
                 self.imageData2 = imgData
                 self.callbackFn(callback)
-            }else{
-                self.callbackFn(callback)
             }
-        }else{
-            self.callbackFn(callback)
         }
     }
     func setImage3Data(_ callback: ((Void) -> Void)!){
@@ -70,11 +78,7 @@ class Court {
             if let imgData = try? Data(contentsOf: imgURL){
                 self.imageData3 = imgData
                 self.callbackFn(callback)
-            }else{
-                self.callbackFn(callback)
             }
-        }else{
-            self.callbackFn(callback)
         }
     }
     func setImage4Data(_ callback: ((Void) -> Void)!){
@@ -82,11 +86,7 @@ class Court {
             if let imgData = try? Data(contentsOf: imgURL){
                 self.imageData4 = imgData
                 self.callbackFn(callback)
-            }else{
-                self.callbackFn(callback)
             }
-        }else{
-            self.callbackFn(callback)
         }
     }
     func setImage5Data(_ callback: ((Void) -> Void)!){
@@ -94,11 +94,7 @@ class Court {
             if let imgData = try? Data(contentsOf: imgURL){
                 self.imageData5 = imgData
                 self.callbackFn(callback)
-            }else{
-                self.callbackFn(callback)
             }
-        }else{
-            self.callbackFn(callback)
         }
     }
     func setImage6Data(_ callback: ((Void) -> Void)!){
@@ -106,11 +102,7 @@ class Court {
             if let imgData = try? Data(contentsOf: imgURL){
                 self.imageData6 = imgData
                 self.callbackFn(callback)
-            }else{
-                self.callbackFn(callback)
             }
-        }else{
-            self.callbackFn(callback)
         }
     }
     

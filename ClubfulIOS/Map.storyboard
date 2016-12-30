@@ -80,45 +80,21 @@
                                                     <constraint firstAttribute="height" constant="20" id="5Yn-z5-bAW"/>
                                                 </constraints>
                                             </imageView>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="위치를 입력하세요." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yru-av-3qz">
-                                                <rect key="frame" x="30" y="0.0" width="295" height="30"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="위치를 입력하세요." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Yru-av-3qz">
+                                                <rect key="frame" x="30" y="0.0" width="325" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="search"/>
                                             </textField>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6nb-Bk-Ukj">
-                                                <rect key="frame" x="325" y="0.0" width="30" height="30"/>
-                                                <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_cancel_b" translatesAutoresizingMaskIntoConstraints="NO" id="ZBv-Fv-TRu">
-                                                        <rect key="frame" x="5" y="5" width="20" height="20"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="20" id="4lf-um-W5T"/>
-                                                            <constraint firstAttribute="height" constant="20" id="o7Z-zp-gRD"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="ZBv-Fv-TRu" secondAttribute="bottom" constant="5" id="7nn-di-aIx"/>
-                                                    <constraint firstItem="ZBv-Fv-TRu" firstAttribute="leading" secondItem="6nb-Bk-Ukj" secondAttribute="leading" constant="5" id="Kmm-7L-cNO"/>
-                                                    <constraint firstAttribute="height" constant="30" id="r8i-hP-bh7"/>
-                                                    <constraint firstAttribute="width" constant="30" id="uMv-zO-76I"/>
-                                                    <constraint firstItem="ZBv-Fv-TRu" firstAttribute="top" secondItem="6nb-Bk-Ukj" secondAttribute="top" constant="5" id="xCw-cX-Bvs"/>
-                                                    <constraint firstAttribute="trailing" secondItem="ZBv-Fv-TRu" secondAttribute="trailing" constant="5" id="zIX-6J-zbK"/>
-                                                </constraints>
-                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="6nb-Bk-Ukj" secondAttribute="bottom" id="5vm-Dg-84D"/>
                                             <constraint firstItem="Yru-av-3qz" firstAttribute="leading" secondItem="kdv-py-3Rg" secondAttribute="trailing" constant="5" id="7Yr-wR-5dA"/>
                                             <constraint firstAttribute="height" constant="30" id="7gB-sl-fkA"/>
-                                            <constraint firstItem="6nb-Bk-Ukj" firstAttribute="top" secondItem="qit-uF-9mL" secondAttribute="top" id="89n-Qs-sq4"/>
                                             <constraint firstAttribute="bottom" secondItem="kdv-py-3Rg" secondAttribute="bottom" constant="5" id="DYV-wK-Ld1"/>
-                                            <constraint firstItem="6nb-Bk-Ukj" firstAttribute="leading" secondItem="Yru-av-3qz" secondAttribute="trailing" id="L55-Qe-TZm"/>
                                             <constraint firstItem="kdv-py-3Rg" firstAttribute="top" secondItem="qit-uF-9mL" secondAttribute="top" constant="5" id="N57-zj-GMY"/>
-                                            <constraint firstAttribute="trailing" secondItem="6nb-Bk-Ukj" secondAttribute="trailing" id="SnX-T5-naz"/>
                                             <constraint firstItem="Yru-av-3qz" firstAttribute="top" secondItem="qit-uF-9mL" secondAttribute="top" id="cX1-PV-wZa"/>
+                                            <constraint firstAttribute="trailing" secondItem="Yru-av-3qz" secondAttribute="trailing" id="jF5-Y0-iwe"/>
                                             <constraint firstAttribute="bottom" secondItem="Yru-av-3qz" secondAttribute="bottom" id="oWZ-6i-7ZI"/>
                                             <constraint firstItem="kdv-py-3Rg" firstAttribute="leading" secondItem="qit-uF-9mL" secondAttribute="leading" constant="5" id="pVa-xw-cZl"/>
                                         </constraints>
@@ -179,7 +155,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="cancelView" destination="6nb-Bk-Ukj" id="InE-xa-qwR"/>
                         <outlet property="confirmBtn" destination="Qtp-Mn-6e9" id="PPH-Wj-xiT"/>
                         <outlet property="mapView" destination="sa4-DV-bT0" id="PpR-nB-lQe"/>
                         <outlet property="searchField" destination="Yru-av-3qz" id="24P-Az-4On"/>
@@ -191,7 +166,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_cancel_b" width="32" height="32"/>
         <image name="ic_search" width="52" height="52"/>
         <image name="move_left" width="52" height="52"/>
     </resources>

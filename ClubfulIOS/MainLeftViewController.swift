@@ -11,7 +11,6 @@ import MapKit
 
 class MainLeftViewController: UIViewController{
     var interactor:Interactor? = nil
-    var vc: ViewController!
     
     @IBOutlet var mapView: MKMapView!
     

@@ -35,6 +35,7 @@ class CourtCreateViewController: UIViewController{
     var nonUserView : NonUserView!
     var picTemp: PicView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.setNeedsLayout()
@@ -206,22 +207,22 @@ class CourtCreateViewController: UIViewController{
             if self.address.latitude == nil || self.address.longitude == nil || self.address.address == nil || self.address.addressShort == nil || self.address.address == "" || self.address.addressShort == ""{
                 self.spin.isHidden = true
                 self.spin.stopAnimating()
-                Util.alert(self, message: "위치를 선택해 주세요.")
+                _ = Util.alert(self, message: "위치를 선택해 주세요.")
             }else if(self.court.categorySeq == nil){
                 self.spin.isHidden = true
                 self.spin.stopAnimating()
-                Util.alert(self, message: "카테고리를 선택해 주세요.")
+                _ = Util.alert(self, message: "카테고리를 선택해 주세요.")
             }else if(cnameTextField.text! == ""){
                 self.spin.isHidden = true
                 self.spin.stopAnimating()
-                Util.alert(self, message: "별칭을 입력해 주세요.")
+                _ = Util.alert(self, message: "별칭을 입력해 주세요.")
             }else{
                 self.courtInsert(picArray: picArray, picNameArray: picNameArray)
             }
         }else{
             self.spin.isHidden = true
             self.spin.stopAnimating()
-            Util.alert(self, message: "이미지를 2장 이상 올려야 됩니다.")
+            _ = Util.alert(self, message: "이미지를 2장 이상 올려야 됩니다.")
             self.view.endEditing(true)
         }
     }
@@ -274,7 +275,8 @@ class CourtCreateViewController: UIViewController{
                         let dic = Util.convertStringToDictionary(data as Data)
                         if let code = dic["code"] as? Int{
                             if code == 0{
-                                Util.alert(self, message: "등록이 완료되었습니다.", confirmTitle: "확인", confirmHandler: { (_) in
+                                _ = Util.alert(self, message: "등록이 완료되었습니다.", confirmTitle: "확인", confirmHandler: { (_) in
+                                    MypageViewController.isReload = true
                                     self.layoutInit()
                                     self.view.endEditing(true)
                                     self.presentingViewController?.dismiss(animated: true, completion: nil)
@@ -309,8 +311,10 @@ extension CourtCreateViewController{
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? MapViewController{
-            vc.preAddress = self.address
-            vc.preBtn = self.locationBtn
+            vc.returnCallback = {(address: Address) in
+                self.address = address
+                self.locationBtn.setTitle("\(address.addressShort!)", for: UIControlState())
+            }
         }
     }
 }

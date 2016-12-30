@@ -134,7 +134,7 @@ class CourtViewController : UIViewController{
     //이미지 리스트 저장
     var imageViewList = [UIImageView]()
     //이미지 하단 네비 저장
-    var imageBottomIndex : [UIView] = []
+    var imageBottomIndex : [Oval] = []
     
     
     var court : Court!
@@ -143,8 +143,6 @@ class CourtViewController : UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.setNeedsLayout()
-        self.view.layoutIfNeeded()
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
         
         DispatchQueue.global().async {
@@ -172,16 +170,35 @@ class CourtViewController : UIViewController{
         self.imageSlide.showsVerticalScrollIndicator = false
         self.imageSlide.showsHorizontalScrollIndicator = false
         
-        var parameters : [String: AnyObject] = [:]
-        parameters.updateValue(self.courtSeq as AnyObject, forKey: "seq")
-        URLReq.request(self, url: URLReq.apiServer+"court/detail", param: parameters, callback: { (dic) in
-            if let data = dic["result"] as? [String: AnyObject]{
-                self.court = Court(data)
-                self.setLayout()
+        //더블클릭
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(self.interestAction(_:)))
+        doubleTap.numberOfTapsRequired = 2
+        self.imageSlide.addGestureRecognizer(doubleTap)
+        //길게클릭
+        self.imageSlide.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed(_:))))
+        
+        
+        self.imageSlide.isUserInteractionEnabled = true
+        self.imageSlide.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        
+        DispatchQueue.global().async {
+            var parameters : [String: AnyObject] = [:]
+            parameters.updateValue(self.courtSeq as AnyObject, forKey: "seq")
+            URLReq.request(self, url: URLReq.apiServer+"court/detail", param: parameters, callback: { (dic) in
+                if let data = dic["result"] as? [String: AnyObject]{
+                    self.court = Court(data)
+                    Thread.sleep(forTimeInterval: 0.1)
+                    DispatchQueue.main.async {
+                        self.setLayout()
+                    }
+                }
+            })
+            Thread.sleep(forTimeInterval: 0.1)
+            DispatchQueue.main.async {
+                self.interest()
+                self.addReply()
             }
-        })
-        self.interest()
-        self.addReply()
+        }
     }
     
     func interest(){
@@ -193,15 +210,7 @@ class CourtViewController : UIViewController{
         self.interestBtn.setImage(UIImage(named: starImage), for: UIControlState())
     }
     
-    func appendImage(_ imageData: Data!, _ imageStr: String){
-        if imageData == nil || imageData.count == 0{
-            
-        }else{
-            let imgView = UIImageView(image: UIImage(data: imageData))
-            self.imageURLList.append(imageStr)
-            self.imageViewList.append(imgView)
-        }
-    }
+    
     
     func setLayout(){
         self.interestLbl.text = "\(self.court.interest!)"
@@ -209,31 +218,44 @@ class CourtViewController : UIViewController{
         self.headerLbl.text = "\(self.court.cname!) (\(self.court.categoryName!))"
         descTextView.scrollToTop()
         
+        func addOvalView(){
+            let ovalView = Oval(size: 10)
+            self.imageBottomIndex.append(ovalView)
+            self.setImages()
+        }
+        func appendImage(_ imageData: Data!, _ imageStr: String){
+            if !(imageData == nil || imageData.count == 0){
+                let imgView = UIImageView(image: UIImage(data: imageData))
+                self.imageURLList.append(imageStr)
+                self.imageViewList.append(imgView)
+            }
+        }
+        
         DispatchQueue.global().async {
             self.court.setImage1Data(){
-                self.appendImage(self.court.imageData1, self.court.image1)
-                self.court.setImage2Data(){
-                    self.appendImage(self.court.imageData2, self.court.image2)
-                    self.court.setImage3Data(){
-                        self.appendImage(self.court.imageData3, self.court.image3)
-                        self.court.setImage4Data(){
-                            self.appendImage(self.court.imageData4, self.court.image4)
-                            self.court.setImage5Data(){
-                                self.appendImage(self.court.imageData5, self.court.image5)
-                                self.court.setImage6Data(){
-                                    self.appendImage(self.court.imageData6, self.court.image6)
-                                    for _ in 0 ..< Int(self.imageViewList.count){
-                                        let ovalView = UIView()
-                                        self.imageBottomIndex.append(ovalView)
-                                    }
-                                    self.setImages()
-                                }
-                            }
-                        }
-                    }
-                }
+                appendImage(self.court.imageData1, self.court.image1)
+                addOvalView()
             }
-            
+            self.court.setImage2Data(){
+                appendImage(self.court.imageData2, self.court.image2)
+                addOvalView()
+            }
+            self.court.setImage3Data(){
+                appendImage(self.court.imageData3, self.court.image3)
+                addOvalView()
+            }
+            self.court.setImage4Data(){
+                appendImage(self.court.imageData4, self.court.image4)
+                addOvalView()
+            }
+            self.court.setImage5Data(){
+                appendImage(self.court.imageData5, self.court.image5)
+                addOvalView()
+            }
+            self.court.setImage6Data(){
+                appendImage(self.court.imageData6, self.court.image6)
+                addOvalView()
+            }
         }
     }
     
@@ -242,8 +264,8 @@ class CourtViewController : UIViewController{
         DispatchQueue.main.async {
             self.imageSlide.subviews.forEach({$0.removeFromSuperview()})
             self.imageView.subviews.forEach({ (v) in
-                if String(describing: v.classForCoder) == "UIView"{
-                    v.removeFromSuperview()
+                if let view = v as? Oval{
+                    view.removeFromSuperview()
                 }
             })
             var idx : CGFloat = 0
@@ -253,18 +275,8 @@ class CourtViewController : UIViewController{
                 self.imageSlide.addSubview(imageSource)
                 idx += 1
             }
-            
-            //더블클릭
-            let doubleTap = UITapGestureRecognizer(target: self, action: #selector(self.interestAction(_:)))
-            doubleTap.numberOfTapsRequired = 2
-            self.imageSlide.addGestureRecognizer(doubleTap)
-            //길게클릭
-            self.imageSlide.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed(_:))))
-            
-            
-            self.imageSlide.isUserInteractionEnabled = true
             self.imageSlide.contentSize.width = self.imageSlide.frame.width*idx
-            self.imageSlide.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+            
             
             //이미지 하단 네비
             let ovalSize: CGFloat = 10
@@ -272,8 +284,7 @@ class CourtViewController : UIViewController{
             let firstX = (self.imageView.frame.width - idx*(ovalSize+ovalMargin))/2
             var i = 0
             for ovalView in self.imageBottomIndex{
-                ovalView.frame = CGRect(x: firstX+(ovalMargin)/2+(ovalSize+ovalMargin) * CGFloat(i), y: self.imageView.frame.height-ovalSize, width: ovalSize, height: ovalSize)
-                ovalView.layer.cornerRadius = ovalSize/2
+                ovalView.frame.origin = CGPoint(x: firstX+(ovalMargin)/2+(ovalSize+ovalMargin) * CGFloat(i), y: self.imageView.frame.height-ovalSize)
                 if i == 0{
                     ovalView.backgroundColor = Util.commonColor
                 }else{
@@ -291,10 +302,10 @@ class CourtViewController : UIViewController{
     //길게 클릭
     func longPressed(_ sender: UILongPressGestureRecognizer){
         if sender.state == .ended {
-            //Do Whatever You want on End of Gesture
         }else if sender.state == .began {
-            //Do Whatever You want on Began of Gesture
-            Util.imageSaveHandler(self, imageUrl: "\(self.imageURLList[self.imageScrollIdx])", image: self.imageViewList[self.imageScrollIdx].image!)
+            if self.imageViewList.count != 0{
+                Util.imageSaveHandler(self, imageUrl: "\(self.imageURLList[self.imageScrollIdx])", image: self.imageViewList[self.imageScrollIdx].image!)
+            }
         }
     }
     
@@ -309,9 +320,9 @@ class CourtViewController : UIViewController{
         spin.startAnimating()
         
         let courtStar = Storage.getStorage("courtStar_\(self.courtSeq)")
-        var type = "Y"
+        var type = "N"
         if courtStar == nil{
-            type = "N"
+            type = "Y"
         }
         var parameters : [String: AnyObject] = [:]
         parameters.updateValue(self.courtSeq as AnyObject, forKey: "seq")
@@ -357,9 +368,6 @@ class CourtViewController : UIViewController{
         DispatchQueue.global().async {
             Thread.sleep(forTimeInterval: 0.5)
             DispatchQueue.main.async{
-                ///////////
-                //통신//
-                /////////
                 self.replySpin.stopAnimating()
                 self.replySpin.isHidden = true
                 for data in tempData2{
@@ -411,7 +419,7 @@ class CourtViewController : UIViewController{
         if !Storage.isRealmUser(){
             self.replySpin.isHidden = true
             self.replySpin.stopAnimating()
-            Util.alert(self, message: "리플등록은 로그인을 하셔야 가능합니다.")
+            _ = Util.alert(self, message: "리플등록은 로그인을 하셔야 가능합니다.")
         }else{
             if (replyInsertField.text?.characters.count)! < 1{
                 self.replySpin.isHidden = true
@@ -420,7 +428,7 @@ class CourtViewController : UIViewController{
                 let user = Storage.getRealmUser()
                 let parameters : [String: AnyObject] = ["seq": courtSeq as AnyObject, "context": replyInsertField.text! as AnyObject, "id": user.userId as AnyObject]
                 self.replyInsertField.text = ""
-                URLReq.request(self, url: URLReq.apiServer+URLReq.api_court_replyInsert, param: parameters, callback: { (dic) in
+                URLReq.request(self, url: URLReq.apiServer+"", param: parameters, callback: { (dic) in
                     self.replySpin.isHidden = true
                     self.replySpin.stopAnimating()
                 })
@@ -434,6 +442,18 @@ class CourtViewController : UIViewController{
     @IBAction func backAction(_ sender: AnyObject) {
         _ = self.navigationController?.popViewController(animated: true)
     }
+    
+    class Oval: UIView {
+        init(size: CGFloat) {
+            super.init(frame: CGRect(x: 0, y: 0, width: size, height: size))
+            self.frame.size = CGSize(width: size, height: size)
+            self.layer.cornerRadius = size/2
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
 }
 
 
@@ -444,7 +464,6 @@ extension CourtViewController{
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        ((UIApplication.shared.delegate as! AppDelegate).window?.rootViewController as! TabBar).navVC = self.navigationController
     }
 }
 

@@ -51,9 +51,9 @@ class LoginViewController: UIViewController {
             return
         }
         if (idField.text?.characters.count)! < 4{
-            Util.alert(self, message: "아이디를 입력해 주세요.")
+            _ = Util.alert(self, message: "아이디를 입력해 주세요.")
         }else if (pwField.text?.characters.count)! < 6{
-            Util.alert(self, message: "비밀번호를 입력해 주세요.")
+            _ = Util.alert(self, message: "비밀번호를 입력해 주세요.")
         }else{
             self.spin.isHidden = false
             self.spin.startAnimating()
@@ -130,32 +130,16 @@ class LoginViewController: UIViewController {
         }
         
         if let noticePush = dic["noticePush"] as? String{
-            if noticePush == "1"{
-                deviceUser.noticePushCheck = true
-            }else{
-                deviceUser.noticePushCheck = false
-            }
+            deviceUser.noticePushCheck = noticePush
         }
         if let myCreateCourtPush = dic["myCreateCourtPush"] as? String{
-            if myCreateCourtPush == "1"{
-                deviceUser.myCourtPushCheck = true
-            }else{
-                deviceUser.myCourtPushCheck = false
-            }
+            deviceUser.myCourtPushCheck = myCreateCourtPush
         }
         if let distancePush = dic["distancePush"] as? String{
-            if distancePush == "1"{
-                deviceUser.distancePushCheck = true
-            }else{
-                deviceUser.distancePushCheck = false
-            }
+            deviceUser.distancePushCheck = distancePush
         }
         if let interestPush = dic["interestPush"] as? String{
-            if interestPush == "1"{
-                deviceUser.interestPushCheck = true
-            }else{
-                deviceUser.interestPushCheck = false
-            }
+            deviceUser.interestPushCheck = interestPush
         }
         
         let dateMakerFormatter2 = DateFormatter()
@@ -163,10 +147,16 @@ class LoginViewController: UIViewController {
         dateMakerFormatter2.dateFormat = "hh:mm:ss"
         
         if let startTime = dic["startTime"] as? String{
-            deviceUser.startPushTime = dateMakerFormatter2.date(from: startTime)!
+            let st = dateMakerFormatter2.date(from: startTime)
+            if st != nil{
+                deviceUser.startPushTime = st!
+            }
         }
         if let endTime = dic["endTime"] as? String{
-            deviceUser.endPushTime = dateMakerFormatter2.date(from: endTime)!
+            let et = dateMakerFormatter2.date(from: endTime)
+            if et != nil{
+                deviceUser.endPushTime = et!
+            }
         }
         
         Storage.setRealmUser(user)
@@ -271,7 +261,9 @@ extension LoginViewController{
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? JoinViewController{
-            vc.preIdField = self.idField
+            vc.signCallback = {(text: String) in
+                self.idField.text = text
+            }
         }
     }
 }

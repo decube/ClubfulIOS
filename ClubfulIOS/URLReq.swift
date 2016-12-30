@@ -10,27 +10,12 @@ import Foundation
 import Alamofire
 
 class URLReq{
-    static let urlCheck = "https://decubestaticserver-guanho.c9users.io/clubful_url.json"
-    
     static var apiServer = "https://clubful-smkim89.c9users.io/"
     static var imageServer = "https://decubeimageserver-guanho.c9users.io/"
-    static var viewServer = ""
-    
-    
     static var courtUpload = URLReq.imageServer+"upload/clubful/court/"
     static var courtDownload = URLReq.imageServer+"download/clubful/court/"
     
-    
-    
-    static var view_info = "/view_info"
-    static var view_notice = "/view_notice"
-    static var view_guide = "/view_guide"
-    static var view_inquiry = "/view_inquiry"
-    
-    static var api_court_replyInsert = "/api_court_replyInsert"////////////
-    static var api_user_update = "/api_user_update"
-    
-    static func request(_ ctrl: UIViewController, url: String, param: [String: AnyObject], callback: (([String:AnyObject])-> Void)! = nil, codeErrorCallback: (([String:AnyObject])-> Void)! = nil){
+    static func request(_ ctrl: UIViewController! = nil, url: String, param: [String: AnyObject], callback: (([String:AnyObject])-> Void)! = nil, codeErrorCallback: (([String:AnyObject])-> Void)! = nil){
         let deviceUser = Storage.getRealmDeviceUser()
         var paramValue = param
         paramValue.updateValue(deviceUser.token as AnyObject, forKey: "token")
@@ -49,7 +34,7 @@ class URLReq{
                     }else{
                         if let isMsgView = dic["isMsgView"] as? Bool{
                             if isMsgView == true{
-                                Util.alert(ctrl, message: "\(dic["msg"]!)")
+                                _ = Util.alert(ctrl, message: "\(dic["msg"]!)")
                             }
                         }
                         if codeErrorCallback != nil{

@@ -30,13 +30,13 @@ class DeviceUser: Object{
     //주소short
     dynamic var addressShort : String = ""
     //공지푸시체크
-    dynamic var noticePushCheck : Bool = true
+    dynamic var noticePushCheck : String = "Y"
     //내가등록한코트푸시체크
-    dynamic var myCourtPushCheck : Bool = true
+    dynamic var myCourtPushCheck : String = "Y"
     //거리푸시체크
-    dynamic var distancePushCheck : Bool = true
+    dynamic var distancePushCheck : String = "Y"
     //관심푸시체크
-    dynamic var interestPushCheck : Bool = true
+    dynamic var interestPushCheck : String = "Y"
     //푸시제한시작시간
     dynamic var startPushTime : Date = Date()
     //푸시제한종료시간
