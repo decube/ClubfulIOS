@@ -88,6 +88,7 @@ class LoginViewController: UIViewController {
         parameters.updateValue(deviceUser.endPushTime.getTime() as AnyObject, forKey: "endTime")
         
         URLReq.request(self, url: URLReq.apiServer+"certification/login", param: parameters, callback: { (dic) in
+            Storage.removeStorage("addInfo")
             self.loginCallback(loginType, dic: dic)
         }, codeErrorCallback: {(dic) in
             self.spin.isHidden = true
@@ -123,10 +124,12 @@ class LoginViewController: UIViewController {
         
         
         let dateMakerFormatter = DateFormatter()
-        dateMakerFormatter.calendar = Calendar.current
-        dateMakerFormatter.dateFormat = "yyyy-MM-dd"
+        dateMakerFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss.SSSZ"
         if let birth = dic["birth"] as? String{
-            user.birth = dateMakerFormatter.date(from: birth)!
+            let bt = dateMakerFormatter.date(from: birth)
+            if bt != nil{
+                user.birth = bt!
+            }
         }
         
         if let noticePush = dic["noticePush"] as? String{
@@ -166,7 +169,8 @@ class LoginViewController: UIViewController {
         if self.loginCallback != nil{
             self.loginCallback()
         }
-        MypageViewController.isReload = true
+        MypageCreateViewController.isReload = true
+        MypageInsViewController.isReload = true
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     

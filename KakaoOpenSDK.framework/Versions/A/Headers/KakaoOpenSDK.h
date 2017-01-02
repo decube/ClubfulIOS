@@ -1,8 +1,6 @@
 /**
  * Copyright 2015-2016 Kakao Corp.
  *
- * Redistribution and modification in source or binary forms are not permitted without specific prior written permission.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -33,4 +31,4 @@
 #import "KOSessionTask+AgeAuthAPI.h"
 #import "KOSessionTask+StorageAPI.h"
 
-#define KAKAO_SDK_IOS_VERSION_STRING @"1.0.64"
+#define KAKAO_SDK_IOS_VERSION_STRING @"1.0.70"

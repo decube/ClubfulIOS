@@ -11,123 +11,6 @@ import UIKit
 import Darwin
 import MapKit
 
-
-
-//임시 데이터
-var tempData : [[String: AnyObject]] = [
-    [
-        "seq":1 as AnyObject,
-        "categorySeq":1 as AnyObject,
-        "categoryName":"축구" as AnyObject,
-        "address":"어디어디" as AnyObject,
-        "addressShort":"어디" as AnyObject,
-        "cname":"축구장" as AnyObject,
-        "latitude":34.2342 as AnyObject,
-        "longitude":123.243232 as AnyObject,
-        "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image1":"http://post.phinf.naver.net/20160527_297/1464314639619UEOpr_JPEG/11.JPG?type=w1200" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "categorySeq":1 as AnyObject,
-        "categoryName":"축구" as AnyObject,
-        "address":"어디어디" as AnyObject,
-        "addressShort":"어디" as AnyObject,
-        "cname":"축구장" as AnyObject,
-        "latitude":34.2342 as AnyObject,
-        "longitude":123.243232 as AnyObject,
-        "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image1":"http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "categorySeq":1 as AnyObject,
-        "categoryName":"축구" as AnyObject,
-        "address":"어디어디" as AnyObject,
-        "addressShort":"어디" as AnyObject,
-        "cname":"축구장" as AnyObject,
-        "latitude":34.2342 as AnyObject,
-        "longitude":123.243232 as AnyObject,
-        "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image1":"http://postfiles5.naver.net/20120123_52/kenny790907_1327322190946s9Mjv_JPEG/IMG_5849.JPG?type=w1" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "categorySeq":1 as AnyObject,
-        "categoryName":"축구" as AnyObject,
-        "address":"어디어디" as AnyObject,
-        "addressShort":"어디" as AnyObject,
-        "cname":"축구장" as AnyObject,
-        "latitude":34.2342 as AnyObject,
-        "longitude":123.243232 as AnyObject,
-        "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image1":"http://postfiles15.naver.net/20150209_190/imatrancer_1423415348869O6PNR_PNG/%B3%F3%B1%B8%C0%E5_%B3%F3%B1%B8%C4%DA%C6%AE_%284%29.png?type=w2" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "categorySeq":1 as AnyObject,
-        "categoryName":"축구" as AnyObject,
-        "address":"어디어디" as AnyObject,
-        "addressShort":"어디" as AnyObject,
-        "cname":"축구장" as AnyObject,
-        "latitude":34.2342 as AnyObject,
-        "longitude":123.243232 as AnyObject,
-        "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image1":"http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "categorySeq":1 as AnyObject,
-        "categoryName":"축구" as AnyObject,
-        "address":"어디어디" as AnyObject,
-        "addressShort":"어디" as AnyObject,
-        "cname":"축구장" as AnyObject,
-        "latitude":34.2342 as AnyObject,
-        "longitude":123.243232 as AnyObject,
-        "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image1":"http://post.phinf.naver.net/20160527_297/1464314639619UEOpr_JPEG/11.JPG?type=w1200" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "categorySeq":1 as AnyObject,
-        "categoryName":"축구" as AnyObject,
-        "address":"어디어디" as AnyObject,
-        "addressShort":"어디" as AnyObject,
-        "cname":"축구장" as AnyObject,
-        "latitude":34.2342 as AnyObject,
-        "longitude":123.243232 as AnyObject,
-        "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image1":"http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "categorySeq":1 as AnyObject,
-        "categoryName":"축구" as AnyObject,
-        "address":"어디어디" as AnyObject,
-        "addressShort":"어디" as AnyObject,
-        "cname":"축구장" as AnyObject,
-        "latitude":34.2342 as AnyObject,
-        "longitude":123.243232 as AnyObject,
-        "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image1":"http://postfiles5.naver.net/20120123_52/kenny790907_1327322190946s9Mjv_JPEG/IMG_5849.JPG?type=w1" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "categorySeq":1 as AnyObject,
-        "categoryName":"축구" as AnyObject,
-        "address":"어디어디" as AnyObject,
-        "addressShort":"어디" as AnyObject,
-        "cname":"축구장" as AnyObject,
-        "latitude":34.2342 as AnyObject,
-        "longitude":123.243232 as AnyObject,
-        "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image1":"http://postfiles15.naver.net/20150209_190/imatrancer_1423415348869O6PNR_PNG/%B3%F3%B1%B8%C0%E5_%B3%F3%B1%B8%C4%DA%C6%AE_%284%29.png?type=w2" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "categorySeq":1 as AnyObject,
-        "categoryName":"축구" as AnyObject,
-        "address":"어디어디" as AnyObject,
-        "addressShort":"어디" as AnyObject,
-        "cname":"축구장" as AnyObject,
-        "latitude":34.2342 as AnyObject,
-        "longitude":123.243232 as AnyObject,
-        "description":"코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다.코트 설명입니다. 코트 설명입니다." as AnyObject,
-        "image1":"http://imagescdn.gettyimagesbank.com/500/12/912/606/6/174800730.jpg" as AnyObject
-    ]
-]
-
 class ViewController: UIViewController{
     @IBOutlet var tableView: UITableView!
     //spin
@@ -138,6 +21,9 @@ class ViewController: UIViewController{
     @IBOutlet var rightEdge: UIScreenEdgePanGestureRecognizer!
     
     var mainCourtArray = Array<Court>()
+    
+    var page = 1
+    var tot_page: Int!
     
     //왼쪽 코트
     var courtArray: Array<Court> = Array<Court>()
@@ -150,11 +36,11 @@ class ViewController: UIViewController{
     var isMyLocation = false
     
     //위치찾기뷰
-    var myLocationView : MyLocationView!
+    var myLocationView : MyLocationView?
     //코트검색뷰
-    var courtSearchView: CourtSearchView!
+    var courtSearchView: CourtSearchView?
     //추가정보 뷰
-    var addView : AddView!
+    var addView : AddView?
     
     //제스처
     var direction: Direction!
@@ -169,16 +55,6 @@ class ViewController: UIViewController{
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
-        
-        self.searchTextField.delegate = self
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 190
-        self.tableView.separatorStyle = .none
-        //엣지 설정
-        self.leftEdge.edges = .left
-        self.rightEdge.edges = .right
         
         let deviceUser = Storage.getRealmDeviceUser()
         if deviceUser.search != ""{
@@ -195,125 +71,84 @@ class ViewController: UIViewController{
         }
         
         //코트검색 뷰 만들기
-        if let customView = Bundle.main.loadNibNamed("CourtSearchView", owner: self, options: nil)?.first as? CourtSearchView {
-            self.courtSearchView = customView
-            self.courtSearchView.tableView.delegate = self
-            self.courtSearchView.tableView.dataSource = self
-            self.courtSearchView.keyboardHideCallback = {(_) in
-                self.view.endEditing(true)
-            }
-            self.view.addSubview(self.courtSearchView)
-            DispatchQueue.global().async {
-                Thread.sleep(forTimeInterval: 0.5)
-                DispatchQueue.main.async {
-                    self.courtSearchView.frame = CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.view.frame.height-80-(self.tabBarController?.tabBar.frame.height)!)
-                    _ = self.courtSearchView.layer(.right, borderWidth: 1, color: UIColor.black)
-                }
-            }
-        }
+        self.courtSearchView = Bundle.main.loadNibNamed("CourtSearchView", owner: self, options: nil)?.first as? CourtSearchView
+        self.courtSearchView?.delegate = self
+        self.courtSearchView?.load()
+        
         //자기 위치 설정 뷰 만들기
-        if let customView = Bundle.main.loadNibNamed("MyLocationView", owner: self, options: nil)?.first as? MyLocationView {
-            self.myLocationView = customView
-            self.myLocationView.frame = self.view.frame
-            self.myLocationView.search.delegate = self
-            self.myLocationView.tableView.delegate = self
-            self.myLocationView.tableView.dataSource = self
-            self.myLocationView.keyboardHideCallback = {(_) in
-                self.view.endEditing(true)
-            }
-            self.myLocationView.alertCallback = {(alert) in
-                self.present(alert, animated: false, completion: {(_) in })
-            }
-            self.myLocationView.myLocationCallback = {(_) in
-                if self.isMyLocation == false{
-                    _ = Util.alert(self, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
-                }else{
-                    self.locationManager.startUpdatingLocation()
-                }
-            }
-            self.view.addSubview(self.myLocationView)
-            
-        }
+        self.myLocationView = Bundle.main.loadNibNamed("MyLocationView", owner: self, options: nil)?.first as? MyLocationView
+        self.myLocationView?.delegate = self
+        self.myLocationView?.load()
+        
         //추가정보 뷰 만들기
-        if let customView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView {
-            self.addView = customView
-            self.addView.frame = self.view.frame
-            self.addView.keyboardHideCallback = {(_) in
-                self.view.endEditing(true)
-            }
-            self.addView.alertCallback = {(alert) in
-                self.present(alert, animated: false, completion: {(_) in })
-            }
-            self.addView.mapMoveCallback = {(_) in
-                self.performSegue(withIdentifier: "main_map", sender: nil)
-            }
-            self.view.addSubview(self.addView)
-        }
+        self.addView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView
+        self.addView?.delegate = self
+        self.addView?.load()
         
-        
-        
-        
-        //버전체크 통신
-        var parameters : [String: AnyObject] = [:]
-        parameters.updateValue("ios" as AnyObject, forKey: "appType")
-        parameters.updateValue(Util.nsVersion as AnyObject, forKey: "appVersion")
-        parameters.updateValue(Date().getFullDate() as AnyObject, forKey: "sendDate")
-        parameters.updateValue(Util.language as AnyObject, forKey: "language")
-        parameters.updateValue(Util.deviceId as AnyObject, forKey: "deviceId")
-        parameters.updateValue(deviceUser.categoryVer as AnyObject, forKey: "categoryVer")
-        parameters.updateValue(deviceUser.noticeVer as AnyObject, forKey: "noticeVer")
-        URLReq.request(self, url: URLReq.apiServer+"version/check", param: parameters, callback: { (dic) in
-            let deviceUser = Storage.getRealmDeviceUser()
-            if let token = dic["token"] as? String{
-                deviceUser.token = token
-            }
-            if let ver = dic["ver"] as? String{
-                Util.newVersion = ver
-            }
-            if let categoryVer = dic["categoryVer"] as? String{
-                deviceUser.categoryVer = Int(categoryVer)!
-            }
-            if let noticeVer = dic["noticeVer"] as? String{
-                deviceUser.noticeVer = Int(noticeVer)!
-            }
-            if let categoryList = dic["categoryList"] as? [[String: AnyObject]]{
-                Storage.setStorage("categoryList", value: categoryList as AnyObject)
-            }
-            Storage.setRealmDeviceUser(deviceUser)
-            
-            self.spin.isHidden = true
-            self.addCourt()
-        })
+        self.addCourt()
     }
     
     
     
     
+    @IBAction func categoryAction(_ sender: Any) {
+        _ = Util.alert(self, message: "카테고리")
+    }
     
     //메인 코트 가져옴
     func addCourt(){
+        if tot_page != nil && self.tot_page < self.page{
+            self.spin.isHidden = true
+            self.spin.stopAnimating()
+            return
+        }
+        
         self.spin.isHidden = false
         self.spin.startAnimating()
-        DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 0.5)
-            DispatchQueue.main.async {
-                for data in tempData{
-                    let court = Court(data)
-                    self.mainCourtArray.append(court)
-                }
-                self.tableView.reloadData()
-                self.spin.stopAnimating()
-                self.spin.isHidden = true
-            }
+        
+        let deviceUser = Storage.getRealmDeviceUser()
+        var latitude = deviceUser.latitude
+        var longitude = deviceUser.longitude
+        if deviceUser.isMyLocation == false{
+            latitude = deviceUser.deviceLatitude
+            longitude = deviceUser.deviceLongitude
         }
+        
+        var parameters : [String: AnyObject] = [:]
+        parameters.updateValue(deviceUser.category as AnyObject, forKey: "categorySeq")
+        parameters.updateValue(latitude as AnyObject, forKey: "latitude")
+        parameters.updateValue(longitude as AnyObject, forKey: "longitude")
+        parameters.updateValue("t" as AnyObject, forKey: "flag")
+        parameters.updateValue(self.page as AnyObject, forKey: "page")
+        parameters.updateValue(10 as AnyObject, forKey: "size")
+        
+        URLReq.request(self, url: URLReq.apiServer+"court/list", param: parameters, callback: { (dic) in
+            self.spin.isHidden = true
+            self.spin.stopAnimating()
+            DispatchQueue.main.async {
+                if let list = dic["list"] as? [[String: AnyObject]]{
+                    for data in list{
+                        let court = Court(data)
+                        self.mainCourtArray.append(court)
+                    }
+                    self.page += 1
+                    self.tableView.reloadData()
+                }
+                if let totalCnt = dic["totalCnt"] as? String{
+                    self.tot_page = Int(ceil(Double(totalCnt)!/10))
+                }else if let totalCnt = dic["totalCnt"] as? Int{
+                    self.tot_page = Int(ceil(Double(totalCnt)/10))
+                }
+            }
+        })
     }
     
     
     //코트 검색
     func courtSearchAction(){
         if (self.searchTextField.text?.characters.count)! >= 2{
-            self.courtSearchView.spin.isHidden = false
-            self.courtSearchView.spin.startAnimating()
+            self.courtSearchView?.spin.isHidden = false
+            self.courtSearchView?.spin.startAnimating()
             self.view.endEditing(true)
             
             let deviceUser = Storage.getRealmDeviceUser()
@@ -329,9 +164,9 @@ class ViewController: UIViewController{
             parameters.updateValue(deviceUser.category as AnyObject, forKey: "category")
             parameters.updateValue(latitude as AnyObject, forKey: "latitude")
             parameters.updateValue(longitude as AnyObject, forKey: "longitude")
-            URLReq.request(url: URLReq.apiServer+"court/getList", param: parameters, callback: { (dic) in
-                self.courtSearchView.spin.isHidden = true
-                self.courtSearchView.spin.stopAnimating()
+            URLReq.request(url: URLReq.apiServer+"court/searchList", param: parameters, callback: { (dic) in
+                self.courtSearchView?.spin.isHidden = true
+                self.courtSearchView?.spin.stopAnimating()
                 if let list = dic["list"] as? [[String: AnyObject]]{
                     if list.count == 0{
                         _ = Util.alert(self, message: "해당 검색어에 코트가 없습니다.")
@@ -339,8 +174,8 @@ class ViewController: UIViewController{
                         for data in list{
                             self.courtArray.append(Court(data))
                         }
-                        self.courtSearchView.tableView.reloadData()
-                        self.courtSearchView.show()
+                        self.courtSearchView?.tableView.reloadData()
+                        self.courtSearchView?.show()
                     }
                 }
             })
@@ -350,33 +185,32 @@ class ViewController: UIViewController{
     }
     
     
-    
-    
-    //자기위치 설정 뷰 나타내기
     @IBAction func locationSearchAction(_ sender: AnyObject) {
-        self.myLocationView.show()
+        self.myLocationView?.show()
     }
+    
+    
     //왼쪽 제스처
     @IBAction func leftEdgePanGesture(_ sender: UIScreenEdgePanGestureRecognizer) {
-        self.direction = .right
-        self.snapshotNumber = MainLeftHelper.snapshotNumber
-        self.menuWidth = MainLeftHelper.menuWidth
-        let translation = sender.translation(in: view)
-        let progress = MainLeftHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .right)
-        MainLeftHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
-            self.performSegue(withIdentifier: "main_left", sender: nil)
-        }
+//        self.direction = .right
+//        self.snapshotNumber = MainLeftHelper.snapshotNumber
+//        self.menuWidth = MainLeftHelper.menuWidth
+//        let translation = sender.translation(in: view)
+//        let progress = MainLeftHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .right)
+//        MainLeftHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
+//            self.performSegue(withIdentifier: "main_left", sender: nil)
+//        }
     }
     //오른쪽 제스처
     @IBAction func rightEdgePanGesture(_ sender: UIScreenEdgePanGestureRecognizer) {
-        self.direction = .left
-        self.snapshotNumber = MainRightHelper.snapshotNumber
-        self.menuWidth = MainRightHelper.menuWidth
-        let translation = sender.translation(in: view)
-        let progress = MainRightHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .left)
-        MainRightHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
-            self.performSegue(withIdentifier: "main_right", sender: nil)
-        }
+//        self.direction = .left
+//        self.snapshotNumber = MainRightHelper.snapshotNumber
+//        self.menuWidth = MainRightHelper.menuWidth
+//        let translation = sender.translation(in: view)
+//        let progress = MainRightHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .left)
+//        MainRightHelper.mapGestureStateToInteractor(sender.state,progress: progress,interactor: interactor){
+//            self.performSegue(withIdentifier: "main_right", sender: nil)
+//        }
     }
     
     
@@ -388,7 +222,6 @@ class ViewController: UIViewController{
 
 
 extension ViewController{
-    //세그
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationViewController = segue.destination as? MainLeftViewController {
             destinationViewController.transitioningDelegate = self
@@ -405,29 +238,24 @@ extension ViewController{
             vc.courtSeq = self.courtDetailSeq
         }else if let vc = segue.destination as? MapViewController{
             vc.returnCallback = {(address: Address) in
-                self.addView.address = address
-                self.addView.locationBtn.setTitle("\(address.addressShort!)", for: UIControlState())
+                self.addView?.address = address
+                self.addView?.locationBtn.setTitle("\(address.addressShort!)", for: UIControlState())
             }
         }
     }
-    //화면 생겼을 때
     override func viewWillAppear(_ animated: Bool) {
-        if self.addView.isHidden{
-            self.addView.addViewConfirm()
+        if (self.addView?.isHidden)!{
+            self.addView?.addViewConfirm()
         }
-        //키보드 생김/사라짐 셀렉터
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
-    //뷰 클릭했을때
     func keyboardHide(_ sender: AnyObject){
         self.view.endEditing(true)
-        if self.courtSearchView.isHidden == false{
+        if self.courtSearchView?.isHidden == false{
             UIView.animate(withDuration: 0.2, animations: {
-                self.courtSearchView.frame.origin.x = -self.courtSearchView.frame.width
+                (self.courtSearchView?.frame.origin.x = -(self.courtSearchView?.frame.width)!)!
             }, completion: {(_) in
-                self.courtSearchView.isHidden = true
-                self.courtSearchView.frame.origin.x = 0
+                self.courtSearchView?.isHidden = true
+                self.courtSearchView?.frame.origin.x = 0
             })
         }
     }
@@ -451,14 +279,13 @@ extension ViewController: UIViewControllerTransitioningDelegate {
 
 
 extension ViewController: CLLocationManagerDelegate{
-    //현재 나의위치 가져오기 실패함
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         self.isMyLocation = false
         if ProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] == nil{
             _ = Util.alert(self, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
         }
     }
-    //현재 나의 위치 딜리게이트 가져옴
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.isMyLocation = true
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
@@ -473,7 +300,6 @@ extension ViewController: CLLocationManagerDelegate{
 }
 
 extension ViewController: UITextFieldDelegate{
-    //키보드 검색이 리턴됫을 때
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.searchTextField {
             textField.resignFirstResponder()
@@ -482,28 +308,20 @@ extension ViewController: UITextFieldDelegate{
             Storage.setRealmDeviceUser(deviceUser)
             self.courtSearchAction()
             return false
-        }else if textField == self.myLocationView.search{
+        }else if textField == self.myLocationView?.search{
             textField.resignFirstResponder()
-            self.myLocationView.searchAction()
+            self.myLocationView?.searchAction()
             return false
         }
         return true
-    }
-    //키보드생길때
-    func keyboardWillShow(_ notification: Notification) {
-        
-    }
-    //키보드없어질때
-    func keyboardWillHide(_ notification: Notification) {
-        
     }
 }
 
 extension ViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == self.myLocationView.tableView{
-            return self.myLocationView.locationArray.count
-        }else if tableView == self.courtSearchView.tableView{
+        if tableView == self.myLocationView?.tableView{
+            return (self.myLocationView?.locationArray.count)!
+        }else if tableView == self.courtSearchView?.tableView{
             return self.courtArray.count
         }else{
             return self.mainCourtArray.count
@@ -511,12 +329,12 @@ extension ViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == self.myLocationView.tableView{
-            let address = self.myLocationView.locationArray[indexPath.row]
+        if tableView == self.myLocationView?.tableView{
+            let address = self.myLocationView?.locationArray[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: "MyLocationCell", for: indexPath) as! LocationCell
-            cell.setAddress(address)
+            cell.setAddress(address!)
             cell.clickCallback = {(addr: Address) in
-                self.myLocationView.hideAlpha {
+                self.myLocationView?.hideAlpha {
                     let deviceUser = Storage.getRealmDeviceUser()
                     deviceUser.latitude = addr.latitude
                     deviceUser.longitude = addr.longitude
@@ -527,7 +345,7 @@ extension ViewController: UITableViewDataSource{
                 }
             }
             return cell
-        }else if tableView == self.courtSearchView.tableView{
+        }else if tableView == self.courtSearchView?.tableView{
             let court = self.courtArray[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: "CourtSearchCell", for: indexPath) as! CourtSearchCell
             cell.setCourt(court)
@@ -560,8 +378,8 @@ extension ViewController: UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "CourtCell", for: indexPath) as! CourtCell
             cell.setCourt(court)
             cell.callback = { (_) in
-                if self.courtSearchView.isHidden == false{
-                    self.courtSearchView.hide()
+                if self.courtSearchView?.isHidden == false{
+                    self.courtSearchView?.hide()
                 }else{
                     self.courtDetailSeq = court.seq
                     self.performSegue(withIdentifier: "courtDetail", sender: nil)
@@ -585,4 +403,60 @@ extension ViewController: UITableViewDelegate{
 }
 
 
+extension ViewController: MyLocationDelegate{
+    func myLocationKeyboardHide() {
+        self.view.endEditing(true)
+    }
+    func myLocation() {
+        if self.isMyLocation == false{
+            _ = Util.alert(self, message: "설정-클러풀에 들어가셔서 위치 항상을 눌려주세요.")
+        }else{
+            self.locationManager.startUpdatingLocation()
+        }
+    }
+    func myLocationAlert(_ alert: UIAlertController) {
+        self.present(alert, animated: false, completion: {(_) in })
+    }
+    func myLocationLoad(_ myLocationView: MyLocationView) {
+        self.myLocationView?.frame = self.view.frame
+        self.myLocationView?.tableView.delegate = self
+        self.myLocationView?.tableView.dataSource = self
+        self.myLocationView?.search.delegate = self
+        self.view.addSubview(self.myLocationView!)
+    }
+}
+
+extension ViewController: AddViewDelegate{
+    func addViewKeyboardHide() {
+        self.view.endEditing(true)
+    }
+    func addViewMapMove() {
+        self.performSegue(withIdentifier: "main_map", sender: nil)
+    }
+    func addViewAlert(_ alert: UIAlertController) {
+        self.present(alert, animated: false, completion: {(_) in })
+    }
+    func addViewLoad() {
+        self.addView?.frame = self.view.frame
+        self.view.addSubview(self.addView!)
+    }
+}
+
+extension ViewController: CourtSearchDelegate{
+    func courtSearchKeyboardHide() {
+        self.view.endEditing(true)
+    }
+    func courtSearchLoad() {
+        self.courtSearchView?.tableView.delegate = self
+        self.courtSearchView?.tableView.dataSource = self
+        self.view.addSubview(self.courtSearchView!)
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 0.5)
+            DispatchQueue.main.async {
+                self.courtSearchView?.frame = CGRect(x: 0, y: 80, width: self.view.frame.width/3*2, height: self.view.frame.height-80-(self.tabBarController?.tabBar.frame.height)!)
+                _ = self.courtSearchView?.layer(.right, borderWidth: 1, color: UIColor.black)
+            }
+        }
+    }
+}
 

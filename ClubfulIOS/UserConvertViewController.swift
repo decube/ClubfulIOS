@@ -18,7 +18,7 @@ class UserConvertViewController: UIViewController {
     @IBOutlet var newRepwdField: UITextField!
     @IBOutlet var nicknameField: UITextField!
     
-    var addView : AddView!
+    var addView : AddView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,20 +26,9 @@ class UserConvertViewController: UIViewController {
         self.view.layoutIfNeeded()
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
         
-        if let customView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView {
-            self.addView = customView
-            self.addView.frame = self.view.frame
-            self.addView.keyboardHideCallback = {(_) in
-                self.view.endEditing(true)
-            }
-            self.addView.alertCallback = {(alert) in
-                self.present(alert, animated: false, completion: {(_) in })
-            }
-            self.addView.mapMoveCallback = {(_) in
-                self.performSegue(withIdentifier: "userConvert_map", sender: nil)
-            }
-            self.view.addSubview(self.addView)
-        }
+        self.addView = Bundle.main.loadNibNamed("AddView", owner: self, options: nil)?.first as? AddView
+        self.addView?.delegate = self
+        self.addView?.load()
         
         spin.isHidden = true
         pwdField.delegate = self
@@ -55,21 +44,21 @@ class UserConvertViewController: UIViewController {
         if user.loginType == "n"{
             idField.text = user.userId
         } else if user.loginType == "k"{
-            idField.text = "카카오톡으로 로그인 된 아이디입니다."
+            idField.text = "카카오톡으로 로그인 된 회원입니다."
             pwdField.isEnabled = false
             newPwdField.isEnabled = false
             newRepwdField.isEnabled = false
-            pwdField.placeholder = "카카오톡으로 로그인 된 아이디입니다."
-            newPwdField.placeholder = "카카오톡으로 로그인 된 아이디입니다."
-            newRepwdField.placeholder = "카카오톡으로 로그인 된 아이디입니다."
+            pwdField.placeholder = "카카오톡으로 로그인 된 회원입니다."
+            newPwdField.placeholder = "카카오톡으로 로그인 된 회원입니다."
+            newRepwdField.placeholder = "카카오톡으로 로그인 된 회원입니다."
         } else if user.loginType == "f"{
-            idField.text = "페이스북으로 로그인 된 아이디입니다."
+            idField.text = "페이스북으로 로그인 된 회원입니다."
             pwdField.isEnabled = false
             newPwdField.isEnabled = false
             newRepwdField.isEnabled = false
-            pwdField.placeholder = "페이스북으로 로그인 된 아이디입니다."
-            newPwdField.placeholder = "페이스북으로 로그인 된 아이디입니다."
-            newRepwdField.placeholder = "페이스북으로 로그인 된 아이디입니다."
+            pwdField.placeholder = "페이스북으로 로그인 된 회원입니다."
+            newPwdField.placeholder = "페이스북으로 로그인 된 회원입니다."
+            newRepwdField.placeholder = "페이스북으로 로그인 된 회원입니다."
         }
         nicknameField.text = user.nickName
         
@@ -114,7 +103,7 @@ class UserConvertViewController: UIViewController {
     }
     
     @IBAction func addAction(_ sender: AnyObject) {
-        self.addView.addViewShow()
+        self.addView?.addViewShow()
     }
     //뒤로가기
     @IBAction func backAction(_ sender: AnyObject) {
@@ -126,8 +115,8 @@ extension UserConvertViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? MapViewController{
             vc.returnCallback = {(address: Address) in
-                self.addView.address = address
-                self.addView.locationBtn.setTitle("\(address.addressShort!)", for: UIControlState())
+                self.addView?.address = address
+                self.addView?.locationBtn.setTitle("\(address.addressShort!)", for: UIControlState())
             }
         }
     }
@@ -160,5 +149,20 @@ extension UserConvertViewController: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+extension UserConvertViewController: AddViewDelegate{
+    func addViewKeyboardHide() {
+        self.view.endEditing(true)
+    }
+    func addViewMapMove() {
+        self.performSegue(withIdentifier: "userConvert_map", sender: nil)
+    }
+    func addViewAlert(_ alert: UIAlertController) {
+        self.present(alert, animated: false, completion: {(_) in })
+    }
+    func addViewLoad() {
+        self.addView?.frame = self.view.frame
+        self.view.addSubview(self.addView!)
     }
 }

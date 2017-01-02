@@ -1,7 +1,5 @@
 /**
- * Copyright 2015 Kakao Corp.
- *
- * Redistribution and modification in source or binary forms are not permitted without specific prior written permission.
+ * Copyright 2015-2016 Kakao Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,19 +21,18 @@
 #import "KOBaseContext.h"
 
 /*!
- @abstract KOChatType 카카오톡 채팅방 타입.
+ @abstract (Deprecated) KOChatType 카카오톡 채팅방 타입.
  @constant KOChatTypeGroup 카카오톡 그룹방.
- @deprecated in the near future.
  */
+DEPRECATED_MSG_ATTRIBUTE("Use 'KOChatFilters' enum.")
 typedef NS_ENUM(NSInteger, KOChatType) {
     KOChatTypeGroup = 0
 };
 
 /*!
- @abstract KOChatType 을 문자열로 변환하는 함수
- @deprecated in the near future.
+ @abstract (Deprecated) KOChatType 을 문자열로 변환하는 함수.
  */
-extern NSString* convertChatTypeString(KOChatType type);
+extern NSString* convertChatTypeString(KOChatType type) DEPRECATED_ATTRIBUTE;
 
 /*!
  @abstract KOChatFilter 챗목록 필터링 옵션들.
@@ -63,16 +60,21 @@ NSString* convertChatFilterString(KOChatFilters filters);
 
 /*!
  @property chatType
- @abstract 카카오톡 채팅방 타입.
- @deprecated in the near future.
+ @abstract (Deprecated) 카카오톡 채팅방 타입.
  */
-@property (nonatomic, readonly) KOChatType chatType;
+@property (nonatomic, readonly) KOChatType chatType DEPRECATED_MSG_ATTRIBUTE("Use 'chatFilters' property.");
 
 /*!
  @property chatFilters
  @abstract 챗리스트 필터링 옵션.
  */
 @property (nonatomic, readonly) KOChatFilters chatFilters;
+
+/*!
+ @property secureResource
+ @abstract 프로필 이미지, 썸네일 등의 리소스 url을 https로 반환할지 여부.
+ */
+@property (nonatomic, readonly) BOOL secureResource;
 
 /*!
  @property limit
@@ -87,33 +89,30 @@ NSString* convertChatFilterString(KOChatFilters filters);
 @property (nonatomic, readonly) KOOrdering ordering;
 
 /*!
- 채팅방 페이징 Context 를 생성한다.
+ (Deprecated) 채팅방 페이징 Context 를 생성한다.
  @param chatType 카카오톡 채팅방 타입.
  @param limit 요청 시 제한하는 채팅방의 수. (채팅방은 30개 까지만 가져올 수 있습니다.)
  @param ordering 정렬 방법.
- @deprecated in the near future.
  */
 - (instancetype)initWithChatType:(KOChatType)chatType
                            limit:(NSInteger)limit
-                        ordering:(KOOrdering)ordering;
+                        ordering:(KOOrdering)ordering DEPRECATED_MSG_ATTRIBUTE("Use 'initWithChatFilters:secureResource:limit:ordering:' method.");
 
 /*!
- 채팅방 페이징 Context 를 생성한다.
+ 채팅방 페이징 Context 를 생성한다. deprecate 예정.
  @param chatType 카카오톡 채팅방 타입.
- @deprecated in the near future.
  */
-+ (instancetype)contextWithChatType:(KOChatType)chatType;
++ (instancetype)contextWithChatType:(KOChatType)chatType DEPRECATED_MSG_ATTRIBUTE("Use 'contextWithChatFilters:' method.");
 
 /*!
- 채팅방 페이징 Context 를 생성한다.
+ 채팅방 페이징 Context 를 생성한다. deprecate 예정.
  @param chatType 카카오톡 채팅방 타입.
  @param limit 요청 시 제한하는 채팅방의 수. (채팅방은 30개 까지만 가져올 수 있습니다.)
  @param ordering 정렬 방법.
- @deprecated in the near future.
  */
 + (instancetype)contextWithChatType:(KOChatType)chatType
                              limit:(NSInteger)limit
-                          ordering:(KOOrdering)ordering;
+                          ordering:(KOOrdering)ordering DEPRECATED_MSG_ATTRIBUTE("Use 'contextWithChatFilters:limit:ordering:' method.");
 
 /*!
  채팅방 페이징 Context 를 생성한다.
@@ -122,6 +121,18 @@ NSString* convertChatFilterString(KOChatFilters filters);
  @param ordering 정렬 방법.
  */
 - (instancetype)initWithChatFilters:(KOChatFilters)chatFilters
+                              limit:(NSInteger)limit
+                           ordering:(KOOrdering)ordering;
+
+/*!
+ 채팅방 페이징 Context 를 생성한다.
+ @param chatFilters 챗리스트 필터링 옵션.
+ @param secureResource 프로필 이미지, 썸네일 등의 리소스 url을 https로 반환할지 여부.
+ @param limit 요청 시 제한하는 채팅방의 수. (채팅방은 30개 까지만 가져올 수 있습니다.)
+ @param ordering 정렬 방법.
+ */
+- (instancetype)initWithChatFilters:(KOChatFilters)chatFilters
+                     secureResource:(BOOL)secureResource
                               limit:(NSInteger)limit
                            ordering:(KOOrdering)ordering;
 
@@ -137,8 +148,20 @@ NSString* convertChatFilterString(KOChatFilters filters);
  @param limit 요청 시 제한하는 채팅방의 수. (채팅방은 30개 까지만 가져올 수 있습니다.)
  @param ordering 정렬 방법.
  */
-+(instancetype)contextWithChatFilters:(KOChatFilters)chatFilters
-                                limit:(NSInteger)limit
-                             ordering:(KOOrdering)ordering;
++ (instancetype)contextWithChatFilters:(KOChatFilters)chatFilters
+                                 limit:(NSInteger)limit
+                              ordering:(KOOrdering)ordering;
+
+/*!
+ 채팅방 페이징 Context 를 생성한다.
+ @param chatFilters 챗리스트 필터링 옵션.
+ @param secureResource 프로필 이미지, 썸네일 등의 리소스 url을 https로 반환할지 여부.
+ @param limit 요청 시 제한하는 채팅방의 수. (채팅방은 30개 까지만 가져올 수 있습니다.)
+ @param ordering 정렬 방법.
+ */
++ (instancetype)contextWithChatFilters:(KOChatFilters)chatFilters
+                        secureResource:(BOOL)secureResource
+                                 limit:(NSInteger)limit
+                              ordering:(KOOrdering)ordering;
 
 @end

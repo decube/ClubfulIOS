@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -59,6 +60,9 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="uPW-Sg-yS0" id="UuX-NZ-m7b"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -91,7 +95,7 @@
                                     <constraint firstAttribute="trailing" secondItem="4pc-H4-rdz" secondAttribute="trailing" constant="10" id="kxD-EG-G3L"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xl7-gN-Zld">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="190" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xl7-gN-Zld">
                                 <rect key="frame" x="0.0" y="80" width="375" height="538"/>
                                 <color key="backgroundColor" red="0.88360753619999999" green="0.96569901700000005" blue="0.88508966960000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
@@ -99,7 +103,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="190"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5qj-7V-Jd5" id="9jf-Ih-gVs">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="189.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hfK-cQ-zIG">
@@ -333,6 +337,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="uPW-Sg-yS0" id="fvD-mb-rdh"/>
+                                    <outlet property="delegate" destination="uPW-Sg-yS0" id="gtn-IH-j21"/>
+                                </connections>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="F6P-PN-z7z">
                                 <rect key="frame" x="178" y="339" width="20" height="20"/>
@@ -341,6 +349,17 @@
                                     <constraint firstAttribute="height" constant="20" id="s7q-Nr-v7e"/>
                                 </constraints>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QEH-AO-fZV">
+                                <rect key="frame" x="314" y="85" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="McH-1J-qga"/>
+                                    <constraint firstAttribute="width" constant="50" id="z5b-HZ-Fna"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="categoryAction:" destination="uPW-Sg-yS0" eventType="touchUpInside" id="obd-fC-ubw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -356,7 +375,9 @@
                             <constraint firstAttribute="trailing" secondItem="uXK-ig-oVf" secondAttribute="trailing" id="f2B-eN-w5D"/>
                             <constraint firstAttribute="trailing" secondItem="WFx-qX-s6J" secondAttribute="trailing" id="iUu-hg-MEl"/>
                             <constraint firstItem="uXK-ig-oVf" firstAttribute="top" secondItem="1R1-G2-8df" secondAttribute="bottom" id="lTS-OK-E5D"/>
+                            <constraint firstItem="QEH-AO-fZV" firstAttribute="trailing" secondItem="NAp-6w-qYv" secondAttribute="trailingMargin" constant="5" id="mt7-n2-n0I"/>
                             <constraint firstAttribute="trailing" secondItem="Xl7-gN-Zld" secondAttribute="trailing" id="ttv-iq-tXL"/>
+                            <constraint firstItem="QEH-AO-fZV" firstAttribute="top" secondItem="uXK-ig-oVf" secondAttribute="bottom" constant="5" id="wVy-Xh-x8O"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Qoy-xw-d8I" appends="YES" id="wg5-ZI-k53"/>
@@ -379,17 +400,19 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0dH-39-Jhz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="Qoy-xw-d8I">
+                    <rectEdge key="edges" right="YES"/>
                     <connections>
                         <action selector="leftEdgePanGesture:" destination="uPW-Sg-yS0" id="84I-Kb-ku7"/>
                     </connections>
                 </screenEdgePanGestureRecognizer>
                 <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="2Ie-46-eKp">
+                    <rectEdge key="edges" left="YES"/>
                     <connections>
                         <action selector="rightEdgePanGesture:" destination="uPW-Sg-yS0" id="j0J-3d-dty"/>
                     </connections>
                 </screenEdgePanGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-22" y="-968"/>
+            <point key="canvasLocation" x="-23.199999999999999" y="-968.36581709145435"/>
         </scene>
         <!--Main Left View Controller-->
         <scene sceneID="IgZ-Sp-gsp">

@@ -8,14 +8,20 @@
 
 import UIKit
 
+protocol MyLocationDelegate {
+    func myLocationKeyboardHide()
+    func myLocationAlert(_ alert: UIAlertController)
+    func myLocation()
+    func myLocationLoad(_ myLocationView: MyLocationView)
+}
+
 class MyLocationView : UIView{
     var locationArray = Array<Address>()
     @IBOutlet var tableView: UITableView!
     @IBOutlet var search: UITextField!
     @IBOutlet var myLocationView: UIView!
-    var keyboardHideCallback: ((Void) -> Void)!
-    var alertCallback: ((UIAlertController) -> Void)!
-    var myLocationCallback: ((Void) -> Void)!
+    
+    var delegate: MyLocationDelegate?
     
     override func awakeFromNib() {
         self.tableView.register(UINib(nibName: "MyLocationCell", bundle: nil), forCellReuseIdentifier: "MyLocationCell")
@@ -23,6 +29,10 @@ class MyLocationView : UIView{
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 80
         self.tableView.separatorStyle = .none
+    }
+    
+    func load(){
+        self.delegate?.myLocationLoad(self)
     }
     
     @IBAction func cancelAction(_ sender: AnyObject) {
@@ -34,9 +44,7 @@ class MyLocationView : UIView{
     
     func searchAction() {
         if (self.search.text?.characters.count)! >= 2{
-            if self.keyboardHideCallback != nil{
-                self.keyboardHideCallback()
-            }
+            self.delegate?.myLocationKeyboardHide()
             
             self.locationArray = Array<Address>()
             self.tableView.reloadData()
@@ -56,9 +64,7 @@ class MyLocationView : UIView{
                 }
             })
         }else{
-            if self.alertCallback != nil{
-                self.alertCallback(Util.alert(message: "검색어는 2글자 이상으로 넣어주세요."))
-            }
+            self.delegate?.myLocationAlert(Util.alert(message: "검색어는 2글자 이상으로 넣어주세요."))
         }
     }
     
@@ -70,17 +76,13 @@ class MyLocationView : UIView{
             deviceUser.deviceLongitude = Storage.longitude
             deviceUser.isMyLocation = false
             Storage.setRealmDeviceUser(deviceUser)
-            if self.myLocationCallback != nil{
-                self.myLocationCallback()
-            }
+            self.delegate?.myLocation()
         }
     }
     
     
     func show(){
-        if self.keyboardHideCallback != nil{
-            self.keyboardHideCallback()
-        }
+        self.delegate?.myLocationKeyboardHide()
         self.locationArray = Array<Address>()
         self.tableView.reloadData()
         self.isHidden = false
@@ -91,9 +93,7 @@ class MyLocationView : UIView{
         }, completion: nil)
     }
     func hide(){
-        if self.keyboardHideCallback != nil{
-            self.keyboardHideCallback()
-        }
+        self.delegate?.myLocationKeyboardHide()
         self.locationArray = Array<Address>()
         self.tableView.reloadData()
         self.isHidden = false
@@ -106,9 +106,7 @@ class MyLocationView : UIView{
         })
     }
     func hideAlpha(callback: @escaping (Void)->Void ){
-        if self.keyboardHideCallback != nil{
-            self.keyboardHideCallback()
-        }
+        self.delegate?.myLocationKeyboardHide()
         self.locationArray = Array<Address>()
         self.tableView.reloadData()
         UIView.animate(withDuration: 0.2, animations: {

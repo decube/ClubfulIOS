@@ -22,9 +22,9 @@ class DeviceUser: Object{
     dynamic var search : String = ""
     
     //위도
-    dynamic var latitude : Double =  0.0
+    dynamic var latitude : Double =  37.5567596
     //경도
-    dynamic var longitude : Double =  0.0
+    dynamic var longitude : Double =  126.9241043
     //주소
     dynamic var address : String = ""
     //주소short
@@ -53,9 +53,9 @@ class DeviceUser: Object{
     dynamic var categoryName : String = "전체"
     
     //항상가지고있는 위도
-    dynamic var deviceLatitude: Double = 0.0
+    dynamic var deviceLatitude: Double = 37.5567596
     //항상가지고있는 경도
-    dynamic var deviceLongitude: Double = 0.0
+    dynamic var deviceLongitude: Double = 126.9241043
     //내위치를 설정했는지 안했는지
     dynamic var isMyLocation: Bool = false
     

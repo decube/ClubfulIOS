@@ -1,20 +1,18 @@
 /**
-* Copyright 2015-2016 Kakao Corp.
-*
-* Redistribution and modification in source or binary forms are not permitted without specific prior written permission.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright 2015-2016 Kakao Corp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 /*!
  @header KOSession.h
@@ -181,7 +179,6 @@ typedef NS_ENUM(NSInteger, KOAgeAuthProperty) {
 /*!
  url에 포함된 code 정보로 oauth 인증 토큰을 요청한다. 인증 토큰 요청이 완료되면 completionHandler를 실행한다.
  @param url 인증 요청 code 또는 오류 정보(error, error_description)를 담은 url
- @param completionHandler 요청 완료시 실행될 block. 오류 처리와 인증 완료 작업을 수행한다.
  */
 + (BOOL)handleOpenURL:(NSURL *)url;
 

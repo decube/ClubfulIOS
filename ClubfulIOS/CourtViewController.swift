@@ -16,87 +16,7 @@ var tempData2 : [[String: AnyObject]] = [
         "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
         "nickName":"가나다" as AnyObject,
         "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],[
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ],
+    ]
 ]
 
 
@@ -105,41 +25,30 @@ class CourtViewController : UIViewController{
     
     @IBOutlet var scrollView: UIScrollView!
     var scrollViewHeight : CGFloat = 0
-    //스핀
+    
+    @IBOutlet var headerLbl: UILabel!
+    
     @IBOutlet var imageSpin: UIActivityIndicatorView!
     @IBOutlet var replySpin: UIActivityIndicatorView!
     @IBOutlet var spin: UIActivityIndicatorView!
     
-    
     @IBOutlet var interestBtn: UIButton!
     @IBOutlet var interestLbl: UILabel!
-    //헤더라벨
-    @IBOutlet var headerLbl: UILabel!
-    //이미지 부모 뷰
+    
     @IBOutlet var imageView: UIView!
-    //이미지
-    @IBOutlet var imageSlide: UIScrollView!
-    //설명 textView
+    @IBOutlet var collectionView: UICollectionView!
+    
     @IBOutlet var descTextView: UITextView!
-    //댓글 입력 필드
-    @IBOutlet var replyInsertField: UITextField!
-    
-    //리플
     @IBOutlet var replyTableView: UITableView!
+    
+    var courtTextView: CourtTextView?
+    
     var replyArray = [Reply]()
-    
-    
-    //이미지 URL 저장
-    var imageURLList = [String]()
-    //이미지 리스트 저장
-    var imageViewList = [UIImageView]()
-    //이미지 하단 네비 저장
+    var imageArray = [(String, Data?)]()
     var imageBottomIndex : [Oval] = []
-    
     
     var court : Court!
     var imageScrollIdx = 0
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,34 +61,13 @@ class CourtViewController : UIViewController{
             }
         }
         
-        self.spin.isHidden = true
-        self.imageSpin.isHidden = false
-        self.replySpin.isHidden = true
         self.spin.stopAnimating()
         self.imageSpin.startAnimating()
         self.replySpin.startAnimating()
-        self.imageSlide.delegate = self
-        self.replyInsertField.delegate = self
-        self.replyTableView.delegate = self
-        self.replyTableView.dataSource = self
-        self.replyTableView.rowHeight = UITableViewAutomaticDimension
-        self.replyTableView.estimatedRowHeight = 20
-        self.replyTableView.separatorStyle = .none
-        //슬라이드 효과
-        self.imageSlide.isPagingEnabled = true
-        self.imageSlide.showsVerticalScrollIndicator = false
-        self.imageSlide.showsHorizontalScrollIndicator = false
         
-        //더블클릭
-        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(self.interestAction(_:)))
-        doubleTap.numberOfTapsRequired = 2
-        self.imageSlide.addGestureRecognizer(doubleTap)
-        //길게클릭
-        self.imageSlide.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed(_:))))
-        
-        
-        self.imageSlide.isUserInteractionEnabled = true
-        self.imageSlide.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        self.courtTextView = Bundle.main.loadNibNamed("CourtTextView", owner: self, options: nil)?.first as? CourtTextView
+        self.courtTextView?.delegate = self
+        self.courtTextView?.load()
         
         DispatchQueue.global().async {
             var parameters : [String: AnyObject] = [:]
@@ -201,14 +89,7 @@ class CourtViewController : UIViewController{
         }
     }
     
-    func interest(){
-        let courtStar = Storage.getStorage("courtStar_\(self.courtSeq)")
-        var starImage = "ic_star_on"
-        if courtStar == nil{
-            starImage = "ic_star_off"
-        }
-        self.interestBtn.setImage(UIImage(named: starImage), for: UIControlState())
-    }
+    
     
     
     
@@ -225,9 +106,7 @@ class CourtViewController : UIViewController{
         }
         func appendImage(_ imageData: Data!, _ imageStr: String){
             if !(imageData == nil || imageData.count == 0){
-                let imgView = UIImageView(image: UIImage(data: imageData))
-                self.imageURLList.append(imageStr)
-                self.imageViewList.append(imgView)
+                self.imageArray.append((imageStr, imageData!))
             }
         }
         
@@ -262,26 +141,18 @@ class CourtViewController : UIViewController{
     
     func setImages(){
         DispatchQueue.main.async {
-            self.imageSlide.subviews.forEach({$0.removeFromSuperview()})
+            self.imageSpin.startAnimating()
+            self.imageSpin.isHidden = false
             self.imageView.subviews.forEach({ (v) in
                 if let view = v as? Oval{
                     view.removeFromSuperview()
                 }
             })
-            var idx : CGFloat = 0
-            for imageSource in self.imageViewList{
-                imageSource.frame = CGRect(x: self.imageSlide.frame.width*idx, y: 0, width: self.imageSlide.frame.width, height: self.imageSlide.frame.height)
-                imageSource.contentMode = .scaleAspectFit
-                self.imageSlide.addSubview(imageSource)
-                idx += 1
-            }
-            self.imageSlide.contentSize.width = self.imageSlide.frame.width*idx
-            
-            
+            self.collectionView.reloadData()
             //이미지 하단 네비
             let ovalSize: CGFloat = 10
             let ovalMargin: CGFloat = 10
-            let firstX = (self.imageView.frame.width - idx*(ovalSize+ovalMargin))/2
+            let firstX = (self.imageView.frame.width - CGFloat(self.imageArray.count)*(ovalSize+ovalMargin))/2
             var i = 0
             for ovalView in self.imageBottomIndex{
                 ovalView.frame.origin = CGPoint(x: firstX+(ovalMargin)/2+(ovalSize+ovalMargin) * CGFloat(i), y: self.imageView.frame.height-ovalSize)
@@ -299,17 +170,14 @@ class CourtViewController : UIViewController{
         }
     }
     
-    //길게 클릭
-    func longPressed(_ sender: UILongPressGestureRecognizer){
-        if sender.state == .ended {
-        }else if sender.state == .began {
-            if self.imageViewList.count != 0{
-                Util.imageSaveHandler(self, imageUrl: "\(self.imageURLList[self.imageScrollIdx])", image: self.imageViewList[self.imageScrollIdx].image!)
-            }
+    func interest(){
+        let courtStar = Storage.getStorage("courtStar_\(self.courtSeq)")
+        var starImage = "ic_star_on"
+        if courtStar == nil{
+            starImage = "ic_star_off"
         }
+        self.interestBtn.setImage(UIImage(named: starImage), for: UIControlState())
     }
-    
-    
     
     //관심 클릭
     @IBAction func interestAction(_ sender: AnyObject) {
@@ -338,6 +206,7 @@ class CourtViewController : UIViewController{
             }else{
                 Storage.removeStorage("courtStar_\(self.courtSeq)")
             }
+            MypageInsViewController.isReload = true
             //애니메이션 적용
             self.interestBtn.alpha = 0
             self.interestBtn.setImage(UIImage(named: starImage), for: UIControlState())
@@ -348,6 +217,31 @@ class CourtViewController : UIViewController{
         })
     }
     
+    
+    //gcm 클릭
+    @IBAction func gcmPushAction(_ sender: AnyObject) {
+        print("gcm")
+    }
+    
+    //약도보기 클릭
+    @IBAction func courtMapAction(_ sender: AnyObject) {
+        let sname : String = "내위치".queryValue()
+        let sx : Double = Storage.latitude
+        let sy : Double = Storage.longitude
+        let ename : String = court.addressShort.queryValue()
+        let ex : Double = court.latitude
+        let ey : Double = court.longitude
+        let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true#/publicTransit/list/\(sname),\(sy),\(sx),,,true,/\(ename),\(ey),\(ex),,,false,/0"
+        if let url = Foundation.URL(string: simplemapUrl){
+            if UIApplication.shared.canOpenURL(url) {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:])
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+        }
+    }
     
     
     //reply Api
@@ -377,66 +271,6 @@ class CourtViewController : UIViewController{
             }
         }
     }
-    
-    //gcm 클릭
-    @IBAction func gcmPushAction(_ sender: AnyObject) {
-        print("gcm")
-    }
-    
-    //약도보기 클릭
-    @IBAction func courtMapAction(_ sender: AnyObject) {
-        let sname : String = "내위치".queryValue()
-        let sx : Double = Storage.latitude
-        let sy : Double = Storage.longitude
-        let ename : String = court.addressShort.queryValue()
-        let ex : Double = court.latitude
-        let ey : Double = court.longitude
-        let simplemapUrl = "https://m.map.naver.com/route.nhn?menu=route&sname=\(sname)&sx=\(sx)&sy=\(sy)&ename=\(ename)&ex=\(ex)&ey=\(ey)&pathType=1&showMap=true#/publicTransit/list/\(sname),\(sy),\(sx),,,true,/\(ename),\(ey),\(ex),,,false,/0"
-        if let url = Foundation.URL(string: simplemapUrl){
-            if UIApplication.shared.canOpenURL(url) {
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url, options: [:])
-                } else {
-                    UIApplication.shared.openURL(url)
-                }
-            }
-        }
-    }
-    
-    
-    //리플 등록 클릭
-    @IBAction func replyInsertAction(_ sender: AnyObject) {
-        replyInsertAction()
-    }
-    
-    func replyInsertAction(){
-        if replySpin.isHidden == false{
-            return
-        }
-        replySpin.isHidden = false
-        replySpin.startAnimating()
-        
-        if !Storage.isRealmUser(){
-            self.replySpin.isHidden = true
-            self.replySpin.stopAnimating()
-            _ = Util.alert(self, message: "리플등록은 로그인을 하셔야 가능합니다.")
-        }else{
-            if (replyInsertField.text?.characters.count)! < 1{
-                self.replySpin.isHidden = true
-                self.replySpin.stopAnimating()
-            }else{
-                let user = Storage.getRealmUser()
-                let parameters : [String: AnyObject] = ["seq": courtSeq as AnyObject, "context": replyInsertField.text! as AnyObject, "id": user.userId as AnyObject]
-                self.replyInsertField.text = ""
-                URLReq.request(self, url: URLReq.apiServer+"", param: parameters, callback: { (dic) in
-                    self.replySpin.isHidden = true
-                    self.replySpin.stopAnimating()
-                })
-            }
-        }
-
-    }
-    
     
     //뒤로가기
     @IBAction func backAction(_ sender: AnyObject) {
@@ -477,19 +311,21 @@ extension CourtViewController : UITextFieldDelegate{
     func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = ((notification as NSNotification).userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             scrollView.contentSize.height = self.scrollViewHeight + keyboardSize.height
+            self.courtTextView?.frame.origin.y = self.view.frame.height-50-keyboardSize.height
         }
     }
     //키보드없어질때
     func keyboardWillHide(_ notification: Notification) {
         scrollView.contentSize.height = self.scrollViewHeight
+        self.courtTextView?.frame.origin.y = self.view.frame.height-100
     }
     //뷰 클릭했을때
     func keyboardHide(_ sender: AnyObject){
         self.view.endEditing(true)
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == self.replyInsertField {
-            self.replyInsertAction()
+        if textField == self.courtTextView?.textField {
+            self.courtTextView?.replyInsertAction("" as AnyObject)
             return false
         }
         return true
@@ -510,7 +346,7 @@ extension CourtViewController: UITableViewDataSource{
 
 extension CourtViewController : UITableViewDelegate{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == self.imageSlide {
+        if scrollView == self.collectionView {
             let width = Double(scrollView.bounds.size.width)
             let offset = Double(scrollView.contentOffset.x)
             let idx = Int(offset/width)
@@ -527,6 +363,74 @@ extension CourtViewController : UITableViewDelegate{
             let deltaOffset = maximumOffset - currentOffset
             if deltaOffset <= 0 && self.spin.isHidden == true{
                 self.addReply()
+            }
+        }
+    }
+}
+
+extension CourtViewController: UICollectionViewDelegate{
+    
+}
+
+extension CourtViewController: UICollectionViewDataSource{
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSize(width: self.view.frame.width, height: self.collectionView.frame.height)
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.imageArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CourtViewCell", for: indexPath) as! CourtViewCell
+        let court = self.imageArray[indexPath.row]
+        cell.img.image = UIImage(data: court.1!)
+        cell.imgTuple = court
+        cell.delegate = self
+        return cell
+    }
+}
+
+extension CourtViewController: CourtViewCellDelgate{
+    func courtViewDoubleTap() {
+        self.interestAction("" as AnyObject)
+    }
+    func courtViewLongGesture(_ imgTuple: (String, Data?)) {
+        Util.imageSaveHandler(self, imageUrl: imgTuple.0, image: UIImage(data: imgTuple.1!)!)
+    }
+}
+
+
+extension CourtViewController: CourtTextViewDelegate{
+    func courtTextLoad() {
+        self.courtTextView?.frame = CGRect(x: 0, y: self.view.frame.height-100, width: self.view.frame.width, height: 50)
+        self.view.addSubview(self.courtTextView!)
+    }
+    func courtTextReply(_ textField: UITextField) {
+        if replySpin.isHidden == false{
+            return
+        }
+        replySpin.isHidden = false
+        replySpin.startAnimating()
+        
+        if !Storage.isRealmUser(){
+            self.replySpin.isHidden = true
+            self.replySpin.stopAnimating()
+            _ = Util.alert(self, message: "리플등록은 로그인을 하셔야 가능합니다.")
+        }else{
+            if (textField.text?.characters.count)! < 1{
+                self.replySpin.isHidden = true
+                self.replySpin.stopAnimating()
+            }else{
+                let user = Storage.getRealmUser()
+                let parameters : [String: AnyObject] = ["seq": courtSeq as AnyObject, "context": textField.text! as AnyObject, "id": user.userId as AnyObject]
+                textField.text = ""
+                URLReq.request(self, url: URLReq.apiServer+"", param: parameters, callback: { (dic) in
+                    self.replySpin.isHidden = true
+                    self.replySpin.stopAnimating()
+                })
             }
         }
     }

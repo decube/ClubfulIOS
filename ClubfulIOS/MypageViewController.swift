@@ -9,121 +9,79 @@
 import UIKit
 
 class MypageViewController: UIViewController {
-    @IBOutlet var collectionView: UICollectionView!
-    var createArray = [Court]()
-    var nonUserView : NonUserView!
-    static var isReload = true
-    var noneLbl: UILabel!
-    
+    @IBOutlet var tabAdd: UIView!
+    @IBOutlet var tabIns: UIView!
+    var tabSlide: UIView?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
         
-        self.noneLbl = UILabel(frame: CGRect(x: 0, y: 120, width: self.collectionView.frame.width, height: self.collectionView.frame.height))
-        self.noneLbl.text = "내가 등록한 코트가 없습니다."
-        self.noneLbl.textAlignment = .center
-        self.noneLbl.font = UIFont(name: (noneLbl.font?.fontName)!, size: 20)
-        self.noneLbl.isHidden = true
-        self.view.addSubview(noneLbl)
+        self.tabAdd.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tab_1)))
+        self.tabIns.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tab_2)))
+        
+        self.tabSlide = UIView(frame: CGRect(x: 0, y: 120, width: self.tabAdd.frame.width, height: 3))
+        self.tabSlide?.backgroundColor = UIColor.blue
+        self.view.addSubview(self.tabSlide!)
     }
     
-    func reloadData(){
-        let user = Storage.getRealmUser()
-        let parameters : [String: AnyObject] = ["userId": user.userId as AnyObject]
-        URLReq.request(self, url: URLReq.apiServer+"user/mypage", param: parameters, callback: { (dic) in
-            DispatchQueue.main.async {
-                if let list = dic["myCourtInsert"] as? [[String: AnyObject]]{
-                    if list.count == 0{
-                        self.noneLbl.isHidden = false
-                    }else{
-                        self.createArray = []
-                        for data in list{
-                            let court = Court(data)
-                            self.createArray.append(court)
-                        }
-                        self.collectionView.reloadData()
-                    }
-                }
-            }
-        })
+    func tab_1(){
+        self.pageViewController?.scrollToViewController(index: 0)
+    }
+    func tab_2(){
+        self.pageViewController?.scrollToViewController(index: 1)
     }
     
-    func layout(){
-        if Storage.isRealmUser(){
-            self.view.subviews.forEach({ (tempView) in
-                if tempView == nonUserView{
-                    tempView.removeFromSuperview()
-                }
-            })
-            if MypageViewController.isReload{
-                MypageViewController.isReload = false
-                self.reloadData()
-            }
-        }else{
-            self.view.subviews.forEach({ (tempView) in
-                if tempView == nonUserView{
-                    tempView.removeFromSuperview()
-                }
-            })
-            self.view.addSubview(nonUserView)
+    
+    //페이지 슬라이드
+    var pageViewController: MypagePageViewController? {
+        didSet {
+            pageViewController?.pdelegate = self
         }
     }
 }
 
 extension MypageViewController{
-    override func viewWillAppear(_ animated: Bool) {
-        if nonUserView == nil{
-            if let customView = Bundle.main.loadNibNamed("NonUserView", owner: self, options: nil)?.first as? NonUserView {
-                customView.frame = self.view.frame
-                nonUserView = customView
-                layout()
-            }
-        }else{
-            layout()
-        }
-    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "mypage_courtDetail"{
-            let path = self.collectionView.indexPath(for: sender as! MyCourtCell)
-            let courtSeq = self.createArray[(path?.row)!].seq
-            let detailVC = segue.destination as? CourtViewController
-            detailVC?.courtSeq = courtSeq
+        if let vc = segue.destination as? MypagePageViewController {
+            self.pageViewController = vc
         }
     }
-}
-extension MypageViewController: UICollectionViewDelegate{
-    
 }
 
-extension MypageViewController: UICollectionViewDataSource{
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+extension MypageViewController: MypagePageViewControllerDelegate {
+    func mypagePageViewControllerDelegate(_ pageViewController: MypagePageViewController, didUpdatePageCount count: Int) {
+        
     }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.createArray.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: self.collectionView.frame.width/3-9, height: self.collectionView.frame.height/5)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCourtCell", for: indexPath) as! MyCourtCell
-        let court = self.createArray[indexPath.row]
-        cell.spin.startAnimating()
-        cell.spin.isHidden = false
-        DispatchQueue.global().async {
-            DispatchQueue.main.async {
-                if court.setImageData(){
-                    cell.img.image = UIImage(data: court.imageData1)
-                    cell.spin.stopAnimating()
-                    cell.spin.isHidden = true
+    func mypagePageViewControllerDelegate(_ pageViewController: MypagePageViewController, didUpdatePageIndex index: Int) {
+        var animationX: CGFloat = 0
+        if index == 0{
+            self.tabAdd.subviews.forEach { (v) in
+                if let view = v as? UIImageView{
+                    view.image = UIImage(named: "page_add_s")
                 }
             }
+            self.tabIns.subviews.forEach { (v) in
+                if let view = v as? UIImageView{
+                    view.image = UIImage(named: "page_ins_n")
+                }
+            }
+        }else if index == 1{
+            self.tabAdd.subviews.forEach { (v) in
+                if let view = v as? UIImageView{
+                    view.image = UIImage(named: "page_add_n")
+                }
+            }
+            self.tabIns.subviews.forEach { (v) in
+                if let view = v as? UIImageView{
+                    view.image = UIImage(named: "page_ins_s")
+                }
+            }
+            animationX = self.tabAdd.frame.width
         }
-        cell.txt.text = "\(court.cname!)"
-        return cell
+        UIView.animate(withDuration: 0.2) {
+            self.tabSlide?.frame.origin.x = animationX
+        }
     }
 }
+

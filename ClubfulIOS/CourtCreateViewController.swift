@@ -155,6 +155,34 @@ class CourtCreateViewController: UIViewController{
         performSegue(withIdentifier: "courtCreate_map", sender: nil)
     }
     
+    
+    func categoryAddAction(){
+        let alert = UIAlertController(title: "", message: "카테고리명을 입력하세요", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "입력"
+        }
+        alert.addAction(UIAlertAction(title: "등록", style: .default, handler: { [alert] (_) in
+            let textField = alert.textFields![0]
+            
+            let user = Storage.getRealmUser()
+            var parameters : [String: AnyObject] = [:]
+            parameters.updateValue(user.userId as AnyObject, forKey: "userId")
+            parameters.updateValue("\(textField.text!)" as AnyObject, forKey: "categoryName")
+            
+            URLReq.request(self, url: URLReq.apiServer+"category/insert", param: parameters, callback: { (dic) in
+                self.categoryConfirmAction()
+            })
+            
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func categoryConfirmAction(){
+        let alert = UIAlertController(title: "", message: "신청이 완료되었습니다", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     //종목설정 클릭
     @IBAction func categoryAction(_ sender: AnyObject) {
         self.view.endEditing(true)
@@ -169,6 +197,9 @@ class CourtCreateViewController: UIViewController{
                 self.court.categorySeq = category["seq"] as! Int
             }))
         }
+        alert.addAction(UIAlertAction(title: "추가", style: .default, handler: { (alert) in
+            self.categoryAddAction()
+        }))
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (alert) in
             
         }))
@@ -276,7 +307,7 @@ class CourtCreateViewController: UIViewController{
                         if let code = dic["code"] as? Int{
                             if code == 0{
                                 _ = Util.alert(self, message: "등록이 완료되었습니다.", confirmTitle: "확인", confirmHandler: { (_) in
-                                    MypageViewController.isReload = true
+                                    MypageCreateViewController.isReload = true
                                     self.layoutInit()
                                     self.view.endEditing(true)
                                     self.presentingViewController?.dismiss(animated: true, completion: nil)

@@ -40,7 +40,7 @@ class AppSettingViewController : UIViewController{
         let user = Storage.getRealmUser()
         let deviceUser = Storage.getRealmDeviceUser()
         var parameters : [String: AnyObject] = [:]
-        parameters.updateValue(user.userId as AnyObject, forKey: "id")
+        parameters.updateValue(user.userId as AnyObject, forKey: "userId")
         parameters.updateValue(startTime.date.getTime() as AnyObject, forKey: "startTime")
         parameters.updateValue(endTime.date.getTime() as AnyObject, forKey: "endTime")
         parameters.updateValue(noticeSwitch.getYN() as AnyObject, forKey: "noticePush")

@@ -8,7 +8,16 @@
 
 import UIKit
 
+protocol AddViewDelegate {
+    func addViewAlert(_ alert: UIAlertController)
+    func addViewKeyboardHide()
+    func addViewMapMove()
+    func addViewLoad()
+}
+
 class AddView: UIView{
+    var delegate: AddViewDelegate?
+    
     static let radio_selectedImage = UIImage(named: "ic_select_on")
     static let radio_unselectedImage = UIImage(named: "ic_select_off")
     
@@ -21,16 +30,16 @@ class AddView: UIView{
     @IBOutlet var birth: UIDatePicker!
     @IBOutlet var locationBtn: UIButton!
     
-    var keyboardHideCallback: ((Void) -> Void)!
-    var alertCallback: ((UIAlertController) -> Void)!
-    var mapMoveCallback: ((Void) -> Void)!
-    
     override func awakeFromNib() {
         self.address = Address()
         self.maleView.isUserInteractionEnabled = true
         self.maleView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.maleAction)))
         self.femaleView.isUserInteractionEnabled = true
         self.femaleView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.femaleAction)))
+    }
+    
+    func load(){
+        self.delegate?.addViewLoad()
     }
     
     func maleAction(){
@@ -53,11 +62,18 @@ class AddView: UIView{
     }
     
     @IBAction func locationAction(_ sender: AnyObject) {
-        if self.mapMoveCallback != nil{
-            self.mapMoveCallback()
-        }
+        self.delegate?.addViewMapMove()
     }
     @IBAction func confirmAction(_ sender: AnyObject) {
+        if self.address.latitude == nil || self.address.latitude == 0{
+            self.delegate?.addViewAlert(Util.alert(message: "위치를 선택해 주세요"))
+            return
+        }
+        if self.isSexString() == ""{
+            self.delegate?.addViewAlert(Util.alert(message: "성별을 선택해 주세요"))
+            return
+        }
+        
         let user = Storage.getRealmUser()
         user.userLatitude = self.address.latitude
         user.userLongitude = self.address.longitude
@@ -86,15 +102,15 @@ class AddView: UIView{
     }
     
     func addViewShow(){
-        if self.keyboardHideCallback != nil{
-            self.keyboardHideCallback()
-        }
+        self.delegate?.addViewKeyboardHide()
         let vo = Storage.getRealmUser()
         self.address.latitude = vo.userLatitude
         self.address.longitude = vo.userLongitude
         self.address.address = vo.userAddress
         self.address.addressShort = vo.userAddressShort
-        self.locationBtn.setTitle(vo.userAddressShort, for: .normal)
+        if vo.userAddressShort != ""{
+            self.locationBtn.setTitle(vo.userAddressShort, for: .normal)
+        }
         self.birth.date = vo.birth
         if vo.sex == "male"{
             self.maleAction()
@@ -114,6 +130,7 @@ class AddView: UIView{
             //추가정보 확인
             let addInfoDate = Storage.getStorage("addInfo")
             var addViewIsShow = true
+            var dateIsShow = false
             if let date = addInfoDate as? Date{
                 var saveDate = date
                 let addDate = Date()
@@ -122,15 +139,19 @@ class AddView: UIView{
                     addViewIsShow = false
                 }
             }
-            if self.isHidden == true && addViewIsShow == true{
-                let alert = Util.alert(title: "알림", message: "더 정확하게 코트를 찾으시려면 추가정보를 입력하셔야 합니다.", confirmTitle: "입력할께요", cancelStr: "오늘 하루 안할께요", isCancel: true, confirmHandler: { (_) in
-                    self.addViewShow()
+            
+            let user = Storage.getRealmUser()
+            if user.sex == "" || user.userLatitude == 0{
+                dateIsShow = true
+            }
+            if self.isHidden == true && addViewIsShow == true && dateIsShow{
+                self.delegate?.addViewAlert(
+                    Util.alert(title: "알림", message: "더 정확하게 코트를 찾으시려면 추가정보를 입력하셔야 합니다.", confirmTitle: "입력할께요", cancelStr: "오늘 하루 안할께요", isCancel: true, confirmHandler: { (_) in
+                        self.addViewShow()
                     }, cancelHandler: { (_) in
                         Storage.setStorage("addInfo", value: Date() as AnyObject)
-                })
-                if self.alertCallback != nil{
-                    self.alertCallback(alert)
-                }
+                    })
+                )
             }
         }
     }

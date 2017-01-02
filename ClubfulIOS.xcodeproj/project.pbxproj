@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0821451EC0BAE3D497A2F86A /* Pods_ClubfulIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7676E2D18473C2715C92E3 /* Pods_ClubfulIOS.framework */; };
-		6E41630F1DC63DA40097EBDE /* BlackScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E41630E1DC63DA40097EBDE /* BlackScreen.swift */; };
 		6E450C121DE5FC2E008B67A9 /* Court.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E450C111DE5FC2E008B67A9 /* Court.swift */; };
 		6E4835FF1DE96A9B000684D2 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4835FE1DE96A9B000684D2 /* Address.swift */; };
 		6E4836021DE96F82000684D2 /* MyLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E4836011DE96F82000684D2 /* MyLocationCell.xib */; };
@@ -29,8 +28,12 @@
 		6E507C991DD34E9C00F62C17 /* CourtCreate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E507C981DD34E9C00F62C17 /* CourtCreate.storyboard */; };
 		6E507C9B1DD34F3500F62C17 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E507C9A1DD34F3500F62C17 /* User.storyboard */; };
 		6E507C9D1DD34F9800F62C17 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E507C9C1DD34F9800F62C17 /* Setting.storyboard */; };
-		6E5FFEAA1E16B2CB00CA3531 /* MyCourtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FFEA91E16B2CB00CA3531 /* MyCourtCell.swift */; };
+		6E5FFEAA1E16B2CB00CA3531 /* MyCourtCreateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FFEA91E16B2CB00CA3531 /* MyCourtCreateCell.swift */; };
 		6E5FFEAC1E16BDC100CA3531 /* CustomSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FFEAB1E16BDC100CA3531 /* CustomSwitch.swift */; };
+		6E5FFEAE1E16C82800CA3531 /* MypagePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FFEAD1E16C82800CA3531 /* MypagePageViewController.swift */; };
+		6E5FFEB01E16CEFC00CA3531 /* MypageCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FFEAF1E16CEFC00CA3531 /* MypageCreateViewController.swift */; };
+		6E5FFEB21E16CF0D00CA3531 /* MypageInsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FFEB11E16CF0D00CA3531 /* MypageInsViewController.swift */; };
+		6E5FFEB41E16D1B000CA3531 /* MyCourtInsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FFEB31E16D1B000CA3531 /* MyCourtInsCell.swift */; };
 		6E63239E1DA3BF38001FCD9E /* AddView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E63239D1DA3BF38001FCD9E /* AddView.xib */; };
 		6E6323A01DA3BF52001FCD9E /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E63239F1DA3BF52001FCD9E /* AddView.swift */; };
 		6E77DD111DC5A04400296008 /* CourtSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77DD101DC5A04400296008 /* CourtSearchView.swift */; };
@@ -88,10 +91,13 @@
 		6E7DA9E11D994D4A0098D7DA /* MyLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DC1D994D4A0098D7DA /* MyLocationView.xib */; };
 		6E7DA9E21D994D4A0098D7DA /* CourtSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DD1D994D4A0098D7DA /* CourtSearchCell.xib */; };
 		6E7DA9E41D994D4A0098D7DA /* NonUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DA9DF1D994D4A0098D7DA /* NonUserView.xib */; };
-		6E7DA9E61D994EA50098D7DA /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7DA9E51D994EA50098D7DA /* KakaoOpenSDK.framework */; };
 		6E7EB6641DBEE88600A618DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E7EB6631DBEE88600A618DA /* GoogleService-Info.plist */; };
 		6E8AB6B11D9C08F200B8E488 /* SetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8AB6B01D9C08F200B8E488 /* SetViewController.swift */; };
 		6E8C2D871DE4877B009D3F5F /* CourtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8C2D861DE4877B009D3F5F /* CourtCell.swift */; };
+		6E9D130A1E18EEB200E3495A /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9D13091E18EEB200E3495A /* KakaoOpenSDK.framework */; };
+		6E9D130C1E18F7D100E3495A /* CourtViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D130B1E18F7D100E3495A /* CourtViewCell.swift */; };
+		6E9D130E1E191F0100E3495A /* CourtTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D130D1E191F0100E3495A /* CourtTextView.swift */; };
+		6E9D13101E191F1900E3495A /* CourtTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E9D130F1E191F1900E3495A /* CourtTextView.xib */; };
 		6EAAF0D81DEAE5520066455A /* MapListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EAAF0D71DEAE5520066455A /* MapListCell.xib */; };
 		6EAAF0DA1DEAE5930066455A /* MapListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAAF0D91DEAE5930066455A /* MapListCell.swift */; };
 		6EAAF0E01DEB0A550066455A /* PicImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAAF0DF1DEB0A550066455A /* PicImageView.swift */; };
@@ -122,7 +128,6 @@
 		2DFA4C9A1F0748219FE9E959 /* Pods_ClubfulIOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubfulIOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4964696397EF65213A1B1D17 /* Pods-ClubfulIOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubfulIOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubfulIOSUITests/Pods-ClubfulIOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		49974A46F672D49681011BDF /* Pods_ClubfulIOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubfulIOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E41630E1DC63DA40097EBDE /* BlackScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackScreen.swift; sourceTree = "<group>"; };
 		6E4168561DCCC4EE008C719D /* ClubfulIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClubfulIOS.entitlements; sourceTree = "<group>"; };
 		6E450C111DE5FC2E008B67A9 /* Court.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Court.swift; sourceTree = "<group>"; };
 		6E4835FE1DE96A9B000684D2 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
@@ -144,8 +149,12 @@
 		6E507C981DD34E9C00F62C17 /* CourtCreate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CourtCreate.storyboard; sourceTree = "<group>"; };
 		6E507C9A1DD34F3500F62C17 /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
 		6E507C9C1DD34F9800F62C17 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
-		6E5FFEA91E16B2CB00CA3531 /* MyCourtCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCourtCell.swift; sourceTree = "<group>"; };
+		6E5FFEA91E16B2CB00CA3531 /* MyCourtCreateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCourtCreateCell.swift; sourceTree = "<group>"; };
 		6E5FFEAB1E16BDC100CA3531 /* CustomSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSwitch.swift; sourceTree = "<group>"; };
+		6E5FFEAD1E16C82800CA3531 /* MypagePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MypagePageViewController.swift; sourceTree = "<group>"; };
+		6E5FFEAF1E16CEFC00CA3531 /* MypageCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MypageCreateViewController.swift; sourceTree = "<group>"; };
+		6E5FFEB11E16CF0D00CA3531 /* MypageInsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MypageInsViewController.swift; sourceTree = "<group>"; };
+		6E5FFEB31E16D1B000CA3531 /* MyCourtInsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCourtInsCell.swift; sourceTree = "<group>"; };
 		6E63239D1DA3BF38001FCD9E /* AddView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddView.xib; sourceTree = "<group>"; };
 		6E63239F1DA3BF52001FCD9E /* AddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		6E77DD101DC5A04400296008 /* CourtSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtSearchView.swift; sourceTree = "<group>"; };
@@ -210,10 +219,13 @@
 		6E7DA9DC1D994D4A0098D7DA /* MyLocationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyLocationView.xib; sourceTree = "<group>"; };
 		6E7DA9DD1D994D4A0098D7DA /* CourtSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourtSearchCell.xib; sourceTree = "<group>"; };
 		6E7DA9DF1D994D4A0098D7DA /* NonUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NonUserView.xib; sourceTree = "<group>"; };
-		6E7DA9E51D994EA50098D7DA /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		6E7EB6631DBEE88600A618DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6E8AB6B01D9C08F200B8E488 /* SetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewController.swift; sourceTree = "<group>"; };
 		6E8C2D861DE4877B009D3F5F /* CourtCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtCell.swift; sourceTree = "<group>"; };
+		6E9D13091E18EEB200E3495A /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
+		6E9D130B1E18F7D100E3495A /* CourtViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtViewCell.swift; sourceTree = "<group>"; };
+		6E9D130D1E191F0100E3495A /* CourtTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourtTextView.swift; sourceTree = "<group>"; };
+		6E9D130F1E191F1900E3495A /* CourtTextView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourtTextView.xib; sourceTree = "<group>"; };
 		6EAAF0D71DEAE5520066455A /* MapListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapListCell.xib; sourceTree = "<group>"; };
 		6EAAF0D91DEAE5930066455A /* MapListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapListCell.swift; sourceTree = "<group>"; };
 		6EAAF0DF1DEB0A550066455A /* PicImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicImageView.swift; sourceTree = "<group>"; };
@@ -234,7 +246,7 @@
 			files = (
 				6E7DA9251D9949740098D7DA /* OpenGLES.framework in Frameworks */,
 				6E7DA9231D99496E0098D7DA /* MessageUI.framework in Frameworks */,
-				6E7DA9E61D994EA50098D7DA /* KakaoOpenSDK.framework in Frameworks */,
+				6E9D130A1E18EEB200E3495A /* KakaoOpenSDK.framework in Frameworks */,
 				6E7DA9211D9949680098D7DA /* QuartzCore.framework in Frameworks */,
 				6E7DA91F1D9949630098D7DA /* StoreKit.framework in Frameworks */,
 				6E7DA91D1D99495E0098D7DA /* libz.1.2.5.tbd in Frameworks */,
@@ -303,7 +315,9 @@
 				6E4C62B61DE9AA0A0039BE62 /* ReplyCell.swift */,
 				6EAAF0D71DEAE5520066455A /* MapListCell.xib */,
 				6EAAF0D91DEAE5930066455A /* MapListCell.swift */,
-				6E5FFEA91E16B2CB00CA3531 /* MyCourtCell.swift */,
+				6E5FFEA91E16B2CB00CA3531 /* MyCourtCreateCell.swift */,
+				6E5FFEB31E16D1B000CA3531 /* MyCourtInsCell.swift */,
+				6E9D130B1E18F7D100E3495A /* CourtViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -336,6 +350,8 @@
 				6E7DA9A31D994B3A0098D7DA /* NonUserView.swift */,
 				6E4C62B81DE9B0C20039BE62 /* PicView.swift */,
 				6EAAF0DF1DEB0A550066455A /* PicImageView.swift */,
+				6E9D130D1E191F0100E3495A /* CourtTextView.swift */,
+				6E9D130F1E191F1900E3495A /* CourtTextView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -498,6 +514,9 @@
 			isa = PBXGroup;
 			children = (
 				6E7DA9A21D994B3A0098D7DA /* MypageViewController.swift */,
+				6E5FFEAD1E16C82800CA3531 /* MypagePageViewController.swift */,
+				6E5FFEAF1E16CEFC00CA3531 /* MypageCreateViewController.swift */,
+				6E5FFEB11E16CF0D00CA3531 /* MypageInsViewController.swift */,
 				6E7DA9B41D994B3A0098D7DA /* UserConvertViewController.swift */,
 			);
 			name = user;
@@ -535,7 +554,6 @@
 				6E7DA9AF1D994B3A0098D7DA /* CustomUIScrollView.swift */,
 				6E7DA9B01D994B3A0098D7DA /* CustomUITextField.swift */,
 				6E7DA9B11D994B3A0098D7DA /* CustomUIView.swift */,
-				6E41630E1DC63DA40097EBDE /* BlackScreen.swift */,
 				6E5FFEAB1E16BDC100CA3531 /* CustomSwitch.swift */,
 			);
 			name = Custom;
@@ -544,7 +562,7 @@
 		B5B6A72B3A0CE752F53E11B0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6E7DA9E51D994EA50098D7DA /* KakaoOpenSDK.framework */,
+				6E9D13091E18EEB200E3495A /* KakaoOpenSDK.framework */,
 				6E7DA9261D9949860098D7DA /* MapKit.framework */,
 				6E7DA9241D9949740098D7DA /* OpenGLES.framework */,
 				6E7DA9221D99496E0098D7DA /* MessageUI.framework */,
@@ -706,6 +724,7 @@
 				6E507C9D1DD34F9800F62C17 /* Setting.storyboard in Resources */,
 				6E507C9B1DD34F3500F62C17 /* User.storyboard in Resources */,
 				6EE0B8241DCEDA3D009792A7 /* MapListView.xib in Resources */,
+				6E9D13101E191F1900E3495A /* CourtTextView.xib in Resources */,
 				6E7DA8E41D9948910098D7DA /* LaunchScreen.storyboard in Resources */,
 				6E7DA90B1D99490A0098D7DA /* AdobeCreativeSDKImageResources.bundle in Resources */,
 				6E7DA9E41D994D4A0098D7DA /* NonUserView.xib in Resources */,
@@ -882,15 +901,19 @@
 				6E4CC94F1DC4815C005FA92F /* MainRightViewController.swift in Sources */,
 				6E7DA9B61D994B3A0098D7DA /* AppSettingViewController.swift in Sources */,
 				6E7DA9CE1D994B3A0098D7DA /* CustomString.swift in Sources */,
+				6E5FFEAE1E16C82800CA3531 /* MypagePageViewController.swift in Sources */,
 				6E7DA9D01D994B3A0098D7DA /* CustomUIColor.swift in Sources */,
 				6E7DA9BC1D994B3A0098D7DA /* GuideViewController.swift in Sources */,
+				6E9D130E1E191F0100E3495A /* CourtTextView.swift in Sources */,
 				6E5FFEAC1E16BDC100CA3531 /* CustomSwitch.swift in Sources */,
 				6E7DA8DC1D9948910098D7DA /* ViewController.swift in Sources */,
 				6E7DA9DA1D994B3A0098D7DA /* Util.swift in Sources */,
 				6E7DA9BD1D994B3A0098D7DA /* InfoViewController.swift in Sources */,
 				6E4835FF1DE96A9B000684D2 /* Address.swift in Sources */,
+				6E5FFEB21E16CF0D00CA3531 /* MypageInsViewController.swift in Sources */,
 				6E7DA9D41D994B3A0098D7DA /* CustomUIScrollView.swift in Sources */,
 				6E4836041DE97056000684D2 /* LocationCell.swift in Sources */,
+				6E5FFEB41E16D1B000CA3531 /* MyCourtInsCell.swift in Sources */,
 				6E4836071DE9832A000684D2 /* CourtSearchCell.swift in Sources */,
 				6EE0B8221DCED827009792A7 /* MapListView.swift in Sources */,
 				6E7DA9D61D994B3A0098D7DA /* CustomUIView.swift in Sources */,
@@ -899,6 +922,7 @@
 				6E6323A01DA3BF52001FCD9E /* AddView.swift in Sources */,
 				6E7DA9D71D994B3A0098D7DA /* URLReq.swift in Sources */,
 				6E7DA9D31D994B3A0098D7DA /* CustomUIImage.swift in Sources */,
+				6E9D130C1E18F7D100E3495A /* CourtViewCell.swift in Sources */,
 				6E4CC94B1DC47F84005FA92F /* PresentMenuAnimator.swift in Sources */,
 				6E7DA9C91D994B3A0098D7DA /* NoticeViewController.swift in Sources */,
 				6E7DA9D11D994B3A0098D7DA /* CustomUIControl.swift in Sources */,
@@ -906,10 +930,9 @@
 				6E7DA8DA1D9948910098D7DA /* AppDelegate.swift in Sources */,
 				6E4C62B91DE9B0C20039BE62 /* PicView.swift in Sources */,
 				6E8AB6B11D9C08F200B8E488 /* SetViewController.swift in Sources */,
-				6E41630F1DC63DA40097EBDE /* BlackScreen.swift in Sources */,
 				6E7BFECF1DCA17A300D93799 /* DeviceUser.swift in Sources */,
 				6E7DA9D21D994B3A0098D7DA /* CustomUIFont.swift in Sources */,
-				6E5FFEAA1E16B2CB00CA3531 /* MyCourtCell.swift in Sources */,
+				6E5FFEAA1E16B2CB00CA3531 /* MyCourtCreateCell.swift in Sources */,
 				6E7DA9CA1D994B3A0098D7DA /* CustomNSDate.swift in Sources */,
 				6EAAF0E01DEB0A550066455A /* PicImageView.swift in Sources */,
 				6E4CC94D1DC4811D005FA92F /* MainLeftViewController.swift in Sources */,
@@ -923,6 +946,7 @@
 				6E7DA9BF1D994B3A0098D7DA /* JoinViewController.swift in Sources */,
 				6E7DA9C51D994B3A0098D7DA /* MapViewController.swift in Sources */,
 				6E7DA9C71D994B3A0098D7DA /* MypageViewController.swift in Sources */,
+				6E5FFEB01E16CEFC00CA3531 /* MypageCreateViewController.swift in Sources */,
 				6E7DA9C01D994B3A0098D7DA /* LoginViewController.swift in Sources */,
 				6E7DA9B81D994B3A0098D7DA /* CourtCreateViewController.swift in Sources */,
 				6E7DA9C21D994B3A0098D7DA /* MyLocationView.swift in Sources */,

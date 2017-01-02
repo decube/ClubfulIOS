@@ -1,8 +1,6 @@
 /**
  * Copyright 2015-2016 Kakao Corp.
  *
- * Redistribution and modification in source or binary forms are not permitted without specific prior written permission.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -52,7 +50,6 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
 /*!
  @abstract 현재 로그인된 사용자의 카카오스토리 프로필 정보를 얻을 수 있습니다.
  @param completionHandler 스토리 프로필 정보를 얻어 처리하는 핸들러
- @discussion
  */
 + (instancetype)storyProfileTaskWithCompletionHandler:(KOSessionTaskCompletionHandler)completionHandler;
 
@@ -60,30 +57,26 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
  @abstract 현재 로그인된 사용자의 카카오스토리 프로필 정보를 얻을 수 있습니다.
  @param secureResource 프로필, 썸네일 이미지 등의 리소스 정보들에 대해 https를 지원하는 형식으로 응답을 받을지의 여부. YES일 경우 https지원, NO일 경우 http지원.
  @param completionHandler 스토리 프로필 정보를 얻어 처리하는 핸들러
- @discussion
  */
 + (instancetype)storyProfileTaskWithSecureResource:(BOOL)secureResource
                                  completionHandler:(KOSessionTaskCompletionHandler)completionHandler;
 
 /*!
  @abstract 로컬 이미지 파일을 카카오스토리에 업로드합니다.
- @deprecated Replaced by storyMultiImageUploadTaskWithImages in v1.0.7
  @param image (UIImage *) 형식의 한장의 이미지
  */
 + (instancetype)storyImageUploadTaskWithImage:(UIImage *)image
-                            completionHandler:(KOSessionTaskCompletionHandler)completionHandler;
+                            completionHandler:(KOSessionTaskCompletionHandler)completionHandler DEPRECATED_MSG_ATTRIBUTE("Replaced by storyMultiImageUploadTaskWithImages in v1.0.7");
 
 /*!
  @abstract 로컬 이미지 파일을 데이타 형식으로 카카오스토리에 업로드합니다.
- @deprecated Replaced by storyMultiImageUploadTaskWithImageData in v1.0.7
  @param imageData (NSData *) 형식의 한장의 이미지
  */
 + (instancetype)storyImageUploadTaskWithImageData:(NSData *)imageData
-                                completionHandler:(KOSessionTaskCompletionHandler)completionHandler;
+                                completionHandler:(KOSessionTaskCompletionHandler)completionHandler DEPRECATED_MSG_ATTRIBUTE("Replaced by storyMultiImageUploadTaskWithImageData in v1.0.7");
 
 /*!
  @abstract 카카오 스토리에 포스팅합니다.
- @deprecated Replaced by storyPostNoteTaskWithContent or storyPostPhotoTaskWithImageUrls in v1.0.7
  @param content 내용
  @param imageUrl 이미지 url(storyImageUploadTaskWithImage 호출 후 반환되는 url을 설정)
  @param androidExecParam 안드로이드 앱연결 링크에 추가할 파라미터 설정
@@ -95,11 +88,10 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
                                 imageUrl:(NSString *)imageUrl
                         androidExecParam:(NSDictionary *)androidExecParam
                             iosExecParam:(NSDictionary *)iosExecParam
-                       completionHandler:(void (^)(BOOL success, NSError *error))completionHandler;
+                       completionHandler:(void (^)(BOOL success, NSError *error))completionHandler DEPRECATED_MSG_ATTRIBUTE("Replaced by storyPostNoteTaskWithContent or storyPostPhotoTaskWithImageUrls in v1.0.7");
 
 /*!
  @abstract 카카오 스토리에 포스팅합니다.
- @deprecated Replaced by storyPostNoteTaskWithContent or storyPostPhotoTaskWithImageUrls in v1.0.7
  @param content 내용
  @param imageUrl 이미지 url(storyImageUploadTaskWithImage 호출 후 반환되는 url을 설정)
  @param androidExecParamString 안드로이드 앱연결 링크에 추가할 파라미터 설정
@@ -111,7 +103,7 @@ typedef NS_ENUM(NSInteger, KOStoryPostPermission) {
                                 imageUrl:(NSString *)imageUrl
                   androidExecParamString:(NSString *)androidExecParamString
                       iosExecParamString:(NSString *)iosExecParamString
-                       completionHandler:(void (^)(BOOL success, NSError *error))completionHandler;
+                       completionHandler:(void (^)(BOOL success, NSError *error))completionHandler DEPRECATED_MSG_ATTRIBUTE("Replaced by storyPostNoteTaskWithContent or storyPostPhotoTaskWithImageUrls in v1.0.7");
 
 /*!
  @abstract 카카오스토리의 특정 내스토리 정보를 얻을 수 있습니다. comments, likes등의 상세정보도 포함됩니다.

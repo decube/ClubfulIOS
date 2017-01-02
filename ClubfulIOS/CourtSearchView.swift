@@ -8,11 +8,16 @@
 
 import UIKit
 
+protocol CourtSearchDelegate {
+    func courtSearchLoad()
+    func courtSearchKeyboardHide()
+}
+
 class CourtSearchView : UIView{
     @IBOutlet var tableView: UITableView!
     @IBOutlet var spin: UIActivityIndicatorView!
     
-    var keyboardHideCallback: ((Void) -> Void)!
+    var delegate: CourtSearchDelegate?
     
     override func awakeFromNib() {
         self.tableView.register(UINib(nibName: "CourtSearchCell", bundle: nil), forCellReuseIdentifier: "CourtSearchCell")
@@ -20,11 +25,13 @@ class CourtSearchView : UIView{
         self.tableView.estimatedRowHeight = 90
         self.tableView.separatorStyle = .none
     }
+    func load(){
+        self.delegate?.courtSearchLoad()
+    }
     
     func show(){
-        if self.keyboardHideCallback != nil{
-            self.keyboardHideCallback()
-        }
+        self.delegate?.courtSearchKeyboardHide()
+        
         if self.isHidden != false{
             self.frame.origin.x = -self.frame.width
             self.isHidden = false
@@ -37,9 +44,8 @@ class CourtSearchView : UIView{
         }
     }
     func hide(){
-        if self.keyboardHideCallback != nil{
-            self.keyboardHideCallback()
-        }
+        self.delegate?.courtSearchKeyboardHide()
+        
         self.tableView.reloadData()
         self.isHidden = false
         let tmpRect = self.frame

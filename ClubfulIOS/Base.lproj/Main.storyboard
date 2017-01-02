@@ -19,7 +19,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.074070312082767487" green="0.34390786290168762" blue="0.18233048915863037" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="selectedImageTintColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
                         <segue destination="kgu-yN-yWi" kind="relationship" relationship="viewControllers" id="JC7-rv-DrO"/>

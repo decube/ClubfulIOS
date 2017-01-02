@@ -1,7 +1,5 @@
 /**
- * Copyright 2015 Kakao Corp.
- *
- * Redistribution and modification in source or binary forms are not permitted without specific prior written permission.
+ * Copyright 2015-2016 Kakao Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,10 +50,9 @@
 
 /*!
  @property memberImageURLs
- @abstract 카카오톡 채팅방 멤버들의 썸네일 이미지 URL List. (최대 5개 까지)
- @deprecated in the near future.
+ @abstract (Deprecated) 카카오톡 채팅방 멤버들의 썸네일 이미지 URL List. (최대 5개 까지)
  */
-@property (nonatomic, readonly) NSArray *memberImageURLs;
+@property (nonatomic, readonly) NSArray *memberImageURLs DEPRECATED_MSG_ATTRIBUTE("Use 'displayMemberImages' property.");
 
 /*!
  @property display_member_images

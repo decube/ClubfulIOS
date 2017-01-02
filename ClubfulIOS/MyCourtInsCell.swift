@@ -1,5 +1,5 @@
 //
-//  MyCourtCell.swift
+//  MyCourtInsCell.swift
 //  ClubfulIOS
 //
 //  Created by guanho on 2016. 12. 31..
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MyCourtCell : UICollectionViewCell{
+class MyCourtInsCell : UICollectionViewCell{
     @IBOutlet var img: UIImageView!
     @IBOutlet var txt: UILabel!
     @IBOutlet var spin: UIActivityIndicatorView!
