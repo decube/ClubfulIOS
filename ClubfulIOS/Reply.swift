@@ -11,15 +11,23 @@ import Foundation
 class Reply {
     var data: [String: AnyObject]!
     
+    var seq: Int!
     var context: String!
     var nickName: String!
     var date: String!
+    var userId: String!
+    var courtSeq: Int!
+    var cname: String!
     
     init(_ data: [String: AnyObject]) {
         self.data = data
+        self.seq = getInt(data["seq"])
         self.context = getString(data["context"])
         self.nickName = getString(data["nickName"])
         self.date = getString(data["date"])
+        self.userId = getString(data["userId"])
+        self.courtSeq = getInt(data["courtSeq"])
+        self.cname = getString(data["cname"])
     }
     init() {
     }

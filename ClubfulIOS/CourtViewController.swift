@@ -52,6 +52,9 @@ class CourtViewController : UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+        
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.keyboardHide(_:))))
         
         DispatchQueue.global().async {
@@ -373,11 +376,14 @@ extension CourtViewController: UICollectionViewDelegate{
 }
 
 extension CourtViewController: UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
+    }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width, height: self.collectionView.frame.height)
+        return CGSize(width: self.collectionView.frame.width, height: self.collectionView.frame.height)
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.imageArray.count
@@ -386,9 +392,11 @@ extension CourtViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CourtViewCell", for: indexPath) as! CourtViewCell
         let court = self.imageArray[indexPath.row]
+        cell.img.frame.size.width = cell.frame.width
         cell.img.image = UIImage(data: court.1!)
         cell.imgTuple = court
         cell.delegate = self
+        
         return cell
     }
 }
