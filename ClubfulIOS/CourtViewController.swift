@@ -8,18 +8,6 @@
 
 import UIKit
 
-
-//임시 데이터
-var tempData2 : [[String: AnyObject]] = [
-    [
-        "seq":1 as AnyObject,
-        "context":"댓글입니다 댓글입니다 댓글" as AnyObject,
-        "nickName":"가나다" as AnyObject,
-        "date":"2016-09-21" as AnyObject
-    ]
-]
-
-
 class CourtViewController : UIViewController{
     var courtSeq : Int!
     
@@ -70,6 +58,7 @@ class CourtViewController : UIViewController{
         
         self.courtTextView = Bundle.main.loadNibNamed("CourtTextView", owner: self, options: nil)?.first as? CourtTextView
         self.courtTextView?.delegate = self
+        self.courtTextView?.textField.delegate = self
         self.courtTextView?.load()
         
         DispatchQueue.global().async {
@@ -262,17 +251,21 @@ class CourtViewController : UIViewController{
         }
         self.replySpin.startAnimating()
         self.replySpin.isHidden = false
-        DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 0.5)
-            DispatchQueue.main.async{
-                self.replySpin.stopAnimating()
-                self.replySpin.isHidden = true
-                for data in tempData2{
-                    self.replyArray.append(Reply(data))
-                }
-                self.replyTableView.reloadData()
+        
+        var parameters : [String: AnyObject] = [:]
+        parameters.updateValue(self.courtSeq as AnyObject, forKey: "seq")
+        parameters.updateValue(self.replyPage as AnyObject, forKey: "page")
+        parameters.updateValue(10 as AnyObject, forKey: "size")
+        URLReq.request(url: URLReq.apiServer+"reply/select", param: parameters, callback: { (dic) in
+            self.replySpin.stopAnimating()
+            self.replySpin.isHidden = true
+            if let list = dic["list"] as? [[String: AnyObject]]{
+//                for data in tempData2{
+//                    self.replyArray.append(Reply(data))
+//                }
+//                self.replyTableView.reloadData()
             }
-        }
+        })
     }
     
     //뒤로가기
@@ -291,6 +284,8 @@ class CourtViewController : UIViewController{
             fatalError("init(coder:) has not been implemented")
         }
     }
+    
+    
 }
 
 
@@ -413,15 +408,21 @@ extension CourtViewController: CourtViewCellDelgate{
 
 extension CourtViewController: CourtTextViewDelegate{
     func courtTextLoad() {
-        self.courtTextView?.frame = CGRect(x: 0, y: self.view.frame.height-100, width: self.view.frame.width, height: 50)
-        self.view.addSubview(self.courtTextView!)
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 0.1)
+            DispatchQueue.main.async {
+                //peek&pop
+                //self.courtTextView?.frame = CGRect(x: 0, y: self.view.frame.height-50-(self.tabBarController?.tabBar.frame.height)!, width: self.view.frame.width, height: 50)
+                self.view.addSubview(self.courtTextView!)
+            }
+        }
     }
     func courtTextReply(_ textField: UITextField) {
-        if replySpin.isHidden == false{
-            return
-        }
-        replySpin.isHidden = false
-        replySpin.startAnimating()
+//        if replySpin.isHidden == false{
+//            return
+//        }
+//        replySpin.isHidden = false
+//        replySpin.startAnimating()
         
         if !Storage.isRealmUser(){
             self.replySpin.isHidden = true
@@ -433,9 +434,15 @@ extension CourtViewController: CourtTextViewDelegate{
                 self.replySpin.stopAnimating()
             }else{
                 let user = Storage.getRealmUser()
-                let parameters : [String: AnyObject] = ["seq": courtSeq as AnyObject, "context": textField.text! as AnyObject, "id": user.userId as AnyObject]
+                var parameters : [String: AnyObject] = [:]
+                parameters.updateValue(self.courtSeq as AnyObject, forKey: "seq")
+                parameters.updateValue(textField.text! as AnyObject, forKey: "context")
+                parameters.updateValue(user.userId as AnyObject, forKey: "userId")
+                if self.replyArray.count > 0{
+                    parameters.updateValue(self.replyArray.last?.seq as AnyObject, forKey: "replySeq")
+                }
                 textField.text = ""
-                URLReq.request(self, url: URLReq.apiServer+"", param: parameters, callback: { (dic) in
+                URLReq.request(self, url: URLReq.apiServer+"reply/insert", param: parameters, callback: { (dic) in
                     self.replySpin.isHidden = true
                     self.replySpin.stopAnimating()
                 })

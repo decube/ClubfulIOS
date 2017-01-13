@@ -189,7 +189,7 @@ class LoginViewController: UIViewController {
         if session.isOpen() {
             session.close()
         }
-        session.presentingViewController = self
+        session.presentingViewController = self.navigationController
         session.open(completionHandler: { (error) -> Void in
             if error != nil{
                 self.spin.isHidden = true
